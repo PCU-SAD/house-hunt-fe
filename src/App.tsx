@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import PasswordInputControl from './components/ui/PasswordInput'
 import { Button } from './components/ui/button'
 import {
   Form,
@@ -13,14 +14,14 @@ import {
 import { Input } from './components/ui/input'
 
 const formSchema = z.object({
-  first_name: z
+  email: z
     .string({
       description: 'First name'
     })
-    .min(2, {
-      message: 'First name must be at least 2 characters'
+    .email({
+      message: 'Invalid email format'
     }),
-  last_name: z.string().min(2, {
+  password: z.string().min(2, {
     message: 'Last name must be at least 2 characters'
   })
 })
@@ -47,15 +48,15 @@ function App() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="mt-4 flex flex-col gap-3">
             <FormField
-              name="first_name"
+              name="email"
               control={form.control}
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel>First name</FormLabel>
+                    <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="First name"
+                        placeholder="Enter your email"
                         className="min-w-16"
                         {...field}
                       />
@@ -66,16 +67,17 @@ function App() {
               }}
             />
             <FormField
-              name="last_name"
+              name="password"
               control={form.control}
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel>Last name</FormLabel>
+                    <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Last name"
+                      <PasswordInputControl
+                        placeholder="Enter your password"
                         className="min-w-16"
+                        type="password"
                         {...field}
                       />
                     </FormControl>
