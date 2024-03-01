@@ -68,11 +68,7 @@ function App() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Enter your email"
-                        className="min-w-16"
-                        {...field}
-                      />
+                      <Input placeholder="Enter your email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -90,7 +86,6 @@ function App() {
                       <PasswordInputControl
                         {...field}
                         placeholder="Enter your password"
-                        className="min-w-16"
                       />
                     </FormControl>
                   </FormItem>

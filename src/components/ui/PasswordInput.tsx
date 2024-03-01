@@ -21,7 +21,7 @@ const PasswordInput: FC<PasswordInputProps> = ({ ...props }) => {
 
   const [strength, setStrength] = useState<PasswordStrength>('weak')
 
-  const evaluatePasswordStrength = (password: string) => {
+  function evaluatePasswordStrength(password: string) {
     let strength = 0
 
     if (password?.length >= 6) strength += 1
