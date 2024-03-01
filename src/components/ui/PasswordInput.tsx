@@ -1,21 +1,30 @@
+import { FormType } from '@/App'
+import { cn } from '@/lib/utils'
 import { EyeNoneIcon } from '@radix-ui/react-icons'
 import { EyeIcon } from 'lucide-react'
 import { FC, InputHTMLAttributes, useEffect, useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { Button } from './button'
+import { FormMessage } from './form'
 import { Input } from './input'
 import { Progress } from './progress'
 
 type PasswordInputProps = InputHTMLAttributes<HTMLInputElement>
+export type PasswordStrength = 'weak' | 'moderate' | 'strong'
 
 const PasswordInput: FC<PasswordInputProps> = ({ ...props }) => {
   const [showPassword, setShowPassword] = useState(false)
-  const [password, setPassword] = useState('weak')
 
-  const [strength, setStrength] = useState('')
+  const form = useFormContext<FormType>()
+
+  const password = form.watch('password')
+
+  const [strength, setStrength] = useState<PasswordStrength>('weak')
 
   const evaluatePasswordStrength = (password: string) => {
     let strength = 0
-    if (password.length >= 6) strength += 1
+
+    if (password?.length >= 6) strength += 1
     if (/[a-z]/.test(password)) strength += 1
     if (/[A-Z]/.test(password)) strength += 1
     if (/[0-9]/.test(password)) strength += 1
@@ -43,18 +52,10 @@ const PasswordInput: FC<PasswordInputProps> = ({ ...props }) => {
     setShowPassword((prev) => !prev)
   }
 
-  function handleChagne(e: React.ChangeEvent<HTMLInputElement>) {
-    setPassword(e.target.value)
-  }
-
   return (
     <div>
       <div className="relative">
-        <Input
-          {...props}
-          onChange={handleChagne}
-          type={showPassword ? 'input' : 'password'}
-        />
+        <Input {...props} type={showPassword ? 'input' : 'password'} />
 
         <Button
           onClick={handleClick}
@@ -68,10 +69,23 @@ const PasswordInput: FC<PasswordInputProps> = ({ ...props }) => {
           )}
         </Button>
       </div>
+
+      <FormMessage className="mt-2" />
+
       <Progress
-        className="mt-6 h-3"
-        value={strength === 'weak' ? 0 : strength === 'moderate' ? 50 : 100}
+        strength={strength}
+        className={cn('mt-4 h-3 rounded-md')}
+        value={strength === 'weak' ? 10 : strength === 'moderate' ? 40 : 100}
       />
+      {strength === 'weak' && (
+        <p className="mt-1 text-xs text-red-500">Weak password</p>
+      )}
+      {strength === 'moderate' && (
+        <p className="mt-1 text-xs text-yellow-500">Moderate password</p>
+      )}
+      {strength === 'strong' && (
+        <p className="mt-1 text-xs text-green-500">Strong password</p>
+      )}
     </div>
   )
 }

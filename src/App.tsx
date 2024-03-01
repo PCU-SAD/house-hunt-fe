@@ -21,16 +21,29 @@ const formSchema = z.object({
     .email({
       message: 'Invalid email format'
     }),
-  password: z.string().min(2, {
-    message: 'Last name must be at least 2 characters'
-  })
+  password: z
+    .string()
+    .min(6, { message: 'Password must be at least 6 characters long' })
+    .regex(new RegExp(/[a-z]/), {
+      message: 'Password must contain at least one lowercase letter'
+    })
+    .regex(new RegExp(/[A-Z]/), {
+      message: 'Password must contain at least one uppercase letter'
+    })
+    .regex(new RegExp(/[0-9]/), {
+      message: 'Password must contain at least one number'
+    })
+    .regex(new RegExp(/[!@#$%^&*(),.?":{}|<>]/), {
+      message: 'Password must contain at least one special character'
+    })
 })
 
-type FormType = z.infer<typeof formSchema>
+export type FormType = z.infer<typeof formSchema>
 
 function App() {
   const form = useForm<FormType>({
-    resolver: zodResolver(formSchema)
+    resolver: zodResolver(formSchema),
+    mode: 'onChange'
   })
 
   function onSubmit(values: FormType) {
@@ -39,7 +52,7 @@ function App() {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-10">
-      <div className="min-w-[400px] rounded-md border-2 border-border px-8 py-6">
+      <div className="w-[400px] rounded-md border-2 border-border px-8 py-6">
         <h2 className="border-b pb-2 text-3xl font-semibold tracking-tight">
           Form Example
         </h2>
@@ -75,13 +88,11 @@ function App() {
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <PasswordInputControl
+                        {...field}
                         placeholder="Enter your password"
                         className="min-w-16"
-                        type="password"
-                        {...field}
                       />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )
               }}
