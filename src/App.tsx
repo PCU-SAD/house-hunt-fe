@@ -1,13 +1,14 @@
 import { FC } from 'react'
-import { Container, Layout } from './components'
+import { RouterProvider } from 'react-router-dom'
+import { Toaster } from './components/ui/toaster'
+import { router } from './routes'
 
 const App: FC = () => {
   return (
-    <Layout>
-      <Container className="mt-4">
-        <h1>Home page</h1>
-      </Container>
-    </Layout>
+    <>
+      <Toaster />
+      <RouterProvider router={router} />
+    </>
   )
 }
 

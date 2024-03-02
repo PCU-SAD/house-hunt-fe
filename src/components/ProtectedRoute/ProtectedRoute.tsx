@@ -6,7 +6,7 @@ type ProtectedRouteProps = {
 }
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({ children }) => {
-  const isAuth = false
+  const isAuth = true
 
   if (!isAuth) {
     return <Navigate to="/login" />

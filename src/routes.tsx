@@ -1,12 +1,15 @@
-import { createBrowserRouter } from 'react-router-dom'
-import App from './App'
-import { ProtectedRoute } from './components'
-import { LoginPage } from './pages'
+import { createBrowserRouter, useParams } from 'react-router-dom'
+import { Container, Layout, ProtectedRoute } from './components'
+import { HomePage, LoginPage } from './pages'
 
 export const router = createBrowserRouter([
   {
+    path: '*',
+    element: <div>not found</div>
+  },
+  {
     path: '/',
-    element: <App />
+    element: <HomePage />
   },
   {
     path: '/login',
@@ -16,8 +19,22 @@ export const router = createBrowserRouter([
     path: '/profile',
     element: (
       <ProtectedRoute>
-        <div>profile</div>
+        <div>profiles</div>
       </ProtectedRoute>
     )
+  },
+  {
+    path: '/profile/:id',
+    element: <Profile />
   }
 ])
+
+function Profile() {
+  const { id } = useParams()
+
+  return (
+    <Layout>
+      <Container>{id}</Container>
+    </Layout>
+  )
+}
