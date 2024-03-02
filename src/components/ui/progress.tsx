@@ -2,14 +2,13 @@ import * as ProgressPrimitive from '@radix-ui/react-progress'
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
-import { PasswordStrength } from './PasswordInput'
 
 const PasswordProgress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & {
-    strength?: PasswordStrength
+    isColorful?: boolean
   }
->(({ className, value, strength, ...props }, ref) => (
+>(({ className, value, isColorful = false, ...props }, ref) => (
   <ProgressPrimitive.Root
     ref={ref}
     className={cn(
@@ -18,16 +17,12 @@ const PasswordProgress = React.forwardRef<
     )}
     {...props}>
     <ProgressPrimitive.Indicator
-      className={cn(
-        'h-full w-full flex-1 transition-all',
-        strength === 'weak'
-          ? 'bg-red-500'
-          : strength === 'moderate'
-            ? 'bg-yellow-500'
-            : strength === 'strong'
-              ? 'bg-green-500'
-              : 'bg-primary'
-      )}
+      className={cn('h-full w-full flex-1 transition-all', {
+        'bg-red-500': isColorful && value && value < 40,
+        'bg-yellow-500': isColorful && value && value >= 40 && value < 90,
+        'bg-green-500': isColorful && value && value >= 90,
+        'bg-primary': !isColorful
+      })}
       style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
     />
   </ProgressPrimitive.Root>
