@@ -1,4 +1,14 @@
+import { UserIcon } from 'lucide-react'
 import { FC, ReactNode } from 'react'
+import { Button } from '../ui/button'
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarTrigger
+} from '../ui/menubar'
 import Container from './Container'
 
 type LayoutProps = {
@@ -12,11 +22,22 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         <Container className="flex h-14 items-center justify-between">
           <h1>Header</h1>
 
-          <ul className="flex items-center gap-4">
-            <li>About</li>
-            <li>About</li>
-            <li>About</li>
-          </ul>
+          <Menubar>
+            <MenubarMenu>
+              <MenubarTrigger>
+                <UserIcon />
+              </MenubarTrigger>
+              <MenubarContent>
+                <MenubarItem>Settings</MenubarItem>
+                <MenubarItem>Settings</MenubarItem>
+                <MenubarSeparator />
+
+                <MenubarItem>
+                  <Button size="sm">Log out</Button>
+                </MenubarItem>
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
         </Container>
       </header>
 
