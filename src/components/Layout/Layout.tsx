@@ -12,6 +12,7 @@ import {
 
 import Container from './Container'
 import { NavigationMenuDemo } from './NavMenu'
+
 type LayoutProps = {
   children: ReactNode
 }

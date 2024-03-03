@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { Layout, ProtectedRoute } from './components'
+import { Container, Layout, ProtectedRoute } from './components'
 import { ErrorPage, HomePage, LoginPage } from './pages'
 
 export const router = createBrowserRouter([
@@ -23,7 +23,11 @@ export const router = createBrowserRouter([
     path: '/houses',
     element: (
       <ProtectedRoute>
-        <div>profiles</div>
+       <Layout>
+          <Container>
+            <div>houses</div>
+          </Container>
+        </Layout>
       </ProtectedRoute>
     )
   },
@@ -31,7 +35,11 @@ export const router = createBrowserRouter([
     path: '/apartments',
     element: (
       <ProtectedRoute>
-        <div>profiles</div>
+        <Layout>
+          <Container>
+            <div>apartments</div>
+          </Container>
+        </Layout>
       </ProtectedRoute>
     )
   }
