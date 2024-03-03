@@ -28,8 +28,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
               <MenubarTrigger className="h-8 w-8">
                 <UserIcon className="h-4 w-4" />
               </MenubarTrigger>
-              <MenubarContent>
+              <MenubarContent align="end" alignOffset={0}>
                 <MenubarItem>Settings</MenubarItem>
+                <MenubarItem>Settings</MenubarItem>
+                <MenubarItem>Settings</MenubarItem>
+                <MenubarItem>Settings</MenubarItem>
+                <MenubarItem>Become a member</MenubarItem>
                 <MenubarSeparator />
 
                 <MenubarItem>

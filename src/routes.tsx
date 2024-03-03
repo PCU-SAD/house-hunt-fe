@@ -1,11 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { Layout, ProtectedRoute } from './components'
-import { HomePage, LoginPage } from './pages'
+import { ErrorPage, HomePage, LoginPage } from './pages'
 
 export const router = createBrowserRouter([
   {
     path: '*',
-    element: <div>not found</div>
+    element: <ErrorPage />
   },
   {
     path: '/',
