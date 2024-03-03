@@ -9,8 +9,9 @@ import {
   MenubarSeparator,
   MenubarTrigger
 } from '../ui/menubar'
-import Container from './Container'
 
+import Container from './Container'
+import { NavigationMenuDemo } from './NavMenu'
 type LayoutProps = {
   children: ReactNode
 }
@@ -20,15 +21,14 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     <div>
       <header className="shadow-md">
         <Container className="flex h-14 items-center justify-between">
-          <h1>Header</h1>
+          <NavigationMenuDemo />
 
           <Menubar>
             <MenubarMenu>
-              <MenubarTrigger>
-                <UserIcon />
+              <MenubarTrigger className="h-8 w-8">
+                <UserIcon className="h-4 w-4" />
               </MenubarTrigger>
               <MenubarContent>
-                <MenubarItem>Settings</MenubarItem>
                 <MenubarItem>Settings</MenubarItem>
                 <MenubarSeparator />
 

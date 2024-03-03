@@ -1,5 +1,5 @@
-import { createBrowserRouter, useParams } from 'react-router-dom'
-import { Container, Layout, ProtectedRoute } from './components'
+import { createBrowserRouter } from 'react-router-dom'
+import { Layout, ProtectedRoute } from './components'
 import { HomePage, LoginPage } from './pages'
 
 export const router = createBrowserRouter([
@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
     element: <LoginPage />
   },
   {
-    path: '/profile',
+    path: '/houses',
     element: (
       <ProtectedRoute>
         <div>profiles</div>
@@ -28,17 +28,11 @@ export const router = createBrowserRouter([
     )
   },
   {
-    path: '/profile/:id',
-    element: <Profile />
+    path: '/apartments',
+    element: (
+      <ProtectedRoute>
+        <div>profiles</div>
+      </ProtectedRoute>
+    )
   }
 ])
-
-function Profile() {
-  const { id } = useParams()
-
-  return (
-    <Layout>
-      <Container>{id}</Container>
-    </Layout>
-  )
-}
