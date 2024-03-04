@@ -1,2 +1,2 @@
-export * from './ProtectedRoute'
-export * from './Layout'
+export * from './common/ProtectedRoute'
+export * from './common/Layout'
