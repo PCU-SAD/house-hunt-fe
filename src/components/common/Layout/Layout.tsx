@@ -11,18 +11,18 @@ type LayoutProps = {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
-    <div>
+    <main>
       <header className="shadow-md">
         <Container className="flex h-14 items-center justify-between">
           <NavMenu />
-          
+
           <AccountMenubar />
           <MobileMenu />
         </Container>
       </header>
 
       <div>{children}</div>
-    </div>
+    </main>
   )
 }
 

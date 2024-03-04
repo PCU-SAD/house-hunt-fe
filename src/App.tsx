@@ -6,11 +6,11 @@ import { router } from './routes'
 
 const App: FC = () => {
   return (
-    <main className="has-[data-mobile-menu]:overflow-hidden">
+    <>
       <Toaster />
       <CookiesPopup />
       <RouterProvider router={router} />
-    </main>
+    </>
   )
 }
 

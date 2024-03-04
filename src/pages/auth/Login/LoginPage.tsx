@@ -64,6 +64,7 @@ function LoginPage() {
                       <FormLabel>Password</FormLabel>
                       <FormControl>
                         <Input placeholder="Enter your password" {...field} />
+                        <FormMessage className="mt-2" />
                       </FormControl>
                     </FormItem>
                   )

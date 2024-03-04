@@ -70,6 +70,7 @@ function SignupPage() {
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage className="mt-2" />
                     </FormItem>
                   )
                 }}
@@ -87,6 +88,7 @@ function SignupPage() {
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage className="mt-2" />
                     </FormItem>
                   )
                 }}

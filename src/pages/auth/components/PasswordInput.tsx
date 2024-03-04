@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button'
-import { FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { EyeNoneIcon } from '@radix-ui/react-icons'
 import { EyeIcon } from 'lucide-react'
@@ -36,8 +35,6 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             )}
           </Button>
         </div>
-
-        <FormMessage className="mt-2" />
       </div>
     )
   }
