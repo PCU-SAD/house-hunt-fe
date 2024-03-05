@@ -31,6 +31,10 @@ function SignupPage() {
   return (
     <div className="flex h-screen flex-col justify-center gap-10 sm:items-center">
       <div className="px-4">
+        <Link to="/" className="text-blue-800 underline">
+          Visit home page
+        </Link>
+        
         <div className="min-w-[300px] rounded-md border-2 border-border px-8 py-6 sm:w-[400px]">
           <Typography variant="h2">Sign up</Typography>
 

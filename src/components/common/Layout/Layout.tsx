@@ -11,7 +11,7 @@ type LayoutProps = {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
-    <main>
+    <main className="overflow-x-hidden">
       <header className="shadow-md">
         <Container className="flex h-14 items-center justify-between">
           <NavMenu />

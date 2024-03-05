@@ -1,16 +1,17 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createHashRouter } from 'react-router-dom'
 import { Container, Layout, ProtectedRoute } from './components'
 import { ErrorPage, HomePage, LoginPage } from './pages'
 import { SignupPage } from './pages/auth/Signup'
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: '/',
     element: (
       <Layout>
         <HomePage />
       </Layout>
-    )
+    ),
+    errorElement: <ErrorPage />
   },
   {
     path: '/login',
@@ -45,7 +46,7 @@ export const router = createBrowserRouter([
     )
   },
   {
-    path: '*',
+    path: '/*',
     element: <ErrorPage />
   }
 ])

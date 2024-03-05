@@ -10,7 +10,6 @@ import { X as CloseIcon, Menu as MenuIcon } from 'lucide-react'
 import { FC, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useBlur } from './useBlur'
-import { useSwap } from './useSwap'
 
 type MobileMenuProps = {}
 
@@ -42,7 +41,6 @@ const MobileMenu: FC<MobileMenuProps> = () => {
   }
 
   useBlur(setShowMenu, menuRef)
-  useSwap(showMenu, setShowMenu, menuRef)
 
   return (
     <>
@@ -77,7 +75,7 @@ const MobileMenu: FC<MobileMenuProps> = () => {
             <AccordionItem key={index} value={`item-${index + 1}`}>
               <AccordionTrigger>{item.title}</AccordionTrigger>
               <AccordionContent onClick={() => setShowMenu(false)}>
-                <Link to="login">{item.content}</Link>
+                <Link to="/login">{item.content}</Link>
               </AccordionContent>
             </AccordionItem>
           ))}
