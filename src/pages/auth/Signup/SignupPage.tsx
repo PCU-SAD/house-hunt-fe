@@ -87,8 +87,8 @@ function SignupPage() {
                       <FormLabel>Confirm Password</FormLabel>
                       <FormControl>
                         <PasswordInput
-                          placeholder="Confirm your password"
                           {...field}
+                          placeholder="Confirm your password"
                         />
                       </FormControl>
                       <FormMessage className="mt-2" />

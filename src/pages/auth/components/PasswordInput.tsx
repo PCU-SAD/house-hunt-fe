@@ -18,10 +18,10 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
       <div>
         <div className="relative">
           <Input
-            {...props}
             ref={ref}
             type={showPassword ? 'input' : 'password'}
-            className='pr-12'
+            className="pr-12"
+            {...props}
           />
 
           <Button
