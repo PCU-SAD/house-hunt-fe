@@ -7,7 +7,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { X as CloseIcon, Menu as MenuIcon } from 'lucide-react'
-import { FC, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useBlur } from './useBlur'
 
@@ -42,6 +42,16 @@ const MobileMenu: FC<MobileMenuProps> = () => {
 
   useBlur(setShowMenu, menuRef)
 
+  useEffect(() => {
+    if (showMenu) {
+      document.body.classList.add('overflow-hidden')
+      document.documentElement.style.overflow = 'hidden'
+    } else {
+      document.body.classList.remove('overflow-hidden')
+      document.documentElement.style.overflow = 'auto'
+    }
+  }, [showMenu])
+
   return (
     <>
       <Button
@@ -53,15 +63,13 @@ const MobileMenu: FC<MobileMenuProps> = () => {
       </Button>
 
       <div
-        data-mobile-menu
         ref={menuRef}
         className={cn(
-          'absolute right-0 top-[1dvh] z-20 flex h-[98dvh] w-[80%] translate-x-full transform flex-col justify-center gap-4 overflow-y-auto rounded-md bg-background p-4 px-8 pl-10 shadow-2xl transition-transform duration-200 md:hidden',
+          'absolute right-0 top-0 z-20 flex h-dvh w-[80%] translate-x-full transform flex-col justify-center overflow-y-auto rounded-md bg-background p-4 px-6 shadow-2xl transition-transform duration-200 md:hidden',
           {
             'translate-x-0': showMenu
           }
         )}>
-        <div className="absolute -left-7 top-1/2 h-1 w-20 -translate-y-1/2 rotate-90 rounded-2xl bg-slate-100" />
         <Button
           size="icon"
           onClick={handleClose}

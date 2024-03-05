@@ -6,7 +6,7 @@ import { router } from './routes'
 
 const App: FC = () => {
   return (
-    <div className='overflow-x-hidden'>
+    <div className="min-h-dvh overflow-x-hidden">
       <Toaster />
       <CookiesPopup />
       <RouterProvider router={router} />

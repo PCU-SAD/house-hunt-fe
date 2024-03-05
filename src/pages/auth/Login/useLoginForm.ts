@@ -12,8 +12,8 @@ const formSchema = z.object({
     }),
   password: z
     .string()
-    .min(6, { message: 'Password must be at least 6 characters long' })
-    .max(20, { message: 'Password must be at most 20 characters long' })
+    .min(8, { message: 'Password must be at least 8 characters long' })
+    .max(50, { message: 'Password must be at most 50 characters long' })
 })
 
 export type FormType = z.infer<typeof formSchema>

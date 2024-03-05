@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/menubar'
 import { UserIcon } from 'lucide-react'
 import { FC } from 'react'
+import './styles.css'
 
 type AccountMenubarProps = {}
 
@@ -19,7 +20,7 @@ const AccountMenubar: FC<AccountMenubarProps> = () => {
         <MenubarTrigger className="h-8 w-8">
           <UserIcon className="h-4 w-4" />
         </MenubarTrigger>
-        <MenubarContent align="end" alignOffset={0}>
+        <MenubarContent align="end">
           <MenubarItem>Settings 1</MenubarItem>
           <MenubarItem>Settings 2</MenubarItem>
           <MenubarItem>Settings 3</MenubarItem>

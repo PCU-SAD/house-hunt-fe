@@ -19,6 +19,13 @@ const HomePage: FC<HomePageProps> = () => {
           </Link>
         </li>
       </ul>
+      <div className="mt-6 flex flex-col gap-12">
+        <div className="h-32 rounded-md border border-pink-400"></div>
+        <div className="h-32 rounded-md border border-pink-400"></div>
+        <div className="h-32 rounded-md border border-pink-400"></div>
+        <div className="h-32 rounded-md border border-pink-400"></div>
+        <div className="h-32 rounded-md border border-pink-400"></div>
+      </div>
     </Container>
   )
 }

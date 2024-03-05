@@ -19,14 +19,14 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
   const password = form.watch('password')
 
   function evaluatePasswordStrength(password: string) {
-    let strength = 5
+    let strength = 10
 
-    if (password?.length >= 6) strength += 20
+    if (password?.length >= 8) strength += 20
     if (/[A-Z]/.test(password)) strength += 20
     if (/[0-9]/.test(password)) strength += 20
-    if (/[^A-Za-z0-9]/.test(password)) strength += 30
+    if (/[-!@#$%^&*(),.?":{}|<>]/.test(password)) strength += 30
 
-    if (strength > 90) strength = 100
+    if (strength >= 90) strength = 100
 
     return strength
   }

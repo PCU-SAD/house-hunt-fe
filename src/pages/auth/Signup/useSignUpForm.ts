@@ -13,8 +13,8 @@ const formSchema = z
       }),
     password: z
       .string()
-      .min(6, { message: 'Password must be at least 6 characters long' })
-      .max(20, { message: 'Password must be at most 20 characters long' })
+      .min(8, { message: 'Password must be at least 8 characters long' })
+      .max(50, { message: 'Password must be at most 50 characters long' })
       .regex(new RegExp(/[a-z]/), {
         message: 'Password must contain at least one lowercase letter'
       })
@@ -24,7 +24,7 @@ const formSchema = z
       .regex(new RegExp(/[0-9]/), {
         message: 'Password must contain at least one number'
       })
-      .regex(new RegExp(/[!@#$%^&*(),.?":{}|<>]/), {
+      .regex(new RegExp(/[-!@#$%^&*(),.?":{}|<>]/), {
         message: 'Password must contain at least one special character'
       }),
     confirm_password: z.string()

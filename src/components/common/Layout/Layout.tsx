@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react'
 
 import Container from './Container'
-import AccountMenubar from './NavMenu/AccountMenubar'
+import AccountMenubar from './NavMenu/AccountMenu/AccountMenubar'
 import MobileMenu from './NavMenu/MobileMenu/MobileMenu'
 import NavMenu from './NavMenu/NavMenu'
 
