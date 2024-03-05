@@ -6,11 +6,11 @@ import { router } from './routes'
 
 const App: FC = () => {
   return (
-    <>
+    <div className='overflow-x-hidden'>
       <Toaster />
       <CookiesPopup />
       <RouterProvider router={router} />
-    </>
+    </div>
   )
 }
 
