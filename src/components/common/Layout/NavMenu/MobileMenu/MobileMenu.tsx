@@ -53,7 +53,7 @@ const MobileMenu: FC<MobileMenuProps> = () => {
       </Button>
 
       <div
-        data-mobile-menu="true"
+        data-mobile-menu
         ref={menuRef}
         className={cn(
           'absolute right-0 top-[1dvh] z-20 flex h-[98dvh] w-[80%] translate-x-full transform flex-col justify-center gap-4 overflow-y-auto rounded-md bg-background p-4 px-8 pl-10 shadow-2xl transition-transform duration-200 md:hidden',
