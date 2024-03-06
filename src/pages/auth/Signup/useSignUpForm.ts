@@ -27,7 +27,25 @@ const formSchema = z
       .regex(new RegExp(/[-!@#$%^&*(),.?":{}|<>]/), {
         message: 'Password must contain at least one special character'
       }),
-    confirm_password: z.string()
+    confirm_password: z.string(),
+    terms: z
+      .boolean()
+      .default(false)
+      .refine((value) => value, {
+        message: 'You must agree to the terms and conditions'
+      }),
+    consent: z
+      .boolean()
+      .default(false)
+      .refine((value) => value, {
+        message: 'You must agree to process your data'
+      }),
+    privacy_policy: z
+      .boolean()
+      .default(false)
+      .refine((value) => value, {
+        message: 'You must agree to the privacy policy'
+      })
   })
   .refine((values) => values.password === values.confirm_password, {
     message: 'Passwords do not match',
@@ -43,7 +61,10 @@ export function useSignupForm() {
     defaultValues: {
       email: '',
       password: '',
-      confirm_password: ''
+      confirm_password: '',
+      terms: false,
+      consent: false,
+      privacy_policy: false
     }
   })
 }

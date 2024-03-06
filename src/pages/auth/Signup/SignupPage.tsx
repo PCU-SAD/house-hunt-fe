@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   Form,
   FormControl,
@@ -10,7 +11,9 @@ import {
 import { Input } from '@/components/ui/input'
 import { Typography } from '@/components/ui/typography'
 import { toast } from '@/components/ui/use-toast'
+import { generateRandomString } from '@/lib/generateRandomValue'
 import PasswordInputStrength from '@/pages/auth/components/PasswordInputStrength'
+import { ClipboardEvent } from 'react'
 import { Link } from 'react-router-dom'
 import PasswordInput from '../components/PasswordInput'
 import { FormType, useSignupForm } from './useSignUpForm'
@@ -28,8 +31,16 @@ function SignupPage() {
     })
   }
 
+  function onConfirmPasswordPaste(e: ClipboardEvent<HTMLInputElement>) {
+    e.preventDefault()
+
+    form.setValue('confirm_password', generateRandomString(20), {
+      shouldValidate: true
+    })
+  }
+
   return (
-    <div className="flex h-screen flex-col justify-center gap-10 sm:items-center">
+    <div className="flex h-screen flex-col justify-center sm:items-center">
       <div className="px-4">
         <div className="min-w-[300px] rounded-md border-2 border-border px-8 py-6 sm:w-[400px]">
           <Link to="/" className="text-blue-800 underline">
@@ -40,7 +51,7 @@ function SignupPage() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="mt-4 flex flex-col gap-3">
+              className="mt-4 flex flex-col gap-4">
               <FormField
                 name="email"
                 control={form.control}
@@ -88,6 +99,7 @@ function SignupPage() {
                       <FormControl>
                         <PasswordInput
                           {...field}
+                          onPaste={onConfirmPasswordPaste}
                           placeholder="Confirm your password"
                         />
                       </FormControl>
@@ -96,6 +108,86 @@ function SignupPage() {
                   )
                 }}
               />
+
+              <div className="flex flex-col gap-5">
+                <FormField
+                  name="terms"
+                  control={form.control}
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <div className="flex flex-row items-center gap-2">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+
+                          <FormLabel className="leading-4">
+                            Agree to terms and conditions.
+                          </FormLabel>
+                        </div>
+
+                        <FormMessage />
+                      </FormItem>
+                    )
+                  }}
+                />
+                <FormField
+                  name="consent"
+                  control={form.control}
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <div className="flex flex-row items-center gap-2">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+
+                          <FormLabel className="leading-4">
+                            I consent to the processing of my personal data.
+                          </FormLabel>
+                        </div>
+
+                        <FormMessage />
+                      </FormItem>
+                    )
+                  }}
+                />
+                <FormField
+                  name="privacy_policy"
+                  control={form.control}
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <div className="flex flex-row items-center gap-2">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+
+                          <FormLabel className="leading-4">
+                            I have read and agree to the privacy policy.{' '}
+                            <Link
+                              to="/privacy-policy"
+                              className="text-blue-800 underline">
+                              Privacy Policy
+                            </Link>
+                          </FormLabel>
+                        </div>
+
+                        <FormMessage />
+                      </FormItem>
+                    )
+                  }}
+                />
+              </div>
               <Button type="submit" className="mt-3">
                 Submit
               </Button>
