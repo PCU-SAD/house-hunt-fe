@@ -15,8 +15,8 @@ import { FC } from 'react'
 
 export const CookiesDialog: FC = () => {
   return (
-    <Dialog defaultOpen={true}>
-      <DialogContent className="sm:max-w-[425px]">
+    <Dialog defaultOpen>
+      <DialogContent className="sm:max-w-[425px">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-4">
             <p>Manage cookies</p>
