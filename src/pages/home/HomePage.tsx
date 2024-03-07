@@ -1,4 +1,5 @@
 import { Container } from '@/components'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -19,12 +20,20 @@ const HomePage: FC<HomePageProps> = () => {
           </Link>
         </li>
       </ul>
-      <div className="mt-6 flex flex-col gap-12">
-        <div className="h-32 rounded-md border border-pink-400"></div>
-        <div className="h-32 rounded-md border border-pink-400"></div>
-        <div className="h-32 rounded-md border border-pink-400"></div>
-        <div className="h-32 rounded-md border border-pink-400"></div>
-        <div className="h-32 rounded-md border border-pink-400"></div>
+      <div className="grid-cols-fluid mt-6 grid gap-4">
+        {new Array(10).fill(0).map((_, index) => (
+          <Card>
+            <CardHeader>
+              <h2>Apartment {index + 1}</h2>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Quisquam, voluptate.
+              </p>
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </Container>
   )
