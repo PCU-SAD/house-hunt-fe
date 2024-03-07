@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
   Form,
@@ -9,6 +10,7 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Typography } from '@/components/ui/typography'
 import { toast } from '@/components/ui/use-toast'
 import { generateRandomString } from '@/lib/generateRandomValue'
@@ -40,167 +42,181 @@ function SignupPage() {
   }
 
   return (
-    <div className="flex h-screen flex-col justify-center sm:items-center">
-      <div className="px-4">
-        <div className="min-w-[300px] rounded-md border-2 border-border px-8 py-6 sm:w-[400px]">
-          <Link to="/" className="text-blue-800 underline">
-            Visit home page
-          </Link>
-          <Typography variant="h2">Sign up</Typography>
+    <div className="flex h-screen flex-col sm:items-center">
+      <div className="mt-12 px-4">
+        <Tabs
+          defaultValue="tenant"
+          className="mx-auto w-full min-w-[330px] max-w-[400px]">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="tenant">Tenant</TabsTrigger>
+            <TabsTrigger value="owner">Owner</TabsTrigger>
+          </TabsList>
 
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="mt-4 flex flex-col gap-4">
-              <FormField
-                name="email"
-                control={form.control}
-                render={({ field }) => {
-                  return (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter your email"
-                          inputMode="email"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )
-                }}
-              />
-              <FormField
-                name="password"
-                control={form.control}
-                render={({ field }) => {
-                  return (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <PasswordInputStrength
-                          placeholder="Enter your password"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="mt-2" />
-                    </FormItem>
-                  )
-                }}
-              />
-              <FormField
-                name="confirm_password"
-                control={form.control}
-                render={({ field }) => {
-                  return (
-                    <FormItem>
-                      <FormLabel>Confirm Password</FormLabel>
-                      <FormControl>
-                        <PasswordInput
-                          {...field}
-                          onPaste={onConfirmPasswordPaste}
-                          placeholder="Confirm your password"
-                        />
-                      </FormControl>
-                      <FormMessage className="mt-2" />
-                    </FormItem>
-                  )
-                }}
-              />
-
-              <div className="flex flex-col gap-5">
-                <FormField
-                  name="terms"
-                  control={form.control}
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <div className="flex flex-row items-center gap-2">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-
-                          <FormLabel className="leading-4">
-                            Agree to terms and conditions.
-                          </FormLabel>
-                        </div>
-
-                        <FormMessage />
-                      </FormItem>
-                    )
-                  }}
-                />
-                <FormField
-                  name="consent"
-                  control={form.control}
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <div className="flex flex-row items-center gap-2">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-
-                          <FormLabel className="leading-4">
-                            I consent to the processing of my personal data.
-                          </FormLabel>
-                        </div>
-
-                        <FormMessage />
-                      </FormItem>
-                    )
-                  }}
-                />
-                <FormField
-                  name="privacy_policy"
-                  control={form.control}
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <div className="flex flex-row items-center gap-2">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-
-                          <FormLabel className="leading-4">
-                            I have read and agree to the privacy policy.{' '}
-                            <Link
-                              to="/privacy-policy"
-                              className="text-blue-800 underline">
-                              Privacy Policy
-                            </Link>
-                          </FormLabel>
-                        </div>
-
-                        <FormMessage />
-                      </FormItem>
-                    )
-                  }}
-                />
-              </div>
-              <Button type="submit" className="mt-3">
-                Submit
-              </Button>
-            </form>
-
-            <Typography className="mt-4 text-sm">
-              Already have an account?{' '}
-              <Link to="/login" className="text-blue-800 underline">
-                Login
+          <TabsContent value="tenant">
+            <Card className="px-8 py-6">
+              <Link to="/" className="text-blue-800 underline">
+                Visit home page
               </Link>
-            </Typography>
-          </Form>
-        </div>
+              <Typography variant="h2">Sign up</Typography>
+
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="mt-4 flex flex-col gap-4">
+                  <FormField
+                    name="email"
+                    control={form.control}
+                    render={({ field }) => {
+                      return (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Enter your email"
+                              inputMode="email"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )
+                    }}
+                  />
+                  <FormField
+                    name="password"
+                    control={form.control}
+                    render={({ field }) => {
+                      return (
+                        <FormItem>
+                          <FormLabel>Password</FormLabel>
+                          <FormControl>
+                            <PasswordInputStrength
+                              placeholder="Enter your password"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="mt-2" />
+                        </FormItem>
+                      )
+                    }}
+                  />
+                  <FormField
+                    name="confirm_password"
+                    control={form.control}
+                    render={({ field }) => {
+                      return (
+                        <FormItem>
+                          <FormLabel>Confirm Password</FormLabel>
+                          <FormControl>
+                            <PasswordInput
+                              {...field}
+                              onPaste={onConfirmPasswordPaste}
+                              placeholder="Confirm your password"
+                            />
+                          </FormControl>
+                          <FormMessage className="mt-2" />
+                        </FormItem>
+                      )
+                    }}
+                  />
+
+                  <div className="flex flex-col gap-5">
+                    <FormField
+                      name="terms"
+                      control={form.control}
+                      render={({ field }) => {
+                        return (
+                          <FormItem>
+                            <div className="flex flex-row items-center gap-2">
+                              <FormControl>
+                                <Checkbox
+                                  checked={field.value}
+                                  onCheckedChange={field.onChange}
+                                />
+                              </FormControl>
+
+                              <FormLabel className="leading-4">
+                                Agree to terms and conditions.
+                              </FormLabel>
+                            </div>
+
+                            <FormMessage />
+                          </FormItem>
+                        )
+                      }}
+                    />
+                    <FormField
+                      name="consent"
+                      control={form.control}
+                      render={({ field }) => {
+                        return (
+                          <FormItem>
+                            <div className="flex flex-row items-center gap-2">
+                              <FormControl>
+                                <Checkbox
+                                  checked={field.value}
+                                  onCheckedChange={field.onChange}
+                                />
+                              </FormControl>
+
+                              <FormLabel className="leading-4">
+                                I consent to the processing of my personal data.
+                              </FormLabel>
+                            </div>
+
+                            <FormMessage />
+                          </FormItem>
+                        )
+                      }}
+                    />
+                    <FormField
+                      name="privacy_policy"
+                      control={form.control}
+                      render={({ field }) => {
+                        return (
+                          <FormItem>
+                            <div className="flex flex-row items-center gap-2">
+                              <FormControl>
+                                <Checkbox
+                                  checked={field.value}
+                                  onCheckedChange={field.onChange}
+                                />
+                              </FormControl>
+
+                              <FormLabel className="leading-4">
+                                I have read and agree to the privacy policy.{' '}
+                                <Link
+                                  to="/privacy-policy"
+                                  className="text-blue-800 underline">
+                                  Privacy Policy
+                                </Link>
+                              </FormLabel>
+                            </div>
+
+                            <FormMessage />
+                          </FormItem>
+                        )
+                      }}
+                    />
+                  </div>
+                  <Button type="submit" className="mt-3">
+                    Submit
+                  </Button>
+                </form>
+
+                <Typography className="mt-4 text-sm">
+                  Already have an account?{' '}
+                  <Link to="/login" className="text-blue-800 underline">
+                    Login
+                  </Link>
+                </Typography>
+              </Form>
+            </Card>
+          </TabsContent>
+          <TabsContent value="owner">
+            <Card className="min-w-[300px] px-8 py-6 sm:w-[400px]">TODO.</Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   )
