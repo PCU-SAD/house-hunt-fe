@@ -1,1 +1,0 @@
-import{c as e,j as o}from"./index-Co5yXI2l.js";const s=e("/apartments/$id/edit/")({component:i});function i(){const{id:t}=s.useParams();return o.jsxs("div",{children:["Hello /apartments/",t,"/edit/!"]})}export{s as Route};
