@@ -7,7 +7,7 @@ import MobileMenu from './NavMenu/MobileMenu/MobileMenu'
 import NavMenu from './NavMenu/NavMenu'
 
 type LayoutProps = {
-  children: ReactNode
+  children?: ReactNode
 }
 
 const Layout: FC<LayoutProps> = ({ children }) => {
@@ -22,11 +22,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         </Container>
       </header>
 
-      <Container className='mt-4'>
+      <Container className="mt-4">
         <CookiesDialog />
       </Container>
 
-      <div>{children}</div>
+      {children && <div>{children}</div>}
     </main>
   )
 }

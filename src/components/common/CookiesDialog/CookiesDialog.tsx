@@ -1,21 +1,32 @@
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
+  DialogTrigger
 } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { Typography } from '@/components/ui/typography'
+import { cn } from '@/lib/utils'
 import { Cookie } from 'lucide-react'
 import { FC } from 'react'
 
 export const CookiesDialog: FC = () => {
   return (
-    <Dialog defaultOpen>
+    <Dialog>
+      <DialogTrigger
+        className={cn(
+          buttonVariants({
+            variant: 'outline',
+            size: 'icon'
+          })
+        )}>
+        <Cookie size={18} />
+      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-4">

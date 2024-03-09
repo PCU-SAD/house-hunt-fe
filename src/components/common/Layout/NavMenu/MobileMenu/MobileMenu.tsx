@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { X as CloseIcon, Menu as MenuIcon } from 'lucide-react'
 import { FC, useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '@tanstack/react-router'
 import { useBlur } from './useBlur'
 
 type MobileMenuProps = {}

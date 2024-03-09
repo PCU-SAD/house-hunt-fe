@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils'
+import { Link } from '@tanstack/react-router'
 import React from 'react'
-import { Link } from 'react-router-dom'
+
 
 type ListItemProps = {
   to: string

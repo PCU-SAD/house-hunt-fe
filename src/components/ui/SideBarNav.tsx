@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 import { buttonVariants } from './button'
-import { NavLink } from 'react-router-dom'
+import { Link } from '@tanstack/react-router'
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
@@ -21,19 +21,19 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
       {...props}
     >
       {items.map((item) => (
-        <NavLink
+        <Link
           key={item.href}
           to={item.href}
-          className={({ isActive }) => cn(
+          className={cn(
             buttonVariants({ variant: "ghost" }),
-            isActive
-              ? "bg-muted hover:bg-muted"
-              : "hover:bg-transparent hover:underline",
+            
+              // ? "bg-muted hover:bg-muted"
+              // : "hover:bg-transparent hover:underline",
             "justify-start"
           )}
         >
           {item.title}
-        </NavLink>
+        </Link>
       ))}
     </nav>
   )
