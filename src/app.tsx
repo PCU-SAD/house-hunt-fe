@@ -2,7 +2,7 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 import ReactDOM from 'react-dom/client'
 import { routeTree } from './routeTree.gen'
 
-const router = createRouter({ routeTree })
+const router = createRouter({ routeTree, basepath: '/house-hunt-fe/' })
 
 declare module '@tanstack/react-router' {
   interface Register {

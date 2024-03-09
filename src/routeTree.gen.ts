@@ -23,6 +23,9 @@ const LoginIndexLazyImport = createFileRoute('/login/')()
 const HousesIndexLazyImport = createFileRoute('/houses/')()
 const ApartmentsIndexLazyImport = createFileRoute('/apartments/')()
 const ApartmentsIdIndexLazyImport = createFileRoute('/apartments/$id/')()
+const ApartmentsIdEditIndexLazyImport = createFileRoute(
+  '/apartments/$id/edit/',
+)()
 
 // Create/Update Routes
 
@@ -67,6 +70,13 @@ const ApartmentsIdIndexLazyRoute = ApartmentsIdIndexLazyImport.update({
   import('./routes/apartments/$id/index.lazy').then((d) => d.Route),
 )
 
+const ApartmentsIdEditIndexLazyRoute = ApartmentsIdEditIndexLazyImport.update({
+  path: '/apartments/$id/edit/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/apartments/$id/edit/index.lazy').then((d) => d.Route),
+)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -99,6 +109,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApartmentsIdIndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/apartments/$id/edit/': {
+      preLoaderRoute: typeof ApartmentsIdEditIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -112,6 +126,7 @@ export const routeTree = rootRoute.addChildren([
   PrivacyPolicyIndexLazyRoute,
   SignupIndexLazyRoute,
   ApartmentsIdIndexLazyRoute,
+  ApartmentsIdEditIndexLazyRoute,
 ])
 
 /* prettier-ignore-end */

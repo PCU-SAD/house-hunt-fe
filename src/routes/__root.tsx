@@ -3,8 +3,6 @@ import '@/index.css'
 import { Outlet, createRootRoute } from '@tanstack/react-router'
 import React, { Suspense } from 'react'
 
-console.log('process.env.VITE_NODE_ENV', import.meta.env.VITE_NODE_ENV)
-
 const TanStackRouterDevtools =
   import.meta.env.VITE_NODE_ENV === 'development'
     ? React.lazy(() =>
