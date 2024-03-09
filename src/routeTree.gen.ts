@@ -19,6 +19,7 @@ import { Route as ApartmentsApartmentIdImport } from './routes/apartments/$apart
 
 const IndexLazyImport = createFileRoute('/')()
 const SignupIndexLazyImport = createFileRoute('/signup/')()
+const PrivacyPolicyIndexLazyImport = createFileRoute('/privacy-policy/')()
 const LoginIndexLazyImport = createFileRoute('/login/')()
 const HousesIndexLazyImport = createFileRoute('/houses/')()
 const ApartmentsIndexLazyImport = createFileRoute('/apartments/')()
@@ -34,6 +35,13 @@ const SignupIndexLazyRoute = SignupIndexLazyImport.update({
   path: '/signup/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/signup/index.lazy').then((d) => d.Route))
+
+const PrivacyPolicyIndexLazyRoute = PrivacyPolicyIndexLazyImport.update({
+  path: '/privacy-policy/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/privacy-policy/index.lazy').then((d) => d.Route),
+)
 
 const LoginIndexLazyRoute = LoginIndexLazyImport.update({
   path: '/login/',
@@ -81,6 +89,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginIndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/privacy-policy/': {
+      preLoaderRoute: typeof PrivacyPolicyIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/signup/': {
       preLoaderRoute: typeof SignupIndexLazyImport
       parentRoute: typeof rootRoute
@@ -96,6 +108,7 @@ export const routeTree = rootRoute.addChildren([
   ApartmentsIndexLazyRoute,
   HousesIndexLazyRoute,
   LoginIndexLazyRoute,
+  PrivacyPolicyIndexLazyRoute,
   SignupIndexLazyRoute,
 ])
 
