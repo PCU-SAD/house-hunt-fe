@@ -13,7 +13,6 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as ApartmentsApartmentIdImport } from './routes/apartments/$apartmentId'
 
 // Create Virtual Routes
 
@@ -23,6 +22,7 @@ const PrivacyPolicyIndexLazyImport = createFileRoute('/privacy-policy/')()
 const LoginIndexLazyImport = createFileRoute('/login/')()
 const HousesIndexLazyImport = createFileRoute('/houses/')()
 const ApartmentsIndexLazyImport = createFileRoute('/apartments/')()
+const ApartmentsIdIndexLazyImport = createFileRoute('/apartments/$id/')()
 
 // Create/Update Routes
 
@@ -60,10 +60,12 @@ const ApartmentsIndexLazyRoute = ApartmentsIndexLazyImport.update({
   import('./routes/apartments/index.lazy').then((d) => d.Route),
 )
 
-const ApartmentsApartmentIdRoute = ApartmentsApartmentIdImport.update({
-  path: '/apartments/$apartmentId',
+const ApartmentsIdIndexLazyRoute = ApartmentsIdIndexLazyImport.update({
+  path: '/apartments/$id/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any).lazy(() =>
+  import('./routes/apartments/$id/index.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -71,10 +73,6 @@ declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
       preLoaderRoute: typeof IndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/apartments/$apartmentId': {
-      preLoaderRoute: typeof ApartmentsApartmentIdImport
       parentRoute: typeof rootRoute
     }
     '/apartments/': {
@@ -97,6 +95,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupIndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/apartments/$id/': {
+      preLoaderRoute: typeof ApartmentsIdIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -104,12 +106,12 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
-  ApartmentsApartmentIdRoute,
   ApartmentsIndexLazyRoute,
   HousesIndexLazyRoute,
   LoginIndexLazyRoute,
   PrivacyPolicyIndexLazyRoute,
   SignupIndexLazyRoute,
+  ApartmentsIdIndexLazyRoute,
 ])
 
 /* prettier-ignore-end */

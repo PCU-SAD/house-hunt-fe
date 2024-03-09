@@ -1,7 +1,7 @@
 import { Toaster } from '@/components/ui/toaster'
+import '@/index.css'
 import { Outlet, createRootRoute } from '@tanstack/react-router'
 import React, { Suspense } from 'react'
-import '../index.css'
 
 console.log('process.env.VITE_NODE_ENV', import.meta.env.VITE_NODE_ENV)
 
