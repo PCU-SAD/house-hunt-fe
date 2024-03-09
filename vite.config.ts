@@ -14,5 +14,5 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 3000
   },
-  base: '/house-hunt-fe/'
+  base: '/house-hunt-fe'
 })

@@ -13,26 +13,45 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SplatImport } from './routes/$'
+import { Route as ApartmentsApartmentsImport } from './routes/_apartments/_apartments'
 
 // Create Virtual Routes
 
+const ApartmentsImport = createFileRoute('/_apartments')()
 const IndexLazyImport = createFileRoute('/')()
 const SignupIndexLazyImport = createFileRoute('/signup/')()
 const PrivacyPolicyIndexLazyImport = createFileRoute('/privacy-policy/')()
 const LoginIndexLazyImport = createFileRoute('/login/')()
 const HousesIndexLazyImport = createFileRoute('/houses/')()
-const ApartmentsIndexLazyImport = createFileRoute('/apartments/')()
-const ApartmentsIdIndexLazyImport = createFileRoute('/apartments/$id/')()
-const ApartmentsIdEditIndexLazyImport = createFileRoute(
-  '/apartments/$id/edit/',
+const ApartmentsApartmentsLazyImport = createFileRoute(
+  '/_apartments/apartments',
+)()
+const ApartmentsApartmentsIdLazyImport = createFileRoute(
+  '/_apartments/apartments/$id',
 )()
 
 // Create/Update Routes
+
+const ApartmentsRoute = ApartmentsImport.update({
+  id: '/_apartments',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SplatRoute = SplatImport.update({
+  path: '/$',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const ApartmentsApartmentsRoute = ApartmentsApartmentsImport.update({
+  id: '/_apartments/_apartments',
+  getParentRoute: () => ApartmentsRoute,
+} as any)
 
 const SignupIndexLazyRoute = SignupIndexLazyImport.update({
   path: '/signup/',
@@ -56,25 +75,20 @@ const HousesIndexLazyRoute = HousesIndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/houses/index.lazy').then((d) => d.Route))
 
-const ApartmentsIndexLazyRoute = ApartmentsIndexLazyImport.update({
-  path: '/apartments/',
-  getParentRoute: () => rootRoute,
+const ApartmentsApartmentsLazyRoute = ApartmentsApartmentsLazyImport.update({
+  path: '/apartments',
+  getParentRoute: () => ApartmentsRoute,
 } as any).lazy(() =>
-  import('./routes/apartments/index.lazy').then((d) => d.Route),
+  import('./routes/_apartments/apartments.lazy').then((d) => d.Route),
 )
 
-const ApartmentsIdIndexLazyRoute = ApartmentsIdIndexLazyImport.update({
-  path: '/apartments/$id/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/apartments/$id/index.lazy').then((d) => d.Route),
-)
-
-const ApartmentsIdEditIndexLazyRoute = ApartmentsIdEditIndexLazyImport.update({
-  path: '/apartments/$id/edit/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/apartments/$id/edit/index.lazy').then((d) => d.Route),
+const ApartmentsApartmentsIdLazyRoute = ApartmentsApartmentsIdLazyImport.update(
+  {
+    path: '/$id',
+    getParentRoute: () => ApartmentsApartmentsLazyRoute,
+  } as any,
+).lazy(() =>
+  import('./routes/_apartments/apartments.$id.lazy').then((d) => d.Route),
 )
 
 // Populate the FileRoutesByPath interface
@@ -85,9 +99,17 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/apartments/': {
-      preLoaderRoute: typeof ApartmentsIndexLazyImport
+    '/$': {
+      preLoaderRoute: typeof SplatImport
       parentRoute: typeof rootRoute
+    }
+    '/_apartments': {
+      preLoaderRoute: typeof ApartmentsImport
+      parentRoute: typeof rootRoute
+    }
+    '/_apartments/apartments': {
+      preLoaderRoute: typeof ApartmentsApartmentsLazyImport
+      parentRoute: typeof ApartmentsImport
     }
     '/houses/': {
       preLoaderRoute: typeof HousesIndexLazyImport
@@ -105,13 +127,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupIndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/apartments/$id/': {
-      preLoaderRoute: typeof ApartmentsIdIndexLazyImport
-      parentRoute: typeof rootRoute
+    '/_apartments/apartments/$id': {
+      preLoaderRoute: typeof ApartmentsApartmentsIdLazyImport
+      parentRoute: typeof ApartmentsApartmentsLazyImport
     }
-    '/apartments/$id/edit/': {
-      preLoaderRoute: typeof ApartmentsIdEditIndexLazyImport
-      parentRoute: typeof rootRoute
+    '/_apartments/_apartments': {
+      preLoaderRoute: typeof ApartmentsApartmentsImport
+      parentRoute: typeof ApartmentsRoute
     }
   }
 }
@@ -120,13 +142,17 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
-  ApartmentsIndexLazyRoute,
+  SplatRoute,
+  ApartmentsRoute.addChildren([
+    ApartmentsApartmentsRoute,
+    ApartmentsApartmentsLazyRoute.addChildren([
+      ApartmentsApartmentsIdLazyRoute,
+    ]),
+  ]),
   HousesIndexLazyRoute,
   LoginIndexLazyRoute,
   PrivacyPolicyIndexLazyRoute,
   SignupIndexLazyRoute,
-  ApartmentsIdIndexLazyRoute,
-  ApartmentsIdEditIndexLazyRoute,
 ])
 
 /* prettier-ignore-end */
