@@ -1,1 +1,0 @@
-import{c as o,j as e,L as s,C as t}from"./index-CvqowdPT.js";const r=o("/houses/")({component:()=>e.jsx(s,{children:e.jsx(t,{children:e.jsx("div",{children:"Hello /houses/!"})})})});export{r as Route};
