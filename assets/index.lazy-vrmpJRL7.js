@@ -1,1 +1,0 @@
-import{c as e,j as o}from"./index-DxfNJ0Xc.js";import{L as s,C as t}from"./Layout-D2EYWJ2X.js";import"./index-F_AaXJW1.js";import"./ListItem-DyqumtlQ.js";const m=e("/houses/")({component:()=>o.jsx(s,{children:o.jsx(t,{children:o.jsx("div",{children:"Hello /houses/!"})})})});export{m as Route};

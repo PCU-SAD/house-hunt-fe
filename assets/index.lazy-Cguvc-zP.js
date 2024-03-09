@@ -1,1 +1,0 @@
-import{k as e,j as t}from"./index-DxfNJ0Xc.js";import{L as o,C as n}from"./Layout-D2EYWJ2X.js";import"./index-F_AaXJW1.js";import"./ListItem-DyqumtlQ.js";const s=e("/apartments/$id/")({component:a});function a(){const{id:r}=s.useParams();return t.jsx(o,{children:t.jsx(n,{children:t.jsxs("div",{children:["Hello /apartments/",r,"!"]})})})}export{s as Route};
