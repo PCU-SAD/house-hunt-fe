@@ -17,6 +17,7 @@ export const Route = createRootRoute({
     return (
       <div className="min-h-dvh overflow-x-hidden">
         <Toaster />
+
         <Outlet />
 
         <Suspense>

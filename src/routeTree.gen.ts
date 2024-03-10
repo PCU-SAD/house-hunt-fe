@@ -13,33 +13,35 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as SplatImport } from './routes/$'
-import { Route as ApartmentsApartmentsImport } from './routes/_apartments/_apartments'
+import { Route as ApartmentsRouteImport } from './routes/apartments/route'
+import { Route as ApartmentsIdImport } from './routes/apartments/$id'
 
 // Create Virtual Routes
 
-const ApartmentsImport = createFileRoute('/_apartments')()
+const SignupLazyImport = createFileRoute('/signup')()
+const LoginLazyImport = createFileRoute('/login')()
+const HousesLazyImport = createFileRoute('/houses')()
 const IndexLazyImport = createFileRoute('/')()
-const SignupIndexLazyImport = createFileRoute('/signup/')()
-const PrivacyPolicyIndexLazyImport = createFileRoute('/privacy-policy/')()
-const LoginIndexLazyImport = createFileRoute('/login/')()
-const HousesIndexLazyImport = createFileRoute('/houses/')()
-const ApartmentsApartmentsLazyImport = createFileRoute(
-  '/_apartments/apartments',
-)()
-const ApartmentsApartmentsIdLazyImport = createFileRoute(
-  '/_apartments/apartments/$id',
-)()
 
 // Create/Update Routes
 
-const ApartmentsRoute = ApartmentsImport.update({
-  id: '/_apartments',
+const SignupLazyRoute = SignupLazyImport.update({
+  path: '/signup',
   getParentRoute: () => rootRoute,
-} as any)
+} as any).lazy(() => import('./routes/signup.lazy').then((d) => d.Route))
 
-const SplatRoute = SplatImport.update({
-  path: '/$',
+const LoginLazyRoute = LoginLazyImport.update({
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/login.lazy').then((d) => d.Route))
+
+const HousesLazyRoute = HousesLazyImport.update({
+  path: '/houses',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/houses.lazy').then((d) => d.Route))
+
+const ApartmentsRouteRoute = ApartmentsRouteImport.update({
+  path: '/apartments',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -48,48 +50,10 @@ const IndexLazyRoute = IndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
-const ApartmentsApartmentsRoute = ApartmentsApartmentsImport.update({
-  id: '/_apartments/_apartments',
-  getParentRoute: () => ApartmentsRoute,
+const ApartmentsIdRoute = ApartmentsIdImport.update({
+  path: '/$id',
+  getParentRoute: () => ApartmentsRouteRoute,
 } as any)
-
-const SignupIndexLazyRoute = SignupIndexLazyImport.update({
-  path: '/signup/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/signup/index.lazy').then((d) => d.Route))
-
-const PrivacyPolicyIndexLazyRoute = PrivacyPolicyIndexLazyImport.update({
-  path: '/privacy-policy/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/privacy-policy/index.lazy').then((d) => d.Route),
-)
-
-const LoginIndexLazyRoute = LoginIndexLazyImport.update({
-  path: '/login/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/login/index.lazy').then((d) => d.Route))
-
-const HousesIndexLazyRoute = HousesIndexLazyImport.update({
-  path: '/houses/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/houses/index.lazy').then((d) => d.Route))
-
-const ApartmentsApartmentsLazyRoute = ApartmentsApartmentsLazyImport.update({
-  path: '/apartments',
-  getParentRoute: () => ApartmentsRoute,
-} as any).lazy(() =>
-  import('./routes/_apartments/apartments.lazy').then((d) => d.Route),
-)
-
-const ApartmentsApartmentsIdLazyRoute = ApartmentsApartmentsIdLazyImport.update(
-  {
-    path: '/$id',
-    getParentRoute: () => ApartmentsApartmentsLazyRoute,
-  } as any,
-).lazy(() =>
-  import('./routes/_apartments/apartments.$id.lazy').then((d) => d.Route),
-)
 
 // Populate the FileRoutesByPath interface
 
@@ -99,41 +63,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/$': {
-      preLoaderRoute: typeof SplatImport
+    '/apartments': {
+      preLoaderRoute: typeof ApartmentsRouteImport
       parentRoute: typeof rootRoute
     }
-    '/_apartments': {
-      preLoaderRoute: typeof ApartmentsImport
+    '/houses': {
+      preLoaderRoute: typeof HousesLazyImport
       parentRoute: typeof rootRoute
     }
-    '/_apartments/apartments': {
-      preLoaderRoute: typeof ApartmentsApartmentsLazyImport
-      parentRoute: typeof ApartmentsImport
-    }
-    '/houses/': {
-      preLoaderRoute: typeof HousesIndexLazyImport
+    '/login': {
+      preLoaderRoute: typeof LoginLazyImport
       parentRoute: typeof rootRoute
     }
-    '/login/': {
-      preLoaderRoute: typeof LoginIndexLazyImport
+    '/signup': {
+      preLoaderRoute: typeof SignupLazyImport
       parentRoute: typeof rootRoute
     }
-    '/privacy-policy/': {
-      preLoaderRoute: typeof PrivacyPolicyIndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/signup/': {
-      preLoaderRoute: typeof SignupIndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/_apartments/apartments/$id': {
-      preLoaderRoute: typeof ApartmentsApartmentsIdLazyImport
-      parentRoute: typeof ApartmentsApartmentsLazyImport
-    }
-    '/_apartments/_apartments': {
-      preLoaderRoute: typeof ApartmentsApartmentsImport
-      parentRoute: typeof ApartmentsRoute
+    '/apartments/$id': {
+      preLoaderRoute: typeof ApartmentsIdImport
+      parentRoute: typeof ApartmentsRouteImport
     }
   }
 }
@@ -142,17 +90,10 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
-  SplatRoute,
-  ApartmentsRoute.addChildren([
-    ApartmentsApartmentsRoute,
-    ApartmentsApartmentsLazyRoute.addChildren([
-      ApartmentsApartmentsIdLazyRoute,
-    ]),
-  ]),
-  HousesIndexLazyRoute,
-  LoginIndexLazyRoute,
-  PrivacyPolicyIndexLazyRoute,
-  SignupIndexLazyRoute,
+  ApartmentsRouteRoute.addChildren([ApartmentsIdRoute]),
+  HousesLazyRoute,
+  LoginLazyRoute,
+  SignupLazyRoute,
 ])
 
 /* prettier-ignore-end */

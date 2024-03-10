@@ -1,11 +1,6 @@
 import { HomePage } from '@/pages'
-import { createLazyFileRoute } from '@tanstack/react-router'
-import { FC } from 'react'
+import { createFileRoute } from '@tanstack/react-router'
 
-const Index: FC = () => {
-  return <HomePage />
-}
-
-export const Route = createLazyFileRoute('/')({
-  component: Index
+export const Route = createFileRoute('/')({
+  component: HomePage
 })
