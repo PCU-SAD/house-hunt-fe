@@ -9,22 +9,40 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Typography } from '@/components/ui/typography'
-import { toast } from '@/components/ui/use-toast'
-import { Link } from '@tanstack/react-router'
-import { FormType, useLoginForm } from './useLoginForm'
+import { FormType, useLoginForm } from '@/pages/auth/Login/useLoginForm'
+import { createFileRoute, Link, useRouter } from '@tanstack/react-router'
+import React from 'react'
+import { z } from 'zod'
+
+export const Route = createFileRoute('/login')({
+  validateSearch: z.object({
+    redirect: z.string().optional()
+  }),
+  component: LoginPage
+})
 
 function LoginPage() {
+  const router = useRouter()
+  const search = Route.useSearch()
+  const { auth } = Route.useRouteContext({
+    select: ({ auth }) => ({ auth })
+  })
+
   const form = useLoginForm()
 
   function onSubmit(values: FormType) {
-    toast({
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>
-      )
-    })
+    auth.login(values.email)
+    console.log(auth)
+
+    router.invalidate()
   }
+
+  // Ah, the subtle nuances of client side auth. 🙄
+  React.useLayoutEffect(() => {
+    if (auth.status === 'loggedIn' && search.redirect) {
+      router.history.push(search.redirect)
+    }
+  }, [auth.status, router.history, search.redirect])
 
   return (
     <div className="flex h-screen flex-col justify-center gap-10 sm:items-center">
@@ -89,5 +107,3 @@ function LoginPage() {
     </div>
   )
 }
-
-export default LoginPage

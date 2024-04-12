@@ -1,11 +1,37 @@
-import { Outlet, createFileRoute } from '@tanstack/react-router'
+import { Container, Layout } from '@/components'
+import { Button } from '@/components/ui/button'
+import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/apartments')({
   component: () => (
-    <div>
-      <div>Hello /apartments!</div>
+    <Layout>
+      <Container>
+        <div>Apartments parent page</div>
 
-      <Outlet />
-    </div>
+        <div className="flex gap-2">
+          <Button asChild variant="outline">
+            <Link
+              to="/apartments/$id"
+              params={{
+                id: '123'
+              }}>
+              Go to non existent apartment
+            </Link>
+          </Button>
+
+          <Button asChild variant="outline">
+            <Link
+              to="/apartments/$id"
+              params={{
+                id: '1'
+              }}>
+              Go to apartments/1
+            </Link>
+          </Button>
+        </div>
+
+        <Outlet />
+      </Container>
+    </Layout>
   )
 })

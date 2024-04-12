@@ -1,22 +1,29 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, notFound } from '@tanstack/react-router'
 import { Loader } from 'lucide-react'
 
 export const Route = createFileRoute('/apartments/$id')({
   component: Apartment,
-  loader: async () => {
-    const res = await new Promise<{ name: string }>((res) =>
-      setTimeout(() => res({ name: 'apartment' }), 1000)
-    )
+  loader: async (props) => {
+    const res = await new Promise<{ name: string }>((res, rej) => {
+      return setTimeout(() => {
+        if (props.params.id === '123') {
+          rej(notFound())
+        }
+
+        res({ name: 'apartment' }), 2_000
+      })
+    })
 
     return res
   },
   pendingComponent: () => {
     return (
-      <div className="animate-spin">
-        <Loader />
+      <div className="h-10 w-10">
+        <Loader className="animate-spin duration-150" />
       </div>
     )
-  }
+  },
+  notFoundComponent: () => <div>Requested apartment does not exist</div>
 })
 
 function Apartment() {
@@ -25,8 +32,7 @@ function Apartment() {
 
   return (
     <div>
-      Hello /apartments/{id}
-      {data.name}
+      Apartments child {id} {data.name}
     </div>
   )
 }

@@ -21,9 +21,10 @@ const HomePage: FC<HomePageProps> = () => {
             </Link>
           </li>
         </ul>
+
         <div className="mt-6 grid grid-cols-fluid gap-4">
           {new Array(10).fill(0).map((_, index) => (
-            <Card>
+            <Card key={index}>
               <CardHeader>
                 <h2>Apartment {index + 1}</h2>
               </CardHeader>
