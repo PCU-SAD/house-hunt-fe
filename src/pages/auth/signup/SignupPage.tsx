@@ -15,10 +15,11 @@ import { Typography } from '@/components/ui/typography'
 import { toast } from '@/components/ui/use-toast'
 import { generateRandomString } from '@/lib/generateRandomValue'
 import PasswordInputStrength from '@/pages/auth/components/PasswordInputStrength'
+import { FormType } from '@/pages/auth/login/useLoginForm'
+import { useSignupForm } from '@/pages/auth/signup/useSignUpForm'
 import { Link } from '@tanstack/react-router'
 import { ClipboardEvent } from 'react'
 import PasswordInput from '../components/PasswordInput'
-import { FormType, useSignupForm } from './useSignUpForm'
 
 function SignupPage() {
   const form = useSignupForm()

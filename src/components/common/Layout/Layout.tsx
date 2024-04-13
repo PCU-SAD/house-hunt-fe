@@ -22,9 +22,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         </Container>
       </header>
 
-      <Container className="mt-4">
+      {/* <Container className="mt-4">
         <CookiesDialog />
-      </Container>
+      </Container> */}
 
       {children && <div>{children}</div>}
     </main>

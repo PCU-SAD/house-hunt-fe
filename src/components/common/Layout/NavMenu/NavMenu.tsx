@@ -22,13 +22,17 @@ const NavMenu: FC = () => {
             <ContentExample />
           </NavigationMenuContent>
         </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Example 2</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ContentExample />
-          </NavigationMenuContent>
-        </NavigationMenuItem>
 
+        <NavigationMenuItem>
+          <Link
+            to="/"
+            className={navigationMenuTriggerStyle()}
+            activeProps={{
+              className: cn('bg-slate-100')
+            }}>
+            Homepage
+          </Link>
+        </NavigationMenuItem>
         <NavigationMenuItem>
           <Link
             to="/houses"

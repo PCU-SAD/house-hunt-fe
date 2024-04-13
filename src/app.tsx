@@ -1,4 +1,4 @@
-import App from '@/pages/app/App'
+import App from '@/pages/App'
 import ReactDOM from 'react-dom/client'
 
 const rootElement = document.getElementById('app')!

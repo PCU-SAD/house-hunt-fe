@@ -7,6 +7,8 @@ import {
   MenubarSeparator,
   MenubarTrigger
 } from '@/components/ui/menubar'
+import { Route } from '@/routes/__root'
+import { useNavigate } from '@tanstack/react-router'
 import { UserIcon } from 'lucide-react'
 import { FC } from 'react'
 import './styles.css'
@@ -14,6 +16,16 @@ import './styles.css'
 type AccountMenubarProps = {}
 
 const AccountMenubar: FC<AccountMenubarProps> = () => {
+  const navigate = useNavigate()
+  const { auth } = Route.useRouteContext()
+
+  function handleLogout() {
+    auth.logout()
+    navigate({
+      to: '/'
+    })
+  }
+
   return (
     <Menubar>
       <MenubarMenu>
@@ -29,7 +41,9 @@ const AccountMenubar: FC<AccountMenubarProps> = () => {
           <MenubarSeparator />
 
           <MenubarItem>
-            <Button size="sm">Log out</Button>
+            <Button size="sm" onClick={handleLogout}>
+              Log out
+            </Button>
           </MenubarItem>
         </MenubarContent>
       </MenubarMenu>

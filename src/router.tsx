@@ -6,6 +6,7 @@ export const router = createRouter({
   routeTree,
   basepath: '/house-hunt-fe',
   defaultPreload: 'intent',
+  defaultErrorComponent: () => <div>Something went wrong</div>,
   defaultNotFoundComponent: NotFound,
   context: {
     auth: undefined!
