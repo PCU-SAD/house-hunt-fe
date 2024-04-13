@@ -6,7 +6,6 @@ export const router = createRouter({
   routeTree,
   // this works for github pages
   history: createHashHistory(),
-  basepath: '/house-hunt-fe/',
   defaultPreload: 'intent',
   defaultErrorComponent: ErrorPage,
   defaultNotFoundComponent: NotFound,

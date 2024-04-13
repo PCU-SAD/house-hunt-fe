@@ -1,5 +1,6 @@
 import { Container, Layout } from '@/components'
 import { Button } from '@/components/ui/button'
+import { Typography } from '@/components/ui/typography'
 import {
   createFileRoute,
   useNavigate,
@@ -27,7 +28,13 @@ function Protected() {
     <Layout>
       <Container className="mt-10">
         <div className="flex flex-col items-start gap-4">
-          This page can only see logged in user! You are logged in by default
+          <Typography>
+            This page can only see logged in user! You are logged in by default
+          </Typography>
+
+          <Typography>
+            Username: <strong>{auth.username}</strong>
+          </Typography>
           <Button variant="destructive" onClick={handleLogout}>
             Log out
           </Button>
