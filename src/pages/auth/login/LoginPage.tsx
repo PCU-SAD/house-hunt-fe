@@ -9,9 +9,10 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Typography } from '@/components/ui/typography'
-import { FormType, useLoginForm } from '@/pages/auth/login/useLoginForm'
+import { FormType, useLoginForm } from '@/pages/auth/hooks/useLoginForm'
 import {
   Link,
+  useNavigate,
   useRouteContext,
   useRouter,
   useSearch
@@ -19,6 +20,7 @@ import {
 import { useLayoutEffect } from 'react'
 
 function LoginPage() {
+  const navigate = useNavigate()
   const router = useRouter()
   const search = useSearch({
     from: '/login'
@@ -32,11 +34,16 @@ function LoginPage() {
 
   function onSubmit(values: FormType) {
     auth.login(values.email)
+    form.reset()
 
+    if (!search.redirect) {
+      navigate({
+        to: '/'
+      })
+    }
     router.invalidate()
   }
 
-  console.log(auth)
   // Ah, the subtle nuances of client side auth. 🙄
   useLayoutEffect(() => {
     if (auth.username && search.redirect) {
@@ -57,8 +64,7 @@ function LoginPage() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="mt-4 flex flex-col gap-3"
-            >
+              className="mt-4 flex flex-col gap-3">
               <FormField
                 name="email"
                 control={form.control}
