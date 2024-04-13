@@ -24,42 +24,42 @@ import { Route as AuthProtectedImport } from './routes/_auth/protected'
 
 const SignupRoute = SignupImport.update({
   path: '/signup',
-  getParentRoute: () => rootRoute
+  getParentRoute: () => rootRoute,
 } as any)
 
 const LoginRoute = LoginImport.update({
   path: '/login',
-  getParentRoute: () => rootRoute
+  getParentRoute: () => rootRoute,
 } as any)
 
 const HousesRoute = HousesImport.update({
   path: '/houses',
-  getParentRoute: () => rootRoute
+  getParentRoute: () => rootRoute,
 } as any)
 
 const ApartmentsRouteRoute = ApartmentsRouteImport.update({
   path: '/apartments',
-  getParentRoute: () => rootRoute
+  getParentRoute: () => rootRoute,
 } as any)
 
 const AuthRouteRoute = AuthRouteImport.update({
   id: '/_auth',
-  getParentRoute: () => rootRoute
+  getParentRoute: () => rootRoute,
 } as any)
 
 const IndexRoute = IndexImport.update({
   path: '/',
-  getParentRoute: () => rootRoute
+  getParentRoute: () => rootRoute,
 } as any)
 
 const ApartmentsIdRoute = ApartmentsIdImport.update({
   path: '/$id',
-  getParentRoute: () => ApartmentsRouteRoute
+  getParentRoute: () => ApartmentsRouteRoute,
 } as any)
 
 const AuthProtectedRoute = AuthProtectedImport.update({
   path: '/protected',
-  getParentRoute: () => AuthRouteRoute
+  getParentRoute: () => AuthRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -109,7 +109,7 @@ export const routeTree = rootRoute.addChildren([
   ApartmentsRouteRoute.addChildren([ApartmentsIdRoute]),
   HousesRoute,
   LoginRoute,
-  SignupRoute
+  SignupRoute,
 ])
 
 /* prettier-ignore-end */
