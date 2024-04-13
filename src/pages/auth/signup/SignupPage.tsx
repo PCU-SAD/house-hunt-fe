@@ -15,13 +15,14 @@ import { Typography } from '@/components/ui/typography'
 import { toast } from '@/components/ui/use-toast'
 import { generateRandomString } from '@/lib/generateRandomValue'
 import PasswordInputStrength from '@/pages/auth/components/PasswordInputStrength'
-import { FormType } from '@/pages/auth/login/useLoginForm'
+import { FormType } from '@/pages/auth/hooks/useLoginForm'
 import { useSignupForm } from '@/pages/auth/signup/useSignUpForm'
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { ClipboardEvent } from 'react'
 import PasswordInput from '../components/PasswordInput'
 
 function SignupPage() {
+  const navigate = useNavigate()
   const form = useSignupForm()
 
   function onSubmit(values: FormType) {
@@ -31,6 +32,12 @@ function SignupPage() {
           <code className="text-white">{JSON.stringify(values, null, 2)}</code>
         </pre>
       )
+    })
+
+    form.reset()
+
+    navigate({
+      to: '/login'
     })
   }
 
@@ -47,8 +54,7 @@ function SignupPage() {
       <div className="mt-12 px-4">
         <Tabs
           defaultValue="tenant"
-          className="mx-auto w-full min-w-[330px] max-w-[400px]"
-        >
+          className="mx-auto w-full min-w-[330px] max-w-[400px]">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="tenant">Tenant</TabsTrigger>
             <TabsTrigger value="owner">Owner</TabsTrigger>
@@ -64,8 +70,7 @@ function SignupPage() {
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className="mt-4 flex flex-col gap-4"
-                >
+                  className="mt-4 flex flex-col gap-4">
                   <FormField
                     name="email"
                     control={form.control}
@@ -190,8 +195,7 @@ function SignupPage() {
                                 I have read and agree to the privacy policy.{' '}
                                 <Link
                                   to="/"
-                                  className="text-blue-800 underline"
-                                >
+                                  className="text-blue-800 underline">
                                   Privacy Policy
                                 </Link>
                               </FormLabel>
