@@ -14,7 +14,8 @@ export const Route = createFileRoute('/apartments')({
               to="/apartments/$id"
               params={{
                 id: '123'
-              }}>
+              }}
+            >
               Go to non existent apartment
             </Link>
           </Button>
@@ -24,7 +25,8 @@ export const Route = createFileRoute('/apartments')({
               to="/apartments/$id"
               params={{
                 id: '1'
-              }}>
+              }}
+            >
               Go to apartments/1
             </Link>
           </Button>

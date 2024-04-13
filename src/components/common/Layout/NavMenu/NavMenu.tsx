@@ -29,7 +29,8 @@ const NavMenu: FC = () => {
             className={navigationMenuTriggerStyle()}
             activeProps={{
               className: cn('bg-slate-100')
-            }}>
+            }}
+          >
             Homepage
           </Link>
         </NavigationMenuItem>
@@ -39,7 +40,8 @@ const NavMenu: FC = () => {
             className={navigationMenuTriggerStyle()}
             activeProps={{
               className: cn('bg-slate-100')
-            }}>
+            }}
+          >
             Houses
           </Link>
         </NavigationMenuItem>
@@ -49,7 +51,8 @@ const NavMenu: FC = () => {
             className={navigationMenuTriggerStyle()}
             activeProps={{
               className: cn('bg-slate-100')
-            }}>
+            }}
+          >
             Apartments
           </Link>
         </NavigationMenuItem>
@@ -59,7 +62,8 @@ const NavMenu: FC = () => {
             className={navigationMenuTriggerStyle()}
             activeProps={{
               className: cn('bg-slate-100')
-            }}>
+            }}
+          >
             Protected
           </Link>
         </NavigationMenuItem>
@@ -74,7 +78,8 @@ function ContentExample() {
       <li className="row-span-3">
         <a
           className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-          href="/">
+          href="/"
+        >
           <div>logo</div>
           <div className="mb-2 mt-4 text-lg font-medium">shadcn/ui</div>
           <p className="text-sm leading-tight text-muted-foreground">

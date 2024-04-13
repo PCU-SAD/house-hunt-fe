@@ -58,7 +58,8 @@ const MobileMenu: FC<MobileMenuProps> = () => {
         size="icon"
         onClick={handleOpen}
         variant="ghost"
-        className="md:hidden">
+        className="md:hidden"
+      >
         <MenuIcon />
       </Button>
 
@@ -69,12 +70,14 @@ const MobileMenu: FC<MobileMenuProps> = () => {
           {
             'translate-x-0': showMenu
           }
-        )}>
+        )}
+      >
         <Button
           size="icon"
           onClick={handleClose}
           variant="outline"
-          className="absolute right-4 top-2">
+          className="absolute right-4 top-2"
+        >
           <CloseIcon />
         </Button>
 

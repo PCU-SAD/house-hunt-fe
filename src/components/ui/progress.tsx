@@ -15,7 +15,8 @@ const PasswordProgress = React.forwardRef<
       'relative h-4 w-full overflow-hidden rounded-full bg-secondary',
       className
     )}
-    {...props}>
+    {...props}
+  >
     <ProgressPrimitive.Indicator
       className={cn('h-full w-full flex-1 transition-all', {
         'bg-red-500': isColorful && value && value < 40,

@@ -47,7 +47,8 @@ function SignupPage() {
       <div className="mt-12 px-4">
         <Tabs
           defaultValue="tenant"
-          className="mx-auto w-full min-w-[330px] max-w-[400px]">
+          className="mx-auto w-full min-w-[330px] max-w-[400px]"
+        >
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="tenant">Tenant</TabsTrigger>
             <TabsTrigger value="owner">Owner</TabsTrigger>
@@ -63,7 +64,8 @@ function SignupPage() {
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className="mt-4 flex flex-col gap-4">
+                  className="mt-4 flex flex-col gap-4"
+                >
                   <FormField
                     name="email"
                     control={form.control}
@@ -188,7 +190,8 @@ function SignupPage() {
                                 I have read and agree to the privacy policy.{' '}
                                 <Link
                                   to="/"
-                                  className="text-blue-800 underline">
+                                  className="text-blue-800 underline"
+                                >
                                   Privacy Policy
                                 </Link>
                               </FormLabel>

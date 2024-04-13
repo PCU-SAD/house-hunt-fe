@@ -1,6 +1,5 @@
 import { FC, ReactNode } from 'react'
 
-import { CookiesDialog } from '../CookiesDialog/CookiesDialog'
 import Container from './Container'
 import AccountMenubar from './NavMenu/AccountMenu/AccountMenubar'
 import MobileMenu from './NavMenu/MobileMenu/MobileMenu'
@@ -21,10 +20,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
           <MobileMenu />
         </Container>
       </header>
-
-      {/* <Container className="mt-4">
-        <CookiesDialog />
-      </Container> */}
 
       {children && <div>{children}</div>}
     </main>

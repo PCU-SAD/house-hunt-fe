@@ -12,10 +12,10 @@ const typographyVariants = cva('leading-7 m-0', {
       h4: 'scroll-m-20 text-xl font-semibold tracking-tight',
       p: 'leading-7',
       muted: 'text-sm text-muted-foreground'
-    },
+    }
   },
   defaultVariants: {
-    variant: 'p',
+    variant: 'p'
   }
 })
 

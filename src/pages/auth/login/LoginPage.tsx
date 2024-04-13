@@ -57,7 +57,8 @@ function LoginPage() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="mt-4 flex flex-col gap-3">
+              className="mt-4 flex flex-col gap-3"
+            >
               <FormField
                 name="email"
                 control={form.control}

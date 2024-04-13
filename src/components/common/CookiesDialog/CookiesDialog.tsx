@@ -24,7 +24,8 @@ export const CookiesDialog: FC = () => {
             variant: 'outline',
             size: 'icon'
           })
-        )}>
+        )}
+      >
         <Cookie size={18} />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px">
