@@ -27,7 +27,7 @@ function Protected() {
     <Layout>
       <Container className="mt-10">
         <div className="flex flex-col items-start gap-4">
-          This page can only see logged in user!
+          This page can only see logged in user! You are logged in by default
           <Button variant="destructive" onClick={handleLogout}>
             Log out
           </Button>

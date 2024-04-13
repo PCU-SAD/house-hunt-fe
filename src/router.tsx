@@ -4,7 +4,7 @@ import { routeTree } from './routeTree.gen'
 
 export const router = createRouter({
   routeTree,
-  basepath: '/house-hunt-fe',
+  basepath: '/house-hunt-fe/',
   defaultPreload: 'intent',
   defaultErrorComponent: () => <div>Something went wrong</div>,
   defaultNotFoundComponent: NotFound,
