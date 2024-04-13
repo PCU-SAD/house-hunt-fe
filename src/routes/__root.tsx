@@ -20,7 +20,6 @@ type RouteContext = {
 }
 
 export const Route = createRootRouteWithContext<RouteContext>()({
-  errorComponent: () => 'Error component',
   pendingComponent: LoadingPage,
   component: Index
 })

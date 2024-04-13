@@ -1,16 +1,14 @@
-import { NotFound } from '@/pages'
-import { createMemoryHistory, createRouter } from '@tanstack/react-router'
+import { ErrorPage, NotFound } from '@/pages'
+import { createHashHistory, createRouter } from '@tanstack/react-router'
 import { routeTree } from './routeTree.gen'
 
 export const router = createRouter({
   routeTree,
-  history: createMemoryHistory({
-    initialEntries: ['/']
-  }),
-
+  // this works for github pages
+  history: createHashHistory(),
   basepath: '/house-hunt-fe/',
   defaultPreload: 'intent',
-  defaultErrorComponent: () => <div>Something went wrong</div>,
+  defaultErrorComponent: ErrorPage,
   defaultNotFoundComponent: NotFound,
   context: {
     auth: undefined!
