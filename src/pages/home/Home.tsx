@@ -11,7 +11,7 @@ const HomePage: FC<HomePageProps> = () => {
       <Container className="mt-6">
         <ul>
           <li>
-            <Link to="/login" className="text-blue-800 underline">
+            <Link to="/login" className="underline">
               See login page
             </Link>
           </li>
