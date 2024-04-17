@@ -1,19 +1,21 @@
+import { router } from '@/app'
 import { Loading } from '@/pages'
 import { useAuth } from '@/pages/auth/hooks/useAuth'
-import { router } from '@/router'
 import { RouterProvider } from '@tanstack/react-router'
 import { FC, useEffect, useMemo } from 'react'
+
 
 type AppProps = {}
 
 const App: FC<AppProps> = () => {
   const auth = useAuth()
 
-  const routerContext = useMemo(() => {
-    return {
+  const routerContext = useMemo(
+    () => ({
       auth
-    }
-  }, [auth])
+    }),
+    [auth]
+  )
 
   useEffect(() => {
     router.invalidate()

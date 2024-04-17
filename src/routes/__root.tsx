@@ -2,7 +2,8 @@ import { Toaster } from '@/components/ui/toaster'
 import '@/index.css'
 import { Auth } from '@/pages/auth/hooks/useAuth'
 import LoadingPage from '@/pages/loading/Loading'
-
+import { QueryClient } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
 import React, { Suspense } from 'react'
 
@@ -17,6 +18,7 @@ const TanStackRouterDevtools =
 
 type RouteContext = {
   auth: Auth
+  queryClient: QueryClient
 }
 
 export const Route = createRootRouteWithContext<RouteContext>()({
@@ -30,6 +32,8 @@ function Index() {
       <Toaster />
 
       <Outlet />
+
+      <ReactQueryDevtools buttonPosition="bottom-right" />
 
       <Suspense>
         <TanStackRouterDevtools />

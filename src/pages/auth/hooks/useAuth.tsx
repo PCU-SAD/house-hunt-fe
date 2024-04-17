@@ -21,7 +21,7 @@ export function useAuth() {
           res({
             username: 'user_name'
           })
-        }, 1_000)
+        }, 10)
       })
 
       setIsLoading(false)

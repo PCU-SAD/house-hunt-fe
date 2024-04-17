@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-const formSchema = z
+const signupOwnerFormSchema = z
   .object({
     email: z
       .string({
@@ -52,11 +52,11 @@ const formSchema = z
     path: ['confirm_password']
   })
 
-export type FormType = z.infer<typeof formSchema>
+export type SignupOwnerFormType = z.infer<typeof signupOwnerFormSchema>
 
-export function useSignupForm() {
-  return useForm<FormType>({
-    resolver: zodResolver(formSchema),
+export function useSignupOwnerForm() {
+  return useForm<SignupOwnerFormType>({
+    resolver: zodResolver(signupOwnerFormSchema),
     mode: 'onChange',
     defaultValues: {
       email: '',
