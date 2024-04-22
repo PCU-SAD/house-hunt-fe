@@ -1,5 +1,14 @@
 import { Container, Layout } from '@/components'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious
+} from '@/components/ui/pagination'
 import { Link } from '@tanstack/react-router'
 import { FC } from 'react'
 
@@ -37,6 +46,32 @@ const HomePage: FC<HomePageProps> = () => {
             </Card>
           ))}
         </div>
+
+        <Pagination className="mt-6">
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious />
+            </PaginationItem>
+
+            <PaginationItem>
+              <Button variant="ghost">1</Button>
+            </PaginationItem>
+            <PaginationItem>
+              <Button variant="ghost">2</Button>
+            </PaginationItem>
+            <PaginationItem>
+              <Button variant="ghost">3</Button>
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationNext />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </Container>
     </Layout>
   )
