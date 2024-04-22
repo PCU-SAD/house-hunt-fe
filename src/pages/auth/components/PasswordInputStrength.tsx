@@ -12,14 +12,11 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
   HTMLInputElement,
   PasswordInputProps
 >(({ ...props }, ref) => {
-  const initialStrength = 10
-
   const form = useFormContext<FormType>()
-
   const password = form.watch('password')
 
   function evaluatePasswordStrength(password: string) {
-    let strength = initialStrength
+    let strength = 10
 
     if (password?.length >= 8) strength += 22
     if (/[a-z]/.test(password)) strength += 11
@@ -34,6 +31,10 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
 
   const strength = useMemo(() => evaluatePasswordStrength(password), [password])
 
+  const weakPassword = strength < 40
+  const moderatePassword = strength >= 40 && strength < 90
+  const strongPassword = strength >= 90
+
   return (
     <div>
       <PasswordInput ref={ref} {...props} />
@@ -44,15 +45,16 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
         value={strength}
       />
 
-      {strength < 40 && (
-        <p className="mt-1 text-xs text-red-500">Weak password</p>
-      )}
-      {strength >= 40 && strength < 90 && (
-        <p className="mt-1 text-xs text-yellow-500">Moderate password</p>
-      )}
-      {strength >= 90 && (
-        <p className="mt-1 text-xs text-green-500">Strong password</p>
-      )}
+      <p
+        className={cn('mt-1 text-xs', {
+          'text-red-500': weakPassword,
+          'text-yellow-500': moderatePassword,
+          'text-green-500': strongPassword
+        })}>
+        {weakPassword && 'Weak'}
+        {moderatePassword && 'Moderate'}
+        {strongPassword && 'String'} password
+      </p>
     </div>
   )
 })
