@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
 
 export type Auth = {
   login: (username: string) => void
@@ -7,29 +8,26 @@ export type Auth = {
 }
 
 export function useAuth() {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [username, setUsername] = useState<string>('')
-
-  useEffect(() => {
-    async function getMe() {
-      setIsLoading(true)
-
+  const { isLoading, isError } = useQuery({
+    queryKey: ['getMe'],
+    queryFn: async () => {
       const data = await new Promise<{
         username: string
       }>((res) => {
         setTimeout(() => {
+          setUsername('user_name')
+
           res({
             username: 'user_name'
           })
         }, 10)
       })
 
-      setIsLoading(false)
-      setUsername(data.username)
+      return data
     }
+  })
 
-    getMe()
-  }, [])
+  const [username, setUsername] = useState<string>('')
 
   function login(user_name: string) {
     localStorage.setItem('accessToken', 'some_token')
@@ -45,6 +43,7 @@ export function useAuth() {
     username,
     login,
     logout,
+    isError,
     isLoading
   }
 }
