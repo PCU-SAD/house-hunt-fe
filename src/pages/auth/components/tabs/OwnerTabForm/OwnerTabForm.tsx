@@ -16,9 +16,10 @@ import { generateRandomString } from '@/lib/generateRandomValue'
 import PasswordInput from '@/pages/auth/components/PasswordInput'
 import PasswordInputStrength from '@/pages/auth/components/PasswordInputStrength'
 import {
-  SignupOwnerFormType,
-  useSignupOwnerForm
-} from '@/pages/auth/components/tabs/OwnerTabForm/useSignUpOwnerForm'
+  SignupFormType,
+  useSignupForm
+} from '@/pages/auth/components/tabs/OwnerTabForm/useSignupForm'
+
 import { Link, useNavigate } from '@tanstack/react-router'
 import { ClipboardEvent, FC } from 'react'
 
@@ -26,9 +27,9 @@ type OwnerTabFormProps = {}
 
 const OwnerTabForm: FC<OwnerTabFormProps> = () => {
   const navigate = useNavigate()
-  const form = useSignupOwnerForm()
+  const form = useSignupForm()
 
-  function onSubmit(values: SignupOwnerFormType) {
+  function onSubmit(values: SignupFormType) {
     toast({
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">

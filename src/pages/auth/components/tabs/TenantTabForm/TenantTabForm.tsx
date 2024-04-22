@@ -18,7 +18,7 @@ import PasswordInputStrength from '@/pages/auth/components/PasswordInputStrength
 import {
   SignupOwnerFormType,
   useSignupOwnerForm
-} from '@/pages/auth/components/tabs/OwnerTabForm/useSignUpOwnerForm'
+} from '@/pages/auth/components/tabs/OwnerTabForm/useSignupForm'
 
 import { Link, useNavigate } from '@tanstack/react-router'
 import { ClipboardEvent, FC } from 'react'
