@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 
-import { FC, InputHTMLAttributes, forwardRef, useEffect, useState } from 'react'
+import { FC, InputHTMLAttributes, forwardRef, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Progress } from '../../../components/ui/progress'
 import { FormType } from '../hooks/useLoginForm'
@@ -13,7 +13,6 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
   PasswordInputProps
 >(({ ...props }, ref) => {
   const initialStrength = 10
-  const [strength, setStrength] = useState(initialStrength)
 
   const form = useFormContext<FormType>()
 
@@ -23,7 +22,8 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
     let strength = initialStrength
 
     if (password?.length >= 8) strength += 22
-    if (/[A-Z]/.test(password)) strength += 22
+    if (/[a-z]/.test(password)) strength += 11
+    if (/[A-Z]/.test(password)) strength += 11
     if (/[0-9]/.test(password)) strength += 22
     if (/[-!@#$%^&*(),.?":{}|<>]/.test(password)) strength += 22
 
@@ -32,9 +32,7 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
     return strength
   }
 
-  useEffect(() => {
-    setStrength(evaluatePasswordStrength(password))
-  }, [password])
+  const strength = useMemo(() => evaluatePasswordStrength(password), [password])
 
   return (
     <div>
