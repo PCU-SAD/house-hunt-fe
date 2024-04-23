@@ -9,6 +9,7 @@ import {
   PaginationNext,
   PaginationPrevious
 } from '@/components/ui/pagination'
+import { cn } from '@/lib/utils'
 import { Link } from '@tanstack/react-router'
 import { FC } from 'react'
 
@@ -54,7 +55,14 @@ const HomePage: FC<HomePageProps> = () => {
             </PaginationItem>
 
             <PaginationItem>
-              <Button variant="ghost">1</Button>
+              <Button
+                variant="ghost"
+                className={cn({
+                  'bg-slate-800 text-white hover:bg-slate-800 hover:text-white':
+                    true
+                })}>
+                1
+              </Button>
             </PaginationItem>
             <PaginationItem>
               <Button variant="ghost">2</Button>

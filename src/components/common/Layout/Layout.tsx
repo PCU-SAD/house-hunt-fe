@@ -4,6 +4,7 @@ import Container from './Container'
 import AccountMenubar from './NavMenu/AccountMenu/AccountMenubar'
 import MobileMenu from './NavMenu/MobileMenu/MobileMenu'
 import NavMenu from './NavMenu/NavMenu'
+import Footer from '@/components/common/Layout/Footer/Footer'
 
 type LayoutProps = {
   children?: ReactNode
@@ -22,6 +23,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       </header>
 
       {children && <div>{children}</div>}
+
+      <Footer />
     </main>
   )
 }
