@@ -1,12 +1,6 @@
-import { Container, Layout } from '@/components'
+import HousesPage from '@/pages/houses/Houses'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/houses')({
-  component: () => (
-    <Layout>
-      <Container>
-        <div>Hello houses</div>
-      </Container>
-    </Layout>
-  )
+  component: HousesPage
 })

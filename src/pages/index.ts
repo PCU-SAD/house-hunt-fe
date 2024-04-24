@@ -1,9 +1,21 @@
-import Loading from '@/pages/loading/Loading'
+import LoadingPage from '@/pages/loading/Loading'
 import App from './App'
-import Login from './auth/login/LoginPage'
-import Signup from './auth/signup/SignupPage'
+import LoginPage from './auth/login/LoginPage'
+import SignupPage from './auth/signup/SignupPage'
 import ErrorPage from './error/ErrorPage'
-import Home from './home/Home'
-import NotFound from './not-found/NotFound'
+import HomePage from './home/Home'
+import HousesPage from './houses/Houses'
+import NotFoundPage from './not-found/NotFound'
+import SettingsPage from './settings/Settings'
 
-export { App, ErrorPage, Home, Loading, Login, NotFound, Signup }
+export {
+  App,
+  ErrorPage,
+  HomePage,
+  HousesPage,
+  LoadingPage,
+  LoginPage,
+  NotFoundPage,
+  SettingsPage,
+  SignupPage
+}

@@ -56,6 +56,7 @@ const NavMenu: FC = () => {
             Apartments
           </Link>
         </NavigationMenuItem>
+
         <NavigationMenuItem>
           <Link
             to="/protected"
