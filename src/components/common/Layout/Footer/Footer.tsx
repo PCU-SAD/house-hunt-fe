@@ -1,19 +1,36 @@
+import Container from '@/components/common/Layout/Container'
 import { Typography } from '@/components/ui/typography'
+import { InstagramLogoIcon } from '@radix-ui/react-icons'
 import { FC } from 'react'
+import Logo from '/public/logo.svg'
 
 type FooterProps = {}
 
 const Footer: FC<FooterProps> = () => {
   return (
-    <footer className="rounded-tl-xl rounded-tr-xl bg-primary py-8 text-primary-foreground min-h-[300px] mt-12">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-4 gap-4">
+    <footer className="mt-12 min-h-[300px] rounded-tl-xl rounded-tr-xl border-t bg-secondary py-8 pb-16 text-primary shadow-lg">
+      <Container>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
           <div>
-            <Typography variant="h2">Some logo</Typography>
-            <Typography className="mt-2">Contacts: 123-456-7890</Typography>
+            <img src={Logo} className="w-[80px]" />
+            <Typography className="mt-6">Contacts:</Typography>
+            <a href="tel:+420 749 142 849">+420 749 142 849</a>
+
+            <ul className="mt-2 flex gap-2">
+              <li>
+                <a>
+                  <InstagramLogoIcon className="h-5 w-5" />
+                </a>
+              </li>
+              <li>
+                <a>
+                  <InstagramLogoIcon className="h-5 w-5" />
+                </a>
+              </li>
+            </ul>
           </div>
 
-          <div className="col-start-2">
+          <div>
             <ul>
               <li>Link 1</li>
               <li>Link 2</li>
@@ -35,7 +52,7 @@ const Footer: FC<FooterProps> = () => {
             </ul>
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   )
 }
