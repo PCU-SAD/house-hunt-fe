@@ -30,7 +30,7 @@ function SignupPage() {
             </TabsTrigger>
           </TabsList>
 
-          <div className="mt-2">
+          <div className="mt-2 pb-4">
             <SignupForm userType={userTypeTab} />
           </div>
         </Tabs>

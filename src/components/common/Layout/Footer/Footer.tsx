@@ -2,7 +2,7 @@ import Container from '@/components/common/Layout/Container'
 import { Typography } from '@/components/ui/typography'
 import { InstagramLogoIcon } from '@radix-ui/react-icons'
 import { FC } from 'react'
-import Logo from '/public/logo.svg'
+import Logo from '/logo.svg'
 
 type FooterProps = {}
 
@@ -17,6 +17,16 @@ const Footer: FC<FooterProps> = () => {
             <a href="tel:+420 749 142 849">+420 749 142 849</a>
 
             <ul className="mt-2 flex gap-2">
+              <li>
+                <a>
+                  <InstagramLogoIcon className="h-5 w-5" />
+                </a>
+              </li>
+              <li>
+                <a>
+                  <InstagramLogoIcon className="h-5 w-5" />
+                </a>
+              </li>
               <li>
                 <a>
                   <InstagramLogoIcon className="h-5 w-5" />

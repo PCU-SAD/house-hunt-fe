@@ -14,9 +14,11 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as SignupImport } from './routes/signup'
 import { Route as LoginImport } from './routes/login'
 import { Route as HousesImport } from './routes/houses'
+import { Route as SettingsRouteImport } from './routes/settings/route'
 import { Route as ApartmentsRouteImport } from './routes/apartments/route'
 import { Route as AuthRouteImport } from './routes/_auth/route'
 import { Route as IndexImport } from './routes/index'
+import { Route as SettingsAccountImport } from './routes/settings/account'
 import { Route as ApartmentsIdImport } from './routes/apartments/$id'
 import { Route as AuthProtectedImport } from './routes/_auth/protected'
 
@@ -37,6 +39,11 @@ const HousesRoute = HousesImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const SettingsRouteRoute = SettingsRouteImport.update({
+  path: '/settings',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ApartmentsRouteRoute = ApartmentsRouteImport.update({
   path: '/apartments',
   getParentRoute: () => rootRoute,
@@ -50,6 +57,11 @@ const AuthRouteRoute = AuthRouteImport.update({
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const SettingsAccountRoute = SettingsAccountImport.update({
+  path: '/account',
+  getParentRoute: () => SettingsRouteRoute,
 } as any)
 
 const ApartmentsIdRoute = ApartmentsIdImport.update({
@@ -78,6 +90,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApartmentsRouteImport
       parentRoute: typeof rootRoute
     }
+    '/settings': {
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRoute
+    }
     '/houses': {
       preLoaderRoute: typeof HousesImport
       parentRoute: typeof rootRoute
@@ -98,6 +114,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApartmentsIdImport
       parentRoute: typeof ApartmentsRouteImport
     }
+    '/settings/account': {
+      preLoaderRoute: typeof SettingsAccountImport
+      parentRoute: typeof SettingsRouteImport
+    }
   }
 }
 
@@ -107,6 +127,7 @@ export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AuthRouteRoute.addChildren([AuthProtectedRoute]),
   ApartmentsRouteRoute.addChildren([ApartmentsIdRoute]),
+  SettingsRouteRoute.addChildren([SettingsAccountRoute]),
   HousesRoute,
   LoginRoute,
   SignupRoute,

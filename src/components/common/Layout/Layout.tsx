@@ -7,13 +7,13 @@ import MobileMenu from './NavMenu/MobileMenu/MobileMenu'
 import NavMenu from './NavMenu/NavMenu'
 
 type LayoutProps = {
-  children?: ReactNode
+  children: ReactNode
 }
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <main className="flex min-h-screen flex-col">
-      <header className="shadow-md">
+      <header className="mb-6 shadow-md">
         <Container className="flex h-14 items-center justify-between">
           <NavMenu />
 
@@ -22,7 +22,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         </Container>
       </header>
 
-      <div className="flex-grow">{children && <div>{children}</div>}</div>
+      <div className="flex-grow">{children}</div>
 
       <Footer />
     </main>

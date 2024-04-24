@@ -1,9 +1,9 @@
 import { router } from '@/app'
-import { Loading } from '@/pages'
+
 import { useAuth } from '@/pages/auth/hooks/useAuth'
+import LoadingPage from '@/pages/loading/Loading'
 import { RouterProvider } from '@tanstack/react-router'
 import { FC, useEffect, useMemo } from 'react'
-
 
 type AppProps = {}
 
@@ -22,7 +22,7 @@ const App: FC<AppProps> = () => {
   }, [routerContext])
 
   if (auth.isLoading) {
-    return <Loading />
+    return <LoadingPage />
   }
 
   return <RouterProvider router={router} context={routerContext} />

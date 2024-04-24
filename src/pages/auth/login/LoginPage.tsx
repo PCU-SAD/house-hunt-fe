@@ -46,11 +46,11 @@ function LoginPage() {
 
   // Ah, the subtle nuances of client side auth. 🙄
   useLayoutEffect(() => {
-    if (auth.username && search.redirect) {
+    if (auth?.username && search.redirect) {
       console.log('redirecting to', search.redirect)
       router.history.push(search.redirect)
     }
-  }, [auth.username, router.history, search.redirect])
+  }, [auth?.username, router.history, search.redirect])
 
   return (
     <div className="flex h-screen flex-col justify-center gap-10 sm:items-center">

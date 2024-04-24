@@ -8,7 +8,7 @@ import {
   MenubarTrigger
 } from '@/components/ui/menubar'
 import { Route } from '@/routes/__root'
-import { useNavigate } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { UserIcon } from 'lucide-react'
 import { FC } from 'react'
 import './styles.css'
@@ -33,10 +33,10 @@ const AccountMenubar: FC<AccountMenubarProps> = () => {
           <UserIcon className="h-4 w-4" />
         </MenubarTrigger>
         <MenubarContent align="end">
-          <MenubarItem>Settings 1</MenubarItem>
-          <MenubarItem>Settings 2</MenubarItem>
-          <MenubarItem>Settings 3</MenubarItem>
-          <MenubarItem>Settings 4</MenubarItem>
+          <Link to="/settings">
+            <MenubarItem>Settings</MenubarItem>
+          </Link>
+
           <MenubarItem>Become a member</MenubarItem>
           <MenubarSeparator />
 
