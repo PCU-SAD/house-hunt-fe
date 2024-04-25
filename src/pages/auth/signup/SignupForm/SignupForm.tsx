@@ -24,7 +24,7 @@ import {
 import { UserTypeTab } from '@/pages/auth/signup/SignupPage'
 import { authService } from '@/services/auth-service'
 
-import { Link, useNavigate } from '@tanstack/react-router'
+import { Link } from '@tanstack/react-router'
 import { ClipboardEvent, FC } from 'react'
 
 type SignupFormProps = {
@@ -32,12 +32,12 @@ type SignupFormProps = {
 }
 
 const SignupForm: FC<SignupFormProps> = ({ userType }) => {
-  const navigate = useNavigate()
   const form = useSignupForm()
 
   async function onSubmit(values: SignupFormType) {
     const postValues: SignupPostValues = {
       name: values.name,
+      email: values.email,
       surname: values.surname,
       phoneNumber: values.phoneNumber,
       role: userType,
