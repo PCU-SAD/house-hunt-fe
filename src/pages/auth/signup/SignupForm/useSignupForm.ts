@@ -1,5 +1,7 @@
+import { UserTypeTab } from '@/pages/auth/signup/SignupPage'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { isValidPhoneNumber } from 'react-phone-number-input'
 import { z } from 'zod'
 
 const passwordSchema = z
@@ -24,13 +26,14 @@ const passwordSchema = z
 
 const signupFormSchema = z
   .object({
-    email: z
-      .string({
-        description: 'First name'
-      })
-      .email({
-        message: 'Invalid email format'
-      }),
+    name: z.string().max(50),
+    surname: z.string().max(50),
+    phoneNumber: z
+      .string()
+      .refine(isValidPhoneNumber, { message: 'Invalid phone number' }),
+    email: z.string().email({
+      message: 'Invalid email format'
+    }),
     password: passwordSchema,
     confirm_password: z.string(),
     terms: z
@@ -59,12 +62,24 @@ const signupFormSchema = z
 
 export type SignupFormType = z.infer<typeof signupFormSchema>
 
+export type SignupPostValues = {
+  name: string
+  surname: string
+  phoneNumber: string
+  email: string
+  password: string
+  role: UserTypeTab
+}
+
 export function useSignupForm() {
   return useForm<SignupFormType>({
     resolver: zodResolver(signupFormSchema),
     mode: 'onChange',
     defaultValues: {
+      name: '',
+      surname: '',
       email: '',
+      phoneNumber: '',
       password: '',
       confirm_password: '',
       terms: false,
