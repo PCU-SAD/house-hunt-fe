@@ -15,10 +15,10 @@ export function useAuth() {
     queryFn: authService.refresh
   })
 
-  const getMeQuery = useQuery({
-    queryKey: ['getMe'],
-    queryFn: () => {}
-  })
+  // const getMeQuery = useQuery({
+  //   queryKey: ['getMe'],
+  //   queryFn: () => {}
+  // })
 
   api.interceptors.response.use((config) => {
     config.headers.Authorization = `Bearer ${data.accessToken}`

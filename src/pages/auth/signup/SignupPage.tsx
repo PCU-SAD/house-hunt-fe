@@ -1,5 +1,5 @@
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import SignupForm from '@/pages/auth/components/SignupForm/SignupForm'
+import SignupForm from '@/pages/auth/signup/SignupForm/SignupForm'
 import { useState } from 'react'
 
 export type UserTypeTab = 'tenant' | 'owner'
@@ -16,11 +16,9 @@ function SignupPage() {
   }
 
   return (
-    <div className="flex h-screen flex-col sm:items-center">
-      <div className="mt-12 px-4">
-        <Tabs
-          defaultValue="tenant"
-          className="mx-auto w-full min-w-[330px] max-w-[400px]">
+    <div className="flex h-screen flex-col items-center">
+      <div className="min-w-[340px] max-w-[450px] px-4 py-4">
+        <Tabs defaultValue="tenant" className="mx-auto w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="tenant" onClick={handleTenantTabClick}>
               Tenant
@@ -30,7 +28,7 @@ function SignupPage() {
             </TabsTrigger>
           </TabsList>
 
-          <div className="mt-2 pb-4">
+          <div className="mt-2">
             <SignupForm userType={userTypeTab} />
           </div>
         </Tabs>

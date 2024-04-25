@@ -1,3 +1,7 @@
+import { api } from '@/api/api'
+import { SignupPostValues } from '@/pages/auth/signup/SignupForm/useSignupForm'
+import axios from 'axios'
+
 export const authService = {
   refresh: async () => {
     try {
@@ -14,6 +18,19 @@ export const authService = {
       return data
     } catch (error) {
       throw new Error('Not authorized')
+    }
+  },
+  signup: async (signupData: SignupPostValues) => {
+    try {
+      const { data } = await api.post('/register', signupData)
+
+      return data
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
     }
   }
 }
