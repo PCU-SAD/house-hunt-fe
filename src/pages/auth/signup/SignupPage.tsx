@@ -2,17 +2,17 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import SignupForm from '@/pages/auth/signup/SignupForm/SignupForm'
 import { useState } from 'react'
 
-export type UserTypeTab = 'tenant' | 'owner'
+export type UserTypeTab = 'TENANT' | 'OWNER'
 
 function SignupPage() {
-  const [userTypeTab, setUserTypeTab] = useState<UserTypeTab>('tenant')
+  const [userTypeTab, setUserTypeTab] = useState<UserTypeTab>('TENANT')
 
   function handleOwnerTabClick() {
-    setUserTypeTab('owner')
+    setUserTypeTab('OWNER')
   }
 
   function handleTenantTabClick() {
-    setUserTypeTab('tenant')
+    setUserTypeTab('TENANT')
   }
 
   return (
