@@ -128,6 +128,7 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
                 <FormControl className="w-full">
                   <PhoneInput
                     placeholder="Enter a phone number"
+                    international
                     defaultCountry="CZ"
                     {...field}
                   />
