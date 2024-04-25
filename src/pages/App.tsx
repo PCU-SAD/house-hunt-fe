@@ -2,6 +2,7 @@ import { router } from '@/app'
 
 import { useAuth } from '@/pages/auth/hooks/useAuth'
 import LoadingPage from '@/pages/loading/Loading'
+
 import { RouterProvider } from '@tanstack/react-router'
 import { FC, useEffect, useMemo } from 'react'
 

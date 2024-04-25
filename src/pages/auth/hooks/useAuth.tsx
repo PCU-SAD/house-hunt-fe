@@ -1,4 +1,6 @@
+import { api } from '@/api/api'
 import { queryClient } from '@/app'
+import { authService } from '@/services/auth-service'
 import { useQuery } from '@tanstack/react-query'
 
 export type Auth = {
@@ -9,37 +11,54 @@ export type Auth = {
 
 export function useAuth() {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['getMe'],
-    queryFn: async () => {
-      const data = await new Promise<{
-        username: string
-      }>((res) => {
-        setTimeout(() => {
-          res({
-            username: 'user name'
-          })
-        }, 10)
-      })
-
-      return data
-    }
+    queryKey: ['refresh'],
+    queryFn: authService.refresh
   })
+
+  const getMeQuery = useQuery({
+    queryKey: ['getMe'],
+    queryFn: () => {}
+  })
+
+  api.interceptors.response.use((config) => {
+    config.headers.Authorization = `Bearer ${data.accessToken}`
+
+    return config
+  })
+
+  api.interceptors.response.use(
+    (config) => config,
+    async (error) => {
+      const originalRequest = error.config
+
+      if (error.response.status === 401 && !error.config._retry) {
+        originalRequest._retry = true
+
+        try {
+          queryClient.invalidateQueries({
+            queryKey: ['refresh']
+          })
+
+          return api.request(originalRequest)
+        } catch (error) {
+          console.log('Not authorized')
+        }
+      }
+    }
+  )
 
   function login(user_name: string) {
     queryClient.setQueryData(['getMe'], {
       username: user_name
     })
-
-    localStorage.setItem('accessToken', 'some_token')
   }
 
   function logout() {
-    localStorage.removeItem('accessToken')
     queryClient.setQueryData(['getMe'], null)
   }
 
   return {
-    username: data?.username || null,
+    username: 'user_name',
     login,
     logout,
     isError,
