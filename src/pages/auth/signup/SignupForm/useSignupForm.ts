@@ -26,8 +26,8 @@ const passwordSchema = z
 
 const signupFormSchema = z
   .object({
-    name: z.string().max(50),
-    surname: z.string().max(50),
+    name: z.string().min(1, 'First name is required').max(50),
+    surname: z.string().min(1, 'Last name is required').max(50),
     phoneNumber: z
       .string()
       .refine(isValidPhoneNumber, { message: 'Invalid phone number' }),
