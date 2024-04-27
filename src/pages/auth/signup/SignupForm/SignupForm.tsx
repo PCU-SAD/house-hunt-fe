@@ -35,6 +35,8 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
   const form = useSignupForm()
 
   async function onSubmit(values: SignupFormType) {
+    console.log('🚀 ~ onSubmit ~ values:', values)
+
     const postValues: SignupPostValues = {
       name: values.name,
       email: values.email,
@@ -109,7 +111,7 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
             render={({ field }) => {
               return (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Last name</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter your last name" {...field} />
                   </FormControl>
