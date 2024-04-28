@@ -1,4 +1,5 @@
 import LoadingPage from '@/pages/loading/Loading'
+import AdminPage from './admin/Admin'
 import App from './App'
 import LoginPage from './auth/login/LoginPage'
 import SignupPage from './auth/signup/SignupPage'
@@ -9,6 +10,7 @@ import NotFoundPage from './not-found/NotFound'
 import SettingsPage from './settings/Settings'
 
 export {
+  AdminPage,
   App,
   ErrorPage,
   HomePage,

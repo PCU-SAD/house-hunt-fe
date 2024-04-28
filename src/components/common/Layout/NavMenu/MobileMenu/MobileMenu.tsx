@@ -6,9 +6,9 @@ import {
 } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { Link } from '@tanstack/react-router'
 import { X as CloseIcon, Menu as MenuIcon } from 'lucide-react'
 import { FC, useEffect, useRef, useState } from 'react'
-import { Link } from '@tanstack/react-router'
 import { useBlur } from './useBlur'
 
 type MobileMenuProps = {}
@@ -45,10 +45,8 @@ const MobileMenu: FC<MobileMenuProps> = () => {
   useEffect(() => {
     if (showMenu) {
       document.body.classList.add('overflow-hidden')
-      document.documentElement.style.overflow = 'hidden'
     } else {
       document.body.classList.remove('overflow-hidden')
-      document.documentElement.style.overflow = 'auto'
     }
   }, [showMenu])
 
@@ -58,8 +56,7 @@ const MobileMenu: FC<MobileMenuProps> = () => {
         size="icon"
         onClick={handleOpen}
         variant="ghost"
-        className="md:hidden"
-      >
+        className="md:hidden">
         <MenuIcon />
       </Button>
 
@@ -70,14 +67,12 @@ const MobileMenu: FC<MobileMenuProps> = () => {
           {
             'translate-x-0': showMenu
           }
-        )}
-      >
+        )}>
         <Button
           size="icon"
           onClick={handleClose}
           variant="outline"
-          className="absolute right-4 top-2"
-        >
+          className="absolute right-4 top-2">
           <CloseIcon />
         </Button>
 

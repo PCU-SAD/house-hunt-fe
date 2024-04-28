@@ -48,7 +48,7 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
 
     toast({
       description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+        <pre className="mt-2 w-full flex-1 whitespace-break-spaces rounded-md bg-slate-950 p-4">
           <code className="text-white">
             {JSON.stringify(postValues, null, 2)}
           </code>
@@ -130,7 +130,6 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
                 <FormControl className="w-full">
                   <PhoneInput
                     placeholder="Enter a phone number"
-                    international
                     defaultCountry="CZ"
                     {...field}
                   />
