@@ -14,7 +14,6 @@ import { DataTableColumnHeader } from '@/components/ui/table/column-header'
 
 export type Payment = {
   id: string
-  amount: number
   status: 'pending' | 'processing' | 'success' | 'failed'
   email: string
 }
@@ -35,20 +34,15 @@ export const columns: ColumnDef<Payment>[] = [
     }
   },
   {
-    accessorKey: 'amount',
+    accessorKey: 'status',
     enableSorting: true,
     header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="Amount" />
+      return <DataTableColumnHeader column={column} title="Status" />
     },
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue('amount'))
+      const status = row.getValue('status').toString()
 
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }).format(amount)
-
-      return <div className="font-medium">{formatted}</div>
+      return <div>{status}</div>
     }
   },
   {
