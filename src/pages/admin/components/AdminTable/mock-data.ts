@@ -2,80 +2,69 @@ import { Payment } from '@/pages/admin/components/AdminTable/columns'
 
 export const data: Payment[] = [
   {
-    id: '728ed52f',
-    
+    id: '1',
     status: 'pending',
     email: 'm@example.com'
   },
   {
-    id: '7281easfd52f',
-    
+    id: '2',
+
     status: 'pending',
     email: 'a@example.com'
   },
   {
-    id: '721edh52f',
-    
+    id: '3',
     status: 'pending',
     email: 'q@example.com'
   },
-  // Additional items
   {
-    id: '3wffefgd52f',
-    
+    id: '4',
+
     status: 'pending',
     email: 'b@example.com'
   },
   {
-    id: 'gfd4552f',
-    
+    id: '5',
+
     status: 'pending',
     email: 'c@example.com'
   },
   {
-    id: '425452f',
-    
+    id: '6',
+
     status: 'pending',
     email: 'd@example.com'
   },
   {
-    id: 'gd34452f',
-    
+    id: '7',
+
     status: 'pending',
     email: 'e@example.com'
   },
   {
-    id: '721ed52f',
-    
+    id: '8',
+
     status: 'pending',
     email: 'q@example.com'
   },
-  // Additional items
   {
-    id: '3edffgd52f',
-    
-    status: 'pending',
+    id: '9',
+    status: 'failed',
     email: 'b@example.com'
   },
   {
-    id: 'gfd4df52f',
-    
-    status: 'pending',
+    id: '10',
+    status: 'processing',
     email: 'c@example.com'
   },
   {
-    id: '4545dfs2f',
-    
+    id: '12',
     status: 'pending',
     email: 'd@example.com'
   },
   {
-    id: 'gdfdf3452f',
-    
+    id: '13',
     status: 'pending',
     email: 'e@example.com'
   }
-  // Add more items similarly
-  // ...
-  // ...
 ]

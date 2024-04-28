@@ -21,11 +21,7 @@ const AdminTable: FC<AdminTableProps> = () => {
     return <LoadingPage />
   }
 
-  return (
-    <div>
-      <DataTable columns={columns} data={data} />
-    </div>
-  )
+  return <DataTable columns={columns} data={data} />
 }
 
 export default AdminTable
