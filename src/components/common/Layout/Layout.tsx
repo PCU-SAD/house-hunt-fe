@@ -13,7 +13,7 @@ type LayoutProps = {
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <main className="flex min-h-screen flex-col">
-      <header className="mb-6 shadow-md">
+      <header className="mb-6 border-b">
         <Container className="flex h-14 items-center justify-between">
           <NavMenu />
 

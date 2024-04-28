@@ -28,7 +28,7 @@ export const Route = createRootRouteWithContext<RouteContext>()({
 
 function Index() {
   return (
-    <div className="min-h-dvh overflow-x-hidden">
+    <>
       <Toaster />
 
       <Outlet />
@@ -38,6 +38,6 @@ function Index() {
       <Suspense>
         <TanStackRouterDevtools />
       </Suspense>
-    </div>
+    </>
   )
 }

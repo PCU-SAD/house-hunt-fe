@@ -45,8 +45,11 @@ const MobileMenu: FC<MobileMenuProps> = () => {
   useEffect(() => {
     if (showMenu) {
       document.body.classList.add('overflow-hidden')
+
+      document.getElementById('app')?.classList.add('overflow-hidden')
     } else {
       document.body.classList.remove('overflow-hidden')
+      document.getElementById('app')?.classList.remove('overflow-hidden')
     }
   }, [showMenu])
 
@@ -63,9 +66,10 @@ const MobileMenu: FC<MobileMenuProps> = () => {
       <div
         ref={menuRef}
         className={cn(
-          'absolute right-0 top-0 z-20 flex h-dvh w-[80%] translate-x-full transform flex-col justify-center overflow-y-auto rounded-md bg-background p-4 px-6 shadow-2xl transition-transform duration-200 md:hidden',
+          'absolute right-0 top-0 z-20 flex h-dvh w-[80%] translate-x-full transform flex-col justify-center overflow-y-auto rounded-md bg-background p-4 px-6  transition-transform duration-200 md:hidden',
           {
-            'translate-x-0': showMenu
+            'translate-x-0': showMenu,
+            'shadow-2xl': showMenu
           }
         )}>
         <Button
