@@ -75,8 +75,11 @@
   }
 }
 
+body[data-scroll-locked] {
+  min-width: 100%;
+}
+
 html,
 body {
   overflow-x: hidden;
-  position: relative;
 }

@@ -14,13 +14,15 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as SignupImport } from './routes/signup'
 import { Route as LoginImport } from './routes/login'
 import { Route as HousesImport } from './routes/houses'
+import { Route as AuthUserImport } from './routes/_auth-user'
+import { Route as AuthAdminImport } from './routes/_auth-admin'
 import { Route as SettingsRouteImport } from './routes/settings/route'
 import { Route as ApartmentsRouteImport } from './routes/apartments/route'
-import { Route as AuthRouteImport } from './routes/_auth/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as SettingsAccountImport } from './routes/settings/account'
 import { Route as ApartmentsIdImport } from './routes/apartments/$id'
-import { Route as AuthProtectedImport } from './routes/_auth/protected'
+import { Route as AuthUserProtectedImport } from './routes/_auth-user/protected'
+import { Route as AuthAdminAdminImport } from './routes/_auth-admin/admin'
 
 // Create/Update Routes
 
@@ -39,6 +41,16 @@ const HousesRoute = HousesImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthUserRoute = AuthUserImport.update({
+  id: '/_auth-user',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthAdminRoute = AuthAdminImport.update({
+  id: '/_auth-admin',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const SettingsRouteRoute = SettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => rootRoute,
@@ -46,11 +58,6 @@ const SettingsRouteRoute = SettingsRouteImport.update({
 
 const ApartmentsRouteRoute = ApartmentsRouteImport.update({
   path: '/apartments',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthRouteRoute = AuthRouteImport.update({
-  id: '/_auth',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -69,9 +76,14 @@ const ApartmentsIdRoute = ApartmentsIdImport.update({
   getParentRoute: () => ApartmentsRouteRoute,
 } as any)
 
-const AuthProtectedRoute = AuthProtectedImport.update({
+const AuthUserProtectedRoute = AuthUserProtectedImport.update({
   path: '/protected',
-  getParentRoute: () => AuthRouteRoute,
+  getParentRoute: () => AuthUserRoute,
+} as any)
+
+const AuthAdminAdminRoute = AuthAdminAdminImport.update({
+  path: '/admin',
+  getParentRoute: () => AuthAdminRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -82,16 +94,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/_auth': {
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRoute
-    }
     '/apartments': {
       preLoaderRoute: typeof ApartmentsRouteImport
       parentRoute: typeof rootRoute
     }
     '/settings': {
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/_auth-admin': {
+      preLoaderRoute: typeof AuthAdminImport
+      parentRoute: typeof rootRoute
+    }
+    '/_auth-user': {
+      preLoaderRoute: typeof AuthUserImport
       parentRoute: typeof rootRoute
     }
     '/houses': {
@@ -106,9 +122,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupImport
       parentRoute: typeof rootRoute
     }
-    '/_auth/protected': {
-      preLoaderRoute: typeof AuthProtectedImport
-      parentRoute: typeof AuthRouteImport
+    '/_auth-admin/admin': {
+      preLoaderRoute: typeof AuthAdminAdminImport
+      parentRoute: typeof AuthAdminImport
+    }
+    '/_auth-user/protected': {
+      preLoaderRoute: typeof AuthUserProtectedImport
+      parentRoute: typeof AuthUserImport
     }
     '/apartments/$id': {
       preLoaderRoute: typeof ApartmentsIdImport
@@ -125,9 +145,10 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
-  AuthRouteRoute.addChildren([AuthProtectedRoute]),
   ApartmentsRouteRoute.addChildren([ApartmentsIdRoute]),
   SettingsRouteRoute.addChildren([SettingsAccountRoute]),
+  AuthAdminRoute.addChildren([AuthAdminAdminRoute]),
+  AuthUserRoute.addChildren([AuthUserProtectedRoute]),
   HousesRoute,
   LoginRoute,
   SignupRoute,
