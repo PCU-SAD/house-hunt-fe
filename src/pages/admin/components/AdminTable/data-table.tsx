@@ -3,10 +3,12 @@ import {
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
+  PaginationState,
   SortingState,
   useReactTable
 } from '@tanstack/react-table'
 
+import { Skeleton } from '@/components/ui/skeleton'
 import {
   Table,
   TableBody,
@@ -16,38 +18,73 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { DataTablePagination } from '@/components/ui/table/pagination'
-import { useState } from 'react'
+import { UserData } from '@/pages/admin/components/AdminTable/mock-data'
+import { Dispatch, SetStateAction, useMemo, useState } from 'react'
 
-type DataTableProps<TData, TValue> = {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+type DataTableProps = {
+  columns: ColumnDef<UserData>[]
+  data: UserData[]
+  isLoading: boolean
+  meta: {
+    total: number
+  }
+  noResults: boolean
+  pagination: PaginationState
+  setPagination: Dispatch<SetStateAction<PaginationState>>
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable({
   columns,
-  data
-}: DataTableProps<TData, TValue>) {
+  data,
+  meta,
+  pagination,
+  setPagination,
+  isLoading,
+  noResults
+}: DataTableProps) {
   const [sorting, setSorting] = useState<SortingState>([])
+
+  const columnsMemo = useMemo(
+    () =>
+      isLoading
+        ? columns.map((column) => ({
+            ...column,
+            cell: () => <Skeleton className="h-[20px] w-full" />
+          }))
+        : columns,
+    [isLoading, columns]
+  )
 
   const table = useReactTable({
     data,
-    columns,
+    columns: columnsMemo,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
 
-    rowCount: data.length,
-    pageCount: 3,
+    rowCount: meta.total,
 
-  
     manualPagination: true,
     state: {
-      sorting
+      sorting,
+      pagination
     }
   })
 
   return (
     <div>
+      <pre>
+        <code>
+          {JSON.stringify(
+            {
+              sorting,
+              pagination
+            },
+            null,
+            2
+          )}
+        </code>
+      </pre>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -69,7 +106,7 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {table.getRowModel().rows?.length &&
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -83,8 +120,9 @@ export function DataTable<TData, TValue>({
                     </TableCell>
                   ))}
                 </TableRow>
-              ))
-            ) : (
+              ))}
+
+            {noResults && (
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
@@ -96,7 +134,11 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      <DataTablePagination
+        table={table}
+        setPagination={setPagination}
+        pagination={pagination}
+      />
     </div>
   )
 }

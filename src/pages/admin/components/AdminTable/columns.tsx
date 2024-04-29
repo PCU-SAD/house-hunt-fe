@@ -11,19 +11,14 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { DataTableColumnHeader } from '@/components/ui/table/column-header'
+import { UserData } from '@/pages/admin/components/AdminTable/mock-data'
 
-export type Payment = {
-  id: string
-  status: 'pending' | 'processing' | 'success' | 'failed'
-  email: string
-}
-
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<UserData>[] = [
   {
-    accessorKey: 'status',
+    accessorKey: 'id',
     enableSorting: false,
     header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="Status" />
+      return <DataTableColumnHeader column={column} title="Id" />
     }
   },
   {
