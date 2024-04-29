@@ -18,6 +18,7 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { DataTablePagination } from '@/components/ui/table/pagination'
+import { cn } from '@/lib/utils'
 import { UserData } from '@/pages/admin/components/AdminTable/mock-data'
 import { Dispatch, SetStateAction, useMemo, useState } from 'react'
 
@@ -47,10 +48,20 @@ export function DataTable({
   const columnsMemo = useMemo(
     () =>
       isLoading
-        ? columns.map((column) => ({
-            ...column,
-            cell: () => <Skeleton className="h-[20px] w-full" />
-          }))
+        ? columns.map((column) => {
+            console.log(column)
+            return {
+              ...column,
+              cell: () => (
+                <div
+                  className={cn('flex', {
+                    'justify-end': column.id === 'actions'
+                  })}>
+                  <Skeleton className={cn('h-[18px] w-1/2')} />
+                </div>
+              )
+            }
+          })
         : columns,
     [isLoading, columns]
   )
