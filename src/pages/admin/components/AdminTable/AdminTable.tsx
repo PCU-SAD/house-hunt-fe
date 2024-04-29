@@ -1,4 +1,4 @@
-import { DataTable } from '@/pages/admin/components/AdminTable/data-table'
+import { DataTable } from '@/pages/admin/components/AdminTable/DataTable'
 import { fakePaginationResponse } from '@/pages/admin/components/AdminTable/mock-data'
 import { useQuery } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
@@ -33,21 +33,19 @@ const AdminTable: FC<AdminTableProps> = () => {
   const {
     data: serverData,
     isLoading,
+    isError,
     isSuccess
   } = useQuery({
-    queryKey: [pagination.pageSize, pagination.pageIndex, 'admin-table'],
-
-    queryFn: () => {
-      return fakePaginationResponse(
-        pagination.pageSize,
-        pagination.pageIndex + 1
-      )
-    }
+    queryKey: ['admin-table', pagination.pageSize, pagination.pageIndex],
+    queryFn: () =>
+      fakePaginationResponse(pagination.pageSize, pagination.pageIndex + 1)
   })
 
   const data = useMemo(() => {
-    return (isLoading ? Array(30).fill({}) : serverData?.data) ?? []
-  }, [serverData, isLoading])
+    return (
+      (isLoading ? Array(pagination.pageSize).fill({}) : serverData?.data) ?? []
+    )
+  }, [isLoading, pagination.pageSize, serverData?.data])
 
   const columns: ColumnDef<UserData>[] = [
     {
@@ -95,10 +93,10 @@ const AdminTable: FC<AdminTableProps> = () => {
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem
                   onClick={() => navigator.clipboard.writeText(payment.id)}>
-                  Copy payment ID
+                  Copy user ID
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>View customer</DropdownMenuItem>
+                <DropdownMenuItem>View user</DropdownMenuItem>
                 <DropdownMenuItem>View payment details</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -113,6 +111,7 @@ const AdminTable: FC<AdminTableProps> = () => {
       columns={columns}
       data={data}
       isLoading={isLoading}
+      isError={isError}
       meta={{
         total: serverData?.total
       }}
