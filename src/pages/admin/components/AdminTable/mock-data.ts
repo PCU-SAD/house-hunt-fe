@@ -1,70 +1,35 @@
-import { Payment } from '@/pages/admin/components/AdminTable/columns'
+export interface UserData {
+  id: string
+  status: string
+  email: string
+}
 
-export const data: Payment[] = [
-  {
-    id: '1',
-    status: 'pending',
-    email: 'm@example.com'
-  },
-  {
-    id: '2',
+export type PaginatedResponse = {
+  data?: UserData[]
+  total?: number
+}
 
-    status: 'pending',
-    email: 'a@example.com'
-  },
-  {
-    id: '3',
-    status: 'pending',
-    email: 'q@example.com'
-  },
-  {
-    id: '4',
+export async function fakePaginationResponse(
+  pageSize: number,
+  currentPage: number
+): Promise<PaginatedResponse> {
+  await new Promise((resolve) => setTimeout(resolve, 1000))
 
-    status: 'pending',
-    email: 'b@example.com'
-  },
-  {
-    id: '5',
+  const userData: UserData[] = new Array(1000).fill(null).map((_, index) => ({
+    id: index.toString(),
+    status: 'active',
+    email: 'fake@email.com'
+  }))
 
-    status: 'pending',
-    email: 'c@example.com'
-  },
-  {
-    id: '6',
+  // Calculate start and end index
+  const startIndex = (currentPage - 1) * pageSize
+  const endIndex = Math.min(startIndex + pageSize, userData.length)
 
-    status: 'pending',
-    email: 'd@example.com'
-  },
-  {
-    id: '7',
+  // Slice data based on pagination
+  const paginatedData = userData.slice(startIndex, endIndex)
 
-    status: 'pending',
-    email: 'e@example.com'
-  },
-  {
-    id: '8',
-
-    status: 'pending',
-    email: 'q@example.com'
-  },
-  {
-    id: '9',
-    status: 'failed',
-    email: 'b@example.com'
-  },
-  {
-    id: '10',
-    status: 'processing',
-    email: 'c@example.com'
-  },
-  {
-    id: '12',
-    status: 'pending',
-    email: 'd@example.com'
-  },
-  {
-    id: '13',
-    status: 'pending',
-    email: 'e@example.com'
+  return {
+    data: paginatedData,
+    total: userData.length
   }
-]
+}
