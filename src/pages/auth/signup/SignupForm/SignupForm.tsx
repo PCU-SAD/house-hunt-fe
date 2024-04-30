@@ -23,8 +23,9 @@ import {
 } from '@/pages/auth/signup/SignupForm/useSignupForm'
 import { UserTypeTab } from '@/pages/auth/signup/SignupPage'
 import { authService } from '@/services/auth-service'
+import { useMutation } from '@tanstack/react-query'
 
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { ClipboardEvent, FC } from 'react'
 
 type SignupFormProps = {
@@ -33,10 +34,40 @@ type SignupFormProps = {
 
 const SignupForm: FC<SignupFormProps> = ({ userType }) => {
   const form = useSignupForm()
+  const navigate = useNavigate()
+
+  const signupMutation = useMutation({
+    mutationFn: authService.signup,
+    onSuccess: () => {
+      navigate({
+        to: '/login'
+      })
+
+      toast({
+        description: 'User created successfully',
+        variant: 'default'
+      })
+    },
+    onError: (error) => {
+      toast({
+        description: error.message,
+        variant: 'destructive'
+      })
+    },
+    onSettled: (_, __, values) => {
+      toast({
+        description: (
+          <pre className="mt-2 w-full flex-1 whitespace-break-spaces rounded-md bg-slate-950 p-4">
+            <code className="text-white">
+              {JSON.stringify(values, null, 2)}
+            </code>
+          </pre>
+        )
+      })
+    }
+  })
 
   async function onSubmit(values: SignupFormType) {
-    console.log('🚀 ~ onSubmit ~ values:', values)
-
     const postValues: SignupPostValues = {
       name: values.name,
       email: values.email,
@@ -46,28 +77,7 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
       password: values.password
     }
 
-    toast({
-      description: (
-        <pre className="mt-2 w-full flex-1 whitespace-break-spaces rounded-md bg-slate-950 p-4">
-          <code className="text-white">
-            {JSON.stringify(postValues, null, 2)}
-          </code>
-        </pre>
-      )
-    })
-
-    // form.reset()
-
-    await authService.signup(postValues)
-
-    toast({
-      description: 'User created successfully',
-      variant: 'default'
-    })
-
-    // navigate({
-    //   to: '/login'
-    // })
+    signupMutation.mutate(postValues)
   }
 
   function onConfirmPasswordPaste(e: ClipboardEvent<HTMLInputElement>) {
@@ -79,55 +89,53 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
   }
 
   return (
-    <Card className="px-8 py-6">
-      <Link to="/" className="text-blue-800 underline">
-        Visit home page
-      </Link>
-
+    <Card className="px-6 py-4">
       <Typography variant="h2">Sign up</Typography>
 
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="mt-4 flex flex-col gap-4">
-          <FormField
-            name="name"
-            control={form.control}
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter your name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )
-            }}
-          />
-          <FormField
-            name="surname"
-            control={form.control}
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Last name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter your last name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )
-            }}
-          />
+          <div className="flex gap-2">
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+            <FormField
+              name="surname"
+              control={form.control}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Last name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your last name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+          </div>
 
           <FormField
             control={form.control}
             name="phoneNumber"
             render={({ field }) => (
-              <FormItem className="flex flex-col items-start">
+              <FormItem className="flex flex-1 flex-col items-start">
                 <FormLabel className="text-left">Phone Number</FormLabel>
-                <FormControl className="w-full">
+                <FormControl className="w-full flex-1">
                   <PhoneInput
                     placeholder="Enter a phone number"
                     defaultCountry="CZ"
@@ -285,6 +293,12 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
           Already have an account?{' '}
           <Link to="/login" className="text-blue-800 underline">
             Login
+          </Link>
+        </Typography>
+        <Typography className="mt-2 text-sm">
+          Sign up later{' '}
+          <Link to="/houses" className="text-blue-800 underline">
+            see all properties
           </Link>
         </Typography>
       </Form>
