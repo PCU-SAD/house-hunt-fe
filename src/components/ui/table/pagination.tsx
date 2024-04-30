@@ -75,6 +75,7 @@ export function DataTablePagination<TData>({
           <p className="text-sm font-medium">Rows per page</p>
           <Select
             value={pagination.pageSize.toString()}
+            disabled={isFetching}
             onValueChange={handleChangePageSize}>
             <SelectTrigger className="h-8 w-[70px]">
               <SelectValue placeholder={table.getState().pagination.pageSize} />

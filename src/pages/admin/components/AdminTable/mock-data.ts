@@ -13,15 +13,15 @@ export async function fakePaginationResponse(
   pageSize: number,
   currentPage: number
 ): Promise<PaginatedResponse> {
-  await new Promise((resolve) => setTimeout(resolve, 500))
+  await new Promise((resolve) => setTimeout(resolve, 100))
 
-  if (Math.random() > 0.4) {
+  if (Math.random() > 0.8) {
     throw new Error('Server error')
   }
 
   const userData: UserData[] = new Array(30_011).fill(null).map((_, index) => ({
     id: index.toString(),
-    status: Math.random() > 0.45 === 0 ? 'Active' : 'Inactive',
+    status: Math.random() > 0.45 ? 'Active' : 'Inactive',
     email: `email-number-${index + 1}@email.com`
   }))
 
