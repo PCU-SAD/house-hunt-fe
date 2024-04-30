@@ -9,7 +9,9 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Typography } from '@/components/ui/typography'
-import { FormType, useLoginForm } from '@/pages/auth/hooks/useLoginForm'
+import { toast } from '@/components/ui/use-toast'
+import { LoginFormType, useLoginForm } from '@/pages/auth/hooks/useLoginForm'
+import { authService } from '@/services/auth-service'
 import {
   Link,
   useNavigate,
@@ -32,16 +34,37 @@ function LoginPage() {
 
   const form = useLoginForm()
 
-  function onSubmit(values: FormType) {
-    auth.login(values.email)
-    form.reset()
+  async function onSubmit(values: LoginFormType) {
+    try {
+      toast({
+        description: (
+          <pre className="mt-2 w-full flex-1 whitespace-break-spaces rounded-md bg-slate-950 p-4">
+            <code className="text-white">
+              {JSON.stringify(values, null, 2)}
+            </code>
+          </pre>
+        )
+      })
 
-    if (!search.redirect) {
-      navigate({
-        to: '/'
+      await authService.login(values)
+      auth.login(values.email)
+
+      if (!search.redirect) {
+        navigate({
+          to: '/'
+        })
+      }
+
+      // form.reset()
+      // router.invalidate()
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description:
+          'There was a problem with your request. Please try again later.'
       })
     }
-    router.invalidate()
   }
 
   // Ah, the subtle nuances of client side auth. 🙄
