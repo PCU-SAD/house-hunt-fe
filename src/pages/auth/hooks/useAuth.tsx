@@ -11,18 +11,27 @@ export type Auth = {
 }
 
 export function useAuth() {
-  const { data, isLoading, isError } = useQuery({
+  const {
+    data: refreshData,
+    isLoading,
+    isError
+  } = useQuery({
     queryKey: ['refresh'],
     queryFn: authService.refresh
   })
 
-  // const getMeQuery = useQuery({
-  //   queryKey: ['getMe'],
-  //   queryFn: () => {}
-  // })
+  const { data: getMeData } = useQuery({
+    queryKey: ['getMe'],
+    queryFn: () => {
+      return {
+        username: 'user from jwt token'
+      }
+    },
+    enabled: !!refreshData
+  })
 
   api.interceptors.response.use((config) => {
-    config.headers.Authorization = `Bearer ${data.accessToken}`
+    config.headers.Authorization = `Bearer ${refreshData.accessToken}`
 
     return config
   })
@@ -68,7 +77,7 @@ export function useAuth() {
   }
 
   return {
-    username: 'user_name',
+    username: getMeData?.username,
     login,
     logout,
     isError,
