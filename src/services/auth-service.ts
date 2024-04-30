@@ -36,7 +36,8 @@ export const authService = {
   },
   login: async (loginData: LoginFormType) => {
     try {
-      const { data } = await api.post('/login', loginData)
+      // const { data } = await api.post('/login', loginData)
+      const data = true
 
       return data
     } catch (error) {

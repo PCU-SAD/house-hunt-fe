@@ -1,3 +1,4 @@
+import { queryClient } from '@/app'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -15,6 +16,7 @@ import {
   useLoginForm
 } from '@/pages/auth/login/LoginForm/useLoginForm'
 import { authService } from '@/services/auth-service'
+import { useMutation } from '@tanstack/react-query'
 import {
   Link,
   useNavigate,
@@ -35,31 +37,37 @@ function LoginForm() {
     from: '/login'
   })
 
+  const loginMutation = useMutation({
+    mutationFn: authService.login,
+    onSuccess: (_, values) => {
+      toast({
+        title: 'Login successful!',
+        description: 'You have been logged in.'
+      })
+
+      queryClient.setQueryData(['getMe'], {
+        username: values.email
+      })
+
+      navigate({
+        to: search.redirect || '/protected'
+      })
+    },
+    onError: () => {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description:
+          'There was a problem with your request. Please try again later.'
+      })
+    }
+  })
+
   const form = useLoginForm()
 
   async function onSubmit(values: LoginFormType) {
     try {
-      toast({
-        description: (
-          <pre className="mt-2 w-full flex-1 whitespace-break-spaces rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {JSON.stringify(values, null, 2)}
-            </code>
-          </pre>
-        )
-      })
-
-      await authService.login(values)
-      auth.login(values.email)
-
-      if (!search.redirect) {
-        navigate({
-          to: '/'
-        })
-      }
-
-      // form.reset()
-      // router.invalidate()
+      loginMutation.mutate(values)
     } catch (error) {
       toast({
         variant: 'destructive',
