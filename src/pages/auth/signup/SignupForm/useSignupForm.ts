@@ -1,4 +1,4 @@
-import { UserTypeTab } from '@/pages/auth/signup/SignupPage'
+import { UserTypeTab } from '@/pages/auth/signup/SignupDrawer'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { isValidPhoneNumber } from 'react-phone-number-input'

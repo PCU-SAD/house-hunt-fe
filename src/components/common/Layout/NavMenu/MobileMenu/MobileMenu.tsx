@@ -6,7 +6,6 @@ import {
 } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { Link } from '@tanstack/react-router'
 import { X as CloseIcon, Menu as MenuIcon } from 'lucide-react'
 import { FC, useEffect, useRef, useState } from 'react'
 import { useBlur } from './useBlur'
@@ -85,7 +84,7 @@ const MobileMenu: FC<MobileMenuProps> = () => {
             <AccordionItem key={index} value={`item-${index + 1}`}>
               <AccordionTrigger>{item.title}</AccordionTrigger>
               <AccordionContent onClick={() => setShowMenu(false)}>
-                <Link to="/login">{item.content}</Link>
+                some content
               </AccordionContent>
             </AccordionItem>
           ))}

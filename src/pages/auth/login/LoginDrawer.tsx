@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import {
   Sheet,
   SheetContent,
@@ -6,13 +7,18 @@ import {
   SheetTrigger
 } from '@/components/ui/sheet'
 import LoginForm from '@/pages/auth/login/LoginForm/LoginForm'
+import { UserIcon } from 'lucide-react'
 
-function LoginPage() {
+function LoginDrawer() {
   return (
-    <Sheet defaultOpen>
-      <SheetTrigger>Open</SheetTrigger>
+    <Sheet>
+      <SheetTrigger>
+        <Button variant="ghost" size="icon">
+          <UserIcon className="h-4 w-4" />
+        </Button>
+      </SheetTrigger>
       <SheetContent className="flex w-full flex-col items-center sm:max-w-fit">
-        <SheetHeader className="mt-6">
+        <SheetHeader>
           <SheetTitle>Sign in</SheetTitle>
         </SheetHeader>
 
@@ -22,4 +28,4 @@ function LoginPage() {
   )
 }
 
-export default LoginPage
+export default LoginDrawer

@@ -1,10 +1,17 @@
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger
+} from '@/components/ui/sheet'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import SignupForm from '@/pages/auth/signup/SignupForm/SignupForm'
 import { useState } from 'react'
 
 export type UserTypeTab = 'TENANT' | 'OWNER'
 
-function SignupPage() {
+function SignupDrawer() {
   const [userTypeTab, setUserTypeTab] = useState<UserTypeTab>('TENANT')
 
   function handleOwnerTabClick() {
@@ -16,8 +23,13 @@ function SignupPage() {
   }
 
   return (
-    <div className="flex h-screen flex-col items-center">
-      <div className="min-w-[340px] max-w-[450px] px-4 py-4">
+    <Sheet defaultOpen>
+      <SheetTrigger>Open</SheetTrigger>
+      <SheetContent className="flex w-full flex-col items-center sm:max-w-fit">
+        <SheetHeader>
+          <SheetTitle>Sign up</SheetTitle>
+        </SheetHeader>
+
         <Tabs defaultValue="tenant" className="mx-auto w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="tenant" onClick={handleTenantTabClick}>
@@ -32,9 +44,9 @@ function SignupPage() {
             <SignupForm userType={userTypeTab} />
           </div>
         </Tabs>
-      </div>
-    </div>
+      </SheetContent>
+    </Sheet>
   )
 }
 
-export default SignupPage
+export default SignupDrawer
