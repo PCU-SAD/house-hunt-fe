@@ -23,7 +23,7 @@ export const authService = {
   },
   signup: async (signupData: SignupPostValues) => {
     try {
-      const { data } = await api.post('/register', signupData)
+      const { data } = await api.post('/auth/register', signupData)
 
       return data
     } catch (error) {
