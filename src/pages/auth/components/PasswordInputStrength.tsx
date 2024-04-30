@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import { FC, InputHTMLAttributes, forwardRef, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Progress } from '../../../components/ui/progress'
-import { FormType } from '../hooks/useLoginForm'
+import { LoginFormType } from '../hooks/useLoginForm'
 import PasswordInput from './PasswordInput'
 
 type PasswordInputProps = InputHTMLAttributes<HTMLInputElement>
@@ -12,7 +12,7 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
   HTMLInputElement,
   PasswordInputProps
 >(({ ...props }, ref) => {
-  const form = useFormContext<FormType>()
+  const form = useFormContext<LoginFormType>()
   const password = form.watch('password')
 
   function evaluatePasswordStrength(password: string) {
