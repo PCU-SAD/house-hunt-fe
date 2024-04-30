@@ -16,7 +16,7 @@ import { UserData } from '@/pages/admin/components/AdminTable/mock-data'
 export const columns: ColumnDef<UserData>[] = [
   {
     accessorKey: 'id',
-    enableSorting: false,
+    enableSorting: true,
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Id" />
     }
@@ -59,10 +59,10 @@ export const columns: ColumnDef<UserData>[] = [
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}>
-                Copy payment ID
+                Copy user ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>View customer</DropdownMenuItem>
+              <DropdownMenuItem>View user</DropdownMenuItem>
               <DropdownMenuItem>View payment details</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

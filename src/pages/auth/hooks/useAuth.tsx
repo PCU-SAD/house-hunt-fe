@@ -1,5 +1,6 @@
 import { api } from '@/api/api'
 import { queryClient } from '@/app'
+import { toast } from '@/components/ui/use-toast'
 import { authService } from '@/services/auth-service'
 import { useQuery } from '@tanstack/react-query'
 
@@ -43,6 +44,15 @@ export function useAuth() {
         } catch (error) {
           console.log('Not authorized')
         }
+      }
+
+      if (error.response.status >= 400) {
+        toast({
+          variant: 'destructive',
+          title: 'Uh oh! Something went wrong.',
+          description:
+            'There was a problem with your request. Please try again later.'
+        })
       }
     }
   )
