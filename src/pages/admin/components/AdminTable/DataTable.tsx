@@ -74,6 +74,7 @@ export function DataTable({
             <div className="flex justify-end">
               <div className="md:w-[200px]">
                 <Input
+                  disabled={isFetching}
                   className="h-8 w-full items-end py-2"
                   placeholder="Search..."
                   icon={<Search className="h-4 w-4" />}

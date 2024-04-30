@@ -1,5 +1,5 @@
 import { api } from '@/api/api'
-import { LoginFormType } from '@/pages/auth/hooks/useLoginForm'
+import { LoginFormType } from '@/pages/auth/login/LoginForm/useLoginForm'
 import { SignupPostValues } from '@/pages/auth/signup/SignupForm/useSignupForm'
 import axios from 'axios'
 

@@ -14,7 +14,7 @@ export type PaginationType = {
 }
 
 const AdminTable: FC<AdminTableProps> = () => {
-  const [query, setQuery] = useState('')
+  const [query] = useState('')
   const [pagination, setPagination] = useState<PaginationType>({
     pageIndex: 0,
     pageSize: 10
@@ -46,12 +46,12 @@ const AdminTable: FC<AdminTableProps> = () => {
             return {
               ...column,
               cell: () => (
-                <td
+                <div
                   className={cn('flex', {
                     'justify-end': column.id === 'actions'
                   })}>
                   <Skeleton className={cn('h-[18px] w-1/2')} />
-                </td>
+                </div>
               )
             }
           })
