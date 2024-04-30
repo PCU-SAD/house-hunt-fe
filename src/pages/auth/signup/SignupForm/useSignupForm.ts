@@ -76,12 +76,12 @@ export function useSignupForm() {
     resolver: zodResolver(signupFormSchema),
     mode: 'onChange',
     defaultValues: {
-      name: '',
-      surname: '',
-      email: '',
-      phoneNumber: '',
-      password: '',
-      confirm_password: '',
+      name: 'Matvii',
+      surname: 'Kharchenko',
+      email: 'matviy.kharchenko@gmail.com',
+      phoneNumber: '+420 775 849 602',
+      password: 'Password123*',
+      confirm_password: 'Password123*',
       terms: false,
       consent: false,
       privacy_policy: false
