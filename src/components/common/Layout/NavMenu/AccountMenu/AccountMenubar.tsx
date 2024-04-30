@@ -12,6 +12,7 @@ import { Link, useNavigate } from '@tanstack/react-router'
 import { UserIcon } from 'lucide-react'
 import { FC } from 'react'
 import './styles.css'
+import LoginDrawer from '@/pages/auth/login/LoginDrawer'
 
 type AccountMenubarProps = {}
 
@@ -37,7 +38,9 @@ const AccountMenubar: FC<AccountMenubarProps> = () => {
             <MenubarItem>Settings</MenubarItem>
           </Link>
 
-          <MenubarItem>Become a member</MenubarItem>
+          <MenubarItem>
+            <LoginDrawer />
+          </MenubarItem>
           <MenubarSeparator />
 
           <MenubarItem>

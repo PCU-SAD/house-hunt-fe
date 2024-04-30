@@ -11,8 +11,6 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as SignupImport } from './routes/signup'
-import { Route as LoginImport } from './routes/login'
 import { Route as HousesImport } from './routes/houses'
 import { Route as AuthUserImport } from './routes/_auth-user'
 import { Route as AuthAdminImport } from './routes/_auth-admin'
@@ -25,16 +23,6 @@ import { Route as AuthUserProtectedImport } from './routes/_auth-user/protected'
 import { Route as AuthAdminAdminImport } from './routes/_auth-admin/admin'
 
 // Create/Update Routes
-
-const SignupRoute = SignupImport.update({
-  path: '/signup',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const LoginRoute = LoginImport.update({
-  path: '/login',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const HousesRoute = HousesImport.update({
   path: '/houses',
@@ -114,14 +102,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HousesImport
       parentRoute: typeof rootRoute
     }
-    '/login': {
-      preLoaderRoute: typeof LoginImport
-      parentRoute: typeof rootRoute
-    }
-    '/signup': {
-      preLoaderRoute: typeof SignupImport
-      parentRoute: typeof rootRoute
-    }
     '/_auth-admin/admin': {
       preLoaderRoute: typeof AuthAdminAdminImport
       parentRoute: typeof AuthAdminImport
@@ -150,8 +130,6 @@ export const routeTree = rootRoute.addChildren([
   AuthAdminRoute.addChildren([AuthAdminAdminRoute]),
   AuthUserRoute.addChildren([AuthUserProtectedRoute]),
   HousesRoute,
-  LoginRoute,
-  SignupRoute,
 ])
 
 /* prettier-ignore-end */

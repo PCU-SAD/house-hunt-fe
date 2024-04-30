@@ -1,8 +1,8 @@
 import LoadingPage from '@/pages/loading/Loading'
 import AdminPage from './admin/Admin'
 import App from './App'
-import LoginPage from './auth/login/LoginPage'
-import SignupPage from './auth/signup/SignupPage'
+import LoginDrawer from './auth/login/LoginDrawer'
+import SignupDrawer from './auth/signup/SignupDrawer'
 import ErrorPage from './error/ErrorPage'
 import HomePage from './home/Home'
 import HousesPage from './houses/Houses'
@@ -16,8 +16,8 @@ export {
   HomePage,
   HousesPage,
   LoadingPage,
-  LoginPage,
+  LoginDrawer as LoginPage,
   NotFoundPage,
   SettingsPage,
-  SignupPage
+  SignupDrawer as SignupPage
 }

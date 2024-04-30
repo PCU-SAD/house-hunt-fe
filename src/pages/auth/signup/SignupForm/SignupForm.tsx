@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
   Form,
@@ -16,16 +15,16 @@ import { toast } from '@/components/ui/use-toast'
 import { generateRandomString } from '@/lib/generateRandomValue'
 import PasswordInput from '@/pages/auth/components/PasswordInput'
 import PasswordInputStrength from '@/pages/auth/components/PasswordInputStrength'
+import { UserTypeTab } from '@/pages/auth/signup/SignupDrawer'
 import {
   SignupFormType,
   SignupPostValues,
   useSignupForm
 } from '@/pages/auth/signup/SignupForm/useSignupForm'
-import { UserTypeTab } from '@/pages/auth/signup/SignupPage'
 import { authService } from '@/services/auth-service'
 import { useMutation } from '@tanstack/react-query'
 
-import { Link, useNavigate } from '@tanstack/react-router'
+import { Link } from '@tanstack/react-router'
 import { ClipboardEvent, FC } from 'react'
 
 type SignupFormProps = {
@@ -34,15 +33,10 @@ type SignupFormProps = {
 
 const SignupForm: FC<SignupFormProps> = ({ userType }) => {
   const form = useSignupForm()
-  const navigate = useNavigate()
 
   const signupMutation = useMutation({
     mutationFn: authService.signup,
     onSuccess: () => {
-      navigate({
-        to: '/login'
-      })
-
       toast({
         description: 'User created successfully',
         variant: 'default'
@@ -89,9 +83,7 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
   }
 
   return (
-    <Card className="px-6 py-4">
-      <Typography variant="h2">Sign up</Typography>
-
+    <div className="mt-6 w-full sm:w-[400px]">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -102,7 +94,7 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
               control={form.control}
               render={({ field }) => {
                 return (
-                  <FormItem>
+                  <FormItem className="flex-1">
                     <FormLabel>Name</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter your name" {...field} />
@@ -117,7 +109,7 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
               control={form.control}
               render={({ field }) => {
                 return (
-                  <FormItem>
+                  <FormItem className="flex-1">
                     <FormLabel>Last name</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter your last name" {...field} />
@@ -291,9 +283,9 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
 
         <Typography className="mt-4 text-sm">
           Already have an account?{' '}
-          <Link to="/login" className="text-blue-800 underline">
+          <Button variant="link" className="text-blue-800 underline">
             Login
-          </Link>
+          </Button>
         </Typography>
         <Typography className="mt-2 text-sm">
           Sign up later{' '}
@@ -302,7 +294,7 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
           </Link>
         </Typography>
       </Form>
-    </Card>
+    </div>
   )
 }
 

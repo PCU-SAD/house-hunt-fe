@@ -41,7 +41,7 @@ function Protected() {
               router.invalidate()
 
               navigate({
-                to: '/login'
+                to: '/'
               })
             }}>
             Logout
