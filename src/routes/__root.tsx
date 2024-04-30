@@ -1,4 +1,3 @@
-import { Toaster } from '@/components/ui/toaster'
 import '@/index.css'
 import { Auth } from '@/pages/auth/hooks/useAuth'
 import LoadingPage from '@/pages/loading/Loading'
@@ -29,8 +28,6 @@ export const Route = createRootRouteWithContext<RouteContext>()({
 function Index() {
   return (
     <>
-      <Toaster />
-
       <Outlet />
 
       <ReactQueryDevtools buttonPosition="bottom-right" />

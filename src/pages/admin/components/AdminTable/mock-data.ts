@@ -15,14 +15,14 @@ export async function fakePaginationResponse(
 ): Promise<PaginatedResponse> {
   await new Promise((resolve) => setTimeout(resolve, 500))
 
-  if (Math.random() > 0.6) {
+  if (Math.random() > 0.4) {
     throw new Error('Server error')
   }
 
   const userData: UserData[] = new Array(30_011).fill(null).map((_, index) => ({
     id: index.toString(),
-    status: 'active',
-    email: 'fake@email.com'
+    status: Math.random() > 0.45 === 0 ? 'Active' : 'Inactive',
+    email: `email-number-${index + 1}@email.com`
   }))
 
   // Calculate start and end index

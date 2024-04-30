@@ -14,18 +14,21 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { Loader2 } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>
   pagination: PaginationState
   setPagination: Dispatch<SetStateAction<PaginationState>>
+  isFetching: boolean
 }
 
 export function DataTablePagination<TData>({
   table,
   pagination,
-  setPagination
+  setPagination,
+  isFetching
 }: DataTablePaginationProps<TData>) {
   function handleGoToFirstPage() {
     setPagination((prev) => ({ ...prev, pageIndex: 0 }))
@@ -64,6 +67,10 @@ export function DataTablePagination<TData>({
   return (
     <div className="px-2 py-4">
       <div className="flex items-center justify-end gap-6">
+        {isFetching && (
+          <Loader2 className="text-primary-500 h-6 w-6 animate-spin" />
+        )}
+
         <div className="flex items-center gap-2">
           <p className="text-sm font-medium">Rows per page</p>
           <Select
@@ -93,7 +100,7 @@ export function DataTablePagination<TData>({
               variant="outline"
               className="hidden h-8 w-8 p-0 lg:flex"
               onClick={handleGoToFirstPage}
-              disabled={!table.getCanPreviousPage()}>
+              disabled={!table.getCanPreviousPage() || isFetching}>
               <span className="sr-only">Go to first page</span>
               <DoubleArrowLeftIcon className="h-4 w-4" />
             </Button>
@@ -101,7 +108,7 @@ export function DataTablePagination<TData>({
               variant="outline"
               className="h-8 w-8 p-0"
               onClick={handleGoPrevPage}
-              disabled={!table.getCanPreviousPage()}>
+              disabled={!table.getCanPreviousPage() || isFetching}>
               <span className="sr-only">Go to previous page</span>
               <ChevronLeftIcon className="h-4 w-4" />
             </Button>
@@ -109,7 +116,7 @@ export function DataTablePagination<TData>({
               variant="outline"
               className="h-8 w-8 p-0"
               onClick={handleGoNextPage}
-              disabled={!table.getCanNextPage()}>
+              disabled={!table.getCanNextPage() || isFetching}>
               <span className="sr-only">Go to next page</span>
               <ChevronRightIcon className="h-4 w-4" />
             </Button>
@@ -117,7 +124,7 @@ export function DataTablePagination<TData>({
               variant="outline"
               className="hidden h-8 w-8 p-0 lg:flex"
               onClick={handleGoLastPage}
-              disabled={!table.getCanNextPage()}>
+              disabled={!table.getCanNextPage() || isFetching}>
               <span className="sr-only">Go to last page</span>
               <DoubleArrowRightIcon className="h-4 w-4" />
             </Button>

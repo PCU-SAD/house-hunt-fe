@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/toaster'
 import { ErrorPage, NotFoundPage } from '@/pages'
 import App from '@/pages/App'
 import { routeTree } from '@/routeTree.gen'
@@ -30,6 +31,7 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <QueryClientProvider client={queryClient}>
+      <Toaster />
       <App />
     </QueryClientProvider>
   )

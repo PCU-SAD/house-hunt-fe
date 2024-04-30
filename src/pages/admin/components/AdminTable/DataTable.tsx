@@ -8,7 +8,7 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 
-import { Skeleton } from '@/components/ui/skeleton'
+import { Input } from '@/components/ui/input'
 import {
   Table,
   TableBody,
@@ -18,22 +18,21 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { DataTablePagination } from '@/components/ui/table/pagination'
-import { cn } from '@/lib/utils'
 import { UserData } from '@/pages/admin/components/AdminTable/mock-data'
-import { Ban } from 'lucide-react'
-import { Dispatch, SetStateAction, useMemo, useState } from 'react'
+import { Ban, Search } from 'lucide-react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 type DataTableProps = {
   columns: ColumnDef<UserData>[]
   data: UserData[]
-  isLoading: boolean
   isError: boolean
-  meta: {
-    total: number
-  }
+  isFetching: boolean
   noResults: boolean
   pagination: PaginationState
   setPagination: Dispatch<SetStateAction<PaginationState>>
+  meta: {
+    total: number
+  }
 }
 
 export function DataTable({
@@ -42,41 +41,19 @@ export function DataTable({
   meta,
   pagination,
   setPagination,
-  isLoading,
   noResults,
-  isError
+  isError,
+  isFetching
 }: DataTableProps) {
   const [sorting, setSorting] = useState<SortingState>([])
 
-  const columnsMemo = useMemo(
-    () =>
-      isLoading
-        ? columns.map((column) => {
-            return {
-              ...column,
-              cell: () => (
-                <td
-                  className={cn('flex', {
-                    'justify-end': column.id === 'actions'
-                  })}>
-                  <Skeleton className={cn('h-[18px] w-1/2')} />
-                </td>
-              )
-            }
-          })
-        : columns,
-    [isLoading, columns]
-  )
-
   const table = useReactTable({
     data,
-    columns: columnsMemo,
+    columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
-
     rowCount: meta.total,
-
     manualPagination: true,
     state: {
       sorting,
@@ -86,66 +63,81 @@ export function DataTable({
 
   return (
     <div>
-      <div className="rounded-md border">
+      <div className="">
         {isError ? (
           <div className="flex flex-col items-center justify-center gap-2 p-8 py-[120px] font-semibold text-red-700">
             <Ban />
             <p>Error fetching data.</p>
           </div>
         ) : (
-          <Table>
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <TableHead key={header.id}>
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                      </TableHead>
-                    )
-                  })}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows?.length > 0 &&
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && 'selected'}>
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
+          <div className="">
+            <div className="flex justify-end">
+              <div className="md:w-[200px]">
+                <Input
+                  className="h-8 w-full items-end py-2"
+                  placeholder="Search..."
+                  icon={<Search className="h-4 w-4" />}
+                />
+              </div>
+            </div>
 
-              {noResults && (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center">
-                    No results.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+            <div className="mt-4 rounded-md border">
+              <Table>
+                <TableHeader>
+                  {table.getHeaderGroups().map((headerGroup) => (
+                    <TableRow key={headerGroup.id}>
+                      {headerGroup.headers.map((header) => {
+                        return (
+                          <TableHead key={header.id}>
+                            {header.isPlaceholder
+                              ? null
+                              : flexRender(
+                                  header.column.columnDef.header,
+                                  header.getContext()
+                                )}
+                          </TableHead>
+                        )
+                      })}
+                    </TableRow>
+                  ))}
+                </TableHeader>
+                <TableBody>
+                  {table.getRowModel().rows?.length > 0 &&
+                    table.getRowModel().rows.map((row) => (
+                      <TableRow
+                        key={row.id}
+                        data-state={row.getIsSelected() && 'selected'}>
+                        {row.getVisibleCells().map((cell) => (
+                          <TableCell key={cell.id}>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))}
+
+                  {noResults && (
+                    <TableRow>
+                      <TableCell
+                        colSpan={columns.length}
+                        className="h-24 text-center">
+                        No results.
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
         )}
       </div>
 
       {!isError && (
         <DataTablePagination
           table={table}
+          isFetching={isFetching}
           setPagination={setPagination}
           pagination={pagination}
         />
