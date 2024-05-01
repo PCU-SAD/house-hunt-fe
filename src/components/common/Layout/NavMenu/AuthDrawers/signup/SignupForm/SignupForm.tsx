@@ -1,5 +1,13 @@
+import PasswordInput from '@/components/common/Layout/NavMenu/AuthDrawers/components/PasswordInput'
+import PasswordInputStrength from '@/components/common/Layout/NavMenu/AuthDrawers/components/PasswordInputStrength'
+import ConsentFields from '@/components/common/Layout/NavMenu/AuthDrawers/signup/components/ConsentFields'
+import UserTypeRadioField from '@/components/common/Layout/NavMenu/AuthDrawers/signup/components/UserTypeRadioField'
+import {
+  SignupFormType,
+  SignupPostValues,
+  useSignupForm
+} from '@/components/common/Layout/NavMenu/AuthDrawers/signup/SignupForm/useSignupForm'
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
 import {
   Form,
   FormControl,
@@ -10,21 +18,11 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PhoneInput } from '@/components/ui/phone-input'
-import { Typography } from '@/components/ui/typography'
 import { toast } from '@/components/ui/use-toast'
 import { generateRandomString } from '@/lib/generateRandomValue'
-import PasswordInput from '@/pages/auth/components/PasswordInput'
-import PasswordInputStrength from '@/pages/auth/components/PasswordInputStrength'
-import UserTypeRadioField from '@/pages/auth/signup/components/UserTypeRadioField'
-import {
-  SignupFormType,
-  SignupPostValues,
-  useSignupForm
-} from '@/pages/auth/signup/SignupForm/useSignupForm'
 import { authService } from '@/services/auth-service'
 import { useMutation } from '@tanstack/react-query'
 
-import { Link } from '@tanstack/react-router'
 import { ClipboardEvent, FC } from 'react'
 
 type SignupFormProps = {}
@@ -198,101 +196,12 @@ const SignupForm: FC<SignupFormProps> = () => {
             }}
           />
 
-          <div className="flex flex-col gap-5">
-            <FormField
-              name="terms"
-              control={form.control}
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <div className="flex flex-row items-center gap-2">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-
-                      <FormLabel className="leading-4">
-                        Agree to terms and conditions.
-                      </FormLabel>
-                    </div>
-
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
-            <FormField
-              name="consent"
-              control={form.control}
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <div className="flex flex-row items-center gap-2">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-
-                      <FormLabel className="leading-4">
-                        I consent to the processing of my personal data.
-                      </FormLabel>
-                    </div>
-
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
-            <FormField
-              name="privacy_policy"
-              control={form.control}
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <div className="flex flex-row items-center gap-2">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-
-                      <FormLabel className="leading-4">
-                        I have read and agree to the privacy policy.{' '}
-                        <Link to="/" className="text-blue-800 underline">
-                          Privacy Policy
-                        </Link>
-                      </FormLabel>
-                    </div>
-
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
-          </div>
+          <ConsentFields />
 
           <Button type="submit" className="mt-3">
             Submit
           </Button>
         </form>
-
-        <Typography className="mt-4 text-sm">
-          Already have an account?{' '}
-          <Button variant="link" className="text-blue-800 underline">
-            Login
-          </Button>
-        </Typography>
-        <Typography className="mt-2 text-sm">
-          Sign up later{' '}
-          <Link to="/houses" className="text-blue-800 underline">
-            see all properties
-          </Link>
-        </Typography>
       </Form>
     </div>
   )

@@ -1,11 +1,11 @@
 import { FC, ReactNode } from 'react'
 
 import Footer from '@/components/common/Layout/Footer/Footer'
-import LoginDrawer from '@/pages/auth/login/LoginDrawer'
+
+import AuthDrawer from '@/components/common/Layout/NavMenu/AuthDrawers/AuthDrawer'
 import Container from './Container'
 import MobileMenu from './NavMenu/MobileMenu/MobileMenu'
 import NavMenu from './NavMenu/NavMenu'
-import SignupDrawer from '@/pages/auth/signup/SignupDrawer'
 
 type LayoutProps = {
   children: ReactNode
@@ -17,10 +17,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       <header className="mb-6 border-b">
         <Container className="flex h-14 items-center justify-between">
           <NavMenu />
-
-          <LoginDrawer />
-          <SignupDrawer />
           <MobileMenu />
+
+          <AuthDrawer />
         </Container>
       </header>
 

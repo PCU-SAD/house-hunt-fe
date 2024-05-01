@@ -3,14 +3,23 @@ import { queryClient } from '@/app'
 import { toast } from '@/components/ui/use-toast'
 import { authService } from '@/services/auth-service'
 import { useQuery } from '@tanstack/react-query'
+import { createContext, FC, ReactNode, useContext, useMemo } from 'react'
 
-export type Auth = {
-  login: (username: string) => void
-  logout: () => void
-  username?: string | null
+type AuthProviderProps = {
+  children: ReactNode
 }
 
-export function useAuth() {
+export type AuthContextType = {
+  user: string
+  login: (username: string) => void
+  logout: () => void
+  isLoading: boolean
+  isError: boolean
+}
+
+const AuthContext = createContext<AuthContextType>({} as AuthContextType)
+
+const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const {
     data: refreshData,
     isLoading,
@@ -76,11 +85,27 @@ export function useAuth() {
     queryClient.setQueryData(['getMe'], null)
   }
 
-  return {
-    username: getMeData?.username,
-    login,
-    logout,
-    isError,
-    isLoading
-  }
+  const value = useMemo(
+    () => ({
+      user: getMeData?.username,
+      login,
+      logout,
+      isLoading,
+      isError
+    }),
+    [getMeData?.username, isError, isLoading]
+  )
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
+
+export function useAuth() {
+  const context = useContext(AuthContext)
+
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider')
+  }
+  return context
+}
+
+export default AuthProvider

@@ -2,7 +2,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth-admin')({
   beforeLoad: ({ location, context }) => {
-    if (!context.auth?.username) {
+    if (!context.auth?.user) {
       throw redirect({
         to: '/',
         search: {
@@ -12,7 +12,7 @@ export const Route = createFileRoute('/_auth-admin')({
     }
 
     return {
-      username: context.auth.username
+      username: context.auth.user
     }
   }
 })
