@@ -14,7 +14,7 @@ const passwordSchema = z
   .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
   .regex(/[0-9]/, 'Password must contain at least one number')
   .regex(
-    /[-!@#$%^&*(),.?":{}|<>]/,
+  /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*])(?=\S+$).{8,}$/,
     'Password must contain at least one special character'
   )
   .refine(
@@ -86,9 +86,9 @@ export function useSignupForm() {
       phoneNumber: '+420 775 849 602',
       password: 'Password123*',
       confirm_password: 'Password123*',
-      terms: false,
-      consent: false,
-      privacy_policy: false
+      terms: true,
+      consent: true,
+      privacy_policy: true
     }
   })
 }

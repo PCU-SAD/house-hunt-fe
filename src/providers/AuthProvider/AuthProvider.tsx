@@ -1,17 +1,21 @@
-import { api } from '@/api/api'
-import { queryClient } from '@/app'
-import { toast } from '@/components/ui/use-toast'
-import { authService } from '@/services/auth-service'
+import { authService } from '@/services/auth-service/auth-service'
 import { useQuery } from '@tanstack/react-query'
-import { createContext, FC, ReactNode, useContext } from 'react'
+import { createContext, FC, ReactNode, useContext, useState } from 'react'
 
 type AuthProviderProps = {
   children: ReactNode
 }
 
+export type UserType = 'TENANT' | 'OWNER' | 'ADMIN'
+
+export type User = {
+  email: string
+  type: UserType | null
+}
+
 export type AuthContextType = {
-  user: string
-  login: (username: string) => void
+  user: User | null
+  login: (user: User, refreshToken: string) => void
   logout: () => void
   isLoading: boolean
   isError: boolean
@@ -20,79 +24,70 @@ export type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
 const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null)
+
   const {
     data: refreshData,
     isLoading,
     isError
   } = useQuery({
     queryKey: ['refresh'],
-    queryFn: authService.refresh
+    queryFn: authService.refresh,
+    retry: false
   })
 
-  const { data: getMeData } = useQuery({
-    queryKey: ['getMe'],
-    queryFn: () => {
-      return {
-        username: ''
-      }
-    },
-    enabled: !!refreshData
-  })
+  // api.interceptors.request.use(
+  //   (config) => {
+  //     // Add Authorization header to outgoing requests
+  //     config.headers.Authorization = `Bearer ${refreshData?.accessToken}`
+  //     return config
+  //   },
+  //   (error) => {
+  //     // Handle request errors
+  //     return Promise.reject(error)
+  //   }
+  // )
 
-  api.interceptors.response.use((config) => {
-    config.headers.Authorization = `Bearer ${refreshData.accessToken}`
+  // api.interceptors.response.use(
+  //   (response) => {
+  //     // Handle successful responses
+  //     return response
+  //   },
+  //   async (error) => {
+  //     const originalRequest = error.config
 
-    return config
-  })
+  //     // Check if the error is due to unauthorized access
+  //     if (error.response?.status === 401 && !error.config._retry) {
+  //       originalRequest._retry = true
 
-  api.interceptors.response.use(
-    (config) => config,
-    async (error) => {
-      const originalRequest = error.config
+  //       try {
+  //         // Invalidate token and attempt to refresh
+  //         await queryClient.invalidateQueries({ queryKey: ['refresh'] })
+  //         return api.request(originalRequest)
+  //       } catch (refreshError) {
+  //         console.error('Error refreshing token:', refreshError)
+  //         return Promise.reject(refreshError) // Re-throw the error for further handling
+  //       }
+  //     }
 
-      if (error.response.status === 401 && !error.config._retry) {
-        originalRequest._retry = true
+  //     // Continue propagating other errors
+  //     return Promise.reject(error)
+  //   }
+  // )
 
-        try {
-          queryClient.invalidateQueries({
-            queryKey: ['refresh']
-          })
-
-          return api.request(originalRequest)
-        } catch (error) {
-          console.log('Not authorized')
-        }
-      }
-
-      if (error.response.status >= 400) {
-        toast({
-          variant: 'destructive',
-          title: 'Uh oh! Something went wrong.',
-          description:
-            'There was a problem with your request. Please try again later.'
-        })
-      }
-    }
-  )
-
-  function login(user_name: string) {
-    queryClient.setQueryData(['getMe'], {
-      username: user_name
-    })
+  function login(user: User, refreshToken: string) {
+    setUser(user)
+    localStorage.setItem('refreshToken', refreshToken)
   }
 
-  function logout() {
-    queryClient.setQueryData(['getMe'], {
-      username: ''
-    })
-  }
+  function logout() {}
 
   const value = {
-    user: getMeData?.username,
     login,
     logout,
     isLoading,
-    isError
+    isError,
+    user
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

@@ -1,4 +1,3 @@
-import { queryClient } from '@/app'
 import {
   LoginFormType,
   useLoginForm
@@ -14,45 +13,44 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
-import { authService } from '@/services/auth-service'
+import { useAuth } from '@/providers/AuthProvider/AuthProvider'
+import { authService } from '@/services/auth-service/auth-service'
 import { useMutation } from '@tanstack/react-query'
 
 function LoginForm() {
-  const loginMutation = useMutation({
+  const auth = useAuth()
+  const form = useLoginForm()
+
+  const { mutate } = useMutation({
     mutationFn: authService.login,
-    onSuccess: (_, values) => {
+    mutationKey: ['auth/login'],
+    onSuccess: (response) => {
+      auth.login(
+        {
+          email: response.email,
+          type: 'TENANT'
+        },
+        ''
+      )
+
       toast({
         title: 'Login successful!',
         description: 'You have been logged in.'
       })
 
-      queryClient.setQueryData(['getMe'], {
-        username: values.email
-      })
+      form.reset()
     },
-    onError: () => {
+    onError: (error) => {
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
-        description:
-          'There was a problem with your request. Please try again later.'
+        description: error.message
       })
     }
   })
 
-  const form = useLoginForm()
-
   async function onSubmit(values: LoginFormType) {
-    try {
-      loginMutation.mutate(values)
-    } catch (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description:
-          'There was a problem with your request. Please try again later.'
-      })
-    }
+    mutate(values)
   }
 
   return (

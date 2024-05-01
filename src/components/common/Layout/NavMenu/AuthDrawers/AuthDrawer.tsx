@@ -27,7 +27,7 @@ const AuthDrawer: FC = () => {
 
   const loggedInContent = (
     <div>
-      <p>Hello, {auth?.user}</p>
+      {/* <p>Hello, {auth?.user.email}</p> */}
       <Button onClick={handleLogout}>Log out</Button>
     </div>
   )

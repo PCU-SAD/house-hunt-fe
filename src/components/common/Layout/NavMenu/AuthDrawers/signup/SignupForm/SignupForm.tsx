@@ -20,7 +20,7 @@ import { Input } from '@/components/ui/input'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { toast } from '@/components/ui/use-toast'
 import { generateRandomString } from '@/lib/generateRandomValue'
-import { authService } from '@/services/auth-service'
+import { authService } from '@/services/auth-service/auth-service'
 import { useMutation } from '@tanstack/react-query'
 
 import { ClipboardEvent, FC } from 'react'
@@ -36,23 +36,6 @@ const SignupForm: FC<SignupFormProps> = () => {
       toast({
         description: 'User created successfully',
         variant: 'default'
-      })
-    },
-    onError: (error) => {
-      toast({
-        description: error.message,
-        variant: 'destructive'
-      })
-    },
-    onSettled: (_, __, values) => {
-      toast({
-        description: (
-          <pre className="mt-2 w-full flex-1 whitespace-break-spaces rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {JSON.stringify(values, null, 2)}
-            </code>
-          </pre>
-        )
       })
     }
   })
