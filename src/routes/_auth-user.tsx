@@ -2,11 +2,9 @@ import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth-user')({
   beforeLoad: ({ location, context }) => {
-    console.log(context.auth)
-    
-    if (!context.auth?.username) {
+    if (!context.auth?.user) {
       throw redirect({
-        to: '/login',
+        to: '/',
         search: {
           redirect: location.href
         }
@@ -14,7 +12,7 @@ export const Route = createFileRoute('/_auth-user')({
     }
 
     return {
-      username: context.auth.username
+      username: context.auth.user
     }
   }
 })

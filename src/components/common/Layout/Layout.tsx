@@ -1,8 +1,9 @@
 import { FC, ReactNode } from 'react'
 
 import Footer from '@/components/common/Layout/Footer/Footer'
+
+import AuthDrawer from '@/components/common/Layout/NavMenu/AuthDrawers/AuthDrawer'
 import Container from './Container'
-import AccountMenubar from './NavMenu/AccountMenu/AccountMenubar'
 import MobileMenu from './NavMenu/MobileMenu/MobileMenu'
 import NavMenu from './NavMenu/NavMenu'
 
@@ -16,9 +17,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       <header className="mb-6 border-b">
         <Container className="flex h-14 items-center justify-between">
           <NavMenu />
-
-          <AccountMenubar />
           <MobileMenu />
+
+          <AuthDrawer />
         </Container>
       </header>
 
