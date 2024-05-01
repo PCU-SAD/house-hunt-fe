@@ -38,7 +38,7 @@ export const authService = {
     try {
       // const { data } = await api.post('/login', loginData)
       console.log(loginData)
-      
+
       return true
     } catch (error) {
       if (axios.isAxiosError(error)) {
