@@ -10,7 +10,6 @@ import { FC, useState } from 'react'
 const AuthDrawer: FC = () => {
   const auth = useAuth()
   const isLoggedIn = !!auth?.user
-  console.log('🚀 ~ auth:', auth)
 
   const [showMenu, setShowMenu] = useState(true)
 
