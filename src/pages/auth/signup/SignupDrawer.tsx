@@ -5,14 +5,9 @@ import {
   SheetTitle,
   SheetTrigger
 } from '@/components/ui/sheet'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import SignupForm from '@/pages/auth/signup/SignupForm/SignupForm'
-import { useState } from 'react'
-
-
 
 function SignupDrawer() {
-  
   return (
     <Sheet defaultOpen>
       <SheetTrigger>Open</SheetTrigger>
@@ -21,12 +16,9 @@ function SignupDrawer() {
           <SheetTitle>Sign up</SheetTitle>
         </SheetHeader>
 
-       
-
-          <div className="mt-2">
-            <SignupForm  />
-          </div>
-
+        <div className="mt-2">
+          <SignupForm />
+        </div>
       </SheetContent>
     </Sheet>
   )
