@@ -1,0 +1,100 @@
+import { SignupFormType } from '@/components/common/Layout/NavMenu/AuthDrawers/signup/SignupForm/useSignupForm'
+import { Checkbox } from '@/components/ui/checkbox'
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form'
+import { Link } from '@tanstack/react-router'
+import { FC } from 'react'
+import { useFormContext } from 'react-hook-form'
+
+type ConsentFieldsProps = {}
+
+const ConsentFields: FC<ConsentFieldsProps> = () => {
+  const form = useFormContext<SignupFormType>()
+
+  return (
+    <div className="flex flex-col gap-5">
+      <FormField
+        name="terms"
+        control={form.control}
+        render={({ field }) => {
+          return (
+            <FormItem>
+              <div className="flex flex-row items-center gap-2">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+
+                <FormLabel className="leading-4">
+                  Agree to terms and conditions.
+                </FormLabel>
+              </div>
+
+              <FormMessage />
+            </FormItem>
+          )
+        }}
+      />
+      <FormField
+        name="consent"
+        control={form.control}
+        render={({ field }) => {
+          return (
+            <FormItem>
+              <div className="flex flex-row items-center gap-2">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+
+                <FormLabel className="leading-4">
+                  I consent to the processing of my personal data.
+                </FormLabel>
+              </div>
+
+              <FormMessage />
+            </FormItem>
+          )
+        }}
+      />
+      <FormField
+        name="privacy_policy"
+        control={form.control}
+        render={({ field }) => {
+          return (
+            <FormItem>
+              <div className="flex flex-row items-center gap-2">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+
+                <FormLabel className="leading-4">
+                  I have read and agree to the privacy policy.{' '}
+                  <Link to="/" className="text-blue-800 underline">
+                    Privacy Policy
+                  </Link>
+                </FormLabel>
+              </div>
+
+              <FormMessage />
+            </FormItem>
+          )
+        }}
+      />
+    </div>
+  )
+}
+
+export default ConsentFields

@@ -1,13 +1,8 @@
-import { queryClient } from '@/app'
 import { Container, Layout } from '@/components'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
-import {
-  createFileRoute,
-  useNavigate,
-  useRouteContext,
-  useRouter
-} from '@tanstack/react-router'
+import { useAuth } from '@/providers/AuthProvider/AuthProvider'
+import { createFileRoute, useNavigate, useRouter } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth-user/protected')({
   component: Protected
@@ -16,9 +11,7 @@ export const Route = createFileRoute('/_auth-user/protected')({
 function Protected() {
   const router = useRouter()
   const navigate = useNavigate()
-  const { auth } = useRouteContext({
-    from: '/_auth-user/protected'
-  })
+  const auth = useAuth()
 
   return (
     <Layout>
@@ -29,19 +22,16 @@ function Protected() {
           </Typography>
 
           <Typography>
-            Username: <strong>{auth.username}</strong>
+            Username: <strong>{auth.user}</strong>
           </Typography>
 
           <Button
             onClick={() => {
-              queryClient.setQueryData(['getMe'], {
-                username: ''
-              })
-
+              auth.logout()
               router.invalidate()
 
               navigate({
-                to: '/login'
+                to: '/'
               })
             }}>
             Logout

@@ -1,6 +1,6 @@
 import { api } from '@/api/api'
-import { LoginFormType } from '@/pages/auth/login/LoginForm/useLoginForm'
-import { SignupPostValues } from '@/pages/auth/signup/SignupForm/useSignupForm'
+import { LoginFormType } from '@/components/common/Layout/NavMenu/AuthDrawers/login/LoginForm/useLoginForm'
+import { SignupPostValues } from '@/components/common/Layout/NavMenu/AuthDrawers/signup/SignupForm/useSignupForm'
 import axios from 'axios'
 
 export const authService = {
@@ -37,9 +37,9 @@ export const authService = {
   login: async (loginData: LoginFormType) => {
     try {
       // const { data } = await api.post('/login', loginData)
-      const data = true
+      console.log(loginData)
 
-      return data
+      return true
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data.message)

@@ -1,8 +1,10 @@
-import { UserTypeTab } from '@/pages/auth/signup/SignupPage'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { isValidPhoneNumber } from 'react-phone-number-input'
 import { z } from 'zod'
+
+const userTypeSchema = z.enum(['TENANT', 'OWNER'])
+export type UserType = z.infer<typeof userTypeSchema>
 
 const passwordSchema = z
   .string()
@@ -26,6 +28,7 @@ const passwordSchema = z
 
 const signupFormSchema = z
   .object({
+    type: userTypeSchema,
     name: z.string().min(1, 'First name is required').max(50),
     surname: z.string().min(1, 'Last name is required').max(50),
     phoneNumber: z
@@ -68,7 +71,7 @@ export type SignupPostValues = {
   phoneNumber: string
   email: string
   password: string
-  role: UserTypeTab
+  role: UserType
 }
 
 export function useSignupForm() {
@@ -76,6 +79,7 @@ export function useSignupForm() {
     resolver: zodResolver(signupFormSchema),
     mode: 'onChange',
     defaultValues: {
+      type: 'TENANT',
       name: 'Matvii',
       surname: 'Kharchenko',
       email: 'matviy.kharchenko@gmail.com',
