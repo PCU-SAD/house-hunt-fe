@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form'
 import { isValidPhoneNumber } from 'react-phone-number-input'
 import { z } from 'zod'
 
+const userTypeSchema = z.enum(['TENANT', 'OWNER'])
+
 const passwordSchema = z
   .string()
   .min(8, 'Password must be at least 8 characters long')
@@ -26,6 +28,7 @@ const passwordSchema = z
 
 const signupFormSchema = z
   .object({
+    type: userTypeSchema,
     name: z.string().min(1, 'First name is required').max(50),
     surname: z.string().min(1, 'Last name is required').max(50),
     phoneNumber: z
@@ -71,11 +74,14 @@ export type SignupPostValues = {
   role: UserTypeTab
 }
 
+export type UserType = z.infer<typeof userTypeSchema>
+
 export function useSignupForm() {
   return useForm<SignupFormType>({
     resolver: zodResolver(signupFormSchema),
     mode: 'onChange',
     defaultValues: {
+      type: 'TENANT',
       name: 'Matvii',
       surname: 'Kharchenko',
       email: 'matviy.kharchenko@gmail.com',

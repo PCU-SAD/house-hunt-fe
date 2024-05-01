@@ -9,7 +9,6 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Typography } from '@/components/ui/typography'
 import { toast } from '@/components/ui/use-toast'
 import {
   LoginFormType,
@@ -17,7 +16,7 @@ import {
 } from '@/pages/auth/login/LoginForm/useLoginForm'
 import { authService } from '@/services/auth-service'
 import { useMutation } from '@tanstack/react-query'
-import { Link, useNavigate } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
 
 function LoginForm() {
   const navigate = useNavigate()
@@ -107,12 +106,6 @@ function LoginForm() {
             Submit
           </Button>
         </form>
-        <Typography className="mt-4 text-sm">
-          Don't have an account yet?{' '}
-          <Link to="/signup" className="text-blue-800 underline">
-            Sign up
-          </Link>
-        </Typography>
       </Form>
     </div>
   )

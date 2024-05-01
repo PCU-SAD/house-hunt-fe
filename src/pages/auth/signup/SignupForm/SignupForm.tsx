@@ -15,7 +15,7 @@ import { toast } from '@/components/ui/use-toast'
 import { generateRandomString } from '@/lib/generateRandomValue'
 import PasswordInput from '@/pages/auth/components/PasswordInput'
 import PasswordInputStrength from '@/pages/auth/components/PasswordInputStrength'
-import { UserTypeTab } from '@/pages/auth/signup/SignupDrawer'
+import UserTypeRadioField from '@/pages/auth/signup/components/UserTypeRadioField'
 import {
   SignupFormType,
   SignupPostValues,
@@ -27,11 +27,9 @@ import { useMutation } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { ClipboardEvent, FC } from 'react'
 
-type SignupFormProps = {
-  userType: UserTypeTab
-}
+type SignupFormProps = {}
 
-const SignupForm: FC<SignupFormProps> = ({ userType }) => {
+const SignupForm: FC<SignupFormProps> = () => {
   const form = useSignupForm()
 
   const signupMutation = useMutation({
@@ -67,7 +65,7 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
       email: values.email,
       surname: values.surname,
       phoneNumber: values.phoneNumber,
-      role: userType,
+      role: values.type,
       password: values.password
     }
 
@@ -88,6 +86,8 @@ const SignupForm: FC<SignupFormProps> = ({ userType }) => {
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="mt-4 flex flex-col gap-4">
+          <UserTypeRadioField />
+
           <div className="flex gap-2">
             <FormField
               name="name"
