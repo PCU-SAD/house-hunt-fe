@@ -16,11 +16,8 @@ import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
 import { authService } from '@/services/auth-service'
 import { useMutation } from '@tanstack/react-query'
-import { useNavigate } from '@tanstack/react-router'
 
 function LoginForm() {
-  const navigate = useNavigate()
-
   const loginMutation = useMutation({
     mutationFn: authService.login,
     onSuccess: (_, values) => {
@@ -31,10 +28,6 @@ function LoginForm() {
 
       queryClient.setQueryData(['getMe'], {
         username: values.email
-      })
-
-      navigate({
-        to: '/houses'
       })
     },
     onError: () => {

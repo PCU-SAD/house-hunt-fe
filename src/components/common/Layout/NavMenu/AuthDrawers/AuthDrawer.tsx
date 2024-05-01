@@ -10,8 +10,9 @@ import { FC, useState } from 'react'
 const AuthDrawer: FC = () => {
   const auth = useAuth()
   const isLoggedIn = !!auth?.user
+  console.log('🚀 ~ auth:', auth)
 
-  const [showMenu, setShowMenu] = useState(false)
+  const [showMenu, setShowMenu] = useState(true)
 
   function handleOpen() {
     setShowMenu(true)
@@ -23,8 +24,6 @@ const AuthDrawer: FC = () => {
 
   function handleLogout() {
     auth.logout()
-
-    handleClose()
   }
 
   const loggedInContent = (
@@ -35,18 +34,20 @@ const AuthDrawer: FC = () => {
   )
 
   const loggedOutContent = (
-    <Tabs defaultValue="signup" className="mt-6">
-      <TabsList className="w-full">
-        <TabsTrigger value="signup" className="w-full">
+    <Tabs defaultValue="signup" className="mt-6 w-full sm:w-fit">
+      <TabsList className="relative w-full">
+        <TabsTrigger value="signup" className="relative w-full">
           Sign up
         </TabsTrigger>
         <TabsTrigger value="login" className="w-full">
           Log in
         </TabsTrigger>
       </TabsList>
+
       <TabsContent value="login">
         <LoginForm />
       </TabsContent>
+
       <TabsContent value="signup">
         <SignupForm />
       </TabsContent>

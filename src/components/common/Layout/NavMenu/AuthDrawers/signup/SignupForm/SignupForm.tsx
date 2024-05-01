@@ -79,7 +79,7 @@ const SignupForm: FC<SignupFormProps> = () => {
   }
 
   return (
-    <div className="mt-6 w-full sm:w-[400px]">
+    <div className="mt-6 sm:w-[400px]">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

@@ -3,7 +3,7 @@ import { queryClient } from '@/app'
 import { toast } from '@/components/ui/use-toast'
 import { authService } from '@/services/auth-service'
 import { useQuery } from '@tanstack/react-query'
-import { createContext, FC, ReactNode, useContext, useMemo } from 'react'
+import { createContext, FC, ReactNode, useContext } from 'react'
 
 type AuthProviderProps = {
   children: ReactNode
@@ -33,7 +33,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     queryKey: ['getMe'],
     queryFn: () => {
       return {
-        username: 'user from jwt token'
+        username: ''
       }
     },
     enabled: !!refreshData
@@ -82,19 +82,18 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   }
 
   function logout() {
-    queryClient.setQueryData(['getMe'], null)
+    queryClient.setQueryData(['getMe'], {
+      username: ''
+    })
   }
 
-  const value = useMemo(
-    () => ({
-      user: getMeData?.username,
-      login,
-      logout,
-      isLoading,
-      isError
-    }),
-    [getMeData?.username, isError, isLoading]
-  )
+  const value = {
+    user: getMeData?.username,
+    login,
+    logout,
+    isLoading,
+    isError
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
