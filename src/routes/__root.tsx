@@ -1,6 +1,6 @@
 import '@/index.css'
-import { Auth } from '@/pages/auth/hooks/useAuth'
 import LoadingPage from '@/pages/loading/Loading'
+import { AuthContextType } from '@/providers/AuthProvider/AuthProvider'
 import { QueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
@@ -16,7 +16,7 @@ const TanStackRouterDevtools =
     : () => null
 
 type RouteContext = {
-  auth: Auth
+  auth: AuthContextType
   queryClient: QueryClient
 }
 
@@ -30,10 +30,10 @@ function Index() {
     <>
       <Outlet />
 
-      <ReactQueryDevtools buttonPosition="bottom-right" />
+      <ReactQueryDevtools buttonPosition="bottom-left" />
 
       <Suspense>
-        <TanStackRouterDevtools />
+        <TanStackRouterDevtools position="bottom-right" />
       </Suspense>
     </>
   )

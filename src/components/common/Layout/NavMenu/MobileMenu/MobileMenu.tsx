@@ -5,10 +5,9 @@ import {
   AccordionTrigger
 } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-import { X as CloseIcon, Menu as MenuIcon } from 'lucide-react'
-import { FC, useEffect, useRef, useState } from 'react'
-import { useBlur } from './useBlur'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { MenuIcon } from 'lucide-react'
+import { FC, useState } from 'react'
 
 type MobileMenuProps = {}
 
@@ -29,7 +28,6 @@ const MenuItems = [
 
 const MobileMenu: FC<MobileMenuProps> = () => {
   const [showMenu, setShowMenu] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
 
   function handleOpen() {
     setShowMenu(true)
@@ -39,58 +37,29 @@ const MobileMenu: FC<MobileMenuProps> = () => {
     setShowMenu(false)
   }
 
-  useBlur(setShowMenu, menuRef)
-
-  useEffect(() => {
-    if (showMenu) {
-      document.body.classList.add('overflow-hidden')
-
-      document.getElementById('app')?.classList.add('overflow-hidden')
-    } else {
-      document.body.classList.remove('overflow-hidden')
-      document.getElementById('app')?.classList.remove('overflow-hidden')
-    }
-  }, [showMenu])
-
   return (
-    <>
-      <Button
-        size="icon"
-        onClick={handleOpen}
-        variant="ghost"
-        className="md:hidden">
-        <MenuIcon />
-      </Button>
-
-      <div
-        ref={menuRef}
-        className={cn(
-          'absolute right-0 top-0 z-20 flex h-dvh w-[80%] translate-x-full transform flex-col justify-center overflow-y-auto rounded-md bg-background p-4 px-6  transition-transform duration-200 md:hidden',
-          {
-            'translate-x-0': showMenu,
-            'shadow-2xl': showMenu
-          }
-        )}>
-        <Button
-          size="icon"
-          onClick={handleClose}
-          variant="outline"
-          className="absolute right-4 top-2">
-          <CloseIcon />
+    <Sheet open={showMenu}>
+      <SheetTrigger className="md:hidden" onClick={handleOpen}>
+        <Button size="icon" variant="ghost">
+          <MenuIcon />
         </Button>
-
+      </SheetTrigger>
+      <SheetContent
+        handleClose={handleClose}
+        side="left"
+        className="flex w-full flex-col items-center justify-center sm:max-w-[400px] md:hidden">
         <Accordion type="single" defaultValue="item-1">
           {MenuItems.map((item, index) => (
             <AccordionItem key={index} value={`item-${index + 1}`}>
               <AccordionTrigger>{item.title}</AccordionTrigger>
-              <AccordionContent onClick={() => setShowMenu(false)}>
+              <AccordionContent onClick={handleClose}>
                 some content
               </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
-      </div>
-    </>
+      </SheetContent>
+    </Sheet>
   )
 }
 

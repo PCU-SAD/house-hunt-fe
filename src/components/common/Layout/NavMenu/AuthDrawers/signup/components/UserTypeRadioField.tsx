@@ -1,12 +1,13 @@
+import { SignupFormType } from '@/components/common/Layout/NavMenu/AuthDrawers/signup/SignupForm/useSignupForm'
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage
 } from '@/components/ui/form'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { SignupFormType } from '@/pages/auth/signup/SignupForm/useSignupForm'
 import { Home, UserRoundSearch } from 'lucide-react'
 import { FC, ReactNode } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -27,16 +28,18 @@ const UserTypeRadioField: FC<UserTypeRadioFieldProps> = () => {
             <RadioGroup
               onValueChange={field.onChange}
               defaultValue={field.value}
-              className="flex">
+              className="flex gap-2">
               <CustomFormItem
                 value="TENANT"
                 label="Tenant"
+                description="I am looking for a place to buy or rent a place"
                 icon={<UserRoundSearch className="h-6 w-6" />}
               />
 
               <CustomFormItem
                 value="OWNER"
                 label="Owner"
+                description="I own a property and want to rent it out"
                 icon={<Home className="h-6 w-6" />}
               />
             </RadioGroup>
@@ -51,10 +54,12 @@ const UserTypeRadioField: FC<UserTypeRadioFieldProps> = () => {
 function CustomFormItem({
   value,
   label,
-  icon
+  icon,
+  description
 }: {
   value: string
   label: string
+  description: string
   icon: ReactNode
 }) {
   return (
@@ -69,6 +74,10 @@ function CustomFormItem({
           <p className="text-xs">{label}</p>
         </div>
       </CustomFormLabel>
+
+      <FormDescription className="self-start px-2">
+        {description}
+      </FormDescription>
     </FormItem>
   )
 }

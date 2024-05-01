@@ -1,10 +1,10 @@
-import { UserTypeTab } from '@/pages/auth/signup/SignupDrawer'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { isValidPhoneNumber } from 'react-phone-number-input'
 import { z } from 'zod'
 
 const userTypeSchema = z.enum(['TENANT', 'OWNER'])
+export type UserType = z.infer<typeof userTypeSchema>
 
 const passwordSchema = z
   .string()
@@ -71,10 +71,8 @@ export type SignupPostValues = {
   phoneNumber: string
   email: string
   password: string
-  role: UserTypeTab
+  role: UserType
 }
-
-export type UserType = z.infer<typeof userTypeSchema>
 
 export function useSignupForm() {
   return useForm<SignupFormType>({

@@ -1,6 +1,6 @@
 import { Toaster } from '@/components/ui/toaster'
-import { ErrorPage, NotFoundPage } from '@/pages'
-import App from '@/pages/App'
+import { ErrorPage, InnerApp, NotFoundPage } from '@/pages'
+import AuthProvider from '@/providers/AuthProvider/AuthProvider'
 import { routeTree } from '@/routeTree.gen'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createHashHistory, createRouter } from '@tanstack/react-router'
@@ -31,8 +31,10 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <QueryClientProvider client={queryClient}>
-      <Toaster />
-      <App />
+      <AuthProvider>
+        <Toaster />
+        <InnerApp />
+      </AuthProvider>
     </QueryClientProvider>
   )
 }
