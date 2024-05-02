@@ -22,7 +22,7 @@ function Protected() {
           </Typography>
 
           <Typography>
-            Username: <strong>{auth.user}</strong>
+            Username: <strong>{auth?.user?.email}</strong>
           </Typography>
 
           <Button
