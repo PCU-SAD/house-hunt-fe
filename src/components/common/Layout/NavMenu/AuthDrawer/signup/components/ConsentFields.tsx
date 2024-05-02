@@ -1,4 +1,4 @@
-import { SignupFormType } from '@/components/common/Layout/NavMenu/AuthDrawers/signup/SignupForm/useSignupForm'
+import { SignupFormType } from '@/components/common/Layout/NavMenu/AuthDrawer/signup/SignupForm/useSignupForm'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
   FormControl,

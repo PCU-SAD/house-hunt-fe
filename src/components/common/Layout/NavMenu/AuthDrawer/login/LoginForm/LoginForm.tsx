@@ -1,7 +1,7 @@
 import {
   LoginFormType,
   useLoginForm
-} from '@/components/common/Layout/NavMenu/AuthDrawers/login/LoginForm/useLoginForm'
+} from '@/components/common/Layout/NavMenu/AuthDrawer/login/LoginForm/useLoginForm'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -27,8 +27,6 @@ function LoginForm() {
     mutationKey: ['auth/login'],
     onSuccess: (response) => {
       const userData = jwtService.parse(response.token)
-
-      console.log('🚀 ~ LoginForm ~ userData:', userData)
 
       auth.login(
         {

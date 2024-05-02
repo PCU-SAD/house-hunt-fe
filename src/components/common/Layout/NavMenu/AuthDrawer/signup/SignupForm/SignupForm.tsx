@@ -1,12 +1,13 @@
-import PasswordInput from '@/components/common/Layout/NavMenu/AuthDrawers/components/PasswordInput'
-import PasswordInputStrength from '@/components/common/Layout/NavMenu/AuthDrawers/components/PasswordInputStrength'
-import ConsentFields from '@/components/common/Layout/NavMenu/AuthDrawers/signup/components/ConsentFields'
-import UserTypeRadioField from '@/components/common/Layout/NavMenu/AuthDrawers/signup/components/UserTypeRadioField'
+import { AuthDrawTab } from '@/components/common/Layout/NavMenu/AuthDrawer/AuthDrawer'
+import PasswordInput from '@/components/common/Layout/NavMenu/AuthDrawer/components/PasswordInput'
+import PasswordInputStrength from '@/components/common/Layout/NavMenu/AuthDrawer/components/PasswordInputStrength'
+import ConsentFields from '@/components/common/Layout/NavMenu/AuthDrawer/signup/components/ConsentFields'
+import UserTypeRadioField from '@/components/common/Layout/NavMenu/AuthDrawer/signup/components/UserTypeRadioField'
 import {
   SignupFormType,
   SignupPostValues,
   useSignupForm
-} from '@/components/common/Layout/NavMenu/AuthDrawers/signup/SignupForm/useSignupForm'
+} from '@/components/common/Layout/NavMenu/AuthDrawer/signup/SignupForm/useSignupForm'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -25,9 +26,11 @@ import { useMutation } from '@tanstack/react-query'
 
 import { ClipboardEvent, FC } from 'react'
 
-type SignupFormProps = {}
+type SignupFormProps = {
+  handleTabChange: (tab: AuthDrawTab) => void
+}
 
-const SignupForm: FC<SignupFormProps> = () => {
+const SignupForm: FC<SignupFormProps> = ({ handleTabChange }) => {
   const form = useSignupForm()
 
   const signupMutation = useMutation({
@@ -39,6 +42,13 @@ const SignupForm: FC<SignupFormProps> = () => {
       })
 
       form.reset()
+      handleTabChange('login')
+    },
+    onError: (error) => {
+      toast({
+        description: error.message,
+        variant: 'destructive'
+      })
     }
   })
 

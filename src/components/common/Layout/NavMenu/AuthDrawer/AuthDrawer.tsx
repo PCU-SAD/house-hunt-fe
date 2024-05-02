@@ -1,5 +1,5 @@
-import LoginForm from '@/components/common/Layout/NavMenu/AuthDrawers/login/LoginForm/LoginForm'
-import SignupForm from '@/components/common/Layout/NavMenu/AuthDrawers/signup/SignupForm/SignupForm'
+import LoginForm from '@/components/common/Layout/NavMenu/AuthDrawer/login/LoginForm/LoginForm'
+import SignupForm from '@/components/common/Layout/NavMenu/AuthDrawer/signup/SignupForm/SignupForm'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -7,12 +7,20 @@ import { useAuth } from '@/providers/AuthProvider/AuthProvider'
 import { UserIcon } from 'lucide-react'
 import { FC, useState } from 'react'
 
+export type AuthDrawTab = 'login' | 'signup'
+
 const AuthDrawer: FC = () => {
+  const [activeTab, setActiveTab] = useState<AuthDrawTab>('login')
   const auth = useAuth()
-  console.log("🚀 ~ drawer:", auth.user)
   const isLoggedIn = !!auth?.user
 
+  console.log('🚀 ~ drawer:', auth.user)
+
   const [showMenu, setShowMenu] = useState(true)
+
+  function handleTabChange(tab: AuthDrawTab) {
+    setActiveTab(tab)
+  }
 
   function handleOpen() {
     setShowMenu(true)
@@ -27,19 +35,25 @@ const AuthDrawer: FC = () => {
   }
 
   const loggedInContent = (
-    <div>
-      {/* <p>Hello, {auth?.user.email}</p> */}
+    <div className="mt-12 flex flex-col gap-4">
+      <p>Hello, {auth?.user?.email}</p>
       <Button onClick={handleLogout}>Log out</Button>
     </div>
   )
 
   const loggedOutContent = (
-    <Tabs defaultValue="signup" className="mt-6 w-full sm:w-fit">
+    <Tabs value={activeTab} className="mt-6 w-full sm:w-fit">
       <TabsList className="relative w-full">
-        <TabsTrigger value="signup" className="relative w-full">
+        <TabsTrigger
+          value="signup"
+          className="relative w-full"
+          onClick={() => handleTabChange('signup')}>
           Sign up
         </TabsTrigger>
-        <TabsTrigger value="login" className="w-full">
+        <TabsTrigger
+          value="login"
+          className="w-full"
+          onClick={() => handleTabChange('login')}>
           Log in
         </TabsTrigger>
       </TabsList>
@@ -49,7 +63,7 @@ const AuthDrawer: FC = () => {
       </TabsContent>
 
       <TabsContent value="signup">
-        <SignupForm />
+        <SignupForm handleTabChange={handleTabChange} />
       </TabsContent>
     </Tabs>
   )

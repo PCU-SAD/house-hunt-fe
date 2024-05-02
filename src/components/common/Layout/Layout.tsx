@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react'
 
 import Footer from '@/components/common/Layout/Footer/Footer'
 
-import AuthDrawer from '@/components/common/Layout/NavMenu/AuthDrawers/AuthDrawer'
+import AuthDrawer from '@/components/common/Layout/NavMenu/AuthDrawer/AuthDrawer'
 import Container from './Container'
 import MobileMenu from './NavMenu/MobileMenu/MobileMenu'
 import NavMenu from './NavMenu/NavMenu'

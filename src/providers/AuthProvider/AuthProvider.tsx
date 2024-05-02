@@ -38,14 +38,17 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     retry: false
   })
 
+  // const [user, setUser] = useState<User | null>({
+  //   email: refreshData.userData.email,
+
+  // })
+
   const userFromPayload = refreshData?.userData
     ? {
         email: refreshData.userData.email,
         type: refreshData.userData.role
       }
     : null
-
-  console.log('userFromPayload: ', userFromPayload)
 
   api.interceptors.response.use(
     (response) => {

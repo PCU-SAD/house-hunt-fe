@@ -1,6 +1,6 @@
 import { api } from '@/api/api'
-import { LoginFormType } from '@/components/common/Layout/NavMenu/AuthDrawers/login/LoginForm/useLoginForm'
-import { SignupPostValues } from '@/components/common/Layout/NavMenu/AuthDrawers/signup/SignupForm/useSignupForm'
+import { LoginFormType } from '@/components/common/Layout/NavMenu/AuthDrawer/login/LoginForm/useLoginForm'
+import { SignupPostValues } from '@/components/common/Layout/NavMenu/AuthDrawer/signup/SignupForm/useSignupForm'
 import { LoginResponse, RefreshResponse } from '@/services/auth-service/types'
 import { jwtService } from '@/services/jwt-service/jwt-service'
 import axios from 'axios'
