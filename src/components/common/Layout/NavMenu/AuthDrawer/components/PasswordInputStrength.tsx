@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils'
 
+import { specialCharPattern } from '@/components/common/Layout/NavMenu/AuthDrawer/signup/SignupForm/useSignupForm'
 import { FC, InputHTMLAttributes, forwardRef, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Progress } from '../../../../../ui/progress'
@@ -21,8 +22,8 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
     if (password?.length >= 8) strength += 22
     if (/[a-z]/.test(password)) strength += 11
     if (/[A-Z]/.test(password)) strength += 11
-    if (/[0-9]/.test(password)) strength += 22
-    if (/[-!@#$%^&*(),.?":{}|<>]/.test(password)) strength += 22
+    if (/\d/.test(password)) strength += 22
+    if (specialCharPattern.test(password)) strength += 22
 
     if (strength >= 90) strength = 100
 

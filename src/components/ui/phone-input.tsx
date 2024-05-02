@@ -94,7 +94,7 @@ const CountrySelect = ({
   )
 
   return (
-    <Popover>
+    <Popover modal>
       <PopoverTrigger asChild>
         <Button
           type="button"

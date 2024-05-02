@@ -37,7 +37,7 @@ const UserTypeRadioField: FC<UserTypeRadioFieldProps> = () => {
               />
 
               <CustomFormItem
-                value="OWNER"
+                value="LANDLORD"
                 label="Owner"
                 description="I own a property and want to rent it out"
                 icon={<Home className="h-6 w-6" />}

@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PhoneInput } from '@/components/ui/phone-input'
-import { toast } from '@/components/ui/use-toast'
+import { useToast } from '@/components/ui/use-toast'
 import { generateRandomString } from '@/lib/generateRandomValue'
 import { authService } from '@/services/auth-service/auth-service'
 import { useMutation } from '@tanstack/react-query'
@@ -32,13 +32,15 @@ type SignupFormProps = {
 
 const SignupForm: FC<SignupFormProps> = ({ handleTabChange }) => {
   const form = useSignupForm()
+  const { toast } = useToast()
 
   const signupMutation = useMutation({
     mutationFn: authService.signup,
     onSuccess: () => {
       toast({
         description: 'User created successfully',
-        variant: 'default'
+        variant: 'default',
+        duration: 2_000
       })
 
       form.reset()
@@ -47,7 +49,8 @@ const SignupForm: FC<SignupFormProps> = ({ handleTabChange }) => {
     onError: (error) => {
       toast({
         description: error.message,
-        variant: 'destructive'
+        variant: 'destructive',
+        duration: 2_000
       })
     }
   })

@@ -1,9 +1,15 @@
 import { api } from '@/api/api'
-import { queryClient } from '@/app'
 import { authService } from '@/services/auth-service/auth-service'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { createContext, FC, ReactNode, useContext } from 'react'
+import {
+  createContext,
+  FC,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 
 type AuthProviderProps = {
   children: ReactNode
@@ -38,17 +44,18 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     retry: false
   })
 
-  // const [user, setUser] = useState<User | null>({
-  //   email: refreshData.userData.email,
+  const [user, setUser] = useState<User | null>(null)
 
-  // })
-
-  const userFromPayload = refreshData?.userData
-    ? {
+  useEffect(() => {
+    if (refreshData?.userData.email && refreshData?.userData.role) {
+      setUser({
         email: refreshData.userData.email,
         type: refreshData.userData.role
-      }
-    : null
+      })
+    } else {
+      setUser(null)
+    }
+  }, [refreshData])
 
   api.interceptors.response.use(
     (response) => {
@@ -71,17 +78,15 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   )
 
   function login(user: User, refreshToken: string) {
-    queryClient.setQueryData(['refresh'], (oldData: any) => ({
-      ...oldData,
-      userData: user
-    }))
+    setUser(user)
 
     localStorage.setItem('refreshToken', refreshToken)
   }
 
   function logout() {
     console.log('logout')
-    queryClient.setQueryData(['refresh'], null)
+
+    setUser(null)
     localStorage.removeItem('refreshToken')
   }
 
@@ -90,7 +95,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     logout,
     isLoading,
     isError,
-    user: userFromPayload
+    user: user
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

@@ -1,3 +1,4 @@
+import PasswordInput from '@/components/common/Layout/NavMenu/AuthDrawer/components/PasswordInput'
 import {
   LoginFormType,
   useLoginForm
@@ -12,13 +13,15 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { toast } from '@/components/ui/use-toast'
+import { useToast } from '@/components/ui/use-toast'
 import { useAuth } from '@/providers/AuthProvider/AuthProvider'
 import { authService } from '@/services/auth-service/auth-service'
 import { jwtService } from '@/services/jwt-service/jwt-service'
 import { useMutation } from '@tanstack/react-query'
 
 function LoginForm() {
+  const { toast } = useToast()
+
   const auth = useAuth()
   const form = useLoginForm()
 
@@ -38,7 +41,8 @@ function LoginForm() {
 
       toast({
         title: 'Login successful!',
-        description: 'You have been logged in.'
+        description: 'You have been logged in.',
+        duration: 2_000
       })
 
       form.reset()
@@ -89,7 +93,10 @@ function LoginForm() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your password" {...field} />
+                    <PasswordInput
+                      placeholder="Enter your password"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage className="mt-2" />
                 </FormItem>

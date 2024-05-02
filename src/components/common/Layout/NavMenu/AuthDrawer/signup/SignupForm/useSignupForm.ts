@@ -3,8 +3,10 @@ import { useForm } from 'react-hook-form'
 import { isValidPhoneNumber } from 'react-phone-number-input'
 import { z } from 'zod'
 
-const userTypeSchema = z.enum(['TENANT', 'OWNER'])
+const userTypeSchema = z.enum(['TENANT', 'LANDLORD'])
 export type UserType = z.infer<typeof userTypeSchema>
+
+export const specialCharPattern = /[@#$%^&+=*!()\-[\]{};:'",.<>/?\\|_~`]/
 
 const passwordSchema = z
   .string()
@@ -12,19 +14,14 @@ const passwordSchema = z
   .max(50, 'Password must be at most 50 characters long')
   .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
   .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
-  .regex(/[0-9]/, 'Password must contain at least one number')
+  .regex(/\d/, 'Password must contain at least one number')
   .regex(
-  /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*])(?=\S+$).{8,}$/,
+    specialCharPattern,
     'Password must contain at least one special character'
   )
-  .refine(
-    (value) => {
-      return !/\s/.test(value)
-    },
-    {
-      message: 'Password cannot contain whitespace'
-    }
-  )
+  .refine((value) => !/\s/.test(value), {
+    message: 'Password cannot contain whitespace'
+  })
 
 const signupFormSchema = z
   .object({
@@ -80,15 +77,15 @@ export function useSignupForm() {
     mode: 'onChange',
     defaultValues: {
       type: 'TENANT',
-      name: 'Matvii',
-      surname: 'Kharchenko',
-      email: 'matviy.kharchenko@gmail.com',
-      phoneNumber: '+420 775 849 602',
-      password: 'Password123*',
-      confirm_password: 'Password123*',
-      terms: true,
-      consent: true,
-      privacy_policy: true
+      name: '',
+      surname: '',
+      email: '',
+      phoneNumber: '+420',
+      password: '',
+      confirm_password: '',
+      terms: false,
+      consent: false,
+      privacy_policy: false
     }
   })
 }

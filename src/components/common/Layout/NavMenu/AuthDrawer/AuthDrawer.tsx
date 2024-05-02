@@ -10,13 +10,12 @@ import { FC, useState } from 'react'
 export type AuthDrawTab = 'login' | 'signup'
 
 const AuthDrawer: FC = () => {
+  const [showMenu, setShowMenu] = useState(false)
   const [activeTab, setActiveTab] = useState<AuthDrawTab>('login')
   const auth = useAuth()
   const isLoggedIn = !!auth?.user
 
   console.log('🚀 ~ drawer:', auth.user)
-
-  const [showMenu, setShowMenu] = useState(true)
 
   function handleTabChange(tab: AuthDrawTab) {
     setActiveTab(tab)
