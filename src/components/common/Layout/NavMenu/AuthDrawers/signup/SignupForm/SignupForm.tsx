@@ -37,6 +37,8 @@ const SignupForm: FC<SignupFormProps> = () => {
         description: 'User created successfully',
         variant: 'default'
       })
+
+      form.reset()
     }
   })
 

@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
 import { useAuth } from '@/providers/AuthProvider/AuthProvider'
 import { authService } from '@/services/auth-service/auth-service'
+import { jwtService } from '@/services/jwt-service/jwt-service'
 import { useMutation } from '@tanstack/react-query'
 
 function LoginForm() {
@@ -25,12 +26,16 @@ function LoginForm() {
     mutationFn: authService.login,
     mutationKey: ['auth/login'],
     onSuccess: (response) => {
+      const userData = jwtService.parse(response.token)
+
+      console.log('🚀 ~ LoginForm ~ userData:', userData)
+
       auth.login(
         {
-          email: response.email,
-          type: 'TENANT'
+          email: userData.email,
+          type: userData.role
         },
-        ''
+        response.refreshToken
       )
 
       toast({

@@ -1,6 +1,9 @@
+import { api } from '@/api/api'
+import { queryClient } from '@/app'
 import { authService } from '@/services/auth-service/auth-service'
 import { useQuery } from '@tanstack/react-query'
-import { createContext, FC, ReactNode, useContext, useState } from 'react'
+import axios from 'axios'
+import { createContext, FC, ReactNode, useContext } from 'react'
 
 type AuthProviderProps = {
   children: ReactNode
@@ -10,7 +13,7 @@ export type UserType = 'TENANT' | 'OWNER' | 'ADMIN'
 
 export type User = {
   email: string
-  type: UserType | null
+  type: UserType
 }
 
 export type AuthContextType = {
@@ -24,11 +27,10 @@ export type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
 const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null)
-
   const {
     data: refreshData,
     isLoading,
+    refetch,
     isError
   } = useQuery({
     queryKey: ['refresh'],
@@ -36,58 +38,56 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     retry: false
   })
 
-  // api.interceptors.request.use(
-  //   (config) => {
-  //     // Add Authorization header to outgoing requests
-  //     config.headers.Authorization = `Bearer ${refreshData?.accessToken}`
-  //     return config
-  //   },
-  //   (error) => {
-  //     // Handle request errors
-  //     return Promise.reject(error)
-  //   }
-  // )
+  const userFromPayload = refreshData?.userData
+    ? {
+        email: refreshData.userData.email,
+        type: refreshData.userData.role
+      }
+    : null
 
-  // api.interceptors.response.use(
-  //   (response) => {
-  //     // Handle successful responses
-  //     return response
-  //   },
-  //   async (error) => {
-  //     const originalRequest = error.config
+  console.log('userFromPayload: ', userFromPayload)
 
-  //     // Check if the error is due to unauthorized access
-  //     if (error.response?.status === 401 && !error.config._retry) {
-  //       originalRequest._retry = true
+  api.interceptors.response.use(
+    (response) => {
+      return response
+    },
+    async (error) => {
+      const originalRequest = error.config
 
-  //       try {
-  //         // Invalidate token and attempt to refresh
-  //         await queryClient.invalidateQueries({ queryKey: ['refresh'] })
-  //         return api.request(originalRequest)
-  //       } catch (refreshError) {
-  //         console.error('Error refreshing token:', refreshError)
-  //         return Promise.reject(refreshError) // Re-throw the error for further handling
-  //       }
-  //     }
+      if (error.response.status === 403 && !originalRequest._retry) {
+        originalRequest._retry = true
 
-  //     // Continue propagating other errors
-  //     return Promise.reject(error)
-  //   }
-  // )
+        await refetch()
+        const accessToken = refreshData?.accessToken
+
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken
+      }
+
+      return Promise.reject(error)
+    }
+  )
 
   function login(user: User, refreshToken: string) {
-    setUser(user)
+    queryClient.setQueryData(['refresh'], (oldData: any) => ({
+      ...oldData,
+      userData: user
+    }))
+
     localStorage.setItem('refreshToken', refreshToken)
   }
 
-  function logout() {}
+  function logout() {
+    console.log('logout')
+    queryClient.setQueryData(['refresh'], null)
+    localStorage.removeItem('refreshToken')
+  }
 
   const value = {
     login,
     logout,
     isLoading,
     isError,
-    user
+    user: userFromPayload
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

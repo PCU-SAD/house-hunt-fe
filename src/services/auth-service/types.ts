@@ -3,3 +3,7 @@ export type LoginResponse = {
   refreshToken: string
   token: string
 }
+
+export type RefreshResponse = {
+  token: string
+}
