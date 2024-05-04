@@ -10,9 +10,5 @@ export const Route = createFileRoute('/_auth-user')({
         }
       })
     }
-
-    return {
-      username: context.auth.user
-    }
   }
 })

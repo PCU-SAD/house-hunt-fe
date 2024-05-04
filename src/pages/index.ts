@@ -1,4 +1,5 @@
 import LoadingPage from '@/pages/loading/Loading'
+import ManageProperties from '@/pages/owner/manage-properties/ManageProperties'
 import AdminPage from './admin/Admin'
 import ErrorPage from './error/ErrorPage'
 import HomePage from './home/Home'
@@ -14,6 +15,7 @@ export {
   HousesPage,
   InnerApp,
   LoadingPage,
+  ManageProperties,
   NotFoundPage,
   SettingsPage
 }
