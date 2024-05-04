@@ -1,16 +1,16 @@
 import { UserType } from '@/providers/AuthProvider/AuthProvider'
 import { jwtDecode } from 'jwt-decode'
 
-type JWTPayload = {
+export type JWTUserPayload = {
   role: UserType
   email: string
   exp: number
 }
 
 export const jwtService = {
-  parse: (accessToken: string): JWTPayload | null => {
+  parse: (accessToken: string): JWTUserPayload | null => {
     try {
-      const parsedPayload = jwtDecode<JWTPayload>(accessToken)
+      const parsedPayload = jwtDecode<JWTUserPayload>(accessToken)
 
       return parsedPayload
     } catch (error) {

@@ -36,7 +36,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const {
     data: refreshData,
     isLoading,
-    refetch,
+    refetch: refetchRefresh,
     isError
   } = useQuery({
     queryKey: ['refresh'],
@@ -67,12 +67,29 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       if (error.response.status === 403 && !originalRequest._retry) {
         originalRequest._retry = true
 
-        await refetch()
+        await refetchRefresh()
         const accessToken = refreshData?.accessToken
 
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken
+        if (accessToken) {
+          axios.defaults.headers.common['Authorization'] =
+            'Bearer ' + accessToken
+        }
       }
 
+      return Promise.reject(error)
+    }
+  )
+
+  api.interceptors.request.use(
+    (config) => {
+      if (refreshData?.accessToken) {
+        config.headers['Authorization'] = `Bearer ${refreshData?.accessToken}`
+      }
+
+      return config
+    },
+    (error) => {
+      console.log('🚀 ~ error:', error)
       return Promise.reject(error)
     }
   )

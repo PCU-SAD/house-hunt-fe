@@ -1,4 +1,4 @@
-import { Container, Layout } from '@/components'
+import { Container, Layout } from '@/components/common'
 
 import { FC } from 'react'
 

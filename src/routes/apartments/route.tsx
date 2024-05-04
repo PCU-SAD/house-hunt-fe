@@ -1,4 +1,4 @@
-import { Container, Layout } from '@/components'
+import { Container, Layout } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
 
@@ -14,8 +14,7 @@ export const Route = createFileRoute('/apartments')({
               to="/apartments/$id"
               params={{
                 id: '123'
-              }}
-            >
+              }}>
               Go to non existent apartment
             </Link>
           </Button>
@@ -25,8 +24,7 @@ export const Route = createFileRoute('/apartments')({
               to="/apartments/$id"
               params={{
                 id: '1'
-              }}
-            >
+              }}>
               Go to apartments/1
             </Link>
           </Button>

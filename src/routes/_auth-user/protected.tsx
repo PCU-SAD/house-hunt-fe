@@ -1,4 +1,4 @@
-import { Container, Layout } from '@/components'
+import { Container, Layout } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { useAuth } from '@/providers/AuthProvider/AuthProvider'

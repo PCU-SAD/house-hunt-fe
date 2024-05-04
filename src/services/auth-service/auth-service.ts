@@ -1,8 +1,8 @@
 import { api } from '@/api/api'
-import { LoginFormType } from '@/components/common/Layout/NavMenu/AuthDrawer/login/LoginForm/useLoginForm'
-import { SignupPostValues } from '@/components/common/Layout/NavMenu/AuthDrawer/signup/SignupForm/useSignupForm'
+import { LoginFormType } from '@/components/common/Layout/Header/AuthDrawer/login/LoginForm/useLoginForm'
+import { SignupPostValues } from '@/components/common/Layout/Header/AuthDrawer/signup/SignupForm/useSignupForm'
 import { LoginResponse, RefreshResponse } from '@/services/auth-service/types'
-import { jwtService } from '@/services/jwt-service/jwt-service'
+import { jwtService, JWTUserPayload } from '@/services/jwt-service/jwt-service'
 import axios from 'axios'
 
 export const authService = {
@@ -20,7 +20,7 @@ export const authService = {
       return {
         userData,
         accessToken: data.token
-      }
+      } as { userData?: JWTUserPayload; accessToken?: string }
     } catch (error) {
       throw new Error('Not authorized')
     }

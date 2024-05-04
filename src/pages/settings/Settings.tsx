@@ -1,4 +1,4 @@
-import { Container, Layout } from '@/components'
+import { Container, Layout } from '@/components/common'
 import { Typography } from '@/components/ui/typography'
 import SettingsLink from '@/pages/settings/components/SettingsLink'
 import { LockClosedIcon } from '@radix-ui/react-icons'
