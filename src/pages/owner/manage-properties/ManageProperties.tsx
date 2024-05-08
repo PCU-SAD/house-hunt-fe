@@ -2,7 +2,6 @@ import { Container, Layout } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
-import NewPropertyForm from '@/pages/owner/manage-properties/components/NewPropertyForm/NewPropertyForm'
 import { PlusIcon } from 'lucide-react'
 import { FC } from 'react'
 
@@ -25,7 +24,6 @@ const properties = [
     state: 'State 2',
     zip: '67890'
   }
-  // Add more properties as needed
 ]
 
 const ManageProperties: FC<ManagePropertiesProps> = () => {
