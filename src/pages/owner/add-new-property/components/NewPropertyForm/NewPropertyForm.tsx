@@ -70,7 +70,7 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
       // reader.readAsDataURL(file)
     })
 
-    // console.log(fileList)
+    console.log(fileList)
   }
 
   return (
