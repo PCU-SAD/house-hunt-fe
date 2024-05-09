@@ -12,6 +12,7 @@ type ProfileProps = {
 
 const Profile: FC<ProfileProps> = ({ handleClose }) => {
   const auth = useAuth()
+  const isOwner = auth?.user?.type === 'LANDLORD'
 
   function handleLogout() {
     auth.logout()
@@ -48,21 +49,26 @@ const Profile: FC<ProfileProps> = ({ handleClose }) => {
           </Link>
         </Button>
 
-        <Separator className="my-4" />
+        <div className="py-3"></div>
 
-        <div>
-          <Typography variant="h3" className="font-normal">
-            For the owner
-          </Typography>
+        {isOwner && (
+          <>
+            <Separator className="mb-4" />
 
-          <ul className="ml-6 mt-2 flex list-disc flex-col gap-1">
-            <li>
-              <Link to="/">My properties</Link>
-            </li>
-          </ul>
-        </div>
+            <div>
+              <Typography variant="h3" className="font-normal">
+                For the owner
+              </Typography>
 
-        <Separator className="my-4" />
+              <ul className="ml-6 mt-2 flex list-disc flex-col gap-1">
+                <li>
+                  <Link to="/properties">Manage properties</Link>
+                </li>
+              </ul>
+            </div>
+            <div className="py-2"></div>
+          </>
+        )}
 
         <div>
           <Typography variant="h3" className="font-normal">

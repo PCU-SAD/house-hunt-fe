@@ -15,7 +15,7 @@ const AuthDrawer: FC = () => {
   const [showMenu, setShowMenu] = useState(false)
   const [activeTab, setActiveTab] = useState<AuthDrawTab>('login')
   const auth = useAuth()
-  const isLoggedIn = !!auth?.user
+  const isLoggedIn = !!auth?.user.email
 
   function handleTabChange(tab: AuthDrawTab) {
     setActiveTab(tab)

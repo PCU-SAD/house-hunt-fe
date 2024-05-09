@@ -1,4 +1,5 @@
 import LoadingPage from '@/pages/loading/Loading'
+import AddNewProperty from '@/pages/owner/add-new-property/AddNewProperty'
 import ManageProperties from '@/pages/owner/manage-properties/ManageProperties'
 import AdminPage from './admin/Admin'
 import ErrorPage from './error/ErrorPage'
@@ -9,6 +10,7 @@ import NotFoundPage from './not-found/NotFound'
 import SettingsPage from './settings/Settings'
 
 export {
+  AddNewProperty,
   AdminPage,
   ErrorPage,
   HomePage,

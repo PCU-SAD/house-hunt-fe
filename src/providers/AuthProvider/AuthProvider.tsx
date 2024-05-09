@@ -1,21 +1,15 @@
-import { api } from '@/api/api'
+import { api, authApi } from '@/api/api'
+import { queryClient } from '@/app'
 import { authService } from '@/services/auth-service/auth-service'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import {
-  createContext,
-  FC,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState
-} from 'react'
+import { createContext, FC, ReactNode, useContext } from 'react'
 
 type AuthProviderProps = {
   children: ReactNode
 }
 
-export type UserType = 'TENANT' | 'OWNER' | 'ADMIN'
+export type UserType = 'TENANT' | 'LANDLORD' | 'ADMIN'
 
 export type User = {
   email: string
@@ -44,43 +38,39 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     retry: false
   })
 
-  const [user, setUser] = useState<User | null>(null)
+  const user = refreshData?.userData.email
+    ? { email: refreshData.userData.email, type: refreshData.userData.role }
+    : null
 
-  useEffect(() => {
-    if (refreshData?.userData.email && refreshData?.userData.role) {
-      setUser({
-        email: refreshData.userData.email,
-        type: refreshData.userData.role
-      })
-    } else {
-      setUser(null)
-    }
-  }, [refreshData])
+  console.log('🚀 ~ isLoading:', isLoading)
+  console.log('🚀 ~ user:', refreshData?.userData)
 
-  api.interceptors.response.use(
-    (response) => {
-      return response
-    },
-    async (error) => {
-      const originalRequest = error.config
+  async function catch403(error) {
+    const originalRequest = error.config
 
-      if (error.response.status === 403 && !originalRequest._retry) {
-        originalRequest._retry = true
+    if (error.response.status === 403 && !originalRequest._retry) {
+      originalRequest._retry = true
 
-        await refetchRefresh()
-        const accessToken = refreshData?.accessToken
+      await refetchRefresh()
+      const accessToken = refreshData?.accessToken
 
-        if (accessToken) {
-          axios.defaults.headers.common['Authorization'] =
-            'Bearer ' + accessToken
-        }
+      if (accessToken) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken
       }
-
-      return Promise.reject(error)
     }
-  )
 
-  api.interceptors.request.use(
+    return Promise.reject(error)
+  }
+
+  api.interceptors.response.use((response) => {
+    return response
+  }, catch403)
+
+  authApi.interceptors.response.use((response) => {
+    return response
+  }, catch403)
+
+  authApi.interceptors.request.use(
     (config) => {
       if (refreshData?.accessToken) {
         config.headers['Authorization'] = `Bearer ${refreshData?.accessToken}`
@@ -95,7 +85,9 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   )
 
   function login(user: User, refreshToken: string) {
-    setUser(user)
+    queryClient.setQueryData(['refresh'], {
+      userData: user
+    })
 
     localStorage.setItem('refreshToken', refreshToken)
   }
@@ -103,7 +95,10 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   function logout() {
     console.log('logout')
 
-    setUser(null)
+    queryClient.setQueryData(['refresh'], {
+      userData: null,
+      accessToken: ''
+    })
     localStorage.removeItem('refreshToken')
   }
 
@@ -112,7 +107,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     logout,
     isLoading,
     isError,
-    user: user
+    user
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

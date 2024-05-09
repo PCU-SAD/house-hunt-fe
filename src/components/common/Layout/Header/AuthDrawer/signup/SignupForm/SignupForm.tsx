@@ -59,8 +59,8 @@ const SignupForm: FC<SignupFormProps> = ({ handleTabChange }) => {
   async function onSubmit(values: SignupFormType) {
     const postValues: SignupPostValues = {
       name: values.name,
-      email: values.email,
       surname: values.surname,
+      email: values.email,
       phoneNumber: values.phoneNumber,
       role: values.type,
       password: values.password
