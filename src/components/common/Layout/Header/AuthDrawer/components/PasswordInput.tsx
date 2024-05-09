@@ -28,8 +28,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             onClick={handleClick}
             variant="ghost"
             type="button"
-            className="absolute right-2 top-1/2 flex -translate-y-1/2 transform items-center p-1 hover:bg-transparent"
-          >
+            className="absolute right-2 top-1/2 flex -translate-y-1/2 transform items-center p-1 hover:bg-transparent">
             {showPassword ? (
               <EyeIcon className="h-5 w-5" />
             ) : (

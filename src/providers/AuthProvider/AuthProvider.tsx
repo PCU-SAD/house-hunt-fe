@@ -38,12 +38,9 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     retry: false
   })
 
-  const user = refreshData?.userData.email
+  const user = refreshData?.userData?.email
     ? { email: refreshData.userData.email, type: refreshData.userData.role }
     : null
-
-  console.log('🚀 ~ isLoading:', isLoading)
-  console.log('🚀 ~ user:', refreshData?.userData)
 
   async function catch403(error) {
     const originalRequest = error.config
@@ -86,7 +83,10 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   function login(user: User, refreshToken: string) {
     queryClient.setQueryData(['refresh'], {
-      userData: user
+      userData: {
+        email: user.email,
+        role: user.type
+      }
     })
 
     localStorage.setItem('refreshToken', refreshToken)
@@ -96,7 +96,10 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     console.log('logout')
 
     queryClient.setQueryData(['refresh'], {
-      userData: null,
+      userData: {
+        email: null,
+        role: null
+      },
       accessToken: ''
     })
     localStorage.removeItem('refreshToken')

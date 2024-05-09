@@ -4,7 +4,7 @@ export const Route = createFileRoute('/_auth-user')({
   beforeLoad: async ({ context }) => {
     if (!context.auth) return
 
-    if (!context.auth?.user.email) {
+    if (!context.auth?.user?.email) {
       throw redirect({
         to: '/',
         search: {

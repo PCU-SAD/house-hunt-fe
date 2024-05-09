@@ -1,16 +1,13 @@
 import { Container, Layout } from '@/components/common'
-import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { useAuth } from '@/providers/AuthProvider/AuthProvider'
-import { createFileRoute, useNavigate, useRouter } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth-user/protected')({
   component: Protected
 })
 
 function Protected() {
-  const router = useRouter()
-  const navigate = useNavigate()
   const auth = useAuth()
 
   return (
@@ -24,18 +21,9 @@ function Protected() {
           <Typography>
             Username: <strong>{auth?.user?.email}</strong>
           </Typography>
-
-          <Button
-            onClick={() => {
-              auth.logout()
-              router.invalidate()
-
-              navigate({
-                to: '/'
-              })
-            }}>
-            Logout
-          </Button>
+          <Typography>
+            User type: <strong>{auth?.user?.type}</strong>
+          </Typography>
         </div>
       </Container>
     </Layout>
