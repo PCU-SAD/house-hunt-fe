@@ -50,7 +50,7 @@ const FileInput: FC<FileInputProps> = ({ name, form }) => {
                     />
                     <Button
                       size="noSize"
-                      className="absolute opacity-0 group-hover:opacity-100 p-8 hover:bg-transparent transition-opacity "
+                      className="absolute p-8 opacity-0 transition-opacity hover:bg-transparent group-hover:opacity-100 "
                       type="button"
                       variant="ghost"
                       onClick={() => {
@@ -72,10 +72,9 @@ const FileInput: FC<FileInputProps> = ({ name, form }) => {
                   type="file"
                   placeholder="Choose images"
                   accept="image/png, image/jpeg, image/jpg, image/webp"
-                  className="hidden"
+                  className="sr-only"
                   {...rest}
                   onChange={(event) => {
-
                     const { displayUrl } = getImageData(event)
 
                     setCurrentPreview(displayUrl)
