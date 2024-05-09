@@ -2,8 +2,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-const ImageSchema = z.unknown()
-
 export const newPropertyFormSchema = z
   .object({
     title: z.string().min(1, 'Title is required').max(100),
