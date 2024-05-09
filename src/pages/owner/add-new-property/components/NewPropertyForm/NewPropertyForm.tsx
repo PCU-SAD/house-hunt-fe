@@ -36,8 +36,6 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
   const form = useNewPropertyForm()
 
   function onSubmit(values: NewPropertyFormType) {
-    // console.log('🚀 ~ onSubmit ~ values:', values)
-
     const fileList = [
       values.images_1,
       values.images_2,
@@ -52,22 +50,6 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
       fileToBase64(file).then((base64String) => {
         console.log('base64String', base64String)
       })
-
-      // const reader = new FileReader()
-
-      // reader.onload = () => {
-      //   const result = reader.result
-
-      //   if (typeof result === 'string') {
-      //     const base64String = result.split(',')[1]
-      //     console.log(
-      //       '🚀 ~ onSubmit ~ base64String:',
-      //       base64String.slice(0, 12)
-      //     )
-      //   }
-      // }
-
-      // reader.readAsDataURL(file)
     })
 
     console.log(fileList)
@@ -184,7 +166,7 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
         />
 
         <div>
-          <Label>Images</Label>
+          <Label className="mb-2 block">Images</Label>
           <div className="flex flex-wrap gap-2">
             <FileInput form={form} name="images_1" />
             <FileInput form={form} name="images_2" />
