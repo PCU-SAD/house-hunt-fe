@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -12,6 +13,7 @@ import MoneyInput from '@/components/ui/inputs/MoneyInput'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
 import ApartmentTypeSelect from '@/pages/owner/add-new-property/components/NewPropertyForm/components/ApartmentTypeSelect/ApartmentTypeSelect'
+import FileInput from '@/pages/owner/add-new-property/components/NewPropertyForm/components/FileInput'
 import IsFurnishedSelect from '@/pages/owner/add-new-property/components/NewPropertyForm/components/IsFurnishedSelect/IsFurnishedSelect'
 
 import MoveInDateInput from '@/pages/owner/add-new-property/components/NewPropertyForm/components/MoveInDateInput'
@@ -22,6 +24,7 @@ import {
   useNewPropertyForm
 } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
 import { propertyService } from '@/services/property-service/peroperty-service'
+import { Label } from '@radix-ui/react-label'
 import { useMutation } from '@tanstack/react-query'
 import { FC } from 'react'
 
@@ -58,7 +61,7 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
   function onSubmit(values: NewPropertyFormType) {
     newPropertyMutation.mutate(values)
 
-    console.log(values)
+    console.log(JSON.stringify(values, null, 2))
     // const fileList = [
     //   values.images_1,
     //   values.images_2,
@@ -218,7 +221,7 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
           </div>
         </div>
 
-        {/* 
+        
         <div>
           <Label className="mb-2 block">Images</Label>
           <div className="flex flex-wrap gap-2">
@@ -231,13 +234,13 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
           </div>
 
           <FormDescription>You can upload up to 6 images.</FormDescription>
-
+{/* 
          {form.formState.errors.images_1 && (
             <p className="text-sm font-medium text-destructive">
               {form.formState.errors.images_1.message.toString()}
             </p>
-          )}
-        </div> */}
+          )} */}
+        </div>
 
         <Button type="submit" size="sm" className="mt-4">
           Submit

@@ -4,6 +4,8 @@ import { jwtDecode } from 'jwt-decode'
 export type JWTUserPayload = {
   role: UserType
   email: string
+  // TODO:
+  verified: boolean
   exp: number
 }
 

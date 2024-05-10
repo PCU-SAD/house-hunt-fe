@@ -60,7 +60,7 @@ export const newPropertyFormSchema = z
     availableFrom: z.date(),
     adType: adTypeSchema,
     apartmentType: apartmentTypeSchema,
-    ownerEmail: z.string().email()
+    // ownerEmail: z.string().email()
   })
   // .superRefine((val, ctx) => {
     // const images = [

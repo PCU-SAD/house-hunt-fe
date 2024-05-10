@@ -70,7 +70,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   authApi.interceptors.request.use(
     (config) => {
       if (refreshData?.accessToken) {
-        config.headers['Authorization'] = `Bearer ${refreshData?.accessToken}`
+        config.headers['Authorization'] = 'Bearer ' + refreshData.accessToken
       }
 
       return config
