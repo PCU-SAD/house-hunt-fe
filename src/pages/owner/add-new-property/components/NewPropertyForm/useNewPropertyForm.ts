@@ -39,7 +39,7 @@ export const newPropertyFormSchema = z
       .string()
       .min(5, 'Address must be at least 5 characters long')
       .max(100),
-    price: z.coerce.number(),
+    price: z.coerce.number().nonnegative().min(1, 'Price is required'),
     squareMeters: z.coerce
       .number()
       .min(1, 'Square meters is required')
@@ -47,14 +47,22 @@ export const newPropertyFormSchema = z
       .max(1000, 'Max square meters is 1000'),
     description: z.string().min(1, 'Description is required').max(300),
     isFurnished: FurnishedSchema,
-    numberOfRooms: z.number().int().min(0),
-    floorNumber: z.coerce.number().int().min(-10),
+    numberOfRooms: z.coerce
+      .number()
+      .int()
+      .min(1, 'Number of rooms is required')
+      .max(50, 'Max number of rooms is 50'),
+    floorNumber: z.coerce
+      .number()
+      .int()
+      .min(-10, 'Min floor number is -10')
+      .max(140, 'Max floor number is 140'),
     availableFrom: z.date(),
     adType: adTypeSchema,
     apartmentType: apartmentTypeSchema,
     ownerEmail: z.string().email()
   })
-  .superRefine((val, ctx) => {
+  // .superRefine((val, ctx) => {
     // const images = [
     //   val.images_1,
     //   val.images_2,
@@ -76,7 +84,7 @@ export const newPropertyFormSchema = z
     //     path: ['images_1']
     //   })
     // }
-  })
+  // })
 
 export type NewPropertyFormType = z.infer<typeof newPropertyFormSchema>
 
@@ -87,10 +95,10 @@ export function useNewPropertyForm() {
     defaultValues: {
       title: 'title',
       address: 'address',
-      price: '10.0',
+      price: 10.0,
       squareMeters: 10,
       description: 'description',
-      isFurnished: 'FURNISHED',
+      isFurnished: 'UNFURNISHED',
       numberOfRooms: 1,
       floorNumber: 1,
       availableFrom: new Date(),

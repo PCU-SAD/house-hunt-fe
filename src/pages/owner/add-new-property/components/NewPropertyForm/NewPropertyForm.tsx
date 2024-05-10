@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -10,32 +9,56 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import MoneyInput from '@/components/ui/inputs/MoneyInput'
-import { Label } from '@/components/ui/label'
-import FileInput from '@/pages/owner/add-new-property/components/NewPropertyForm/components/FileInput'
-import IsFurnishedInput from '@/pages/owner/add-new-property/components/NewPropertyForm/components/IsFurnishedInput'
+import { Textarea } from '@/components/ui/textarea'
+import { useToast } from '@/components/ui/use-toast'
+import ApartmentTypeSelect from '@/pages/owner/add-new-property/components/NewPropertyForm/components/ApartmentTypeSelect/ApartmentTypeSelect'
+import IsFurnishedSelect from '@/pages/owner/add-new-property/components/NewPropertyForm/components/IsFurnishedSelect/IsFurnishedSelect'
+
 import MoveInDateInput from '@/pages/owner/add-new-property/components/NewPropertyForm/components/MoveInDateInput'
+import PropertyTypeSelect from '@/pages/owner/add-new-property/components/NewPropertyForm/components/PropertyTypeSelect/PropertyTypeSelect'
 
 import {
   NewPropertyFormType,
   useNewPropertyForm
 } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
+import { propertyService } from '@/services/property-service/peroperty-service'
+import { useMutation } from '@tanstack/react-query'
 import { FC } from 'react'
 
-function fileToBase64(file: File) {
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => resolve((reader.result as string).split(',')[1])
-    reader.onerror = (error) => reject(error)
-  })
-}
+// function fileToBase64(file: File) {
+//   return new Promise<string>((resolve, reject) => {
+//     const reader = new FileReader()
+//     reader.readAsDataURL(file)
+//     reader.onload = () => resolve((reader.result as string).split(',')[1])
+//     reader.onerror = (error) => reject(error)
+//   })
+// }
 
 type NewPropertyFormProps = {}
 
 const NewPropertyForm: FC<NewPropertyFormProps> = () => {
+  const { toast } = useToast()
+
+  const newPropertyMutation = useMutation({
+    mutationKey: ['newProperty'],
+    mutationFn: propertyService.createOne,
+    onSuccess: () => {
+      form.reset()
+
+      toast({
+        title: 'Property created',
+        description: 'Your property has been created',
+        variant: 'default'
+      })
+    }
+  })
+
   const form = useNewPropertyForm()
 
   function onSubmit(values: NewPropertyFormType) {
+    newPropertyMutation.mutate(values)
+
+    console.log(values)
     // const fileList = [
     //   values.images_1,
     //   values.images_2,
@@ -46,12 +69,10 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
     // ].map((file: File) => {
     //   if (!file) return
     //   console.log('each file ', file)
-
     //   fileToBase64(file).then((base64String) => {
     //     console.log('base64String', base64String)
     //   })
     // })
-
     // console.log(fileList)
   }
 
@@ -75,6 +96,23 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
             )
           }}
         />
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Enter a description of the property"
+                  className="resize-none"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <FormField
           name="address"
@@ -85,6 +123,26 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
                 <FormLabel>Address</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter full property address" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
+        />
+
+        <FormField
+          name="numberOfRooms"
+          control={form.control}
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>Number of rooms</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter number of rooms"
+                    type="number"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -124,7 +182,11 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
                   <FormItem>
                     <FormLabel>Floor</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter the floor" type='number' {...field} />
+                      <Input
+                        placeholder="Enter the floor"
+                        type="number"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -134,37 +196,29 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
           </div>
         </div>
 
-        <IsFurnishedInput />
-
-        <div className="flex-1">
-          <FormField
-            name="adType"
-            control={form.control}
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Property type</FormLabel>
-                  <FormControl>
-                    <Input placeholder="House, apartment, etc." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )
-            }}
-          />
+        <IsFurnishedSelect />
+        <div className="flex gap-2">
+          <div className="flex-1">
+            <PropertyTypeSelect />
+          </div>
+          <div className="flex-1">
+            <ApartmentTypeSelect />
+          </div>
         </div>
 
-        <div className="">
+        <div className="flex gap-2">
           <MoveInDateInput />
+          <div className="flex-1">
+            <MoneyInput
+              name="price"
+              label="Price"
+              placeholder="Enter a price"
+              form={form}
+            />
+          </div>
         </div>
 
-        <MoneyInput
-          name="price"
-          label="Price"
-          placeholder="Enter a price"
-          form={form}
-        />
-
+        {/* 
         <div>
           <Label className="mb-2 block">Images</Label>
           <div className="flex flex-wrap gap-2">
@@ -178,12 +232,12 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
 
           <FormDescription>You can upload up to 6 images.</FormDescription>
 
-          {/* {form.formState.errors.images_1 && (
+         {form.formState.errors.images_1 && (
             <p className="text-sm font-medium text-destructive">
               {form.formState.errors.images_1.message.toString()}
             </p>
-          )} */}
-        </div>
+          )}
+        </div> */}
 
         <Button type="submit" size="sm" className="mt-4">
           Submit
