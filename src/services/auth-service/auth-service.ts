@@ -14,6 +14,8 @@ export const authService = {
         token: refreshToken
       })
 
+      console.log('data', data.token)
+
       const accessToken = data.token.split(' ')[1]
       const userData = jwtService.parse(accessToken)
 

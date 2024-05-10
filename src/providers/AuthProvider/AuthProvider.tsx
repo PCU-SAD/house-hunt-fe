@@ -52,7 +52,8 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       const accessToken = refreshData?.accessToken
 
       if (accessToken) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken
+        axios.defaults.headers.common['Authorization'] =
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiTEFORExPUkQiLCJleHAiOjE3MTUzNzQwOTEsImlhdCI6MTcxNTM3MDQ5MSwiZW1haWwiOiJsYW5kbG9yZEBsYW5kbG9yZC5jb20ifQ.bAfBYvgwd-IZtvDOb0qbmOC0bEHFCM9BPQfixKjXZLM'
       }
     }
 
@@ -69,9 +70,10 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   authApi.interceptors.request.use(
     (config) => {
-      if (refreshData?.accessToken) {
-        config.headers['Authorization'] = 'Bearer ' + refreshData.accessToken
-      }
+      // if (refreshData?.accessToken) {
+      // config.headers['Authorization'] =
+      //   'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiTEFORExPUkQiLCJleHAiOjE3MTUzNzQ1MTksImlhdCI6MTcxNTM3MDkxOSwiZW1haWwiOiJsYW5kbG9yZEBsYW5kbG9yZC5jb20ifQ.XK9Iunrzw7WWcU59tBcQ1NGWKKN4dfuEgKgu851UvJA'
+      // }
 
       return config
     },

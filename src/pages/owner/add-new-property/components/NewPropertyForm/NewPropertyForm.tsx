@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -13,7 +12,6 @@ import MoneyInput from '@/components/ui/inputs/MoneyInput'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
 import ApartmentTypeSelect from '@/pages/owner/add-new-property/components/NewPropertyForm/components/ApartmentTypeSelect/ApartmentTypeSelect'
-import FileInput from '@/pages/owner/add-new-property/components/NewPropertyForm/components/FileInput'
 import IsFurnishedSelect from '@/pages/owner/add-new-property/components/NewPropertyForm/components/IsFurnishedSelect/IsFurnishedSelect'
 
 import MoveInDateInput from '@/pages/owner/add-new-property/components/NewPropertyForm/components/MoveInDateInput'
@@ -23,8 +21,8 @@ import {
   NewPropertyFormType,
   useNewPropertyForm
 } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
+import { useAuth } from '@/providers/AuthProvider/AuthProvider'
 import { propertyService } from '@/services/property-service/peroperty-service'
-import { Label } from '@radix-ui/react-label'
 import { useMutation } from '@tanstack/react-query'
 import { FC } from 'react'
 
@@ -41,6 +39,7 @@ type NewPropertyFormProps = {}
 
 const NewPropertyForm: FC<NewPropertyFormProps> = () => {
   const { toast } = useToast()
+  const auth = useAuth()
 
   const newPropertyMutation = useMutation({
     mutationKey: ['newProperty'],
@@ -53,13 +52,27 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
         description: 'Your property has been created',
         variant: 'default'
       })
+    },
+    onError: (error: Error) => {
+      toast({
+        title: 'Error',
+        description: error.message,
+        variant: 'destructive'
+      })
     }
   })
 
   const form = useNewPropertyForm()
 
   function onSubmit(values: NewPropertyFormType) {
-    newPropertyMutation.mutate(values)
+    const formattedValues = {
+      ...values,
+      availableFrom: new Date(
+        values.availableFrom
+      ).toISOString() as unknown as Date,
+      ownerEmail: auth?.user?.email
+    }
+    newPropertyMutation.mutate(formattedValues)
 
     console.log(JSON.stringify(values, null, 2))
     // const fileList = [
@@ -221,7 +234,7 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
           </div>
         </div>
 
-        
+        {/* 
         <div>
           <Label className="mb-2 block">Images</Label>
           <div className="flex flex-wrap gap-2">
@@ -234,13 +247,13 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
           </div>
 
           <FormDescription>You can upload up to 6 images.</FormDescription>
-{/* 
+
          {form.formState.errors.images_1 && (
             <p className="text-sm font-medium text-destructive">
               {form.formState.errors.images_1.message.toString()}
             </p>
-          )} */}
-        </div>
+          )} 
+        </div>*/}
 
         <Button type="submit" size="sm" className="mt-4">
           Submit

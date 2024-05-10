@@ -26,7 +26,7 @@ const MoveInDateInput: FC<MoveInDateInputProps> = () => {
 
   return (
     <FormField
-      name="moveInDate"
+      name="availableFrom"
       control={form.control}
       render={({ field }) => {
         return (
