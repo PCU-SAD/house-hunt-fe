@@ -36,23 +36,23 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
   const form = useNewPropertyForm()
 
   function onSubmit(values: NewPropertyFormType) {
-    const fileList = [
-      values.images_1,
-      values.images_2,
-      values.images_3,
-      values.images_4,
-      values.images_5,
-      values.images_6
-    ].map((file: File) => {
-      if (!file) return
-      console.log('each file ', file)
+    // const fileList = [
+    //   values.images_1,
+    //   values.images_2,
+    //   values.images_3,
+    //   values.images_4,
+    //   values.images_5,
+    //   values.images_6
+    // ].map((file: File) => {
+    //   if (!file) return
+    //   console.log('each file ', file)
 
-      fileToBase64(file).then((base64String) => {
-        console.log('base64String', base64String)
-      })
-    })
+    //   fileToBase64(file).then((base64String) => {
+    //     console.log('base64String', base64String)
+    //   })
+    // })
 
-    console.log(fileList)
+    // console.log(fileList)
   }
 
   return (
@@ -124,7 +124,7 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
                   <FormItem>
                     <FormLabel>Floor</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter the floor" {...field} />
+                      <Input placeholder="Enter the floor" type='number' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -138,7 +138,7 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
 
         <div className="flex-1">
           <FormField
-            name="type"
+            name="adType"
             control={form.control}
             render={({ field }) => {
               return (
@@ -178,11 +178,11 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
 
           <FormDescription>You can upload up to 6 images.</FormDescription>
 
-          {form.formState.errors.images_1 && (
+          {/* {form.formState.errors.images_1 && (
             <p className="text-sm font-medium text-destructive">
               {form.formState.errors.images_1.message.toString()}
             </p>
-          )}
+          )} */}
         </div>
 
         <Button type="submit" size="sm" className="mt-4">
