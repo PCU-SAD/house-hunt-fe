@@ -5,7 +5,8 @@ import {
   FormLabel
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import FilePreview from '@/pages/owner/add-new-property/components/NewPropertyForm/components/FileInput/Preview'
+import FilePreview from '@/pages/owner/add-new-property/components/NewPropertyForm/components/inputs/FileInput/FilePreview'
+
 import { getImageData } from '@/utils/GetImageData'
 
 import { PlusIcon } from 'lucide-react'

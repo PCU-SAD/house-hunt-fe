@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { propertyTypeOptions } from '@/pages/owner/add-new-property/components/NewPropertyForm/components/PropertyTypeSelect/propertyTypeData'
+import { propertyTypeOptions } from '@/pages/owner/add-new-property/components/NewPropertyForm/components/inputs/PropertyTypeSelect/propertyTypeData'
 import { NewPropertyFormType } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
 import { FC } from 'react'
 import { useFormContext } from 'react-hook-form'

@@ -12,7 +12,8 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { furnishedOptions } from '@/pages/owner/add-new-property/components/NewPropertyForm/components/IsFurnishedSelect/furnishedData'
+import { furnishedOptions } from '@/pages/owner/add-new-property/components/NewPropertyForm/components/inputs/IsFurnishedSelect/furnishedData'
+
 import { NewPropertyFormType } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
 import { FC } from 'react'
 import { useFormContext } from 'react-hook-form'
