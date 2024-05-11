@@ -1,6 +1,36 @@
-import { NewPropertyFormType } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
+import {
+  AdType,
+  ApartmentType,
+  FurnishedType,
+  NewPropertyFormType
+} from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
 
-export type CreatePropertyRequest =  NewPropertyFormType & {
-	
-	ownerEmail: string | undefined
+export type CreatePropertyRequest = NewPropertyFormType & {
+  ownerEmail: string | undefined
+}
+
+export type GetAllPropertiesResponse = {
+  content: PropertyType[]
+}
+
+export type PropertyType = {
+  adType: AdType
+  address: string
+  apartmentType: ApartmentType
+  availableFrom: number
+  description: string
+  floorNumber: number
+  id: string
+  isFurnished: FurnishedType
+  numberOfRooms: number
+  owner: {
+    id: string
+    name: string
+    surname: string
+    email: string
+    phoneNumber: string
+  }
+  price: number
+  squareMeters: number
+  title: string
 }

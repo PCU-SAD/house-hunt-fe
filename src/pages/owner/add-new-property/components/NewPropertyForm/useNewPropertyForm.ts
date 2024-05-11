@@ -44,7 +44,10 @@ export const newPropertyFormSchema = z.object({
     .min(1, 'Square meters is required')
     .nonnegative()
     .max(1000, 'Max square meters is 1000'),
-  description: z.string().min(20, 'Description must be at least 20 characters long').max(300),
+  description: z
+    .string()
+    .min(20, 'Description must be at least 20 characters long')
+    .max(300),
   isFurnished: FurnishedSchema,
   numberOfRooms: z.coerce
     .number()
@@ -59,7 +62,6 @@ export const newPropertyFormSchema = z.object({
   availableFrom: z.date(),
   adType: adTypeSchema,
   apartmentType: apartmentTypeSchema
-  // ownerEmail: z.string().email()
 })
 // .superRefine((val, ctx) => {
 // const images = [

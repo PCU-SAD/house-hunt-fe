@@ -43,7 +43,7 @@ const Profile: FC<ProfileProps> = ({ handleClose }) => {
           variant="ghost"
           asChild
           onClick={handleClose}>
-          <Link to="/houses" className="flex items-center gap-2">
+          <Link to="/properties" className="flex items-center gap-2">
             <CornerUpLeft />
             View properties
           </Link>
@@ -62,7 +62,7 @@ const Profile: FC<ProfileProps> = ({ handleClose }) => {
 
               <ul className="ml-6 mt-2 flex list-disc flex-col gap-1">
                 <li>
-                  <Link to="/properties">Manage properties</Link>
+                  <Link to="/manage-properties">Manage properties</Link>
                 </li>
               </ul>
             </div>

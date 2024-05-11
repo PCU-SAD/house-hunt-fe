@@ -4,17 +4,18 @@ import ManageProperties from '@/pages/owner/manage-properties/ManageProperties'
 import AdminPage from './admin/Admin'
 import ErrorPage from './error/ErrorPage'
 import HomePage from './home/Home'
-import HousesPage from './houses/Houses'
 import InnerApp from './InnerApp'
 import NotFoundPage from './not-found/NotFound'
+import PropertiesPage from './properties/Properties'
 import SettingsPage from './settings/Settings'
 
 export {
+  PropertiesPage,
   AddNewProperty,
   AdminPage,
   ErrorPage,
   HomePage,
-  HousesPage,
+  PropertiesPage as HousesPage,
   InnerApp,
   LoadingPage,
   ManageProperties,

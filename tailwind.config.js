@@ -35,7 +35,7 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         16: 'repeat(16, minmax(0, 1fr))',
-        fluid: 'repeat(auto-fill, minmax(300px, 1fr))'
+        fluid: 'repeat(auto-fill, minmax(500px, 1fr))'
       },
 
       colors: {

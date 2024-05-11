@@ -11,7 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as HousesImport } from './routes/houses'
+import { Route as PropertiesImport } from './routes/properties'
 import { Route as AuthUserImport } from './routes/_auth-user'
 import { Route as AuthOwnerImport } from './routes/_auth-owner'
 import { Route as AuthAdminImport } from './routes/_auth-admin'
@@ -21,14 +21,14 @@ import { Route as IndexImport } from './routes/index'
 import { Route as SettingsAccountImport } from './routes/settings/account'
 import { Route as ApartmentsIdImport } from './routes/apartments/$id'
 import { Route as AuthUserProtectedImport } from './routes/_auth-user/protected'
-import { Route as AuthOwnerPropertiesImport } from './routes/_auth-owner/properties'
+import { Route as AuthOwnerManagePropertiesImport } from './routes/_auth-owner/manage-properties'
 import { Route as AuthAdminAdminImport } from './routes/_auth-admin/admin'
-import { Route as AuthOwnerPropertiesAddNewImport } from './routes/_auth-owner/properties_.add-new'
+import { Route as AuthOwnerManagePropertiesAddNewImport } from './routes/_auth-owner/manage-properties_.add-new'
 
 // Create/Update Routes
 
-const HousesRoute = HousesImport.update({
-  path: '/houses',
+const PropertiesRoute = PropertiesImport.update({
+  path: '/properties',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -77,8 +77,8 @@ const AuthUserProtectedRoute = AuthUserProtectedImport.update({
   getParentRoute: () => AuthUserRoute,
 } as any)
 
-const AuthOwnerPropertiesRoute = AuthOwnerPropertiesImport.update({
-  path: '/properties',
+const AuthOwnerManagePropertiesRoute = AuthOwnerManagePropertiesImport.update({
+  path: '/manage-properties',
   getParentRoute: () => AuthOwnerRoute,
 } as any)
 
@@ -87,10 +87,11 @@ const AuthAdminAdminRoute = AuthAdminAdminImport.update({
   getParentRoute: () => AuthAdminRoute,
 } as any)
 
-const AuthOwnerPropertiesAddNewRoute = AuthOwnerPropertiesAddNewImport.update({
-  path: '/properties/add-new',
-  getParentRoute: () => AuthOwnerRoute,
-} as any)
+const AuthOwnerManagePropertiesAddNewRoute =
+  AuthOwnerManagePropertiesAddNewImport.update({
+    path: '/manage-properties/add-new',
+    getParentRoute: () => AuthOwnerRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -120,16 +121,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthUserImport
       parentRoute: typeof rootRoute
     }
-    '/houses': {
-      preLoaderRoute: typeof HousesImport
+    '/properties': {
+      preLoaderRoute: typeof PropertiesImport
       parentRoute: typeof rootRoute
     }
     '/_auth-admin/admin': {
       preLoaderRoute: typeof AuthAdminAdminImport
       parentRoute: typeof AuthAdminImport
     }
-    '/_auth-owner/properties': {
-      preLoaderRoute: typeof AuthOwnerPropertiesImport
+    '/_auth-owner/manage-properties': {
+      preLoaderRoute: typeof AuthOwnerManagePropertiesImport
       parentRoute: typeof AuthOwnerImport
     }
     '/_auth-user/protected': {
@@ -144,8 +145,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsAccountImport
       parentRoute: typeof SettingsRouteImport
     }
-    '/_auth-owner/properties/add-new': {
-      preLoaderRoute: typeof AuthOwnerPropertiesAddNewImport
+    '/_auth-owner/manage-properties/add-new': {
+      preLoaderRoute: typeof AuthOwnerManagePropertiesAddNewImport
       parentRoute: typeof AuthOwnerImport
     }
   }
@@ -159,11 +160,11 @@ export const routeTree = rootRoute.addChildren([
   SettingsRouteRoute.addChildren([SettingsAccountRoute]),
   AuthAdminRoute.addChildren([AuthAdminAdminRoute]),
   AuthOwnerRoute.addChildren([
-    AuthOwnerPropertiesRoute,
-    AuthOwnerPropertiesAddNewRoute,
+    AuthOwnerManagePropertiesRoute,
+    AuthOwnerManagePropertiesAddNewRoute,
   ]),
   AuthUserRoute.addChildren([AuthUserProtectedRoute]),
-  HousesRoute,
+  PropertiesRoute,
 ])
 
 /* prettier-ignore-end */

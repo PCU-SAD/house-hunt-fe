@@ -25,12 +25,12 @@ const Header: FC = () => {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link
-            to="/houses"
+            to="/properties"
             className={navigationMenuTriggerStyle()}
             activeProps={{
               className: cn('bg-slate-100')
             }}>
-            Houses
+            Properties
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>

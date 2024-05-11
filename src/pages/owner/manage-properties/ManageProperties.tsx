@@ -37,7 +37,7 @@ const ManageProperties: FC<ManagePropertiesProps> = () => {
           </Typography>
 
           <Button size="noSize" className="gap-2 px-2 py-2" asChild>
-            <Link to="/properties/add-new">
+            <Link to="/manage-properties/add-new">
               <PlusIcon className="h-4 w-4" />
               <span>Add new</span>
             </Link>
