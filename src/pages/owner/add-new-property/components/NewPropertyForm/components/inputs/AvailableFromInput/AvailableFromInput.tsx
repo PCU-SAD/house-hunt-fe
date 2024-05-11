@@ -19,9 +19,8 @@ import { CalendarIcon } from 'lucide-react'
 import { FC } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-type MoveInDateInputProps = {}
 
-const MoveInDateInput: FC<MoveInDateInputProps> = () => {
+const AvailableFromInput: FC = () => {
   const form = useFormContext<NewPropertyFormType>()
 
   return (
@@ -70,4 +69,4 @@ const MoveInDateInput: FC<MoveInDateInputProps> = () => {
   )
 }
 
-export default MoveInDateInput
+export default AvailableFromInput

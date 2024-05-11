@@ -1,8 +1,8 @@
-import { authApi } from '@/api/api'
 import { Container, Layout } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import AdminTable from '@/pages/admin/components/AdminTable/AdminTable'
+import { api } from '@/providers/AuthProvider/AuthProvider'
 import { FC } from 'react'
 
 type AdminProps = {}
@@ -19,7 +19,7 @@ const Admin: FC<AdminProps> = () => {
           type="button"
           onClick={async () => {
             try {
-              const data = await authApi.get(
+              const data = await api.get(
                 '/user/documents/download/ae6cc1bf-344f-4849-a734-252ee07ba855_CL.pdf',
                 {
                   headers: {

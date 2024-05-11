@@ -1,9 +1,18 @@
-import { api, authApi } from '@/api/api'
 import { queryClient } from '@/app'
 import { authService } from '@/services/auth-service/auth-service'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { createContext, FC, ReactNode, useContext } from 'react'
+
+export const API_URL = import.meta.env.VITE_API_URL
+
+export const api = axios.create({
+  baseURL: API_URL
+})
+
+export const authApi = axios.create({
+  baseURL: API_URL
+})
 
 type AuthProviderProps = {
   children: ReactNode
@@ -52,17 +61,14 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       const accessToken = refreshData?.accessToken
 
       if (accessToken) {
-        axios.defaults.headers.common['Authorization'] =
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiTEFORExPUkQiLCJleHAiOjE3MTUzNzQwOTEsImlhdCI6MTcxNTM3MDQ5MSwiZW1haWwiOiJsYW5kbG9yZEBsYW5kbG9yZC5jb20ifQ.bAfBYvgwd-IZtvDOb0qbmOC0bEHFCM9BPQfixKjXZLM'
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken
       }
+
+      return authApi(originalRequest)
     }
 
     return Promise.reject(error)
   }
-
-  api.interceptors.response.use((response) => {
-    return response
-  }, catch403)
 
   authApi.interceptors.response.use((response) => {
     return response
@@ -70,10 +76,11 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   authApi.interceptors.request.use(
     (config) => {
-      // if (refreshData?.accessToken) {
-      // config.headers['Authorization'] =
-      //   'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiTEFORExPUkQiLCJleHAiOjE3MTUzNzQ1MTksImlhdCI6MTcxNTM3MDkxOSwiZW1haWwiOiJsYW5kbG9yZEBsYW5kbG9yZC5jb20ifQ.XK9Iunrzw7WWcU59tBcQ1NGWKKN4dfuEgKgu851UvJA'
-      // }
+      if (!config?.headers?.Authorization) {
+        const accessToken = refreshData?.accessToken
+
+        config.headers.Authorization = `Bearer ${accessToken}`
+      }
 
       return config
     },
@@ -95,8 +102,6 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   }
 
   function logout() {
-    console.log('logout')
-
     queryClient.setQueryData(['refresh'], {
       userData: {
         email: null,

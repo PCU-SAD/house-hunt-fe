@@ -53,14 +53,6 @@ const ManageProperties: FC<ManagePropertiesProps> = () => {
             </Typography>
           </Card>
         ))}
-
-        <div>
-          {/* <Typography variant="h3" className="mb-4">
-            Add new property
-          </Typography> */}
-
-          {/* <NewPropertyForm /> */}
-        </div>
       </Container>
     </Layout>
   )
