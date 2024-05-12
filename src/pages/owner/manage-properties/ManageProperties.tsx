@@ -30,7 +30,7 @@ const properties = [
 const ManageProperties: FC<ManagePropertiesProps> = () => {
   return (
     <Layout>
-      <Container>
+      <Container className="mt-6">
         <div className="flex items-center justify-between">
           <Typography variant="h2" className="mb-4">
             Manage Properties

@@ -100,7 +100,8 @@ const CountrySelect = ({
           type="button"
           variant={'outline'}
           className={cn('flex gap-1 rounded-e-none rounded-s-lg px-3')}
-          disabled={disabled}>
+          disabled={disabled}
+        >
           <FlagComponent country={value} countryName={value} />
           <ChevronsUpDown
             className={cn(
@@ -123,7 +124,8 @@ const CountrySelect = ({
                     <CommandItem
                       className="gap-2"
                       key={option.value}
-                      onSelect={() => handleSelect(option.value)}>
+                      onSelect={() => handleSelect(option.value)}
+                    >
                       <FlagComponent
                         country={option.value}
                         countryName={option.label}

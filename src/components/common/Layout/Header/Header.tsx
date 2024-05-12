@@ -44,7 +44,8 @@ const Header: FC = () => {
               className={navigationMenuTriggerStyle()}
               activeProps={{
                 className: cn('bg-slate-100')
-              }}>
+              }}
+            >
               {link.label}
             </Link>
           </NavigationMenuItem>

@@ -14,7 +14,7 @@ type LayoutProps = {
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <main className="flex min-h-screen flex-col">
-      <header className="mb-6 border-b">
+      <header className="border-b">
         <Container className="flex h-14 items-center justify-between">
           <Header />
           <MobileMenu />
@@ -23,7 +23,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         </Container>
       </header>
 
-      <div className="flex-grow">{children}</div>
+      <section className="flex-grow">{children}</section>
 
       <Footer />
     </main>

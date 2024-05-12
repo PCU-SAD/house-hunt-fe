@@ -107,7 +107,8 @@ export function DataTable({
                     table.getRowModel().rows.map((row) => (
                       <TableRow
                         key={row.id}
-                        data-state={row.getIsSelected() && 'selected'}>
+                        data-state={row.getIsSelected() && 'selected'}
+                      >
                         {row.getVisibleCells().map((cell) => (
                           <TableCell key={cell.id}>
                             {flexRender(
@@ -123,7 +124,8 @@ export function DataTable({
                     <TableRow>
                       <TableCell
                         colSpan={columns.length}
-                        className="h-24 text-center">
+                        className="h-24 text-center"
+                      >
                         No results.
                       </TableCell>
                     </TableRow>

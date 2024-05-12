@@ -43,7 +43,8 @@ const Profile: FC<ProfileProps> = ({ handleClose }) => {
           className="mt-6 h-12 w-full border"
           variant="ghost"
           asChild
-          onClick={handleClose}>
+          onClick={handleClose}
+        >
           <Link to="/properties" className="flex items-center gap-2">
             <CornerUpLeft />
             View properties

@@ -19,7 +19,6 @@ import { CalendarIcon } from 'lucide-react'
 import { FC } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-
 const AvailableFromInput: FC = () => {
   const form = useFormContext<NewPropertyFormType>()
 
@@ -40,7 +39,8 @@ const AvailableFromInput: FC = () => {
                     className={cn(
                       'flex w-[200px] justify-start gap-2 pl-3 text-left font-normal',
                       !field.value && 'text-muted-foreground'
-                    )}>
+                    )}
+                  >
                     <CalendarIcon className="h-4 w-4 opacity-50" />
                     {field.value ? (
                       format(field.value, 'dd.MM.yyyy')

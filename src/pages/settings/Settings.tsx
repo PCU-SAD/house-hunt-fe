@@ -10,7 +10,7 @@ type SettingsProps = {}
 const Settings: FC<SettingsProps> = () => {
   return (
     <Layout>
-      <Container>
+      <Container className="mt-6">
         <Typography variant="h2" className="px-3">
           Settings
         </Typography>
@@ -20,7 +20,8 @@ const Settings: FC<SettingsProps> = () => {
             <ul className="flex flex-col gap-2">
               <SettingsLink
                 to="/settings/account"
-                icon={<Settings2Icon className="h-4 w-4" />}>
+                icon={<Settings2Icon className="h-4 w-4" />}
+              >
                 Account
               </SettingsLink>
             </ul>

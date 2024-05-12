@@ -43,7 +43,8 @@ const PaginationPrevious = ({
     size="default"
     variant="ghost"
     className={cn('gap-1 pl-2.5', className)}
-    {...props}>
+    {...props}
+  >
     <ChevronLeft className="h-4 w-4" />
   </Button>
 )
@@ -58,7 +59,8 @@ const PaginationNext = ({
     size="default"
     variant="ghost"
     className={cn('gap-1 pr-2.5', className)}
-    {...props}>
+    {...props}
+  >
     <ChevronRight className="h-4 w-4" />
   </Button>
 )

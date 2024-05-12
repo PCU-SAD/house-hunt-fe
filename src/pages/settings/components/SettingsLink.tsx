@@ -15,12 +15,14 @@ const SettingsLink: FC<SettingsLinkProps> = ({ icon, to, children }) => {
       variant="ghost"
       size="sm"
       className="relative min-w-[180px] flex-grow justify-start gap-2 py-1 pl-4"
-      asChild>
+      asChild
+    >
       <Link
         to={to}
         activeProps={{
           className: `bg-gray-100 before:h-5 before:w-1 before:rounded-md before:bg-blue-600 before:absolute before:top-1/2 before:-translate-y-1/2 before:left-1 before:content=['']`
-        }}>
+        }}
+      >
         {icon}
 
         {children}

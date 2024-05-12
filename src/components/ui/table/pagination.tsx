@@ -76,7 +76,8 @@ export function DataTablePagination<TData>({
           <Select
             value={pagination.pageSize.toString()}
             disabled={isFetching}
-            onValueChange={handleChangePageSize}>
+            onValueChange={handleChangePageSize}
+          >
             <SelectTrigger className="h-8 w-[70px]">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
@@ -101,7 +102,8 @@ export function DataTablePagination<TData>({
               variant="outline"
               className="hidden h-8 w-8 p-0 lg:flex"
               onClick={handleGoToFirstPage}
-              disabled={!table.getCanPreviousPage() || isFetching}>
+              disabled={!table.getCanPreviousPage() || isFetching}
+            >
               <span className="sr-only">Go to first page</span>
               <DoubleArrowLeftIcon className="h-4 w-4" />
             </Button>
@@ -109,7 +111,8 @@ export function DataTablePagination<TData>({
               variant="outline"
               className="h-8 w-8 p-0"
               onClick={handleGoPrevPage}
-              disabled={!table.getCanPreviousPage() || isFetching}>
+              disabled={!table.getCanPreviousPage() || isFetching}
+            >
               <span className="sr-only">Go to previous page</span>
               <ChevronLeftIcon className="h-4 w-4" />
             </Button>
@@ -117,7 +120,8 @@ export function DataTablePagination<TData>({
               variant="outline"
               className="h-8 w-8 p-0"
               onClick={handleGoNextPage}
-              disabled={!table.getCanNextPage() || isFetching}>
+              disabled={!table.getCanNextPage() || isFetching}
+            >
               <span className="sr-only">Go to next page</span>
               <ChevronRightIcon className="h-4 w-4" />
             </Button>
@@ -125,7 +129,8 @@ export function DataTablePagination<TData>({
               variant="outline"
               className="hidden h-8 w-8 p-0 lg:flex"
               onClick={handleGoLastPage}
-              disabled={!table.getCanNextPage() || isFetching}>
+              disabled={!table.getCanNextPage() || isFetching}
+            >
               <span className="sr-only">Go to last page</span>
               <DoubleArrowRightIcon className="h-4 w-4" />
             </Button>

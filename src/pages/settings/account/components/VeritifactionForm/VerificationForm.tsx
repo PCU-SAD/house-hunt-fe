@@ -28,7 +28,8 @@ const VerificationForm: FC<VerificationFormProps> = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-4 flex items-center">
+        className="mt-4 flex items-center"
+      >
         <FormField
           name="document"
           control={form.control}

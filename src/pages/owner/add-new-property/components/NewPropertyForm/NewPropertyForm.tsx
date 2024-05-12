@@ -85,7 +85,8 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto mt-4 flex flex-col gap-4">
+        className="mx-auto mt-4 flex flex-col gap-4"
+      >
         <NewPropertyFormFields />
 
         <Button type="submit" size="sm" className="mt-4">

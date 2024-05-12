@@ -28,7 +28,8 @@ const UserTypeRadioField: FC<UserTypeRadioFieldProps> = () => {
             <RadioGroup
               onValueChange={field.onChange}
               defaultValue={field.value}
-              className="flex gap-2">
+              className="flex gap-2"
+            >
               <CustomFormItem
                 value="TENANT"
                 label="Tenant"
@@ -87,7 +88,8 @@ function CustomFormLabel({ children }: { children: ReactNode }) {
     <FormLabel
       className={
         'flex h-[80px] w-full cursor-pointer flex-col items-center rounded-md border-2 border-muted bg-popover hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-secondary [&:has([data-state=checked])]:border-primary'
-      }>
+      }
+    >
       {children}
     </FormLabel>
   )

@@ -53,9 +53,14 @@ export const propertyService = {
       }
     }
   },
-  getAll: async () => {
+  getAll: async ({ pageSize, page }: { pageSize: number; page: number }) => {
     try {
-      const { data } = await api.get<GetAllPropertiesResponse>('/properties')
+      const { data } = await api.get<GetAllPropertiesResponse>('/properties', {
+        params: {
+          size: pageSize,
+          page: page - 1
+        }
+      })
 
       return data
     } catch (error) {

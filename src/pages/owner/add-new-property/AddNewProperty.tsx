@@ -8,7 +8,7 @@ type AddNewPropertyProps = {}
 const AddNewProperty: FC<AddNewPropertyProps> = () => {
   return (
     <Layout>
-      <Container className="max-w-[700px]">
+      <Container className="mt-6 max-w-[700px]">
         <Typography variant="h1">Add New Property</Typography>
 
         <NewPropertyForm />

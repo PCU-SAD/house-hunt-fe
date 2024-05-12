@@ -10,11 +10,12 @@ type HomeProps = {}
 const Home: FC<HomeProps> = () => {
   return (
     <Layout>
-      <Container>
+      <Container className="mt-6">
         <img
           src={RoofImg}
           alt="background"
-          className="absolute left-1/2 top-[160px] w-[400px] -translate-x-1/2"></img>
+          className="absolute left-1/2 top-[160px] w-[400px] -translate-x-1/2"
+        ></img>
 
         <div className="">
           <div>

@@ -39,7 +39,8 @@ const Admin: FC<AdminProps> = () => {
             } catch (error) {
               console.log('error', error)
             }
-          }}>
+          }}
+        >
           download pdf
         </Button>
         <AdminTable />

@@ -28,7 +28,8 @@ const FilePreview: FC<PreviewProps> = ({
         onClick={() => {
           setCurrentPreview('')
           onChange(undefined)
-        }}>
+        }}
+      >
         <Trash width={18} height={18} />
       </Button>
     </div>

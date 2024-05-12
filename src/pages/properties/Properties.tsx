@@ -10,20 +10,86 @@ import {
   PaginationNext,
   PaginationPrevious
 } from '@/components/ui/pagination'
+import HeaderWelcome from '@/pages/properties/components/HeaderWelcome/HeaderWelcome'
 import PropertiesList from '@/pages/properties/components/PropertiesList/PropertiesList'
 import SkeletonList from '@/pages/properties/components/Skeleton/SkeletonList'
 import { propertyService } from '@/services/property-service/peroperty-service'
 import { useQuery } from '@tanstack/react-query'
+import { useNavigate, useSearch } from '@tanstack/react-router'
 import { FC } from 'react'
 
+const PAGE_SIZE = 20
+
 const PropertiesPage: FC = () => {
+  const navigate = useNavigate({
+    from: '/properties'
+  })
+
+  const { page } = useSearch({
+    from: '/properties'
+  })
+
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['properties', 'page'],
-    queryFn: propertyService.getAll,
+    queryKey: ['properties', PAGE_SIZE, page],
+    queryFn: () =>
+      propertyService.getAll({
+        pageSize: PAGE_SIZE,
+        page: page || 1
+      }),
     retry: false
   })
 
   const isEmpty = data?.content?.length === 0
+
+  // 120 - total number of properties
+  const totalPages = Math.ceil(120 / PAGE_SIZE)
+  const currentPage = page || 1
+
+  const pageRange = 2
+  const startPage = Math.max(1, currentPage - pageRange)
+  const endPage = Math.min(totalPages, currentPage + pageRange)
+
+  const visiblePages = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, index) => startPage + index
+  )
+
+  const showEllipsisLeft = startPage > 1
+  const showEllipsisRight = endPage < totalPages
+
+  function handleNextPage() {
+    navigate({
+      search: (prev) => {
+        return {
+          page: prev.page + 1
+        }
+      }
+    })
+  }
+
+  function handlePreviousPage() {
+    navigate({
+      search: (prev) => {
+        if (prev.page > 1) {
+          return {
+            page: prev.page - 1
+          }
+        } else {
+          return {
+            page: prev.page
+          }
+        }
+      }
+    })
+  }
+
+  function handleGoToPage(page: number) {
+    navigate({
+      search: {
+        page
+      }
+    })
+  }
 
   if (isError) {
     return (
@@ -37,7 +103,9 @@ const PropertiesPage: FC = () => {
 
   return (
     <Layout>
-      <Container>
+      <HeaderWelcome />
+
+      <Container className="mt-6">
         <div className="px-4">
           {isLoading ? (
             <div className="grid grid-cols-1 justify-center gap-4 md:grid-cols-[minmax(300px,_400px)_minmax(300px,_400px)]">
@@ -48,37 +116,48 @@ const PropertiesPage: FC = () => {
               <PropertiesList properties={data.content} />{' '}
             </div>
           ) : (
-            <NoContent />
+            <NoContent className="mt-[100px]" />
           )}
         </div>
 
-        {!isEmpty && (
-          <Pagination className="mt-6">
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious />
-              </PaginationItem>
+        {/* {!isEmpty && ( */}
+        {/* TODO: pagination button logic */}
+        <Pagination className="mt-6">
+          <PaginationContent>
+            <PaginationItem onClick={handlePreviousPage}>
+              <PaginationPrevious />
+            </PaginationItem>
 
-              <PaginationItem>
-                <Button variant="ghost">1</Button>
-              </PaginationItem>
-              <PaginationItem>
-                <Button variant="ghost">2</Button>
-              </PaginationItem>
-              <PaginationItem>
-                <Button variant="ghost">3</Button>
-              </PaginationItem>
-
+            {showEllipsisLeft && (
               <PaginationItem>
                 <PaginationEllipsis />
               </PaginationItem>
+            )}
 
-              <PaginationItem>
-                <PaginationNext />
+            {visiblePages.map((pageNumber) => (
+              <PaginationItem
+                key={pageNumber}
+                onClick={() => handleGoToPage(pageNumber)}>
+                <Button
+                  variant={pageNumber === currentPage ? undefined : 'ghost'}
+                  onClick={() => navigate({ search: { page: pageNumber } })}>
+                  {pageNumber}
+                </Button>
               </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        )}
+            ))}
+
+            {showEllipsisRight && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+
+            <PaginationItem onClick={handleNextPage}>
+              <PaginationNext />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+        {/* )} */}
       </Container>
     </Layout>
   )

@@ -82,7 +82,8 @@ const SignupForm: FC<SignupFormProps> = ({ handleTabChange }) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="mt-4 flex flex-col gap-4">
+          className="mt-4 flex flex-col gap-4"
+        >
           <UserTypeRadioField />
 
           <div className="flex gap-2">
