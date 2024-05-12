@@ -1,13 +1,13 @@
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { useToast } from '@/components/ui/use-toast'
-import NewPropertyFormFields from '@/pages/owner/add-new-property/components/NewPropertyForm/components/NewPropertyFormFields'
+import NewPropertyFormFields from '@/pages/owner/add-new-property/components/NewPropertyForm/components/inputs/NewPropertyFormFields'
 import {
   NewPropertyFormType,
   useNewPropertyForm
 } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
-import { propertyService } from '@/services/property-service/peroperty-service'
+import { propertyService } from '@/services/property-service/property-service'
 import { useMutation } from '@tanstack/react-query'
 import { FC } from 'react'
 
@@ -85,8 +85,7 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto mt-4 flex flex-col gap-4"
-      >
+        className="mx-auto mt-4 flex flex-col gap-4">
         <NewPropertyFormFields />
 
         <Button type="submit" size="sm" className="mt-4">

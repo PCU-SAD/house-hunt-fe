@@ -20,8 +20,7 @@ const Settings: FC<SettingsProps> = () => {
             <ul className="flex flex-col gap-2">
               <SettingsLink
                 to="/settings/account"
-                icon={<Settings2Icon className="h-4 w-4" />}
-              >
+                icon={<Settings2Icon className="h-4 w-4" />}>
                 Account
               </SettingsLink>
             </ul>

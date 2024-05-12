@@ -9,7 +9,7 @@ import axios from 'axios'
 export const propertyService = {
   createOne: async (values: CreatePropertyRequest) => {
     try {
-      await wait(1000)
+      await wait(500)
 
       const { data } = await authApi.post<string>('/properties', values)
 

@@ -2,14 +2,21 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+const identityDocumentTypeSchema = z.enum([
+  'PASSPORT',
+  'ID_CARD',
+  'DRIVER_LICENSE',
+  'RESIDENCE_PERMIT',
+  'OTHER'
+])
+
+export type IdentityDocumentType = z.infer<typeof identityDocumentTypeSchema>
+
 export const verificationFormSchema = z.object({
+  type: identityDocumentTypeSchema,
   document: z.any().refine((file) => {
     return !!file
   }, 'Document is required.')
-  // .refine(
-  //   (files) => files?.[0]?.size >= MAX_FILE_SIZE,
-  //   `Max file size is 5MB.`
-  // )
 })
 export type VerificationFormType = z.infer<typeof verificationFormSchema>
 
@@ -18,6 +25,7 @@ export function useVerificationForm() {
     resolver: zodResolver(verificationFormSchema),
     mode: 'onChange',
     defaultValues: {
+      type: 'PASSPORT' as const,
       document: null
     }
   })

@@ -36,7 +36,8 @@ function LoginForm() {
           email: userData.email,
           type: userData.role
         },
-        response.refreshToken
+        response.refreshToken,
+        response.token
       )
 
       toast({

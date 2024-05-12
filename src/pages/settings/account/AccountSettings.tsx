@@ -2,6 +2,7 @@ import { Typography } from '@/components/ui/typography'
 import { FC } from 'react'
 
 import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
 import ResetPasswordForm from '@/pages/settings/account/components/ResetPasswordForm/ResetPasswordForm'
 import VerificationForm from '@/pages/settings/account/components/VerificationForm/VerificationForm'
 
@@ -14,6 +15,7 @@ const AccountSettings: FC<AccountSettingsProps> = () => {
         <div className="space-y-8">
           <div>
             <Typography variant="h3">Identity Verification</Typography>
+            <Separator />
             <VerificationForm />
           </div>
           <div>

@@ -1,5 +1,7 @@
 import { queryClient } from '@/app'
 import { authService } from '@/services/auth-service/auth-service'
+import { RefreshResponse } from '@/services/auth-service/types'
+import { jwtService } from '@/services/jwt-service/jwt-service'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { createContext, FC, ReactNode, useContext, useMemo } from 'react'
@@ -27,7 +29,7 @@ export type User = {
 
 export type AuthContextType = {
   user: User | null
-  login: (user: User, refreshToken: string) => void
+  login: (user: User, refreshToken: string, accessToken: string) => void
   logout: () => void
   isLoading: boolean
   isError: boolean
@@ -40,7 +42,6 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const {
     data: refreshData,
     isLoading,
-    refetch: refetchRefresh,
     isError
   } = useQuery({
     queryKey: ['refresh'],
@@ -64,14 +65,28 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       if (error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true
 
-        await refetchRefresh()
-        const accessToken = refreshData?.accessToken
+        const refreshToken = localStorage.getItem('refreshToken') || ''
 
-        console.log('catching 403')
+        const { data } = await api.post<RefreshResponse>('/auth/refreshToken', {
+          token: refreshToken
+        })
+
+        const accessToken = data.token.split(' ')[1]
+        const userData = jwtService.parse(accessToken)
 
         if (accessToken) {
+          originalRequest.headers.Authorization = 'Bearer ' + accessToken
+
           authApi.defaults.headers.common['Authorization'] =
             'Bearer ' + accessToken
+
+          queryClient.setQueryData(['refresh'], {
+            accessToken,
+            userData: {
+              email: userData.email,
+              role: userData.role
+            }
+          })
         }
 
         return authApi(originalRequest)
@@ -86,23 +101,27 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       if (!config?.headers?.Authorization) {
         const accessToken = refreshData?.accessToken
 
+        if (!accessToken) {
+          return config
+        }
+
         config.headers.Authorization = `Bearer ${accessToken}`
       }
 
       return config
     },
     (error) => {
-      console.log('🚀 ~ error:', error)
       return Promise.reject(error)
     }
   )
 
-  function login(user: User, refreshToken: string) {
+  function login(user: User, refreshToken: string, accessToken: string) {
     queryClient.setQueryData(['refresh'], {
       userData: {
         email: user.email,
         role: user.type
-      }
+      },
+      accessToken
     })
 
     localStorage.setItem('refreshToken', refreshToken)

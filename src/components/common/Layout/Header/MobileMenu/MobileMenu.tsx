@@ -53,20 +53,20 @@ const MobileMenu: FC<MobileMenuProps> = () => {
       <SheetContent
         handleClose={handleClose}
         side="left"
-        className="flex w-full flex-col items-center justify-center sm:max-w-[400px] md:hidden"
-      >
-        {filteredLinks.map((link) => (
-          <NavigationMenuItem key={link.to}>
-            <Link
-              to={link.to}
-              activeProps={{
-                className: cn('underline underline-offset-2')
-              }}
-            >
-              {link.label}
-            </Link>
-          </NavigationMenuItem>
-        ))}
+        className="flex w-full flex-col items-center justify-center sm:max-w-[400px] md:hidden">
+        <div className="flex flex-col gap-2">
+          {filteredLinks.map((link) => (
+            <NavigationMenuItem key={link.to}>
+              <Link
+                to={link.to}
+                activeProps={{
+                  className: cn('underline underline-offset-2')
+                }}>
+                {link.label}
+              </Link>
+            </NavigationMenuItem>
+          ))}
+        </div>
       </SheetContent>
     </Sheet>
   )

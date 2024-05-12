@@ -12,8 +12,9 @@ import {
 } from '@/components/ui/pagination'
 import HeaderWelcome from '@/pages/properties/components/HeaderWelcome/HeaderWelcome'
 import PropertiesList from '@/pages/properties/components/PropertiesList/PropertiesList'
-import SkeletonList from '@/pages/properties/components/Skeleton/SkeletonList'
-import { propertyService } from '@/services/property-service/peroperty-service'
+import PropertiesSkeletonList from '@/pages/properties/components/Skeleton/PropertiesSkeletonList'
+import { propertyService } from '@/services/property-service/property-service'
+
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { FC } from 'react'
@@ -109,7 +110,7 @@ const PropertiesPage: FC = () => {
         <div className="px-4">
           {isLoading ? (
             <div className="grid grid-cols-1 justify-center gap-4 md:grid-cols-[minmax(300px,_400px)_minmax(300px,_400px)]">
-              <SkeletonList />
+              <PropertiesSkeletonList />
             </div>
           ) : !isEmpty ? (
             <div className="grid grid-cols-1 justify-center gap-4 md:grid-cols-[minmax(300px,_400px)_minmax(300px,_400px)]">
