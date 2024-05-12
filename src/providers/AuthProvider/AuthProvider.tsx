@@ -31,6 +31,7 @@ export type AuthContextType = {
   logout: () => void
   isLoading: boolean
   isError: boolean
+  accessToken: string | undefined
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType)
@@ -58,7 +59,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     async (error) => {
       const originalRequest = error.config
 
-      if (error.response.status === 403 && !originalRequest._retry) {
+      if (error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true
 
         await refetchRefresh()
@@ -69,33 +70,6 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         if (accessToken) {
           authApi.defaults.headers.common['Authorization'] =
             'Bearer ' + accessToken
-        }
-
-        return authApi(originalRequest)
-      }
-
-      return Promise.reject(error)
-    }
-  )
-
-  // TODO: remove this since api should be open to public
-  api.interceptors.response.use(
-    (response) => {
-      return response
-    },
-    async (error) => {
-      const originalRequest = error.config
-
-      if (error.response.status === 403 && !originalRequest._retry) {
-        originalRequest._retry = true
-
-        await refetchRefresh()
-        const accessToken = refreshData?.accessToken
-
-        console.log('catching 403')
-
-        if (accessToken) {
-          api.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken
         }
 
         return authApi(originalRequest)
@@ -144,6 +118,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   }
 
   const value = {
+    accessToken: refreshData?.accessToken,
     login,
     logout,
     isLoading,

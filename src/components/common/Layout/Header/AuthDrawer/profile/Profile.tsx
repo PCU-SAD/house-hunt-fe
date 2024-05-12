@@ -12,7 +12,8 @@ type ProfileProps = {
 
 const Profile: FC<ProfileProps> = ({ handleClose }) => {
   const auth = useAuthContext()
-  const isOwner = auth?.user?.type === 'LANDLORD'
+  const isOwner = auth?.user.type === 'LANDLORD'
+  const isUser = auth?.user.type === 'TENANT'
 
   function handleLogout() {
     auth.logout()
@@ -70,17 +71,19 @@ const Profile: FC<ProfileProps> = ({ handleClose }) => {
           </>
         )}
 
-        <div>
-          <Typography variant="h3" className="font-normal">
-            For seekers
-          </Typography>
+        {isUser && (
+          <div>
+            <Typography variant="h3" className="font-normal">
+              For seekers
+            </Typography>
 
-          <ul className="ml-6 mt-2 flex list-disc flex-col gap-1">
-            <li>
-              <Link to="/">Ads</Link>
-            </li>
-          </ul>
-        </div>
+            <ul className="ml-6 mt-2 flex list-disc flex-col gap-1">
+              <li>
+                <Link to="/">Ads</Link>
+              </li>
+            </ul>
+          </div>
+        )}
 
         <Separator className="my-4" />
 
@@ -91,13 +94,13 @@ const Profile: FC<ProfileProps> = ({ handleClose }) => {
 
           <ul className="ml-6 mt-2 flex list-disc flex-col gap-1">
             <li>
-              <Link to="/">Wallet</Link>
+              <Link to="/settings/account">Wallet</Link>
             </li>
             <li>
-              <Link to="/">Login and security</Link>
+              <Link to="/settings/account">Login and security</Link>
             </li>
             <li>
-              <Link to="/">Personal data</Link>
+              <Link to="/settings/account">Personal data</Link>
             </li>
             <li>
               <Link to="/settings/account">Profile</Link>

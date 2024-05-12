@@ -1,7 +1,6 @@
 import { Container, Layout } from '@/components/common'
 import { Typography } from '@/components/ui/typography'
 import SettingsLink from '@/pages/settings/components/SettingsLink'
-import { LockClosedIcon } from '@radix-ui/react-icons'
 import { Outlet } from '@tanstack/react-router'
 import { Settings2Icon } from 'lucide-react'
 import { FC } from 'react'
@@ -23,12 +22,6 @@ const Settings: FC<SettingsProps> = () => {
                 to="/settings/account"
                 icon={<Settings2Icon className="h-4 w-4" />}>
                 Account
-              </SettingsLink>
-
-              <SettingsLink
-                to="/settings/authentication"
-                icon={<LockClosedIcon className="h-4 w-4" />}>
-                Authentication
               </SettingsLink>
             </ul>
           </aside>

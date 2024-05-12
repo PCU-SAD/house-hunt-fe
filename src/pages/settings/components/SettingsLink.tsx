@@ -1,10 +1,11 @@
+import { ValidRoutes } from '@/app'
 import { Button } from '@/components/ui/button'
 import { Link } from '@tanstack/react-router'
 import { FC, ReactNode } from 'react'
 
 type SettingsLinkProps = {
   icon: ReactNode
-  to: string
+  to: ValidRoutes
   children: ReactNode
 }
 
@@ -13,7 +14,7 @@ const SettingsLink: FC<SettingsLinkProps> = ({ icon, to, children }) => {
     <Button
       variant="ghost"
       size="sm"
-      className="relative flex-grow justify-start gap-2 py-1 pl-4"
+      className="relative min-w-[180px] flex-grow justify-start gap-2 py-1 pl-4"
       asChild>
       <Link
         to={to}

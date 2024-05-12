@@ -16,11 +16,16 @@ type NewPropertyFormProps = {}
 const NewPropertyForm: FC<NewPropertyFormProps> = () => {
   const { toast } = useToast()
   const auth = useAuthContext()
+  // console.log('🚀 ~ auth:', auth)
 
   const imagesMutation = useMutation({
     mutationKey: ['images'],
     mutationFn: (args: { propertyId: string; images: File[] }) =>
-      propertyService.uploadImages(args.propertyId, args.images),
+      propertyService.uploadImages(
+        args.propertyId,
+        args.images,
+        auth?.accessToken
+      ),
     onSuccess: () => {},
     onError: (error: Error) => {
       toast({

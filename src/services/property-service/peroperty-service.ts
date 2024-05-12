@@ -8,7 +8,7 @@ import axios from 'axios'
 export const propertyService = {
   createOne: async (values: CreatePropertyRequest) => {
     try {
-      new Promise(res => setTimeout(res, 1000))
+      new Promise((res) => setTimeout(res, 1000))
       console.log('request goes here')
       const { data } = await authApi.post<string>('/properties', values)
 
@@ -21,11 +21,15 @@ export const propertyService = {
       }
     }
   },
-  uploadImages: async (propertyId: string, images: File[]) => {
+  uploadImages: async (
+    propertyId: string,
+    images: File[],
+    accessToken?: string
+  ) => {
     try {
       const formData = new FormData()
-      images.forEach((image, index) => {
-        formData.append(`image_${index + 1}`, image)
+      images.forEach((image) => {
+        formData.append('images', image)
       })
 
       const { data } = await authApi.post(
@@ -33,13 +37,15 @@ export const propertyService = {
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${accessToken || ''}`
           }
         }
       )
 
       return data
     } catch (error) {
+      console.log(error)
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data.message)
       } else {
@@ -49,11 +55,7 @@ export const propertyService = {
   },
   getAll: async () => {
     try {
-      const { data } = await api.get<GetAllPropertiesResponse>('/properties', {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+      const { data } = await api.get<GetAllPropertiesResponse>('/properties')
 
       return data
     } catch (error) {
