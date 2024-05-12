@@ -3,9 +3,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { FC } from 'react'
 
-type ResetPasswordFormProps = {}
-
-const ResetPasswordForm: FC<ResetPasswordFormProps> = () => {
+const UpdatePasswordForm: FC = () => {
   return (
     <div className="mt-4 space-y-4">
       <div>
@@ -25,4 +23,4 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = () => {
   )
 }
 
-export default ResetPasswordForm
+export default UpdatePasswordForm
