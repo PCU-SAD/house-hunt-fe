@@ -51,28 +51,59 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     ? { email: refreshData.userData.email, type: refreshData.userData.role }
     : null
 
-  async function catch403(error) {
-    const originalRequest = error.config
+  authApi.interceptors.response.use(
+    (response) => {
+      return response
+    },
+    async (error) => {
+      const originalRequest = error.config
 
-    if (error.response.status === 403 && !originalRequest._retry) {
-      originalRequest._retry = true
+      if (error.response.status === 403 && !originalRequest._retry) {
+        originalRequest._retry = true
 
-      await refetchRefresh()
-      const accessToken = refreshData?.accessToken
+        await refetchRefresh()
+        const accessToken = refreshData?.accessToken
 
-      if (accessToken) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken
+        console.log('catching 403')
+
+        if (accessToken) {
+          authApi.defaults.headers.common['Authorization'] =
+            'Bearer ' + accessToken
+        }
+
+        return authApi(originalRequest)
       }
 
-      return authApi(originalRequest)
+      return Promise.reject(error)
     }
+  )
 
-    return Promise.reject(error)
-  }
+  // TODO: remove this since api should be open to public
+  api.interceptors.response.use(
+    (response) => {
+      return response
+    },
+    async (error) => {
+      const originalRequest = error.config
 
-  authApi.interceptors.response.use((response) => {
-    return response
-  }, catch403)
+      if (error.response.status === 403 && !originalRequest._retry) {
+        originalRequest._retry = true
+
+        await refetchRefresh()
+        const accessToken = refreshData?.accessToken
+
+        console.log('catching 403')
+
+        if (accessToken) {
+          api.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken
+        }
+
+        return authApi(originalRequest)
+      }
+
+      return Promise.reject(error)
+    }
+  )
 
   authApi.interceptors.request.use(
     (config) => {
@@ -123,7 +154,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
-export function useAuth() {
+export function useAuthContext() {
   const context = useContext(AuthContext)
 
   if (!context) {

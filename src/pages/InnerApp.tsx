@@ -1,11 +1,11 @@
 import { router } from '@/app'
 import LoadingPage from '@/pages/loading/Loading'
-import { useAuth } from '@/providers/AuthProvider/AuthProvider'
+import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { RouterProvider } from '@tanstack/react-router'
 import { FC, useEffect, useMemo } from 'react'
 
 const InnerApp: FC = () => {
-  const auth = useAuth()
+  const auth = useAuthContext()
 
   const routerContext = useMemo(
     () => ({

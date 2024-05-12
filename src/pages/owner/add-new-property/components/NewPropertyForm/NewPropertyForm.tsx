@@ -6,7 +6,7 @@ import {
   NewPropertyFormType,
   useNewPropertyForm
 } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
-import { useAuth } from '@/providers/AuthProvider/AuthProvider'
+import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { propertyService } from '@/services/property-service/peroperty-service'
 import { useMutation } from '@tanstack/react-query'
 import { FC } from 'react'
@@ -15,7 +15,7 @@ type NewPropertyFormProps = {}
 
 const NewPropertyForm: FC<NewPropertyFormProps> = () => {
   const { toast } = useToast()
-  const auth = useAuth()
+  const auth = useAuthContext()
 
   const imagesMutation = useMutation({
     mutationKey: ['images'],

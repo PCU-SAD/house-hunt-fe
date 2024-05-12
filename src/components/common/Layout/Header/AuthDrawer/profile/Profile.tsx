@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Typography } from '@/components/ui/typography'
-import { useAuth } from '@/providers/AuthProvider/AuthProvider'
+import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { Link } from '@tanstack/react-router'
 import { Check, CornerUpLeft, LogOut, UserIcon } from 'lucide-react'
 import { FC } from 'react'
@@ -11,7 +11,7 @@ type ProfileProps = {
 }
 
 const Profile: FC<ProfileProps> = ({ handleClose }) => {
-  const auth = useAuth()
+  const auth = useAuthContext()
   const isOwner = auth?.user?.type === 'LANDLORD'
 
   function handleLogout() {

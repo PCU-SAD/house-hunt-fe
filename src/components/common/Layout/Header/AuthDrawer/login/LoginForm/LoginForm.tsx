@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
-import { useAuth } from '@/providers/AuthProvider/AuthProvider'
+import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { authService } from '@/services/auth-service/auth-service'
 import { jwtService } from '@/services/jwt-service/jwt-service'
 import { useMutation } from '@tanstack/react-query'
@@ -22,7 +22,7 @@ import { useMutation } from '@tanstack/react-query'
 function LoginForm() {
   const { toast } = useToast()
 
-  const auth = useAuth()
+  const auth = useAuthContext()
   const form = useLoginForm()
 
   const { mutate } = useMutation({

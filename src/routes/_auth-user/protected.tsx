@@ -1,6 +1,6 @@
 import { Container, Layout } from '@/components/common'
 import { Typography } from '@/components/ui/typography'
-import { useAuth } from '@/providers/AuthProvider/AuthProvider'
+import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth-user/protected')({
@@ -8,7 +8,7 @@ export const Route = createFileRoute('/_auth-user/protected')({
 })
 
 function Protected() {
-  const auth = useAuth()
+  const auth = useAuthContext()
 
   return (
     <Layout>

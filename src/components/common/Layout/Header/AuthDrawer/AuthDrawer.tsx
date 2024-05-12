@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { cn } from '@/lib/utils'
-import { useAuth } from '@/providers/AuthProvider/AuthProvider'
+import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { UserIcon } from 'lucide-react'
 import { FC, useState } from 'react'
 
@@ -14,7 +14,7 @@ export type AuthDrawTab = 'login' | 'signup'
 const AuthDrawer: FC = () => {
   const [showMenu, setShowMenu] = useState(false)
   const [activeTab, setActiveTab] = useState<AuthDrawTab>('login')
-  const auth = useAuth()
+  const auth = useAuthContext()
   const isLoggedIn = !!auth?.user?.email
 
   function handleTabChange(tab: AuthDrawTab) {

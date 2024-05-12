@@ -1,32 +1,38 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '@/components/ui/accordion'
+import { navLinks } from '@/components/common/Layout/Header/navLinks'
 import { Button } from '@/components/ui/button'
+import { NavigationMenuItem } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { cn } from '@/lib/utils'
+import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
+import { Link } from '@tanstack/react-router'
 import { MenuIcon } from 'lucide-react'
 import { FC, useState } from 'react'
 
 type MobileMenuProps = {}
 
-const MenuItems = [
-  {
-    title: 'Houses',
-    content: 'More information'
-  },
-  {
-    title: 'Apartments',
-    content: 'More information'
-  },
-  {
-    title: 'Something else?',
-    content: 'More information'
-  }
-]
-
 const MobileMenu: FC<MobileMenuProps> = () => {
+  const auth = useAuthContext()
+  const userType = auth.user?.type
+
+  const isLandlord = userType === 'LANDLORD'
+  const isAdmin = userType === 'ADMIN'
+
+  const filteredLinks = navLinks.filter((link) => {
+    switch (link.access) {
+      case 'ALL':
+        return true
+
+      case 'LANDLORD':
+        return isLandlord
+
+      case 'ADMIN':
+        return isAdmin
+
+      default:
+        return false
+    }
+  })
+
   const [showMenu, setShowMenu] = useState(false)
 
   function handleOpen() {
@@ -48,16 +54,17 @@ const MobileMenu: FC<MobileMenuProps> = () => {
         handleClose={handleClose}
         side="left"
         className="flex w-full flex-col items-center justify-center sm:max-w-[400px] md:hidden">
-        <Accordion type="single" defaultValue="item-1">
-          {MenuItems.map((item, index) => (
-            <AccordionItem key={index} value={`item-${index + 1}`}>
-              <AccordionTrigger>{item.title}</AccordionTrigger>
-              <AccordionContent onClick={handleClose}>
-                some content
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        {filteredLinks.map((link) => (
+          <NavigationMenuItem>
+            <Link
+              to={link.to}
+              activeProps={{
+                className: cn('underline underline-offset-2')
+              }}>
+              {link.label}
+            </Link>
+          </NavigationMenuItem>
+        ))}
       </SheetContent>
     </Sheet>
   )
