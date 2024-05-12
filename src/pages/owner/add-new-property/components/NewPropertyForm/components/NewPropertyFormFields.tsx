@@ -167,7 +167,7 @@ const NewPropertyFormFields: FC = () => {
         <Label className="mb-2 block">Images</Label>
         <div className="flex flex-wrap gap-2">
           {new Array(6).fill(null).map((_, index) => (
-            <FileInput name={`images.${index}`} />
+            <FileInput name={`images.${index}`} key={`images.${index}`} />
           ))}
         </div>
 

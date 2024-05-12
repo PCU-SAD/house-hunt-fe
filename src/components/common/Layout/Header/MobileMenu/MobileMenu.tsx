@@ -56,7 +56,7 @@ const MobileMenu: FC<MobileMenuProps> = () => {
         className="flex w-full flex-col items-center justify-center sm:max-w-[400px] md:hidden"
       >
         {filteredLinks.map((link) => (
-          <NavigationMenuItem>
+          <NavigationMenuItem key={link.to}>
             <Link
               to={link.to}
               activeProps={{

@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { addDays } from 'date-fns'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -98,7 +99,7 @@ export function useNewPropertyForm() {
       isFurnished: 'UNFURNISHED',
       numberOfRooms: 1,
       floorNumber: 1,
-      availableFrom: new Date(),
+      availableFrom: addDays(new Date(), 1),
       adType: 'RENTAL',
       apartmentType: 'ONE_KK'
     }

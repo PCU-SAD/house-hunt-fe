@@ -25,7 +25,7 @@ function LoginForm() {
   const auth = useAuthContext()
   const form = useLoginForm()
 
-  const { mutate } = useMutation({
+  const loginMutation = useMutation({
     mutationFn: authService.login,
     mutationKey: ['auth/login'],
     onSuccess: (response) => {
@@ -54,11 +54,13 @@ function LoginForm() {
         description: error.message,
         duration: 2_000
       })
+
+      form.reset()
     }
   })
 
   async function onSubmit(values: LoginFormType) {
-    mutate(values)
+    loginMutation.mutate(values)
   }
 
   return (
@@ -66,8 +68,7 @@ function LoginForm() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="mt-4 flex flex-col gap-3"
-        >
+          className="mt-4 flex flex-col gap-3">
           <FormField
             name="email"
             control={form.control}
@@ -105,7 +106,10 @@ function LoginForm() {
               )
             }}
           />
-          <Button type="submit" className="mt-3">
+          <Button
+            type="submit"
+            className="mt-3 gap-2"
+            loading={loginMutation.isPending}>
             Submit
           </Button>
         </form>

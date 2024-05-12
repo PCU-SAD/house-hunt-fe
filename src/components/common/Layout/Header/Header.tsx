@@ -38,14 +38,13 @@ const Header: FC = () => {
     <NavigationMenu className="hidden md:block md:w-screen">
       <NavigationMenuList>
         {filteredLinks.map((link) => (
-          <NavigationMenuItem>
+          <NavigationMenuItem key={link.to}>
             <Link
               to={link.to}
               className={navigationMenuTriggerStyle()}
               activeProps={{
                 className: cn('bg-slate-100')
-              }}
-            >
+              }}>
               {link.label}
             </Link>
           </NavigationMenuItem>

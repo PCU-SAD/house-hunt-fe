@@ -1,6 +1,6 @@
 import { LoginFormType } from '@/components/common/Layout/Header/AuthDrawer/login/LoginForm/useLoginForm'
 import { SignupPostValues } from '@/components/common/Layout/Header/AuthDrawer/signup/SignupForm/useSignupForm'
-import { api } from '@/providers/AuthProvider/AuthProvider'
+import { api, authApi } from '@/providers/AuthProvider/AuthProvider'
 import { LoginResponse, RefreshResponse } from '@/services/auth-service/types'
 import { jwtService, JWTUserPayload } from '@/services/jwt-service/jwt-service'
 import axios from 'axios'
@@ -8,6 +8,8 @@ import axios from 'axios'
 export const authService = {
   refresh: async () => {
     try {
+      await wait(1000)
+
       const refreshToken = localStorage.getItem('refreshToken') || ''
 
       const { data } = await api.post<RefreshResponse>('/auth/refreshToken', {
@@ -27,6 +29,8 @@ export const authService = {
   },
   signup: async (signupData: SignupPostValues) => {
     try {
+      await wait(1000)
+
       await api.post('/user/register', signupData)
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -38,6 +42,8 @@ export const authService = {
   },
   login: async (loginData: LoginFormType) => {
     try {
+      await wait(1000)
+
       const { data } = await api.post<LoginResponse>('/auth/login', loginData)
 
       return data
@@ -48,5 +54,22 @@ export const authService = {
         throw new Error(error?.message)
       }
     }
+  },
+  logout: async () => {
+    try {
+      await wait(1000)
+
+      await authApi.post('/auth/logout')
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error(error?.message)
+      }
+    }
   }
+}
+
+export function wait(ms: number) {
+  return new Promise((res) => setTimeout(res, ms))
 }

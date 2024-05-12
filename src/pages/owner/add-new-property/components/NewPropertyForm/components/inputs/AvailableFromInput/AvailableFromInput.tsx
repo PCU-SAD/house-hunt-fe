@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
 import { NewPropertyFormType } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
-import { format } from 'date-fns'
+import { addDays, format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 import { FC } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -39,8 +39,7 @@ const AvailableFromInput: FC = () => {
                     className={cn(
                       'flex w-[200px] justify-start gap-2 pl-3 text-left font-normal',
                       !field.value && 'text-muted-foreground'
-                    )}
-                  >
+                    )}>
                     <CalendarIcon className="h-4 w-4 opacity-50" />
                     {field.value ? (
                       format(field.value, 'dd.MM.yyyy')
@@ -55,7 +54,9 @@ const AvailableFromInput: FC = () => {
                   mode="single"
                   selected={field.value}
                   onSelect={field.onChange}
-                  disabled={(date) => date < new Date()}
+                  disabled={{
+                    before: addDays(new Date(), 1)
+                  }}
                   initialFocus
                 />
               </PopoverContent>

@@ -1,7 +1,8 @@
 import { Container, Layout } from '@/components/common'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
+import { cn } from '@/lib/utils'
 import { Link } from '@tanstack/react-router'
 import { PlusIcon } from 'lucide-react'
 import { FC } from 'react'
@@ -36,12 +37,17 @@ const ManageProperties: FC<ManagePropertiesProps> = () => {
             Manage Properties
           </Typography>
 
-          <Button size="noSize" className="gap-2 px-2 py-2" asChild>
-            <Link to="/manage-properties/add-new">
-              <PlusIcon className="h-4 w-4" />
-              <span>Add new</span>
-            </Link>
-          </Button>
+          <Link
+            to="/manage-properties/add-new"
+            className={cn(
+              buttonVariants({
+                size: 'noSize',
+                className: 'px-2 py-2'
+              })
+            )}>
+            <PlusIcon className="h-4 w-4" />
+            <span>Add new</span>
+          </Link>
         </div>
 
         {properties.map((property) => (

@@ -4,8 +4,6 @@ import { z } from 'zod'
 
 export const verificationFormSchema = z.object({
   document: z.any().refine((file) => {
-    console.log(file)
-
     return !!file
   }, 'Document is required.')
   // .refine(

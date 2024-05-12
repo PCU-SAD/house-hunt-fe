@@ -1,9 +1,11 @@
-import { Button } from '@/components/ui/button'
+import Logout from '@/components/common/Layout/Header/AuthDrawer/components/Logout'
+import { buttonVariants } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Typography } from '@/components/ui/typography'
+import { cn } from '@/lib/utils'
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { Link } from '@tanstack/react-router'
-import { Check, CornerUpLeft, LogOut, UserIcon } from 'lucide-react'
+import { Check, CornerUpLeft, UserIcon } from 'lucide-react'
 import { FC } from 'react'
 
 type ProfileProps = {
@@ -14,10 +16,6 @@ const Profile: FC<ProfileProps> = ({ handleClose }) => {
   const auth = useAuthContext()
   const isOwner = auth?.user.type === 'LANDLORD'
   const isUser = auth?.user.type === 'TENANT'
-
-  function handleLogout() {
-    auth.logout()
-  }
 
   return (
     <div className="mt-4 flex w-full flex-1 flex-col justify-between gap-4">
@@ -39,17 +37,18 @@ const Profile: FC<ProfileProps> = ({ handleClose }) => {
           </div>
         </div>
 
-        <Button
-          className="mt-6 h-12 w-full border"
-          variant="ghost"
-          asChild
+        <Link
           onClick={handleClose}
-        >
-          <Link to="/properties" className="flex items-center gap-2">
-            <CornerUpLeft />
-            View properties
-          </Link>
-        </Button>
+          to="/properties"
+          className={cn(
+            buttonVariants({
+              className: 'mt-6 h-12 w-full border',
+              variant: 'ghost'
+            })
+          )}>
+          <CornerUpLeft />
+          View properties
+        </Link>
 
         <div className="py-3"></div>
 
@@ -110,10 +109,7 @@ const Profile: FC<ProfileProps> = ({ handleClose }) => {
         </div>
       </div>
 
-      <Button onClick={handleLogout} className="gap-2">
-        <LogOut className="rotate-180" />
-        Log out
-      </Button>
+      <Logout />
     </div>
   )
 }

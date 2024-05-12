@@ -1,4 +1,5 @@
 import { api, authApi } from '@/providers/AuthProvider/AuthProvider'
+import { wait } from '@/services/auth-service/auth-service'
 import {
   CreatePropertyRequest,
   GetAllPropertiesResponse
@@ -8,8 +9,8 @@ import axios from 'axios'
 export const propertyService = {
   createOne: async (values: CreatePropertyRequest) => {
     try {
-      new Promise((res) => setTimeout(res, 1000))
-      console.log('request goes here')
+      await wait(1000)
+
       const { data } = await authApi.post<string>('/properties', values)
 
       return data
@@ -45,7 +46,6 @@ export const propertyService = {
 
       return data
     } catch (error) {
-      console.log(error)
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data.message)
       } else {

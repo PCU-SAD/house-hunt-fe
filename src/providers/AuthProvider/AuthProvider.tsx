@@ -2,7 +2,7 @@ import { queryClient } from '@/app'
 import { authService } from '@/services/auth-service/auth-service'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { createContext, FC, ReactNode, useContext } from 'react'
+import { createContext, FC, ReactNode, useContext, useMemo } from 'react'
 
 export const API_URL = import.meta.env.VITE_API_URL
 
@@ -48,9 +48,11 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     retry: false
   })
 
-  const user = refreshData?.userData?.email
-    ? { email: refreshData.userData.email, type: refreshData.userData.role }
-    : null
+  const user = useMemo(() => {
+    return refreshData?.userData?.email
+      ? { email: refreshData.userData.email, type: refreshData.userData.role }
+      : null
+  }, [refreshData?.userData.email, refreshData?.userData.role])
 
   authApi.interceptors.response.use(
     (response) => {
@@ -112,19 +114,23 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         email: null,
         role: null
       },
-      accessToken: ''
+      accessToken: null
     })
+
     localStorage.removeItem('refreshToken')
   }
 
-  const value = {
-    accessToken: refreshData?.accessToken,
-    login,
-    logout,
-    isLoading,
-    isError,
-    user
-  }
+  const value = useMemo(
+    () => ({
+      user,
+      login,
+      logout,
+      isLoading,
+      isError,
+      accessToken: refreshData?.accessToken
+    }),
+    [user, refreshData, isLoading, isError]
+  )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

@@ -38,9 +38,9 @@ const SignupForm: FC<SignupFormProps> = ({ handleTabChange }) => {
     mutationFn: authService.signup,
     onSuccess: () => {
       toast({
-        description: 'User created successfully',
+        description: 'Verification code sent to your email!',
         variant: 'default',
-        duration: 2_000
+        duration: 4_000
       })
 
       form.reset()
@@ -82,8 +82,7 @@ const SignupForm: FC<SignupFormProps> = ({ handleTabChange }) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="mt-4 flex flex-col gap-4"
-        >
+          className="mt-4 flex flex-col gap-4">
           <UserTypeRadioField />
 
           <div className="flex gap-2">
@@ -198,7 +197,10 @@ const SignupForm: FC<SignupFormProps> = ({ handleTabChange }) => {
 
           <ConsentFields />
 
-          <Button type="submit" className="mt-3">
+          <Button
+            type="submit"
+            className="mt-3"
+            loading={signupMutation.isPending}>
             Submit
           </Button>
         </form>
