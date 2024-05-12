@@ -1,5 +1,6 @@
 import { Container, Layout } from '@/components/common'
 import ErrorResult from '@/components/common/Errors/ErrorResult'
+import NoContent from '@/components/common/Errors/NoContent'
 import { Button } from '@/components/ui/button'
 import {
   Pagination,
@@ -22,6 +23,8 @@ const PropertiesPage: FC = () => {
     retry: false
   })
 
+  const isEmpty = data?.content?.length === 0
+
   if (isError) {
     return (
       <Layout>
@@ -36,16 +39,20 @@ const PropertiesPage: FC = () => {
     <Layout>
       <Container>
         <div className="px-4">
-          <div className="grid grid-cols-1 justify-center gap-4 md:grid-cols-[minmax(300px,_400px)_minmax(300px,_400px)]">
-            {isLoading ? (
+          {isLoading ? (
+            <div className="grid grid-cols-1 justify-center gap-4 md:grid-cols-[minmax(300px,_400px)_minmax(300px,_400px)]">
               <SkeletonList />
-            ) : (
-              data.content?.length && (
-                <PropertiesList properties={data.content} />
-              )
-            )}
-          </div>
+            </div>
+          ) : !isEmpty ? (
+            <div className="grid grid-cols-1 justify-center gap-4 md:grid-cols-[minmax(300px,_400px)_minmax(300px,_400px)]">
+              <PropertiesList properties={data.content} />{' '}
+            </div>
+          ) : (
+            <NoContent />
+          )}
+        </div>
 
+        {!isEmpty && (
           <Pagination className="mt-6">
             <PaginationContent>
               <PaginationItem>
@@ -71,7 +78,7 @@ const PropertiesPage: FC = () => {
               </PaginationItem>
             </PaginationContent>
           </Pagination>
-        </div>
+        )}
       </Container>
     </Layout>
   )

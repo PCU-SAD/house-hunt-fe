@@ -16,7 +16,6 @@ type NewPropertyFormProps = {}
 const NewPropertyForm: FC<NewPropertyFormProps> = () => {
   const { toast } = useToast()
   const auth = useAuthContext()
-  // console.log('🚀 ~ auth:', auth)
 
   const imagesMutation = useMutation({
     mutationKey: ['images'],
