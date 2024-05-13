@@ -14,6 +14,8 @@ import { FC } from 'react'
 type NewPropertyFormProps = {}
 
 const NewPropertyForm: FC<NewPropertyFormProps> = () => {
+  const form = useNewPropertyForm()
+
   const { toast } = useToast()
   const auth = useAuthContext()
 
@@ -25,13 +27,22 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
         args.images,
         auth?.accessToken
       ),
-    onSuccess: () => {},
+    onSuccess: () => {
+      toast({
+        title: 'Property created',
+        description: 'Your property has been created',
+        variant: 'default',
+        duration: 2_000
+      })
+
+      form.reset()
+    },
     onError: (error: Error) => {
       toast({
         title: 'Error',
         description: error.message,
         variant: 'destructive',
-        duration: 2000
+        duration: 2_000
       })
     }
   })
@@ -47,24 +58,16 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
         propertyId: data,
         images
       })
-
-      toast({
-        title: 'Property created',
-        description: 'Your property has been created',
-        variant: 'default'
-      })
     },
     onError: (error: Error) => {
       toast({
         title: 'Error',
         description: error.message,
         variant: 'destructive',
-        duration: 2000
+        duration: 2_000
       })
     }
   })
-
-  const form = useNewPropertyForm()
 
   function onSubmit(values: NewPropertyFormType) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

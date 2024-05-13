@@ -70,5 +70,21 @@ export const propertyService = {
         throw new Error('Something went wrong')
       }
     }
+  },
+  getPropertyImages: async (propertyId: string) => {
+    try {
+      await wait(1000)
+      const { data } = await api.get<string[]>(
+        `/properties/${propertyId}/images`
+      )
+
+      return data
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
   }
 }

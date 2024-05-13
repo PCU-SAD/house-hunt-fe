@@ -121,7 +121,6 @@ const PropertiesPage: FC = () => {
           )}
         </div>
 
-        {/* {!isEmpty && ( */}
         {/* TODO: pagination button logic */}
         <Pagination className="mt-6">
           <PaginationContent>
@@ -158,7 +157,6 @@ const PropertiesPage: FC = () => {
             </PaginationItem>
           </PaginationContent>
         </Pagination>
-        {/* )} */}
       </Container>
     </Layout>
   )

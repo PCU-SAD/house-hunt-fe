@@ -1,6 +1,10 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
+import { propertyService } from '@/services/property-service/property-service'
 import { PropertyType } from '@/services/property-service/types'
+import { useQuery } from '@tanstack/react-query'
 import {
+  AlertCircle,
   BathIcon,
   BedIcon,
   CurrencyIcon,
@@ -16,14 +20,37 @@ type PropertyCardProps = {
 }
 
 const PropertyCard: FC<PropertyCardProps> = ({ property }) => {
+  const {
+    isLoading,
+    data: images,
+    isError
+  } = useQuery({
+    queryKey: ['property-image', property.id],
+    queryFn: () => propertyService.getPropertyImages(property.id),
+    retry: 1
+  })
+
+  const hasError = isError || images?.length == 0 || images == null
+
   return (
     <Card className="h-full w-full max-w-[550px]">
       <CardHeader className="">
-        <img
-          alt="Property Image"
-          className="aspect-[16/10] w-full rounded-md object-cover"
-          src="https://placeholder.com/800/500"
-        />
+        {isLoading ? (
+          <Skeleton className="h-48 w-full rounded-md" />
+        ) : hasError ? (
+          <div className="flex min-h-52 w-full flex-col items-center justify-center rounded-md">
+            <AlertCircle className="h-10 w-10 text-red-500" />
+            <p className="mt-2 text-sm text-muted-foreground">
+              Something went wrong
+            </p>
+          </div>
+        ) : (
+          <img
+            alt="Property Image"
+            className="h-full min-h-52 w-full rounded-md object-contain"
+            src={`data:image/;base64,${images[0]}`}
+          />
+        )}
       </CardHeader>
       <CardContent className="space-y-4 p-4 sm:p-6">
         <div>
