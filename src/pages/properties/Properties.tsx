@@ -1,6 +1,7 @@
 import { Container, Layout } from '@/components/common'
 import ErrorResult from '@/components/common/Errors/ErrorResult'
 import NoContent from '@/components/common/Errors/NoContent'
+import { Button } from '@/components/ui/button'
 import {
   Drawer,
   DrawerContent,
@@ -24,9 +25,14 @@ import { propertyService } from '@/services/property-service/property-service'
 
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useSearch } from '@tanstack/react-router'
-import { FC } from 'react'
+import { FilterIcon } from 'lucide-react'
+import { FC, useState } from 'react'
 
 const PropertiesPage: FC = () => {
+  const [drawerOpen, setDrawerOpen] = useState(false)
+
+  const handleCloseDrawer = () => setDrawerOpen(false)
+
   const navigate = useNavigate({
     from: '/properties'
   })
@@ -35,11 +41,16 @@ const PropertiesPage: FC = () => {
     from: '/properties'
   })
 
-  const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['properties', queryParams],
+  const { data, isFetching, isError, refetch } = useQuery({
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: ['properties'],
     queryFn: () => propertyService.getAll(queryParams),
     retry: false
   })
+
+  function applyFilters() {
+    refetch()
+  }
 
   const isEmpty = data?.content?.length === 0
 
@@ -84,36 +95,43 @@ const PropertiesPage: FC = () => {
       <HeaderWelcome />
 
       <Container className="mt-6">
-        <section className="relative mx-auto flex max-w-[1200px] flex-col items-start gap-4 overflow-auto lg:flex-row">
+        <section className="flex max-w-[1200px] flex-col items-start gap-4 overflow-auto lg:flex-row">
           <aside className="min-w-[350px]">
             <div className="hidden rounded-lg border bg-white p-6 lg:block">
-              <PropertiesFilters />
+              <PropertiesFilters applyFilters={applyFilters} isFetching={isFetching} />
             </div>
 
             <div className="lg:hidden">
-              <Drawer>
-                <DrawerTrigger>Filters drawer</DrawerTrigger>
+              <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
+                <DrawerTrigger>
+                  <Button size="icon" variant="ghost">
+                    <FilterIcon />
+                  </Button>
+                </DrawerTrigger>
                 <DrawerContent>
                   <DrawerHeader>
                     <DrawerTitle>Filters</DrawerTitle>
                   </DrawerHeader>
                   <DrawerFooter>
-                    <PropertiesFilters />
+                    <PropertiesFilters
+                      applyFilters={applyFilters}
+                      handleCloseDrawer={handleCloseDrawer}
+                    />
                   </DrawerFooter>
                 </DrawerContent>
               </Drawer>
             </div>
           </aside>
 
-          <div>
-            {isLoading ? (
+          <div className="w-full flex-grow">
+            {isFetching ? (
               <PropertiesSkeletonList />
             ) : !isEmpty ? (
               <div className="flex flex-col gap-4">
                 <PropertiesList properties={data.content} />{' '}
               </div>
             ) : (
-              <NoContent className="mt-[100px]" />
+              <NoContent className="md:mt-[100px]" />
             )}
           </div>
         </section>

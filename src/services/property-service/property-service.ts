@@ -1,5 +1,6 @@
 import { api, authApi } from '@/providers/AuthProvider/AuthProvider'
 import { PropertySearchParams } from '@/routes/properties'
+import { wait } from '@/services/auth-service/auth-service'
 import {
   CreatePropertyRequest,
   GetAllPropertiesResponse
@@ -53,6 +54,7 @@ export const propertyService = {
   },
   getAll: async (searchParams: PropertySearchParams) => {
     try {
+      await wait(1000)
       const PAGE_SIZE = 20
 
       const { data } = await api.get<GetAllPropertiesResponse>('/properties', {

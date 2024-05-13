@@ -14,11 +14,22 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import PriceSlider from '@/pages/properties/components/PropertiesFilters/components/PriceSlider/PriceSlider'
+import { FC } from 'react'
 
-export const MIN_PRICE = 10_000
+export const MIN_PRICE = 0
 export const MAX_PRICE = 100_000
 
-const PropertiesFilters = () => {
+type PropertiesFiltersProps = {
+  applyFilters: () => void
+  handleCloseDrawer?: () => void
+  isFetching?: boolean
+}
+
+const PropertiesFilters: FC<PropertiesFiltersProps> = ({
+  applyFilters,
+  handleCloseDrawer,
+  isFetching = false
+}) => {
   return (
     <div className="">
       <h2 className="mb-4 text-lg font-semibold">Filters</h2>
@@ -118,7 +129,15 @@ const PropertiesFilters = () => {
             </Label>
           </div>
         </div>
-        <Button className="w-full">Apply Filters</Button>
+        <Button
+          className="w-full"
+          loading={isFetching}
+          onClick={() => {
+            applyFilters()
+            handleCloseDrawer()
+          }}>
+          Apply Filters
+        </Button>
       </div>
     </div>
   )
