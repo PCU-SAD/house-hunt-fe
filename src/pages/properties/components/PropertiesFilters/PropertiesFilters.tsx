@@ -5,7 +5,6 @@
  */
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
   Select,
@@ -14,16 +13,18 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import PriceSlider from '@/pages/properties/components/PropertiesFilters/components/PriceSlider/PriceSlider'
+
+export const MIN_PRICE = 10_000
+export const MAX_PRICE = 100_000
 
 const PropertiesFilters = () => {
   return (
     <div className="">
       <h2 className="mb-4 text-lg font-semibold">Filters</h2>
       <div className="space-y-4">
-        <div>
-          <h3 className="mb-2 text-base font-medium">Price range</h3>
-          <Input type="range" step={100} min={0} max={100000} />
-        </div>
+        <PriceSlider />
+
         <div>
           <h3 className="mb-2 text-base font-medium">Bedrooms</h3>
           <Select>

@@ -1,7 +1,6 @@
 import { Container, Layout } from '@/components/common'
 import ErrorResult from '@/components/common/Errors/ErrorResult'
 import NoContent from '@/components/common/Errors/NoContent'
-import { Button } from '@/components/ui/button'
 import {
   Drawer,
   DrawerContent,
@@ -13,7 +12,6 @@ import {
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationNext,
   PaginationPrevious
@@ -28,44 +26,22 @@ import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { FC } from 'react'
 
-const PAGE_SIZE = 20
-
 const PropertiesPage: FC = () => {
   const navigate = useNavigate({
     from: '/properties'
   })
 
-  const { page } = useSearch({
+  const queryParams = useSearch({
     from: '/properties'
   })
 
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['properties', PAGE_SIZE, page],
-    queryFn: () =>
-      propertyService.getAll({
-        pageSize: PAGE_SIZE,
-        page: page || 1
-      }),
+    queryKey: ['properties', queryParams],
+    queryFn: () => propertyService.getAll(queryParams),
     retry: false
   })
 
   const isEmpty = data?.content?.length === 0
-
-  // 120 - total number of properties
-  const totalPages = Math.ceil(120 / PAGE_SIZE)
-  const currentPage = page || 1
-
-  const pageRange = 2
-  const startPage = Math.max(1, currentPage - pageRange)
-  const endPage = Math.min(totalPages, currentPage + pageRange)
-
-  const visiblePages = Array.from(
-    { length: endPage - startPage + 1 },
-    (_, index) => startPage + index
-  )
-
-  const showEllipsisLeft = startPage > 1
-  const showEllipsisRight = endPage < totalPages
 
   function handleNextPage() {
     navigate({
@@ -89,14 +65,6 @@ const PropertiesPage: FC = () => {
             page: prev.page
           }
         }
-      }
-    })
-  }
-
-  function handleGoToPage(page: number) {
-    navigate({
-      search: {
-        page
       }
     })
   }
@@ -156,30 +124,6 @@ const PropertiesPage: FC = () => {
             <PaginationItem onClick={handlePreviousPage}>
               <PaginationPrevious />
             </PaginationItem>
-
-            {showEllipsisLeft && (
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-            )}
-
-            {visiblePages.map((pageNumber) => (
-              <PaginationItem
-                key={pageNumber}
-                onClick={() => handleGoToPage(pageNumber)}>
-                <Button
-                  variant={pageNumber === currentPage ? undefined : 'ghost'}
-                  onClick={() => navigate({ search: { page: pageNumber } })}>
-                  {pageNumber}
-                </Button>
-              </PaginationItem>
-            ))}
-
-            {showEllipsisRight && (
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-            )}
 
             <PaginationItem onClick={handleNextPage}>
               <PaginationNext />

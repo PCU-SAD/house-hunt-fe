@@ -1,4 +1,5 @@
 import { api, authApi } from '@/providers/AuthProvider/AuthProvider'
+import { PropertySearchParams } from '@/routes/properties'
 import {
   CreatePropertyRequest,
   GetAllPropertiesResponse
@@ -50,12 +51,16 @@ export const propertyService = {
       }
     }
   },
-  getAll: async ({ pageSize, page }: { pageSize: number; page: number }) => {
+  getAll: async (searchParams: PropertySearchParams) => {
     try {
+      const PAGE_SIZE = 20
+
       const { data } = await api.get<GetAllPropertiesResponse>('/properties', {
         params: {
-          size: pageSize,
-          page: page - 1
+          size: PAGE_SIZE,
+          page: searchParams.page - 1,
+          minPrice: searchParams.minPrice,
+          maxPrice: searchParams.maxPrice
         }
       })
 
