@@ -1,5 +1,4 @@
 import { api, authApi } from '@/providers/AuthProvider/AuthProvider'
-import { wait } from '@/services/auth-service/auth-service'
 import {
   CreatePropertyRequest,
   GetAllPropertiesResponse

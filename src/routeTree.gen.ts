@@ -16,10 +16,8 @@ import { Route as AuthUserImport } from './routes/_auth-user'
 import { Route as AuthOwnerImport } from './routes/_auth-owner'
 import { Route as AuthAdminImport } from './routes/_auth-admin'
 import { Route as SettingsRouteImport } from './routes/settings/route'
-import { Route as ApartmentsRouteImport } from './routes/apartments/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as SettingsAccountImport } from './routes/settings/account'
-import { Route as ApartmentsIdImport } from './routes/apartments/$id'
 import { Route as AuthUserProtectedImport } from './routes/_auth-user/protected'
 import { Route as AuthOwnerManagePropertiesImport } from './routes/_auth-owner/manage-properties'
 import { Route as AuthAdminAdminImport } from './routes/_auth-admin/admin'
@@ -52,11 +50,6 @@ const SettingsRouteRoute = SettingsRouteImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ApartmentsRouteRoute = ApartmentsRouteImport.update({
-  path: '/apartments',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
@@ -65,11 +58,6 @@ const IndexRoute = IndexImport.update({
 const SettingsAccountRoute = SettingsAccountImport.update({
   path: '/account',
   getParentRoute: () => SettingsRouteRoute,
-} as any)
-
-const ApartmentsIdRoute = ApartmentsIdImport.update({
-  path: '/$id',
-  getParentRoute: () => ApartmentsRouteRoute,
 } as any)
 
 const AuthUserProtectedRoute = AuthUserProtectedImport.update({
@@ -99,10 +87,6 @@ declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
       preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/apartments': {
-      preLoaderRoute: typeof ApartmentsRouteImport
       parentRoute: typeof rootRoute
     }
     '/settings': {
@@ -137,10 +121,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthUserProtectedImport
       parentRoute: typeof AuthUserImport
     }
-    '/apartments/$id': {
-      preLoaderRoute: typeof ApartmentsIdImport
-      parentRoute: typeof ApartmentsRouteImport
-    }
     '/settings/account': {
       preLoaderRoute: typeof SettingsAccountImport
       parentRoute: typeof SettingsRouteImport
@@ -156,7 +136,6 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
-  ApartmentsRouteRoute.addChildren([ApartmentsIdRoute]),
   SettingsRouteRoute.addChildren([SettingsAccountRoute]),
   AuthAdminRoute.addChildren([AuthAdminAdminRoute]),
   AuthOwnerRoute.addChildren([
