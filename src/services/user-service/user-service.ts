@@ -1,12 +1,10 @@
 import { VerificationFormType } from '@/pages/settings/account/components/VerificationForm/useVerificationForm'
 import { authApi } from '@/providers/AuthProvider/AuthProvider'
-import { wait } from '@/services/auth-service/auth-service'
 import axios from 'axios'
 
 export const userService = {
   verifyAccount: async (data: VerificationFormType) => {
     try {
-      await wait(500)
       const formData = new FormData()
 
       formData.append('documentType', data.type)
@@ -23,9 +21,7 @@ export const userService = {
   },
   getDocuments: async (email: string) => {
     try {
-      await wait(500)
       const { data } = await authApi.get<string[]>(`/user/documents/${email}`)
-      console.log('🚀 ~ getDocuments: ~ data:', data)
 
       return data
     } catch (error) {

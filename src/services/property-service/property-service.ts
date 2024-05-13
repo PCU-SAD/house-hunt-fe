@@ -9,8 +9,6 @@ import axios from 'axios'
 export const propertyService = {
   createOne: async (values: CreatePropertyRequest) => {
     try {
-      await wait(500)
-
       const { data } = await authApi.post<string>('/properties', values)
 
       return data
@@ -73,7 +71,6 @@ export const propertyService = {
   },
   getPropertyImages: async (propertyId: string) => {
     try {
-      await wait(1000)
       const { data } = await api.get<string[]>(
         `/properties/${propertyId}/images`
       )

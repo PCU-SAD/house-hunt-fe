@@ -33,7 +33,7 @@ const PropertyCard: FC<PropertyCardProps> = ({ property }) => {
   const hasError = isError || images?.length == 0 || images == null
 
   return (
-    <Card className="h-full w-full max-w-[550px]">
+    <Card className="h-full w-full">
       <CardHeader className="">
         {isLoading ? (
           <Skeleton className="h-48 w-full rounded-md" />
