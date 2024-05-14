@@ -1,5 +1,5 @@
+import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
-import { Typography } from '@/components/ui/typography'
 import {
   MAX_PRICE,
   MIN_PRICE
@@ -33,10 +33,10 @@ const PriceSlider: FC = () => {
   }
 
   return (
-    <div>
-      <Typography variant="h4">Price range</Typography>
+    <div className="mb-1">
+      <Label>Price range</Label>
 
-      <div className="mt-2 flex items-center gap-4">
+      <div className="mt-2 flex items-center gap-4 text-sm">
         <p>{czkCurrencyFormatter.format(minPrice)}</p>—
         <p>{czkCurrencyFormatter.format(maxPrice)}</p>
       </div>

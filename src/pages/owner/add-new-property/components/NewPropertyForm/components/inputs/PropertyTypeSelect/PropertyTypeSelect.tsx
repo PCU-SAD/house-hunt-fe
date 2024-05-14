@@ -28,7 +28,7 @@ const PropertyTypeSelect: FC<PropertyTypeSelectProps> = () => {
       name="adType"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Type?</FormLabel>
+          <FormLabel>Type</FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
               <SelectTrigger>

@@ -3,7 +3,7 @@ import { addDays } from 'date-fns'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-const apartmentTypeSchema = z.enum([
+const apartmentType = [
   'ONE_KK',
   'ONE_ONE',
   'TWO_KK',
@@ -18,7 +18,9 @@ const apartmentTypeSchema = z.enum([
   'SIX_ONE',
   'SEVEN_KK',
   'SEVEN_ONE'
-])
+] as const
+
+export const apartmentTypeSchema = z.enum(apartmentType)
 
 export type ApartmentType = z.infer<typeof apartmentTypeSchema>
 
