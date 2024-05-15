@@ -25,7 +25,7 @@ const NewPropertyFormFields: FC = () => {
   const form = useFormContext<NewPropertyFormType>()
 
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <FormField
         name="title"
         control={form.control}
@@ -179,7 +179,7 @@ const NewPropertyFormFields: FC = () => {
           </p>
         )}
       </div>
-    </>
+    </div>
   )
 }
 

@@ -89,5 +89,18 @@ export const propertyService = {
         throw new Error('Something went wrong')
       }
     }
+  },
+  getOwnerProperties: async (ownerEmail: string) => {
+    try {
+      const { data } = await authApi.get(`/properties/${ownerEmail}`)
+
+      return data
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
   }
 }

@@ -22,6 +22,7 @@ import { Route as AuthUserProtectedImport } from './routes/_auth-user/protected'
 import { Route as AuthOwnerManagePropertiesImport } from './routes/_auth-owner/manage-properties'
 import { Route as AuthAdminAdminImport } from './routes/_auth-admin/admin'
 import { Route as AuthOwnerManagePropertiesAddNewImport } from './routes/_auth-owner/manage-properties_.add-new'
+import { Route as AuthOwnerManagePropertiesIdImport } from './routes/_auth-owner/manage-properties_.$id'
 
 // Create/Update Routes
 
@@ -81,6 +82,12 @@ const AuthOwnerManagePropertiesAddNewRoute =
     getParentRoute: () => AuthOwnerRoute,
   } as any)
 
+const AuthOwnerManagePropertiesIdRoute =
+  AuthOwnerManagePropertiesIdImport.update({
+    path: '/manage-properties/$id',
+    getParentRoute: () => AuthOwnerRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -125,6 +132,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsAccountImport
       parentRoute: typeof SettingsRouteImport
     }
+    '/_auth-owner/manage-properties/$id': {
+      preLoaderRoute: typeof AuthOwnerManagePropertiesIdImport
+      parentRoute: typeof AuthOwnerImport
+    }
     '/_auth-owner/manage-properties/add-new': {
       preLoaderRoute: typeof AuthOwnerManagePropertiesAddNewImport
       parentRoute: typeof AuthOwnerImport
@@ -140,6 +151,7 @@ export const routeTree = rootRoute.addChildren([
   AuthAdminRoute.addChildren([AuthAdminAdminRoute]),
   AuthOwnerRoute.addChildren([
     AuthOwnerManagePropertiesRoute,
+    AuthOwnerManagePropertiesIdRoute,
     AuthOwnerManagePropertiesAddNewRoute,
   ]),
   AuthUserRoute.addChildren([AuthUserProtectedRoute]),

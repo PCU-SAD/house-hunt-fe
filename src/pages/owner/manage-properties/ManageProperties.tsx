@@ -23,7 +23,8 @@ const ManageProperties: FC<ManagePropertiesProps> = () => {
             className={cn(
               buttonVariants({
                 size: 'noSize',
-                className: 'px-2 py-2'
+                className: 'px-2 py-2',
+                variant: 'ghost'
               })
             )}>
             <PlusIcon className="h-4 w-4" />

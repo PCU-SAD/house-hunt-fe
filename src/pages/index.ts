@@ -1,6 +1,7 @@
 import LoadingPage from '@/pages/loading/Loading'
 import AddNewProperty from '@/pages/owner/add-new-property/AddNewProperty'
 import ManageProperties from '@/pages/owner/manage-properties/ManageProperties'
+import ManageProperty from '@/pages/owner/manage-property/ManageProperty'
 import AdminPage from './admin/Admin'
 import ErrorPage from './error/ErrorPage'
 import HomePage from './home/Home'
@@ -18,6 +19,7 @@ export {
   InnerApp,
   LoadingPage,
   ManageProperties,
+  ManageProperty,
   NotFoundPage,
   PropertiesPage,
   SettingsPage

@@ -1,63 +1,66 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { MoreHorizontal } from 'lucide-react'
+import { Settings } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+import { buttonVariants } from '@/components/ui/button'
 import { DataTableColumnHeader } from '@/components/ui/table/column-header'
+import { cn } from '@/lib/utils'
+import { PropertyType } from '@/services/property-service/types'
+import { CZK_DATE_FORMAT } from '@/utils/consts'
+import { Link } from '@tanstack/react-router'
+import { format } from 'date-fns'
 
-export type Payment = {
-  id: string
-  amount: number
-  status: 'pending' | 'processing' | 'success' | 'failed'
-  email: string
-}
-
-export const columns: ColumnDef<Payment>[] = [
+export const managePropertyColumns: ColumnDef<PropertyType>[] = [
   {
-    accessorKey: 'status',
-    header: 'Status'
+    accessorKey: 'apartmentType',
+    header: 'Ap. type'
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'adType',
+    header: 'Ad type'
+  },
+  {
+    accessorKey: 'price',
     header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="Email" />
+      return <DataTableColumnHeader column={column} title="Amount" />
+    },
+    enableSorting: true
+  },
+  {
+    accessorKey: 'availableFrom',
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Available form" />
+    },
+    enableSorting: true,
+    cell: ({ row }) => {
+      const date = row.original.availableFrom
+
+      return <div>{format(date, CZK_DATE_FORMAT)}</div>
     }
   },
   {
-    accessorKey: 'amount',
-    header: 'Amount'
-  },
-  {
     id: 'actions',
+    header: () => {
+      return <div className="w-0 text-right"></div>
+    },
     cell: ({ row }) => {
-      const payment = row.original
+      const propertyId = row.original.id
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}>
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="w-4 text-right">
+          <Link
+            className={cn(
+              buttonVariants({
+                size: 'icon',
+                variant: 'ghost'
+              })
+            )}
+            to={'/manage-properties/$id'}
+            params={{
+              id: propertyId
+            }}>
+            <Settings className="h-4 w-4 text-right" />
+          </Link>
+        </div>
       )
     }
   }

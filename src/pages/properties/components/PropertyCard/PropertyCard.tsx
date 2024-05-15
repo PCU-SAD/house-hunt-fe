@@ -16,7 +16,8 @@ import {
 import { FC } from 'react'
 
 type PropertyCardProps = {
-  property: PropertyType
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  property: Partial<PropertyType>
 }
 
 const PropertyCard: FC<PropertyCardProps> = ({ property }) => {

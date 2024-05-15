@@ -88,22 +88,24 @@ export const newPropertyFormSchema = z
 
 export type NewPropertyFormType = z.infer<typeof newPropertyFormSchema>
 
+export const newPropertyFormDefaultValues = {
+  title: '',
+  address: '',
+  price: 0.0,
+  squareMeters: 0,
+  description: '',
+  isFurnished: 'UNFURNISHED',
+  numberOfRooms: 1,
+  floorNumber: 1,
+  availableFrom: addDays(new Date(), 1),
+  adType: 'RENTAL',
+  apartmentType: 'ONE_KK'
+} as const
+
 export function useNewPropertyForm() {
   return useForm<NewPropertyFormType>({
     resolver: zodResolver(newPropertyFormSchema),
     mode: 'onChange',
-    defaultValues: {
-      title: 'title' + Math.random(),
-      address: 'address address address' + Math.random(),
-      price: 10.0,
-      squareMeters: 10,
-      description: 'description scription scription',
-      isFurnished: 'UNFURNISHED',
-      numberOfRooms: 1,
-      floorNumber: 1,
-      availableFrom: addDays(new Date(), 1),
-      adType: 'RENTAL',
-      apartmentType: 'ONE_KK'
-    }
+    defaultValues: newPropertyFormDefaultValues
   })
 }
