@@ -4,7 +4,7 @@ import {
   DoubleArrowLeftIcon,
   DoubleArrowRightIcon
 } from '@radix-ui/react-icons'
-import { PaginationState, Table } from '@tanstack/react-table'
+import { Table } from '@tanstack/react-table'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -14,127 +14,93 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { Loader2 } from 'lucide-react'
-import { Dispatch, SetStateAction } from 'react'
+import { useState } from 'react'
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>
-  pagination: PaginationState
-  setPagination: Dispatch<SetStateAction<PaginationState>>
-  isFetching: boolean
 }
 
 export function DataTablePagination<TData>({
-  table,
-  pagination,
-  setPagination,
-  isFetching
+  table
 }: DataTablePaginationProps<TData>) {
-  function handleGoToFirstPage() {
-    setPagination((prev) => ({ ...prev, pageIndex: 0 }))
-  }
-
-  function handleGoPrevPage() {
-    setPagination((prev) => {
-      if (prev.pageIndex > 0) {
-        return { ...prev, pageIndex: prev.pageIndex - 1 }
-      }
-    })
-  }
-
-  function handleGoNextPage() {
-    setPagination((prev) => {
-      if (prev.pageIndex < table.getPageCount() - 1) {
-        return { ...prev, pageIndex: prev.pageIndex + 1 }
-      }
-    })
-  }
-
-  function handleGoLastPage() {
-    setPagination((prev) => ({
-      ...prev,
-      pageIndex: table.getPageCount() - 1
-    }))
-  }
-
-  function handleChangePageSize(pageSize: string) {
-    setPagination(() => ({
-      pageSize: Number(pageSize),
-      pageIndex: 0
-    }))
-  }
-
+  const [isSelectOpen, setIsSelectOpen] = useState(false)
   return (
-    <div className="px-2 py-4">
-      <div className="flex items-center justify-end gap-6">
-        {isFetching && (
-          <Loader2 className="text-primary-500 h-6 w-6 animate-spin" />
-        )}
-
-        <div className="flex items-center gap-2">
+    <div className="flex items-center justify-between px-2">
+      <div className="flex-1 text-sm text-muted-foreground">
+        {table.getFilteredSelectedRowModel().rows.length} of{' '}
+        {table.getFilteredRowModel().rows.length} row(s) selected.
+      </div>
+      <div className="flex items-center space-x-6 lg:space-x-8">
+        <div className="flex items-center space-x-2">
           <p className="text-sm font-medium">Rows per page</p>
           <Select
-            value={pagination.pageSize.toString()}
-            disabled={isFetching}
-            onValueChange={handleChangePageSize}
-          >
+            value={`${table.getState().pagination.pageSize}`}
+            open={isSelectOpen}
+            onOpenChange={() => {
+              setIsSelectOpen(!isSelectOpen)
+            }}
+            onValueChange={(value) => {
+              table.setPageSize(Number(value))
+            }}>
             <SelectTrigger className="h-8 w-[70px]">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
-
-            <SelectContent side="top">
+            <SelectContent
+              side="top"
+              ref={(ref) =>
+                ref?.addEventListener('touchend', (e) => e.preventDefault())
+              }>
               {[10, 20, 30, 40, 50].map((pageSize) => (
-                <SelectItem key={pageSize} value={`${pageSize}`}>
+                <SelectItem
+                  key={pageSize}
+                  value={`${pageSize}`}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                  }}>
                   {pageSize}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
-
-        <div className="flex gap-4">
-          <div className="flex items-center justify-center text-sm font-medium">
-            Page {table.getState().pagination.pageIndex + 1} of{' '}
-            {table.getPageCount()}
-          </div>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              className="hidden h-8 w-8 p-0 lg:flex"
-              onClick={handleGoToFirstPage}
-              disabled={!table.getCanPreviousPage() || isFetching}
-            >
-              <span className="sr-only">Go to first page</span>
-              <DoubleArrowLeftIcon className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="outline"
-              className="h-8 w-8 p-0"
-              onClick={handleGoPrevPage}
-              disabled={!table.getCanPreviousPage() || isFetching}
-            >
-              <span className="sr-only">Go to previous page</span>
-              <ChevronLeftIcon className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="outline"
-              className="h-8 w-8 p-0"
-              onClick={handleGoNextPage}
-              disabled={!table.getCanNextPage() || isFetching}
-            >
-              <span className="sr-only">Go to next page</span>
-              <ChevronRightIcon className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="outline"
-              className="hidden h-8 w-8 p-0 lg:flex"
-              onClick={handleGoLastPage}
-              disabled={!table.getCanNextPage() || isFetching}
-            >
-              <span className="sr-only">Go to last page</span>
-              <DoubleArrowRightIcon className="h-4 w-4" />
-            </Button>
-          </div>
+        <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+          Page {table.getState().pagination.pageIndex + 1} of{' '}
+          {table.getPageCount()}
+        </div>
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            className="hidden h-8 w-8 p-0 lg:flex"
+            onClick={() => table.setPageIndex(0)}
+            disabled={!table.getCanPreviousPage()}>
+            <span className="sr-only">Go to first page</span>
+            <DoubleArrowLeftIcon className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            className="h-8 w-8 p-0"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}>
+            <span className="sr-only">Go to previous page</span>
+            <ChevronLeftIcon className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            className="h-8 w-8 p-0"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}>
+            <span className="sr-only">Go to next page</span>
+            <ChevronRightIcon className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            className="hidden h-8 w-8 p-0 lg:flex"
+            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            disabled={!table.getCanNextPage()}>
+            <span className="sr-only">Go to last page</span>
+            <DoubleArrowRightIcon className="h-4 w-4" />
+          </Button>
         </div>
       </div>
     </div>

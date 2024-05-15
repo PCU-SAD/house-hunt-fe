@@ -10,7 +10,6 @@ import PropertiesPage from './properties/Properties'
 import SettingsPage from './settings/Settings'
 
 export {
-  PropertiesPage,
   AddNewProperty,
   AdminPage,
   ErrorPage,
@@ -20,5 +19,6 @@ export {
   LoadingPage,
   ManageProperties,
   NotFoundPage,
+  PropertiesPage,
   SettingsPage
 }
