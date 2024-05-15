@@ -43,7 +43,7 @@ const PropertiesFilters: FC<PropertiesFiltersProps> = ({
 
         <Button
           className="mt-4 w-full"
-          loading={isFetching}
+          disabled={isFetching}
           onClick={() => {
             applyFilters()
             handleCloseDrawer()
