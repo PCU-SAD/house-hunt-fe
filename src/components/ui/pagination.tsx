@@ -1,4 +1,9 @@
-import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react'
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsRight,
+  MoreHorizontal
+} from 'lucide-react'
 import * as React from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -49,6 +54,35 @@ const PaginationPrevious = ({
 )
 PaginationPrevious.displayName = 'PaginationPrevious'
 
+const PaginationGoFirst = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof Button>) => (
+  <Button
+    aria-label="Go to previous page"
+    size="default"
+    variant="ghost"
+    className={cn('px-3 py-2', className)}
+    {...props}>
+    <ChevronsRight className="h-4 w-4 rotate-180" />
+  </Button>
+)
+PaginationPrevious.displayName = 'PaginationGoFirst'
+
+const PaginationGoLast = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof Button>) => (
+  <Button
+    aria-label="Go to previous page"
+    size="default"
+    variant="ghost"
+    className={cn('px-3 py-2', className)}
+    {...props}>
+    <ChevronsRight className="h-4 w-4" />
+  </Button>
+)
+PaginationPrevious.displayName = 'PaginationGoLast'
 const PaginationNext = ({
   className,
   ...props
@@ -78,6 +112,8 @@ export {
   Pagination,
   PaginationContent,
   PaginationEllipsis,
+  PaginationGoFirst,
+  PaginationGoLast,
   PaginationItem,
   PaginationNext,
   PaginationPrevious

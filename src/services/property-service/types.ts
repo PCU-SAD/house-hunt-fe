@@ -11,6 +11,14 @@ export type CreatePropertyRequest = NewPropertyFormType & {
 
 export type GetAllPropertiesResponse = {
   content: PropertyType[]
+  pageable: PaginationT
+  totalPages: number
+  first: boolean
+  last: boolean
+}
+
+export type PaginationT = {
+  pageNumber: number
 }
 
 export type PropertyType = {

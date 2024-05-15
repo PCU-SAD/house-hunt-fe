@@ -5,6 +5,8 @@ import NoContent from '@/components/common/Errors/NoContent'
 import {
   Pagination,
   PaginationContent,
+  PaginationGoFirst,
+  PaginationGoLast,
   PaginationItem,
   PaginationNext,
   PaginationPrevious
@@ -36,7 +38,7 @@ const PropertiesPage: FC = () => {
 
   const { data, isFetching, isError, refetch } = useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: ['properties'],
+    queryKey: ['properties', queryParams.page],
     queryFn: () => propertyService.getAll(queryParams),
     retry: false
   })
@@ -46,6 +48,12 @@ const PropertiesPage: FC = () => {
   }
 
   const isEmpty = data?.content?.length === 0
+  const isLast = data?.last
+
+  console.log('🚀 ~ isLast:', isLast)
+  const isFirst = data?.first
+  const isMoreThanFivePages = data?.pageable.pageNumber >= 5
+  console.log('🚀 ~ isFirst:', isFirst)
 
   function handleNextPage() {
     navigate({
@@ -70,6 +78,24 @@ const PropertiesPage: FC = () => {
           }
         }
       }
+    })
+  }
+
+  function handleGoLast() {
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        page: data.totalPages
+      })
+    })
+  }
+
+  function handleGoFirst() {
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        page: 1
+      })
     })
   }
 
@@ -124,21 +150,47 @@ const PropertiesPage: FC = () => {
             ) : (
               <NoContent className="md:mt-[100px]" />
             )}
+
+            <Pagination className="mt-6">
+              <PaginationContent>
+                {isMoreThanFivePages && (
+                  <PaginationItem>
+                    <PaginationGoFirst
+                      disabled={isFetching || isFirst}
+                      onClick={handleGoFirst}
+                    />
+                  </PaginationItem>
+                )}
+                <PaginationItem>
+                  <PaginationPrevious
+                    disabled={isFirst || isFetching}
+                    onClick={handlePreviousPage}
+                  />
+                </PaginationItem>
+
+                <PaginationItem onClick={handlePreviousPage}>
+                  {queryParams.page}
+                </PaginationItem>
+
+                <PaginationItem>
+                  <PaginationNext
+                    disabled={isLast || isFetching}
+                    onClick={handleNextPage}
+                  />
+                </PaginationItem>
+
+                {isMoreThanFivePages && (
+                  <PaginationItem>
+                    <PaginationGoLast
+                      disabled={isFetching || isLast}
+                      onClick={handleGoLast}
+                    />
+                  </PaginationItem>
+                )}
+              </PaginationContent>
+            </Pagination>
           </div>
         </section>
-
-        {/* TODO: pagination button logic */}
-        <Pagination className="mt-6">
-          <PaginationContent>
-            <PaginationItem onClick={handlePreviousPage}>
-              <PaginationPrevious />
-            </PaginationItem>
-
-            <PaginationItem onClick={handleNextPage}>
-              <PaginationNext />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
       </Container>
     </Layout>
   )
