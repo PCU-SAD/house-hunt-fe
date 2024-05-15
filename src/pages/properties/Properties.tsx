@@ -1,15 +1,7 @@
 import { Container, Layout } from '@/components/common'
 import ErrorResult from '@/components/common/Errors/ErrorResult'
 import NoContent from '@/components/common/Errors/NoContent'
-import { Button } from '@/components/ui/button'
-import {
-  Drawer,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger
-} from '@/components/ui/drawer'
+
 import {
   Pagination,
   PaginationContent,
@@ -18,20 +10,20 @@ import {
   PaginationPrevious
 } from '@/components/ui/pagination'
 import HeaderWelcome from '@/pages/properties/components/HeaderWelcome/HeaderWelcome'
+import DrawerFilters from '@/pages/properties/components/PropertiesFilters/components/DrawerFilters/DrawerFilters'
 import PropertiesFilters from '@/pages/properties/components/PropertiesFilters/PropertiesFilters'
 import PropertiesList from '@/pages/properties/components/PropertiesList/PropertiesList'
 import PropertiesSkeletonList from '@/pages/properties/components/Skeleton/PropertiesSkeletonList'
 import { propertyService } from '@/services/property-service/property-service'
+import { useBreakpoint } from '@/utils/hooks/useBreakpoint'
 
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useSearch } from '@tanstack/react-router'
-import { FilterIcon } from 'lucide-react'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 const PropertiesPage: FC = () => {
+  const { isLg } = useBreakpoint('lg')
   const [drawerOpen, setDrawerOpen] = useState(false)
-
-  const handleCloseDrawer = () => setDrawerOpen(false)
 
   const navigate = useNavigate({
     from: '/properties'
@@ -80,15 +72,11 @@ const PropertiesPage: FC = () => {
     })
   }
 
-  if (isError) {
-    return (
-      <Layout>
-        <Container>
-          <ErrorResult className="mt-[100px]" onRetry={refetch} />
-        </Container>
-      </Layout>
-    )
-  }
+  useEffect(() => {
+    if (isLg) {
+      setDrawerOpen(false)
+    }
+  }, [isLg])
 
   return (
     <Layout>
@@ -98,33 +86,23 @@ const PropertiesPage: FC = () => {
         <section className="flex max-w-[1200px] flex-col items-start gap-4 overflow-auto lg:flex-row">
           <aside className="min-w-[350px]">
             <div className="hidden rounded-lg border bg-white p-6 lg:block">
-              <PropertiesFilters applyFilters={applyFilters} isFetching={isFetching} />
+              <PropertiesFilters
+                applyFilters={applyFilters}
+                isFetching={isFetching}
+              />
             </div>
 
-            <div className="lg:hidden">
-              <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
-                <DrawerTrigger>
-                  <Button size="icon" variant="ghost">
-                    <FilterIcon />
-                  </Button>
-                </DrawerTrigger>
-                <DrawerContent>
-                  <DrawerHeader>
-                    <DrawerTitle>Filters</DrawerTitle>
-                  </DrawerHeader>
-                  <DrawerFooter>
-                    <PropertiesFilters
-                      applyFilters={applyFilters}
-                      handleCloseDrawer={handleCloseDrawer}
-                    />
-                  </DrawerFooter>
-                </DrawerContent>
-              </Drawer>
-            </div>
+            <DrawerFilters
+              drawerOpen={drawerOpen}
+              setDrawerOpen={setDrawerOpen}
+              applyFilters={applyFilters}
+            />
           </aside>
 
           <div className="w-full flex-grow">
-            {isFetching ? (
+            {isError ? (
+              <ErrorResult className="mt-[100px]" onRetry={refetch} />
+            ) : isFetching ? (
               <PropertiesSkeletonList />
             ) : !isEmpty ? (
               <div className="flex flex-col gap-4">

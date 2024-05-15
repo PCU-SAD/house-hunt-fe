@@ -6,6 +6,7 @@ import {
 } from '@/pages/properties/components/PropertiesFilters/PropertiesFilters'
 import { czkCurrencyFormatter } from '@/utils/czkCurrencyFormatter'
 import { useNavigate, useSearch } from '@tanstack/react-router'
+import { ArrowBigUp } from 'lucide-react'
 import { FC } from 'react'
 
 const STEP = 1000
@@ -13,9 +14,12 @@ const STEP = 1000
 type RangeType = [number, number]
 
 const PriceSlider: FC = () => {
-  const { minPrice, maxPrice } = useSearch({
+  const { minPrice, maxPrice, adType } = useSearch({
     from: '/properties'
   })
+
+  const isSale = adType === 'SALE'
+  const maxPriceValue = isSale ? MAX_PRICE : 100_000
 
   const navigate = useNavigate({
     from: '/properties'
@@ -25,7 +29,6 @@ const PriceSlider: FC = () => {
     navigate({
       search: (prev) => ({
         ...prev,
-
         minPrice: range[0],
         maxPrice: range[1]
       })
@@ -33,7 +36,7 @@ const PriceSlider: FC = () => {
   }
 
   return (
-    <div className="mb-1">
+    <div className="mb-1 mt-2">
       <Label>Price range</Label>
 
       <div className="mt-2 flex items-center gap-4 text-sm">
@@ -44,12 +47,25 @@ const PriceSlider: FC = () => {
       <div className="mt-2">
         <Slider
           minStepsBetweenThumbs={1}
-          step={STEP}
+          step={isSale ? 10_000 : STEP}
           min={MIN_PRICE}
-          max={MAX_PRICE}
-          defaultValue={[minPrice, maxPrice]}
+          max={maxPriceValue}
+          value={[minPrice, maxPrice]}
           onValueChange={handleChange}
         />
+
+        {isSale && (
+          <p className="mt-2 hidden text-sm text-muted-foreground md:block">
+            <span className="inline-block">
+              Use arrow keys or hold
+              <ArrowBigUp className="ml-1 inline-block h-4 w-4" />
+            </span>
+            <kbd className="mx-1 inline-block rounded bg-muted px-1 py-0.5 text-xs uppercase">
+              Shift
+            </kbd>
+            + arrow for precise prices
+          </p>
+        )}
       </div>
     </div>
   )

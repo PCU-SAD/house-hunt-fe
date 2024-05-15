@@ -24,7 +24,7 @@ export const apartmentTypeSchema = z.enum(apartmentType)
 
 export type ApartmentType = z.infer<typeof apartmentTypeSchema>
 
-const adTypeSchema = z.enum(['RENTAL', 'SALE'])
+export const adTypeSchema = z.enum(['RENTAL', 'SALE'])
 
 export type AdType = z.infer<typeof adTypeSchema>
 

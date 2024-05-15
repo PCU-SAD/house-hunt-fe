@@ -1,5 +1,8 @@
 import { PropertiesPage } from '@/pages'
-import { ApartmentType, apartmentTypeSchema } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
+import {
+  ApartmentType,
+  apartmentTypeSchema
+} from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
 import {
   MAX_PRICE,
   MIN_PRICE
@@ -14,13 +17,22 @@ const IsFurnishedSearchSchema = z
   .catch('ALL')
 
 export type IsFurnishedSearchType = z.infer<typeof IsFurnishedSearchSchema>
-const defaultApartmentTypes: ApartmentType[] = ['ONE_KK', 'TWO_KK', 'ONE_ONE', 'TWO_KK', 'TWO_ONE']
+const defaultApartmentTypes: ApartmentType[] = [
+  'ONE_KK',
+  'TWO_KK',
+  'ONE_ONE',
+  'TWO_KK',
+  'TWO_ONE'
+]
+
+const adTypeSearchSchema = z.enum(['ALL', 'SALE', 'RENTAL'])
+export type AdTypeSearchType = z.infer<typeof adTypeSearchSchema>
 
 const PropertiesSearchParamsSchema = z.object({
   page: z.number().int().catch(1),
   sort: z.enum(['asc', 'desc']).optional(),
   minPrice: z.number().int().min(MIN_PRICE).max(MAX_PRICE).catch(MIN_PRICE),
-  maxPrice: z.number().int().min(MIN_PRICE).max(MAX_PRICE).catch(MAX_PRICE),
+  maxPrice: z.number().int().min(MIN_PRICE).max(MAX_PRICE).catch(100_000),
   isFurnished: IsFurnishedSearchSchema,
   availableFrom: z
     .string()
@@ -31,7 +43,8 @@ const PropertiesSearchParamsSchema = z.object({
     .catch(formatDate(new Date(), URL_SEARCH_DATE_FORMAT)),
   minRooms: z.number().int().min(1).max(50).catch(1),
   maxRooms: z.number().int().min(1).max(50).catch(5),
-  apartmentType: z.array(apartmentTypeSchema).catch(defaultApartmentTypes)
+  apartmentType: z.array(apartmentTypeSchema).catch(defaultApartmentTypes),
+  adType: adTypeSearchSchema.catch('RENTAL')
 })
 
 export type PropertySearchParams = z.infer<typeof PropertiesSearchParamsSchema>

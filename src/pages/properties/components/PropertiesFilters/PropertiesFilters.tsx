@@ -4,6 +4,7 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import { Button } from '@/components/ui/button'
+import AdTypeFilter from '@/pages/properties/components/PropertiesFilters/components/AdTypeFilter/AdTypeFilter'
 import AvailableFromFilter from '@/pages/properties/components/PropertiesFilters/components/AvailableFromFilter/AvailableFromFilter'
 import IsFurnishedFilter from '@/pages/properties/components/PropertiesFilters/components/IsFurnishedFilter/IsFurnishedFilter'
 import PriceSlider from '@/pages/properties/components/PropertiesFilters/components/PriceSlider/PriceSlider'
@@ -12,7 +13,7 @@ import RoomsRangeFilter from '@/pages/properties/components/PropertiesFilters/co
 import { FC } from 'react'
 
 export const MIN_PRICE = 0
-export const MAX_PRICE = 100_000
+export const MAX_PRICE = 6_000_000
 
 type PropertiesFiltersProps = {
   applyFilters: () => void
@@ -29,8 +30,9 @@ const PropertiesFilters: FC<PropertiesFiltersProps> = ({
     <div className="">
       <h2 className="mb-4 text-lg font-semibold">Filters</h2>
       <div className="flex flex-col gap-2">
-        <PriceSlider />
+        <AdTypeFilter />
 
+        <PriceSlider />
         <IsFurnishedFilter />
 
         <AvailableFromFilter />
@@ -40,7 +42,7 @@ const PropertiesFilters: FC<PropertiesFiltersProps> = ({
         <PropertyTypeFiler />
 
         <Button
-          className="w-full mt-4"
+          className="mt-4 w-full"
           loading={isFetching}
           onClick={() => {
             applyFilters()

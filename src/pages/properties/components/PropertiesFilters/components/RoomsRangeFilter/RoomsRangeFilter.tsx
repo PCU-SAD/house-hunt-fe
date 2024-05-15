@@ -1,7 +1,7 @@
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useNavigate, useSearch } from '@tanstack/react-router'
-import { ChangeEvent, FC, useRef } from 'react'
+import { FC, useEffect, useRef } from 'react'
 
 type RoomsRangeFilterProps = {}
 
@@ -17,8 +17,8 @@ const RoomsRangeFilter: FC<RoomsRangeFilterProps> = () => {
     from: '/properties'
   })
 
-  function handleMinChange(event: ChangeEvent<HTMLInputElement>) {
-    const minRoomsInput = parseInt(event.target.value)
+  function handleMinChange(value: string) {
+    const minRoomsInput = parseInt(value)
 
     if (
       isNaN(minRoomsInput) ||
@@ -43,9 +43,8 @@ const RoomsRangeFilter: FC<RoomsRangeFilterProps> = () => {
     })
   }
 
-  function handleMaxChange(event: ChangeEvent<HTMLInputElement>) {
-    const maxRoomsInput = parseInt(event.target.value)
-    console.log('🚀 ~ handleMaxChange ~ maxRoomsInput:', maxRoomsInput)
+  function handleMaxChange(value: string) {
+    const maxRoomsInput = parseInt(value)
 
     if (
       isNaN(maxRoomsInput) ||
@@ -70,6 +69,11 @@ const RoomsRangeFilter: FC<RoomsRangeFilterProps> = () => {
     })
   }
 
+  useEffect(() => {
+    minRef.current.value = minRooms.toString()
+    maxRef.current.value = maxRooms.toString()
+  }, [minRooms, maxRooms])
+
   return (
     <div>
       <Label>Rooms range</Label>
@@ -79,7 +83,7 @@ const RoomsRangeFilter: FC<RoomsRangeFilterProps> = () => {
           <p className="mb-1 text-xs text-muted-foreground">Min.</p>
           <Input
             type="number"
-            onBlur={handleMinChange}
+            onBlur={(e) => handleMinChange(e.target.value)}
             placeholder="Min rooms"
             ref={minRef}
             defaultValue={minRooms}
@@ -90,7 +94,7 @@ const RoomsRangeFilter: FC<RoomsRangeFilterProps> = () => {
           <p className="mb-1 text-xs text-muted-foreground">Max.</p>
           <Input
             type="number"
-            onBlur={handleMaxChange}
+            onBlur={(e) => handleMaxChange(e.target.value)}
             placeholder="Max rooms"
             ref={maxRef}
             defaultValue={maxRooms}
