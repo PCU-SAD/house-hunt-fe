@@ -5,24 +5,23 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { Form } from '@/components/ui/form'
-import { cn } from '@/lib/utils'
-import { apartmentTypeOptions } from '@/pages/owner/add-new-property/components/NewPropertyForm/components/inputs/ApartmentTypeSelect/ApartmentTypeData'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { ChevronUp } from 'lucide-react'
-import { FC, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-
 import {
+  Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage
 } from '@/components/ui/form'
+import { cn } from '@/lib/utils'
+import { apartmentTypeOptions } from '@/pages/owner/add-new-property/components/NewPropertyForm/components/inputs/ApartmentTypeSelect/ApartmentTypeData'
 import { apartmentTypeSchema } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate, useSearch } from '@tanstack/react-router'
+import { ChevronUp } from 'lucide-react'
+import { FC, useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 type PropertyTypeFilerProps = {}
 
@@ -107,6 +106,9 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
                                 <Checkbox
                                   checked={field.value?.includes(option.value)}
                                   onCheckedChange={(checked) => {
+                                    if (!checked && values.items.length === 1)
+                                      return
+
                                     return checked
                                       ? field.onChange([
                                           ...field.value,

@@ -86,7 +86,6 @@ const RoomsRangeFilter: FC<RoomsRangeFilterProps> = () => {
             onBlur={(e) => handleMinChange(e.target.value)}
             placeholder="Min rooms"
             ref={minRef}
-            defaultValue={minRooms}
             className="h-8 py-0"
           />
         </div>
@@ -97,7 +96,6 @@ const RoomsRangeFilter: FC<RoomsRangeFilterProps> = () => {
             onBlur={(e) => handleMaxChange(e.target.value)}
             placeholder="Max rooms"
             ref={maxRef}
-            defaultValue={maxRooms}
             className="h-8 py-0"
           />
         </div>
