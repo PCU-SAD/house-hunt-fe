@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/pagination'
 import HeaderWelcome from '@/pages/properties/components/HeaderWelcome/HeaderWelcome'
 import DrawerFilters from '@/pages/properties/components/PropertiesFilters/components/DrawerFilters/DrawerFilters'
+import PriceSort from '@/pages/properties/components/PropertiesFilters/components/PriceSort/PriceSort'
 import PropertiesFilters from '@/pages/properties/components/PropertiesFilters/PropertiesFilters'
 import PropertiesList from '@/pages/properties/components/PropertiesList/PropertiesList'
 import PropertiesSkeletonList from '@/pages/properties/components/Skeleton/PropertiesSkeletonList'
@@ -82,9 +83,13 @@ const PropertiesPage: FC = () => {
     <Layout>
       <HeaderWelcome />
 
-      <Container className="mt-6">
+      <Container className="mt-6 max-w-[1200px]">
+        <div className="mb-2 ml-auto hidden min-w-[250px] max-w-fit lg:block">
+          <PriceSort applyFilters={applyFilters} />
+        </div>
+
         <section className="flex max-w-[1200px] flex-col items-start gap-4 overflow-auto lg:flex-row">
-          <aside className="min-w-[350px]">
+          <aside className="w-full lg:min-w-[350px] lg:max-w-[350px]">
             <div className="hidden rounded-lg border bg-white p-6 lg:block">
               <PropertiesFilters
                 applyFilters={applyFilters}
@@ -92,18 +97,26 @@ const PropertiesPage: FC = () => {
               />
             </div>
 
-            <DrawerFilters
-              drawerOpen={drawerOpen}
-              setDrawerOpen={setDrawerOpen}
-              applyFilters={applyFilters}
-            />
+            <div className="flex items-center justify-between lg:hidden">
+              <DrawerFilters
+                drawerOpen={drawerOpen}
+                setDrawerOpen={setDrawerOpen}
+                applyFilters={applyFilters}
+              />
+
+              <div className="lg:hidden">
+                <PriceSort applyFilters={applyFilters} />
+              </div>
+            </div>
           </aside>
 
           <div className="w-full flex-grow">
             {isError ? (
               <ErrorResult className="mt-[100px]" onRetry={refetch} />
             ) : isFetching ? (
-              <PropertiesSkeletonList />
+              <div className="flex flex-col gap-4">
+                <PropertiesSkeletonList />
+              </div>
             ) : !isEmpty ? (
               <div className="flex flex-col gap-4">
                 <PropertiesList properties={data.content} />{' '}

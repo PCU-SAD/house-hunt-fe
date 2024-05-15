@@ -28,9 +28,12 @@ const defaultApartmentTypes: ApartmentType[] = [
 const adTypeSearchSchema = z.enum(['ALL', 'SALE', 'RENTAL'])
 export type AdTypeSearchType = z.infer<typeof adTypeSearchSchema>
 
+const sortSearchSchema = z.enum(['ASC', 'DESC']);
+export type SortSearchType = z.infer<typeof sortSearchSchema>
+
 const PropertiesSearchParamsSchema = z.object({
   page: z.number().int().catch(1),
-  sort: z.enum(['asc', 'desc']).optional(),
+  sort: z.enum(['ASC', 'DESC']).catch('DESC'),
   minPrice: z.number().int().min(MIN_PRICE).max(MAX_PRICE).catch(MIN_PRICE),
   maxPrice: z.number().int().min(MIN_PRICE).max(MAX_PRICE).catch(100_000),
   isFurnished: IsFurnishedSearchSchema,

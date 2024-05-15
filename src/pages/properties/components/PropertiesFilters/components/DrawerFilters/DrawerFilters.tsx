@@ -25,26 +25,24 @@ const DrawerFilters: FC<DrawerFiltersProps> = ({
   const handleCloseDrawer = () => setDrawerOpen(false)
 
   return (
-    <div className="lg:hidden">
-      <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
-        <DrawerTrigger>
-          <Button size="icon" variant="ghost">
-            <FilterIcon />
-          </Button>
-        </DrawerTrigger>
-        <DrawerContent className="lg:hidden">
-          <DrawerHeader>
-            <DrawerTitle>Filters</DrawerTitle>
-          </DrawerHeader>
-          <DrawerFooter>
-            <PropertiesFilters
-              applyFilters={applyFilters}
-              handleCloseDrawer={handleCloseDrawer}
-            />
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    </div>
+    <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
+      <DrawerTrigger>
+        <Button size="icon" variant="ghost">
+          <FilterIcon />
+        </Button>
+      </DrawerTrigger>
+      <DrawerContent className="lg:hidden">
+        <DrawerHeader>
+          <DrawerTitle>Filters</DrawerTitle>
+        </DrawerHeader>
+        <DrawerFooter>
+          <PropertiesFilters
+            applyFilters={applyFilters}
+            handleCloseDrawer={handleCloseDrawer}
+          />
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   )
 }
 
