@@ -168,7 +168,7 @@ const PropertiesPage: FC = () => {
                   />
                 </PaginationItem>
 
-                <PaginationItem onClick={handlePreviousPage}>
+                <PaginationItem onClick={handlePreviousPage} className="px-2">
                   {queryParams.page}
                 </PaginationItem>
 

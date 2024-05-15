@@ -37,9 +37,9 @@ const PropertyCard: FC<PropertyCardProps> = ({ property }) => {
     <Card className="h-full w-full">
       <CardHeader className="">
         {isLoading ? (
-          <Skeleton className="h-48 w-full rounded-md" />
+          <Skeleton className="h-[400px] w-full rounded-md" />
         ) : hasError ? (
-          <div className="flex min-h-52 w-full flex-col items-center justify-center rounded-md">
+          <div className="flex h-[400px] w-full flex-col items-center justify-center rounded-md">
             <AlertCircle className="h-10 w-10 text-red-500" />
             <p className="mt-2 text-sm text-muted-foreground">
               Something went wrong
@@ -48,7 +48,7 @@ const PropertyCard: FC<PropertyCardProps> = ({ property }) => {
         ) : (
           <img
             alt="Property Image"
-            className="h-full min-h-52 w-full rounded-md object-contain"
+            className="h-[400px] w-full overflow-clip rounded-md object-cover"
             src={`data:image/;base64,${images[0]}`}
           />
         )}

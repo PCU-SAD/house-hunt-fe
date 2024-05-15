@@ -9,7 +9,7 @@ const SkeletonCard: FC<SkeletonCardProps> = () => {
     <Card className="w-[full] p-6">
       <div>
         <div>
-          <Skeleton className="h-[180px] w-full" />
+          <Skeleton className="h-[380px] w-full" />
           <Skeleton className="mt-6 h-4 w-1/2" />
           <Skeleton className="mt-2 h-4 w-1/3" />
         </div>

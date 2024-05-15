@@ -1,13 +1,14 @@
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsRight,
-  MoreHorizontal
-} from 'lucide-react'
+import { MoreHorizontal } from 'lucide-react'
 import * as React from 'react'
 
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  DoubleArrowLeftIcon,
+  DoubleArrowRightIcon
+} from '@radix-ui/react-icons'
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav
@@ -46,10 +47,10 @@ const PaginationPrevious = ({
   <Button
     aria-label="Go to previous page"
     size="default"
-    variant="ghost"
-    className={cn('gap-1 pl-2.5', className)}
+    variant="outline"
+    className={cn('h-8 w-8 p-0', className)}
     {...props}>
-    <ChevronLeft className="h-4 w-4" />
+    <ChevronLeftIcon className="h-4 w-4" />
   </Button>
 )
 PaginationPrevious.displayName = 'PaginationPrevious'
@@ -61,10 +62,10 @@ const PaginationGoFirst = ({
   <Button
     aria-label="Go to previous page"
     size="default"
-    variant="ghost"
-    className={cn('px-3 py-2', className)}
+    variant="outline"
+    className={cn('h-8 w-8 p-0', className)}
     {...props}>
-    <ChevronsRight className="h-4 w-4 rotate-180" />
+    <DoubleArrowLeftIcon className="h-4 w-4" />
   </Button>
 )
 PaginationPrevious.displayName = 'PaginationGoFirst'
@@ -76,10 +77,10 @@ const PaginationGoLast = ({
   <Button
     aria-label="Go to previous page"
     size="default"
-    variant="ghost"
-    className={cn('px-3 py-2', className)}
+    variant="outline"
+    className={cn('h-8 w-8 p-0', className)}
     {...props}>
-    <ChevronsRight className="h-4 w-4" />
+    <DoubleArrowRightIcon className="h-4 w-4" />
   </Button>
 )
 PaginationPrevious.displayName = 'PaginationGoLast'
@@ -90,10 +91,10 @@ const PaginationNext = ({
   <Button
     aria-label="Go to next page"
     size="default"
-    variant="ghost"
-    className={cn('gap-1 pr-2.5', className)}
+    variant="outline"
+    className={cn('h-8 w-8 p-0', className)}
     {...props}>
-    <ChevronRight className="h-4 w-4" />
+    <ChevronRightIcon className="h-4 w-4" />
   </Button>
 )
 PaginationNext.displayName = 'PaginationNext'
