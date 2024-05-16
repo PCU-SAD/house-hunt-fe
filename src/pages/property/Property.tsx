@@ -4,7 +4,7 @@ import SkeletonCard from '@/pages/properties/components/Skeleton/SkeletonCard'
 import { propertyService } from '@/services/property-service/property-service'
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
-import { LucideArrowLeft } from 'lucide-react'
+import { ChevronLeft } from 'lucide-react'
 import { FC } from 'react'
 
 type PropertyProps = {}
@@ -26,12 +26,14 @@ const Property: FC<PropertyProps> = () => {
     retry: 1
   })
 
+  console.log('propertyImagesQuery', propertyImagesQuery, data)
+
   if (isError) {
     return (
       <Layout>
         <Container>
           <Link to="../" className="mt-4 inline-block">
-            <LucideArrowLeft />
+            <ChevronLeft />
           </Link>
 
           <ErrorResult onRetry={refetch} className="mt-8" />
@@ -44,7 +46,7 @@ const Property: FC<PropertyProps> = () => {
     <Layout>
       <Container>
         <Link to="../" className="mt-4 inline-block">
-          <LucideArrowLeft />
+          <ChevronLeft />
         </Link>
 
         <div className="mt-4">{isLoading ? <SkeletonCard /> : null}</div>

@@ -20,16 +20,16 @@ type AuthProviderProps = {
   children: ReactNode
 }
 
-export type UserType = 'TENANT' | 'LANDLORD' | 'ADMIN'
+export type UserRole = 'TENANT' | 'LANDLORD' | 'ADMIN'
 
-export type User = {
+export type UserDTO = {
   email: string
-  type: UserType
+  type: UserRole
 }
 
 export type AuthContextType = {
-  user: User | null
-  login: (user: User, refreshToken: string, accessToken: string) => void
+  user: UserDTO | null
+  login: (user: UserDTO, refreshToken: string, accessToken: string) => void
   logout: () => void
   isLoading: boolean
   isError: boolean
@@ -115,7 +115,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     }
   )
 
-  function login(user: User, refreshToken: string, accessToken: string) {
+  function login(user: UserDTO, refreshToken: string, accessToken: string) {
     queryClient.setQueryData(['refresh'], {
       userData: {
         email: user.email,

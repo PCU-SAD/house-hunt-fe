@@ -1,9 +1,9 @@
 import { ValidRoutes } from '@/app'
-import { UserType } from '@/providers/AuthProvider/AuthProvider'
+import { UserRole } from '@/providers/AuthProvider/AuthProvider'
 
 type LinkType = {
   to: ValidRoutes
-  access: 'ALL' | UserType
+  access: 'ALL' | UserRole
   label: string
 }
 

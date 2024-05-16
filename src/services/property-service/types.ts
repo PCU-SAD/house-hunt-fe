@@ -19,6 +19,7 @@ export type GetAllPropertiesResponse = {
 
 export type PaginationT = {
   pageNumber: number
+  pageSize: number
 }
 
 export type PropertyType = {

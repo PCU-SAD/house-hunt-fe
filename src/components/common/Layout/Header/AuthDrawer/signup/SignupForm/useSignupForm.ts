@@ -4,7 +4,7 @@ import { isValidPhoneNumber } from 'react-phone-number-input'
 import { z } from 'zod'
 
 const userTypeSchema = z.enum(['TENANT', 'LANDLORD'])
-export type UserType = z.infer<typeof userTypeSchema>
+export type UserRoleSignup = z.infer<typeof userTypeSchema>
 
 export const specialCharPattern = /[@#$%^&+=*!()\-[\]{};:'",.<>/?\\|_~`]/
 
@@ -68,7 +68,7 @@ export type SignupPostValues = {
   phoneNumber: string
   email: string
   password: string
-  role: UserType
+  role: UserRoleSignup
 }
 
 export function useSignupForm() {

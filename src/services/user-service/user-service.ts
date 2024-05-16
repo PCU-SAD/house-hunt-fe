@@ -1,5 +1,6 @@
 import { VerificationFormType } from '@/pages/settings/account/components/VerificationForm/useVerificationForm'
 import { authApi } from '@/providers/AuthProvider/AuthProvider'
+import { GetAllUsersResponse, UserType } from '@/services/user-service/types'
 import axios from 'axios'
 
 export const userService = {
@@ -43,9 +44,29 @@ export const userService = {
       }
     }
   },
-  getByEmail: async (email: string) => {
+  getById: async (userId: string) => {
     try {
-      const { data } = await authApi.get(`/user/${email}`)
+      const { data } = await authApi.get<UserType>(`/user/${userId}`)
+
+      console.log("🚀 ~ getById: ~ data:", data)
+      
+      return data
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
+  },
+  getAll: async (page: number, pageSize: number) => {
+    try {
+      const { data } = await authApi.get<GetAllUsersResponse>(`user/all`, {
+        params: {
+          size: pageSize,
+          page
+        }
+      })
 
       return data
     } catch (error) {
