@@ -26,7 +26,7 @@ const DrawerFilters: FC<DrawerFiltersProps> = ({
 
   return (
     <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
-      <DrawerTrigger>
+      <DrawerTrigger asChild>
         <Button size="icon" variant="ghost">
           <FilterIcon />
         </Button>

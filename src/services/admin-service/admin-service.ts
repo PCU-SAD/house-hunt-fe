@@ -15,7 +15,7 @@ export const adminService = {
   },
   blockUser: async (userEmail: string) => {
     try {
-      await authApi.put(`/user/admin/block/${userEmail}`)
+      await authApi.post(`/user/block/${userEmail}`)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data.message)

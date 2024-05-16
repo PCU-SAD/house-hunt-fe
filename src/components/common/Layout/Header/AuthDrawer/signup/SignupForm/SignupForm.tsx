@@ -19,12 +19,12 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PhoneInput } from '@/components/ui/phone-input'
-import { useToast } from '@/components/ui/use-toast'
 import { generateRandomString } from '@/lib/generateRandomValue'
 import { authService } from '@/services/auth-service/auth-service'
 import { useMutation } from '@tanstack/react-query'
 
 import { ClipboardEvent, FC } from 'react'
+import { toast } from 'sonner'
 
 type SignupFormProps = {
   handleTabChange: (tab: AuthDrawTab) => void
@@ -32,14 +32,11 @@ type SignupFormProps = {
 
 const SignupForm: FC<SignupFormProps> = ({ handleTabChange }) => {
   const form = useSignupForm()
-  const { toast } = useToast()
 
   const signupMutation = useMutation({
     mutationFn: authService.signup,
     onSuccess: () => {
-      toast({
-        description: 'Verification code sent to your email!',
-        variant: 'default',
+      toast.info('Verification code sent to your email!', {
         duration: 4_000
       })
 
@@ -47,11 +44,8 @@ const SignupForm: FC<SignupFormProps> = ({ handleTabChange }) => {
       handleTabChange('login')
     },
     onError: (error) => {
-      toast({
-        title: 'Something went wrong :(',
-        description: error.message,
-        variant: 'destructive',
-        duration: 2_000
+      toast.error('Something went wrong', {
+        description: error.message
       })
     }
   })

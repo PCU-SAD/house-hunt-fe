@@ -28,6 +28,7 @@ interface DataTableProps<TData, TValue> {
   pageCount: number
   pagination: PaginationType
   setPagination: Dispatch<SetStateAction<PaginationType>>
+  refetch: () => void
 }
 
 export function ServerDataTable<TData, TValue>({
@@ -36,6 +37,7 @@ export function ServerDataTable<TData, TValue>({
   isError,
   pageCount,
   pagination,
+  refetch,
   setPagination
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
@@ -80,7 +82,7 @@ export function ServerDataTable<TData, TValue>({
           {isError ? (
             <TableRow>
               <TableCell colSpan={columns.length} className="py-12">
-                <ErrorResult className="mx-auto w-full" />
+                <ErrorResult className="mx-auto w-full" onRetry={refetch} />
               </TableCell>
             </TableRow>
           ) : (

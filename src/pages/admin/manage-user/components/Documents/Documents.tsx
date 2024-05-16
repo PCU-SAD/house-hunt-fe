@@ -1,17 +1,16 @@
 import { Badge } from '@/components/ui/badge'
 import { Label } from '@/components/ui/label'
-import { useToast } from '@/components/ui/use-toast'
 import { userService } from '@/services/user-service/user-service'
 import { FileIcon, InboxIcon } from 'lucide-react'
 import { FC } from 'react'
+import { toast } from 'sonner'
 
 type DocumentsProps = {
   documents: string[]
 }
 
 const Documents: FC<DocumentsProps> = ({ documents }) => {
-  const { toast } = useToast()
-  const formattedDocName = documents[0].split('_')[1]
+  const formattedDocName = documents[0]?.split('_')[1]
 
   const isEmpty = documents.length === 0
 
@@ -30,11 +29,8 @@ const Documents: FC<DocumentsProps> = ({ documents }) => {
 
       return true
     } catch (error) {
-      toast({
-        title: 'Error downloading document',
-        description: error.response.data.message,
-        duration: 2000,
-        variant: 'destructive'
+      toast.error('Error downloading document', {
+        description: error.response.data.message
       })
     }
   }
@@ -44,8 +40,10 @@ const Documents: FC<DocumentsProps> = ({ documents }) => {
 
       {isEmpty ? (
         <div className="mt-2">
-          <InboxIcon className="h-6 w-6 text-muted-foreground" />
-          <p className="text-sm text-muted-foreground">No documents uploaded</p>
+          <InboxIcon className="ml-1 h-6 w-6 text-muted-foreground" />
+          <p className="ml-1 mt-1 text-xs text-muted-foreground">
+            No documents uploaded
+          </p>
         </div>
       ) : (
         <div className="mt-2 flex flex-col items-start gap-2">

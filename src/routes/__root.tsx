@@ -1,4 +1,4 @@
-import { Toaster } from '@/components/ui/toaster'
+import { Toaster } from '@/components/ui/sonner'
 import '@/index.css'
 import LoadingPage from '@/pages/loading/Loading'
 import { AuthContextType } from '@/providers/AuthProvider/AuthProvider'

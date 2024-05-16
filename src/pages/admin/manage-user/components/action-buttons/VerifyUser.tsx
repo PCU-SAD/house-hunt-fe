@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button'
-import { useToast } from '@/components/ui/use-toast'
 import { adminService } from '@/services/admin-service/admin-service'
 import { useMutation } from '@tanstack/react-query'
 import { CheckCheckIcon } from 'lucide-react'
 import { FC } from 'react'
+import { toast } from 'sonner'
 
 type VerifyUserProps = {
   userEmail: string
@@ -11,23 +11,17 @@ type VerifyUserProps = {
 }
 
 const VerifyUser: FC<VerifyUserProps> = ({ userEmail, refetch }) => {
-  const { toast } = useToast()
-
   const verifyMutation = useMutation({
     mutationKey: ['verify-user-admin'],
     mutationFn: adminService.verifyUser,
     onError: (error) => {
-      toast({
-        title: 'Error verifying user',
-        description: error.message,
-        duration: 2000,
-        variant: 'destructive'
+      toast.error('Error', {
+        description: error.message
       })
     },
     onSuccess: () => {
-      toast({
-        title: 'User verified successfully',
-        description: userEmail,
+      toast.success('Success', {
+        description: 'User verified',
         duration: 2000
       })
 

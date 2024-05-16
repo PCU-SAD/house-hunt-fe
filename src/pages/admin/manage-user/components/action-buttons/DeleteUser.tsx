@@ -10,12 +10,12 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import { useToast } from '@/components/ui/use-toast'
 import { userService } from '@/services/user-service/user-service'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { AlertCircleIcon, Trash } from 'lucide-react'
 import { FC, useState } from 'react'
+import { toast } from 'sonner'
 
 type DeleteUserProps = {
   userEmail: string
@@ -26,7 +26,7 @@ const DeleteUser: FC<DeleteUserProps> = ({ userEmail }) => {
   const navigate = useNavigate({
     from: '/manage-properties/$id'
   })
-  const { toast } = useToast()
+
   const [open, setOpen] = useState(false)
 
   const handleClose = () => setOpen(false)
@@ -35,18 +35,13 @@ const DeleteUser: FC<DeleteUserProps> = ({ userEmail }) => {
     mutationKey: ['delete-user-admin'],
     mutationFn: userService.deleteUser,
     onError: (error) => {
-      toast({
-        title: 'Error deleting user',
-        description: error.message,
-        duration: 2000,
-        variant: 'destructive'
+      toast.error('Error deleting user', {
+        description: error.message
       })
     },
     onSuccess: () => {
-      toast({
-        title: 'User deleted successfully',
-        description: userEmail,
-        duration: 2000
+      toast.success('User deleted successfully', {
+        description: userEmail
       })
 
       navigate({

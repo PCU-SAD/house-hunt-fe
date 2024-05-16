@@ -1,32 +1,27 @@
 import { Button } from '@/components/ui/button'
-import { useToast } from '@/components/ui/use-toast'
 import { adminService } from '@/services/admin-service/admin-service'
 import { useMutation } from '@tanstack/react-query'
 import { Ban } from 'lucide-react'
 import { FC } from 'react'
+import { toast } from 'sonner'
 
 type BlockUserProps = {
   userEmail: string
   refetch: () => void
+  disabled: boolean
 }
 
-const BlockUser: FC<BlockUserProps> = ({ userEmail, refetch }) => {
-  const { toast } = useToast()
-
+const BlockUser: FC<BlockUserProps> = ({ userEmail, refetch, disabled }) => {
   const blockMutation = useMutation({
     mutationKey: ['block-user-admin'],
     mutationFn: adminService.blockUser,
     onError: (error) => {
-      toast({
-        title: 'Error blocking user',
-        description: error.message,
-        duration: 2000,
-        variant: 'destructive'
+      toast.error('Error blocking user', {
+        description: error.message
       })
     },
     onSuccess: () => {
-      toast({
-        title: 'User blocked successfully',
+      toast.success('User blocked successfully', {
         description: userEmail,
         duration: 2000
       })
@@ -39,6 +34,7 @@ const BlockUser: FC<BlockUserProps> = ({ userEmail, refetch }) => {
     <Button
       size="sm"
       variant="destructive"
+      disabled={disabled}
       onClick={() => blockMutation.mutate(userEmail)}>
       <Ban className="h-4 w-4" />
       Block user

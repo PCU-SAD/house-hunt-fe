@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button'
-import { toast } from '@/components/ui/use-toast'
 import { userService } from '@/services/user-service/user-service'
 import { useMutation } from '@tanstack/react-query'
 import { Trash2Icon } from 'lucide-react'
 import { FC } from 'react'
+import { toast } from 'sonner'
 
 type DeleteDocumentProps = {
   document: string
@@ -18,19 +18,13 @@ const DeleteDocument: FC<DeleteDocumentProps> = ({
     mutationKey: ['delete_document', document],
     mutationFn: userService.deleteDocument,
     onSuccess: () => {
-      toast({
-        title: 'Document deleted successfully',
-        duration: 2000
-      })
+      toast.success('Document deleted successfully')
 
       reloadDocuments()
     },
     onError: (error) => {
-      toast({
-        title: 'Error deleting document',
-        description: error.message,
-        variant: 'destructive',
-        duration: 2000
+      toast.error('Error deleting document', {
+        description: error.message
       })
     }
   })

@@ -9,7 +9,7 @@ export type GetAllUsersResponse = {
   last: boolean
 }
 
-export type AccountStatus = 'ACTIVE' | 'NOT_ACTIVATED'
+export type AccountStatusType = 'ACTIVE' | 'NOT_ACTIVATED' | 'BLOCKED'
 
 export type AccountVerificationStatus =
   | 'NOT_VERIFIED'
@@ -17,7 +17,7 @@ export type AccountVerificationStatus =
   | 'PENDING_VERIFICATION'
 
 export type UserType = {
-  accountStatus: AccountStatus
+  accountStatus: AccountStatusType
   email: string
   id: string
   name: string

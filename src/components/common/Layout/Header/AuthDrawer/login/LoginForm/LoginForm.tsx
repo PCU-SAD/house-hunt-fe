@@ -13,15 +13,13 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useToast } from '@/components/ui/use-toast'
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { authService } from '@/services/auth-service/auth-service'
 import { jwtService } from '@/services/jwt-service/jwt-service'
 import { useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
 
 function LoginForm() {
-  const { toast } = useToast()
-
   const auth = useAuthContext()
   const form = useLoginForm()
 
@@ -40,20 +38,15 @@ function LoginForm() {
         response.token
       )
 
-      toast({
-        title: 'Login successful!',
-        description: 'You have been logged in.',
-        duration: 2_000
+      toast.success('Login successful!', {
+        description: 'You have been logged in.'
       })
 
       form.reset()
     },
     onError: (error) => {
-      toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description: error.message,
-        duration: 2_000
+      toast.error('Something went wrong.', {
+        description: error.message
       })
 
       form.reset()

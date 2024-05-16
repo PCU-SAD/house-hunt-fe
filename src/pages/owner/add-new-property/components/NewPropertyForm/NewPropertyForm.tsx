@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
-import { useToast } from '@/components/ui/use-toast'
 import NewPropertyFormFields from '@/pages/owner/add-new-property/components/NewPropertyForm/components/inputs/NewPropertyFormFields'
 import NewPropertyPreview from '@/pages/owner/add-new-property/components/NewPropertyForm/components/NewPropertyPreview/NewPropertyPreview'
 import {
@@ -12,6 +11,7 @@ import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { propertyService } from '@/services/property-service/property-service'
 import { useMutation } from '@tanstack/react-query'
 import { FC } from 'react'
+import { toast } from 'sonner'
 
 type NewPropertyFormProps = {}
 
@@ -20,7 +20,6 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
 
   const property = form.watch()
 
-  const { toast } = useToast()
   const auth = useAuthContext()
 
   const imagesMutation = useMutation({
@@ -32,21 +31,13 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
         auth?.accessToken
       ),
     onSuccess: () => {
-      toast({
-        title: 'Property created',
-        description: 'Your property has been created',
-        variant: 'default',
-        duration: 2_000
-      })
+      toast.success('Property created')
 
       form.reset(newPropertyFormDefaultValues)
     },
     onError: (error: Error) => {
-      toast({
-        title: 'Error',
-        description: error.message,
-        variant: 'destructive',
-        duration: 2_000
+      toast.error('Something went wrong', {
+        description: error.message
       })
     }
   })
@@ -64,11 +55,8 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
       })
     },
     onError: (error: Error) => {
-      toast({
-        title: 'Error',
-        description: error.message,
-        variant: 'destructive',
-        duration: 2_000
+      toast.error('Something went wrong', {
+        description: error.message
       })
     }
   })

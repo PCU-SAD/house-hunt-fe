@@ -101,13 +101,15 @@ export const adminColumns: ColumnDef<UserType>[] = [
 
       const messages = {
         ACTIVE: 'Active',
-        NOT_ACTIVATED: 'Not active'
+        NOT_ACTIVATED: 'Not active',
+        BLOCKED: 'Blocked'
       }
 
       return (
         <div className="flex items-center gap-2 font-semibold">
           {userStatus === 'ACTIVE' && <CheckIcon className="h-3 w-3" />}
           {userStatus == 'NOT_ACTIVATED' && <X className="h-3 w-3" />}
+          {userStatus == 'BLOCKED' && <X className="h-3 w-3" />}
           {messages[userStatus]}
         </div>
       )

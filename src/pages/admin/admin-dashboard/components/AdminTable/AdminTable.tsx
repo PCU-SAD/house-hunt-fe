@@ -24,7 +24,8 @@ const AdminTable: FC<AdminTableProps> = () => {
   const {
     data: serverData,
     isLoading,
-    isError
+    isError,
+    refetch
   } = useQuery({
     queryKey: ['admin-table', pagination],
     queryFn: () =>
@@ -63,6 +64,7 @@ const AdminTable: FC<AdminTableProps> = () => {
       columns={columnsMemo}
       data={processedData}
       isError={isError}
+      refetch={refetch}
       pageCount={pageCount}
       setPagination={setPagination}
       pagination={pagination}

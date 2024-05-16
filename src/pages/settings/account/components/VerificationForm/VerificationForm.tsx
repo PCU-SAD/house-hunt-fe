@@ -2,7 +2,6 @@ import ErrorResult from '@/components/common/Errors/ErrorResult'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { Typography } from '@/components/ui/typography'
-import { useToast } from '@/components/ui/use-toast'
 import DeleteDocument from '@/pages/settings/account/components/VerificationForm/components/DeleteDocument'
 import VerificationSkeletonList from '@/pages/settings/account/components/VerificationForm/components/VerificationSkeletonList'
 import DocumentFile from '@/pages/settings/account/components/VerificationForm/inputs/DocumentFile/DocumentFile'
@@ -17,6 +16,7 @@ import { userService } from '@/services/user-service/user-service'
 import { useMutation, useQuery } from '@tanstack/react-query'
 
 import { FC } from 'react'
+import { toast } from 'sonner'
 
 type VerificationFormProps = {}
 
@@ -35,16 +35,12 @@ const VerificationForm: FC<VerificationFormProps> = () => {
   })
 
   const form = useVerificationForm()
-  const { toast } = useToast()
-
   const verifyMutation = useMutation({
     mutationKey: ['verify_account'],
     mutationFn: userService.verifyAccount,
     onSuccess: () => {
-      toast({
-        title: 'Document uploaded successfully',
-        description: 'We will verify your document and contact you shortly',
-        duration: 2000
+      toast.success('Document uploaded successfully', {
+        description: 'We will verify your document and contact you shortly'
       })
 
       form.reset(defaultVerificationFormValues)
@@ -52,11 +48,8 @@ const VerificationForm: FC<VerificationFormProps> = () => {
       refetch()
     },
     onError: (error: Error) => {
-      toast({
-        title: 'Something went wrong :(',
-        description: error.message,
-        variant: 'destructive',
-        duration: 2000
+      toast.error('Something went wrong', {
+        description: error.message
       })
 
       form.reset()
