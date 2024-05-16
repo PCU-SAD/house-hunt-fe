@@ -1,4 +1,4 @@
-import PropertyCard from '@/pages/properties/components/PropertyCard/PropertyCard'
+import PropertyItem from '@/pages/properties/components/PropertyItem/PropertyItem'
 import { PropertyType } from '@/services/property-service/types'
 import { FC } from 'react'
 
@@ -8,7 +8,7 @@ type PropertiesListProps = {
 
 const PropertiesList: FC<PropertiesListProps> = ({ properties }) => {
   return properties.map((property) => {
-    return <PropertyCard key={property.id} property={property} />
+    return <PropertyItem key={property.id} property={property} />
   })
 }
 

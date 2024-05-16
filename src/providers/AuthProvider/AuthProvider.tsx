@@ -130,10 +130,10 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   function logout() {
     queryClient.setQueryData(['refresh'], {
       userData: {
-        email: null,
-        role: null
+        email: '',
+        role: ''
       },
-      accessToken: null
+      accessToken: ''
     })
 
     localStorage.removeItem('refreshToken')

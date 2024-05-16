@@ -38,7 +38,7 @@ const PriceSort: FC<PriceSortProps> = ({ applyFilters }) => {
 
   return (
     <div>
-      <Label className="mb-2 block">Sort</Label>
+      <Label className="mb-2 inline-block">Sort</Label>
       <Select onValueChange={handleChange} value={sort}>
         <SelectTrigger className="h-8 py-0">
           <SelectValue />

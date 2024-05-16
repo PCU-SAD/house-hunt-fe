@@ -28,7 +28,7 @@ const defaultApartmentTypes: ApartmentType[] = [
 const adTypeSearchSchema = z.enum(['ALL', 'SALE', 'RENTAL'])
 export type AdTypeSearchType = z.infer<typeof adTypeSearchSchema>
 
-const sortSearchSchema = z.enum(['ASC', 'DESC']);
+const sortSearchSchema = z.enum(['ASC', 'DESC'])
 export type SortSearchType = z.infer<typeof sortSearchSchema>
 
 const PropertiesSearchParamsSchema = z.object({

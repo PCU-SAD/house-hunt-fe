@@ -16,6 +16,7 @@ import { Route as AuthUserImport } from './routes/_auth-user'
 import { Route as AuthOwnerImport } from './routes/_auth-owner'
 import { Route as AuthAdminImport } from './routes/_auth-admin'
 import { Route as IndexImport } from './routes/index'
+import { Route as PropertiesIdImport } from './routes/properties_.$id'
 import { Route as AuthOwnerManagePropertiesImport } from './routes/_auth-owner/manage-properties'
 import { Route as AuthAdminAdminDashboardImport } from './routes/_auth-admin/admin-dashboard'
 import { Route as AuthUserSettingsRouteImport } from './routes/_auth-user/_settings/route'
@@ -48,6 +49,11 @@ const AuthAdminRoute = AuthAdminImport.update({
 
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PropertiesIdRoute = PropertiesIdImport.update({
+  path: '/properties/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -125,6 +131,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthOwnerManagePropertiesImport
       parentRoute: typeof AuthOwnerImport
     }
+    '/properties/$id': {
+      preLoaderRoute: typeof PropertiesIdImport
+      parentRoute: typeof rootRoute
+    }
     '/_auth-admin/admin-dashboard/$id': {
       preLoaderRoute: typeof AuthAdminAdminDashboardIdImport
       parentRoute: typeof AuthAdminImport
@@ -163,6 +173,7 @@ export const routeTree = rootRoute.addChildren([
     ]),
   ]),
   PropertiesRoute,
+  PropertiesIdRoute,
 ])
 
 /* prettier-ignore-end */
