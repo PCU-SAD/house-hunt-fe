@@ -24,7 +24,7 @@ export const navLinks: LinkType[] = [
     access: 'LANDLORD'
   },
   {
-    to: '/admin',
+    to: '/admin-dashboard',
     label: 'Manage users',
     access: 'ADMIN'
   }

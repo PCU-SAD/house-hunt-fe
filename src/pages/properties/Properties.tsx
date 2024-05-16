@@ -20,7 +20,7 @@ import PropertiesSkeletonList from '@/pages/properties/components/Skeleton/Prope
 import { propertyService } from '@/services/property-service/property-service'
 import { useBreakpoint } from '@/utils/hooks/useBreakpoint'
 
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { FC, useEffect, useState } from 'react'
 
@@ -36,10 +36,11 @@ const PropertiesPage: FC = () => {
     from: '/properties'
   })
 
-  const { data, isFetching, isError, refetch } = useQuery({
+  const { data, isFetching, isLoading, isError, refetch } = useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: ['properties', queryParams.page],
     queryFn: () => propertyService.getAll(queryParams),
+    placeholderData: keepPreviousData,
     retry: false
   })
 
@@ -49,11 +50,8 @@ const PropertiesPage: FC = () => {
 
   const isEmpty = data?.content?.length === 0
   const isLast = data?.last
-
-  console.log('🚀 ~ isLast:', isLast)
   const isFirst = data?.first
-  const isMoreThanFivePages = data?.pageable.pageNumber >= 5
-  console.log('🚀 ~ isFirst:', isFirst)
+  const isMoreThanFivePages = data?.totalPages >= 5
 
   function handleNextPage() {
     navigate({
@@ -139,13 +137,13 @@ const PropertiesPage: FC = () => {
           <div className="w-full flex-grow">
             {isError ? (
               <ErrorResult className="mt-[100px]" onRetry={refetch} />
-            ) : isFetching ? (
+            ) : isLoading ? (
               <div className="flex flex-col gap-4">
                 <PropertiesSkeletonList />
               </div>
             ) : !isEmpty ? (
               <div className="flex flex-col gap-4">
-                <PropertiesList properties={data.content} />{' '}
+                <PropertiesList properties={data.content} />
               </div>
             ) : (
               <NoContent className="md:mt-[100px]" />

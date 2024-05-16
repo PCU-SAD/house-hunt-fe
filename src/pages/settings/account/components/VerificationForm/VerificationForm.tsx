@@ -3,17 +3,18 @@ import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { Typography } from '@/components/ui/typography'
 import { useToast } from '@/components/ui/use-toast'
+import DeleteDocument from '@/pages/settings/account/components/VerificationForm/components/DeleteDocument'
 import VerificationSkeletonList from '@/pages/settings/account/components/VerificationForm/components/VerificationSkeletonList'
 import DocumentFile from '@/pages/settings/account/components/VerificationForm/inputs/DocumentFile/DocumentFile'
 import DocumentSelect from '@/pages/settings/account/components/VerificationForm/inputs/DocumentSelect/DocumentSelect'
 import {
+  defaultVerificationFormValues,
   useVerificationForm,
   VerificationFormType
 } from '@/pages/settings/account/components/VerificationForm/useVerificationForm'
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { userService } from '@/services/user-service/user-service'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { Trash2Icon } from 'lucide-react'
 
 import { FC } from 'react'
 
@@ -45,7 +46,8 @@ const VerificationForm: FC<VerificationFormProps> = () => {
         description: 'We will verify your document and contact you shortly',
         duration: 2000
       })
-      form.reset()
+
+      form.reset(defaultVerificationFormValues)
 
       refetch()
     },
@@ -91,9 +93,10 @@ const VerificationForm: FC<VerificationFormProps> = () => {
                     {document.split('_', 2)[1]}
                   </Button>
 
-                  <Button size="noSize" className="p-1 py-2" variant="ghost">
-                    <Trash2Icon className="h-4 text-red-500" />
-                  </Button>
+                  <DeleteDocument
+                    document={document}
+                    reloadDocuments={refetch}
+                  />
                 </li>
               ))}
             </ul>

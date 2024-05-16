@@ -3,7 +3,8 @@ import { PropertySearchParams } from '@/routes/properties'
 import { wait } from '@/services/auth-service/auth-service'
 import {
   CreatePropertyRequest,
-  GetAllPropertiesResponse
+  GetAllPropertiesResponse,
+  PropertyType
 } from '@/services/property-service/types'
 import axios from 'axios'
 
@@ -66,8 +67,6 @@ export const propertyService = {
         }
       })
 
-      console.log(data)
-
       return data
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -94,8 +93,11 @@ export const propertyService = {
   },
   getOwnerProperties: async (ownerEmail: string) => {
     try {
-      const { data } = await authApi.get(`/properties/${ownerEmail}`)
+      const { data } = await authApi.get<PropertyType[]>(
+        `/properties/${ownerEmail}`
+      )
 
+      console.log('🚀 ~ getOwnerProperties: ~ data:', data)
       return data
     } catch (error) {
       if (axios.isAxiosError(error)) {

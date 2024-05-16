@@ -94,16 +94,7 @@ const Profile: FC<ProfileProps> = ({ handleClose }) => {
 
           <ul className="ml-6 mt-2 flex list-disc flex-col gap-1">
             <li>
-              <Link to="/settings/account">Wallet</Link>
-            </li>
-            <li>
-              <Link to="/settings/account">Login and security</Link>
-            </li>
-            <li>
-              <Link to="/settings/account">Personal data</Link>
-            </li>
-            <li>
-              <Link to="/settings/account">Profile</Link>
+              <Link to="/settings/account">Account</Link>
             </li>
           </ul>
         </div>

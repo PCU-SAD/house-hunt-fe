@@ -1,7 +1,7 @@
 import { Container, Layout } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
-import AdminTable from '@/pages/admin/components/AdminTable/AdminTable'
+import AdminTable from '@/pages/admin/admin-dashboard/components/AdminTable/AdminTable'
 import { api } from '@/providers/AuthProvider/AuthProvider'
 import { FC } from 'react'
 
@@ -39,8 +39,7 @@ const Admin: FC<AdminProps> = () => {
             } catch (error) {
               console.log('error', error)
             }
-          }}
-        >
+          }}>
           download pdf
         </Button>
         <AdminTable />

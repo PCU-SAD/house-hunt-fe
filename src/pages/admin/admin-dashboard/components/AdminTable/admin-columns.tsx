@@ -13,7 +13,7 @@ import {
 import { DataTableColumnHeader } from '@/components/ui/table/column-header'
 import { UserData } from '@/pages/admin/components/AdminTable/mock-data'
 
-export const columns: ColumnDef<UserData>[] = [
+export const adminColumns: ColumnDef<UserData>[] = [
   {
     accessorKey: 'id',
     enableSorting: true,

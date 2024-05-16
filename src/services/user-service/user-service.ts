@@ -31,5 +31,29 @@ export const userService = {
         throw new Error('Something went wrong')
       }
     }
+  },
+  deleteDocument: async (document: string) => {
+    try {
+      await authApi.delete(`/user/documents/${document}`)
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
+  },
+  getByEmail: async (email: string) => {
+    try {
+      const { data } = authApi.get(`/user/${email}`)
+
+      return data
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
   }
 }

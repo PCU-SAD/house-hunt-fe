@@ -1,7 +1,7 @@
+import { DataTable } from '@/components/common/DataTable/data-table'
 import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import { managePropertyColumns } from '@/pages/owner/manage-properties/ManagePropertiesTable/columns'
-import { DataTable } from '@/pages/owner/manage-properties/ManagePropertiesTable/data-table'
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { propertyService } from '@/services/property-service/property-service'
 import { useQuery } from '@tanstack/react-query'

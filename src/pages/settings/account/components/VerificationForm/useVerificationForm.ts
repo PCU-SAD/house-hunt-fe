@@ -20,13 +20,15 @@ export const verificationFormSchema = z.object({
 })
 export type VerificationFormType = z.infer<typeof verificationFormSchema>
 
+export const defaultVerificationFormValues = {
+  type: 'PASSPORT' as const,
+  document: null
+}
+
 export function useVerificationForm() {
   return useForm({
     resolver: zodResolver(verificationFormSchema),
-    mode: 'onChange',
-    defaultValues: {
-      type: 'PASSPORT' as const,
-      document: null
-    }
+    mode: 'onSubmit',
+    defaultValues: defaultVerificationFormValues
   })
 }

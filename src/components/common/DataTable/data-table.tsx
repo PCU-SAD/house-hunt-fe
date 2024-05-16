@@ -9,6 +9,7 @@ import {
 } from '@tanstack/react-table'
 
 import ErrorResult from '@/components/common/Errors/ErrorResult'
+import NoContent from '@/components/common/Errors/NoContent'
 import {
   Table,
   TableBody,
@@ -93,10 +94,8 @@ export function DataTable<TData, TValue>({
                 ))
               ) : (
                 <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center">
-                    No results.
+                  <TableCell colSpan={columns.length} className=" text-center">
+                    <NoContent className="mt-0 py-12" />
                   </TableCell>
                 </TableRow>
               )}
