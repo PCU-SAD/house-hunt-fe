@@ -22,7 +22,7 @@ const AlertDelete: FC<AlertDeleteProps> = ({ propertyId }) => {
   const handleClose = () => setOpen(false)
 
   async function handleDeleteProperty(propertyId: string) {
-    console.log('deleting', propertyId)
+    
   }
 
   return (

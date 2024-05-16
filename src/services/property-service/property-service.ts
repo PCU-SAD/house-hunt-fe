@@ -96,8 +96,7 @@ export const propertyService = {
       const { data } = await authApi.get<PropertyType[]>(
         `/properties/${ownerEmail}`
       )
-
-      console.log('🚀 ~ getOwnerProperties: ~ data:', data)
+      
       return data
     } catch (error) {
       if (axios.isAxiosError(error)) {

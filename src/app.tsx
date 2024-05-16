@@ -1,4 +1,3 @@
-import { Toaster } from '@/components/ui/toaster'
 import { ErrorPage, InnerApp, NotFoundPage } from '@/pages'
 import AuthProvider from '@/providers/AuthProvider/AuthProvider'
 import { routeTree } from '@/routeTree.gen'
@@ -38,7 +37,6 @@ if (!rootElement.innerHTML) {
   root.render(
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <Toaster />
         <InnerApp />
       </AuthProvider>
     </QueryClientProvider>

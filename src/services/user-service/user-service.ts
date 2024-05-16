@@ -46,10 +46,10 @@ export const userService = {
   },
   getById: async (userId: string) => {
     try {
-      const { data } = await authApi.get<UserType>(`/user/${userId}`)
+      const { data } = await authApi.get<UserType | undefined>(
+        `/user/${userId}`
+      )
 
-      console.log("🚀 ~ getById: ~ data:", data)
-      
       return data
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -75,6 +75,54 @@ export const userService = {
       } else {
         throw new Error('Something went wrong')
       }
+    }
+  },
+  deleteUser: async (userEmail: string) => {
+    try {
+      await authApi.delete(`/user/${userEmail}`)
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
+  },
+  downloadDocument: async (documentName: string) => {
+    try {
+      const response = await authApi.get(
+        `/user/documents/download/${documentName}`,
+        {
+          responseType: 'blob',
+          headers: {
+            Accept: 'application/pdf'
+          }
+        }
+      )
+
+      const imageData = response.data
+      const contentDisposition = response.headers['content-disposition']
+      let filename: string
+      let extension: string
+      let formattedFileName: string
+
+      if (contentDisposition) {
+        filename = contentDisposition.split('filename=')[1]
+
+        formattedFileName = filename.split('_')[1]
+
+        const extensionSplit = filename ? filename.split('.') : ''
+        extension = extensionSplit[1].slice(0, -1).toLowerCase()
+      }
+
+      return {
+        imageData,
+        extension,
+        formattedFileName: formattedFileName.split('.')[0]
+      }
+    } catch (error) {
+      console.error('Error fetching image data:', error)
+      throw error
     }
   }
 }

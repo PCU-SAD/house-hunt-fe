@@ -27,8 +27,6 @@ type PropertyTypeFilerProps = {}
 
 const FormSchema = z.object({
   items: z.array(apartmentTypeSchema).refine((items) => {
-    console.log(items.length)
-
     return items.length > 0
   }, 'At least one item must be selected')
 })

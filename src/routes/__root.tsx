@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/toaster'
 import '@/index.css'
 import LoadingPage from '@/pages/loading/Loading'
 import { AuthContextType } from '@/providers/AuthProvider/AuthProvider'
@@ -32,6 +33,7 @@ function Index() {
 
       <ReactQueryDevtools buttonPosition="bottom-left" />
 
+      <Toaster />
       <Suspense>
         <TanStackRouterDevtools position="bottom-right" />
       </Suspense>
