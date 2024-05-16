@@ -45,7 +45,7 @@ export const userService = {
   },
   getByEmail: async (email: string) => {
     try {
-      const { data } = authApi.get(`/user/${email}`)
+      const { data } = await authApi.get(`/user/${email}`)
 
       return data
     } catch (error) {

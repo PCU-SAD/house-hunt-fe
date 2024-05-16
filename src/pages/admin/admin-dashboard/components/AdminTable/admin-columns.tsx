@@ -11,9 +11,9 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { DataTableColumnHeader } from '@/components/ui/table/column-header'
-import { UserData } from '@/pages/admin/components/AdminTable/mock-data'
 
-export const adminColumns: ColumnDef<UserData>[] = [
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const adminColumns: ColumnDef<any>[] = [
   {
     accessorKey: 'id',
     enableSorting: true,
