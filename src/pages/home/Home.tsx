@@ -1,23 +1,23 @@
-import { Container, Layout } from '@/components/common'
-import { Card, CardTitle } from '@/components/ui/card'
-import { Typography } from '@/components/ui/typography'
-import { welcomeCards } from '@/pages/home/welcomeCards'
+import { Layout } from '@/components/common'
+// import { Card, CardTitle } from '@/components/ui/card'
+// import { Typography } from '@/components/ui/typography'
+// import { welcomeCards } from '@/pages/home/welcomeCards'
 import { FC } from 'react'
-import RoofImg from '/roof.svg'
+import BgImg2 from '/bg-img-2.png'
 
 type HomeProps = {}
 
 const Home: FC<HomeProps> = () => {
   return (
     <Layout>
-      <Container className="mt-6">
+      <div className="p-4">
         <img
-          src={RoofImg}
+          src={BgImg2}
           alt="background"
-          className="absolute left-1/2 top-[160px] w-[400px] -translate-x-1/2"
-        ></img>
-
-        <div className="">
+          className="h-[60dvh] w-full rounded-lg object-cover"></img>
+      </div>
+      {/* <Container className="mt-6"> */}
+      {/* <div className="">
           <div>
             <Typography variant="h2" className="text-center">
               House Hunter — Your Ultimate Property Marketplace
@@ -34,8 +34,8 @@ const Home: FC<HomeProps> = () => {
               )
             })}
           </div>
-        </div>
-      </Container>
+        </div> */}
+      {/* </Container> */}
     </Layout>
   )
 }
