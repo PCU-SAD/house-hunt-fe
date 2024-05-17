@@ -106,7 +106,7 @@ const NewPropertyFormFields: FC = () => {
                   <FormLabel>Square meters</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter properties square meters"
+                      placeholder="Enter properties sq m"
                       type="number"
                       {...field}
                     />

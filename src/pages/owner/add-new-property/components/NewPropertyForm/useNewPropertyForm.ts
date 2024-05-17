@@ -47,13 +47,13 @@ export const newPropertyFormSchema = z
     price: z.coerce.number().nonnegative().min(1, 'Price is required'),
     squareMeters: z.coerce
       .number()
-      .min(1, 'Square meters is required')
+      .min(1, 'Min square meters is 1')
       .nonnegative()
       .max(1000, 'Max square meters is 1000'),
     description: z
       .string()
       .min(20, 'Description must be at least 20 characters long')
-      .max(300),
+      .max(1300),
     isFurnished: FurnishedSchema,
     numberOfRooms: z.coerce
       .number()

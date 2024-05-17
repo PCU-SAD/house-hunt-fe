@@ -6,6 +6,7 @@ import { DataTableColumnHeader } from '@/components/ui/table/column-header'
 import { cn } from '@/lib/utils'
 import { PropertyType } from '@/services/property-service/types'
 import { CZK_DATE_FORMAT } from '@/utils/consts'
+import { czkCurrencyFormatter } from '@/utils/czkCurrencyFormatter'
 import { Link } from '@tanstack/react-router'
 import { format } from 'date-fns'
 
@@ -23,7 +24,12 @@ export const managePropertyColumns: ColumnDef<PropertyType>[] = [
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Amount" />
     },
-    enableSorting: true
+    enableSorting: true,
+    cell: ({ row }) => {
+      const price = row.original.price
+
+      return <div>{czkCurrencyFormatter.format(price)}</div>
+    }
   },
   {
     accessorKey: 'availableFrom',

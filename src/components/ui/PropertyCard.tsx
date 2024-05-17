@@ -49,8 +49,11 @@ const PropertyCard: FC<PropertyCardProps> = ({
       {cardHeader}
       <CardContent className="space-y-4 p-6 pt-0">
         <div>
-          <h3 className="text-xl font-bold">{title}</h3>
-          <p className="mt-1 text-base text-muted-foreground">{description}</p>
+          <h3 className=" whitespace-pre-wrap text-xl font-bold">{title}</h3>
+
+          <p className="mt-1 whitespace-pre-wrap text-base text-muted-foreground">
+            {description}
+          </p>
         </div>
 
         <div className="grid grid-cols-2 gap-4 text-sm">
