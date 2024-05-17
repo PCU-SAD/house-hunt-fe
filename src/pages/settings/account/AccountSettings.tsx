@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Typography } from '@/components/ui/typography'
+import DeleteAccount from '@/pages/settings/account/components/DeleteAccount/DeleteAccount'
 import UpdatePasswordForm from '@/pages/settings/account/components/UpdatePasswordForm/UpdatePasswordForm'
 import VerificationForm from '@/pages/settings/account/components/VerificationForm/VerificationForm'
 import { FC } from 'react'
@@ -24,9 +24,7 @@ const AccountSettings: FC<AccountSettingsProps> = () => {
           </div>
 
           <div className="flex justify-end">
-            <Button variant="destructive" size="sm">
-              Delete Account
-            </Button>
+            <DeleteAccount />
           </div>
         </div>
       </div>

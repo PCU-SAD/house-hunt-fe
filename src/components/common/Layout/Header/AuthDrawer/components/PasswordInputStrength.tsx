@@ -1,10 +1,16 @@
 import { cn } from '@/lib/utils'
 
-import { specialCharPattern } from '@/components/common/Layout/Header/AuthDrawer/signup/SignupForm/useSignupForm'
+import {
+  lowercasePattern,
+  minChars,
+  noWhiteSpaceMessage,
+  numberPattern,
+  specialCharPattern,
+  uppercasePattern
+} from '@/components/common/Layout/Header/AuthDrawer/signup/SignupForm/useSignupForm'
 import { FC, InputHTMLAttributes, forwardRef, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Progress } from '../../../../../ui/progress'
-import { LoginFormType } from '../login/LoginForm/useLoginForm'
 import PasswordInput from './PasswordInput'
 
 type PasswordInputProps = InputHTMLAttributes<HTMLInputElement>
@@ -13,24 +19,32 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
   HTMLInputElement,
   PasswordInputProps
 >(({ ...props }, ref) => {
-  const form = useFormContext<LoginFormType>()
-  const password = form.watch('password')
+  const form = useFormContext()
+  const password = form.watch(props.name)
 
   function evaluatePasswordStrength(password: string) {
     let strength = 10
 
-    if (password?.length >= 8) strength += 22
-    if (/[a-z]/.test(password)) strength += 11
-    if (/[A-Z]/.test(password)) strength += 11
-    if (/\d/.test(password)) strength += 22
+    if (password?.length >= minChars) strength += 22
+    if (lowercasePattern.test(password)) strength += 11
+    if (uppercasePattern.test(password)) strength += 11
+    if (numberPattern.test(password)) strength += 22
     if (specialCharPattern.test(password)) strength += 22
 
     if (strength >= 90) strength = 100
 
+    if (form.formState.errors[props.name]?.message === noWhiteSpaceMessage) {
+      return 10
+    }
+
     return strength
   }
 
-  const strength = useMemo(() => evaluatePasswordStrength(password), [password])
+  const strength = useMemo(
+    () => evaluatePasswordStrength(password),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [form.formState.errors[props.name], password]
+  )
 
   const weakPassword = strength < 40
   const moderatePassword = strength >= 40 && strength < 90

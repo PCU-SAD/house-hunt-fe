@@ -1,25 +1,118 @@
+import PasswordInput from '@/components/common/Layout/Header/AuthDrawer/components/PasswordInput'
+import PasswordInputStrength from '@/components/common/Layout/Header/AuthDrawer/components/PasswordInputStrength'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form'
+import {
+  UpdatePasswordSchemaType,
+  useUpdatePasswordForm
+} from '@/pages/settings/account/components/UpdatePasswordForm/useUpdatePasswordForm'
+import { authService } from '@/services/auth-service/auth-service'
+import { useMutation } from '@tanstack/react-query'
 import { FC } from 'react'
+import { toast } from 'sonner'
 
 const UpdatePasswordForm: FC = () => {
+  const form = useUpdatePasswordForm()
+
+  const updatePasswordMutation = useMutation({
+    mutationKey: ['auth/update-password'],
+    mutationFn: authService.updatePassword,
+    onSuccess: () => {
+      toast.success('Password updated successfully!', {
+        description: 'You have been logged in.'
+      })
+    },
+    onError: (error) => {
+      toast.error('Something went wrong.', {
+        description: error.message
+      })
+    }
+  })
+
+  function onSubmit(values: UpdatePasswordSchemaType) {
+    updatePasswordMutation.mutate({
+      currentPassword: values.current_password,
+      newPassword: values.new_password
+    })
+  }
+
   return (
-    <div className="mt-4 space-y-4">
-      <div>
-        <Label htmlFor="current-password">Current Password</Label>
-        <Input id="current-password" type="password" />
-      </div>
-      <div>
-        <Label htmlFor="new-password">New Password</Label>
-        <Input id="new-password" type="password" />
-      </div>
-      <div>
-        <Label htmlFor="confirm-password">Confirm New Password</Label>
-        <Input id="confirm-password" type="password" />
-      </div>
-      <Button>Update Password</Button>
-    </div>
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="mt-4 flex max-w-[600px] flex-col gap-4">
+        <FormField
+          name="current_password"
+          control={form.control}
+          render={({ field }) => {
+            return (
+              <FormItem className="flex-1">
+                <FormLabel>Current password</FormLabel>
+                <FormControl>
+                  <PasswordInput
+                    placeholder="Enter your current password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
+        />
+
+        <FormField
+          name="new_password"
+          control={form.control}
+          render={({ field }) => {
+            return (
+              <FormItem className="flex-1">
+                <FormLabel>New password</FormLabel>
+                <FormControl>
+                  <PasswordInputStrength
+                    placeholder="Enter your new password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
+        />
+
+        <FormField
+          name="confirm_password"
+          control={form.control}
+          render={({ field }) => {
+            return (
+              <FormItem className="flex-1">
+                <FormLabel>Confirm password</FormLabel>
+                <FormControl>
+                  <PasswordInput
+                    placeholder="Enter your new password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
+        />
+
+        <Button
+          loading={updatePasswordMutation.isPending}
+          size="sm"
+          className="mt-2 self-start">
+          Update Password
+        </Button>
+      </form>
+    </Form>
   )
 }
 

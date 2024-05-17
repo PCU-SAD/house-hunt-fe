@@ -139,7 +139,7 @@ const PropertiesPage: FC = () => {
 
           <div className="w-full flex-grow">
             {isError ? (
-              <ErrorResult className="mt-[100px]" onRetry={refetch} />
+              <ErrorResult className="my-[100px]" onRetry={refetch} />
             ) : isLoading ? (
               <div className="flex flex-col gap-4">
                 <PropertiesSkeletonList />
@@ -157,14 +157,14 @@ const PropertiesPage: FC = () => {
                 {isMoreThanFivePages && (
                   <PaginationItem>
                     <PaginationGoFirst
-                      disabled={isFetching || isFirst}
+                      disabled={isFetching || isFirst || isError}
                       onClick={handleGoFirst}
                     />
                   </PaginationItem>
                 )}
                 <PaginationItem>
                   <PaginationPrevious
-                    disabled={isFirst || isFetching}
+                    disabled={isFirst || isFetching || isError}
                     onClick={handlePreviousPage}
                   />
                 </PaginationItem>
@@ -175,7 +175,7 @@ const PropertiesPage: FC = () => {
 
                 <PaginationItem>
                   <PaginationNext
-                    disabled={isLast || isFetching}
+                    disabled={isLast || isFetching || isError}
                     onClick={handleNextPage}
                   />
                 </PaginationItem>
@@ -183,7 +183,7 @@ const PropertiesPage: FC = () => {
                 {isMoreThanFivePages && (
                   <PaginationItem>
                     <PaginationGoLast
-                      disabled={isFetching || isLast}
+                      disabled={isFetching || isLast || isError}
                       onClick={handleGoLast}
                     />
                   </PaginationItem>

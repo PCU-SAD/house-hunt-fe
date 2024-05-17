@@ -7,20 +7,33 @@ const userTypeSchema = z.enum(['TENANT', 'LANDLORD'])
 export type UserRoleSignup = z.infer<typeof userTypeSchema>
 
 export const specialCharPattern = /[@#$%^&+=*!()\-[\]{};:'",.<>/?\\|_~`]/
+export const numberPattern = /\d/
+export const uppercasePattern = /[A-Z]/
+export const lowercasePattern = /[a-z]/
+export const minChars = 8
+export const maxChars = 50
+export const whiteSpacePattern = /\s/
 
-const passwordSchema = z
+export const noWhiteSpaceMessage = 'Password cannot contain whitespace'
+export const passwordSchema = z
   .string()
-  .min(8, 'Password must be at least 8 characters long')
-  .max(50, 'Password must be at most 50 characters long')
-  .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
-  .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
-  .regex(/\d/, 'Password must contain at least one number')
+  .min(minChars, 'Password must be at least 8 characters long')
+  .max(maxChars, 'Password must be at most 50 characters long')
+  .regex(
+    lowercasePattern,
+    'Password must contain at least one lowercase letter'
+  )
+  .regex(
+    uppercasePattern,
+    'Password must contain at least one uppercase letter'
+  )
+  .regex(numberPattern, 'Password must contain at least one number')
   .regex(
     specialCharPattern,
     'Password must contain at least one special character'
   )
   .refine((value) => !/\s/.test(value), {
-    message: 'Password cannot contain whitespace'
+    message: noWhiteSpaceMessage
   })
 
 const signupFormSchema = z

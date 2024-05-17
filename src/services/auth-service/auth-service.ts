@@ -59,6 +59,26 @@ export const authService = {
         throw new Error(error?.message)
       }
     }
+  },
+  updatePassword: async ({
+    currentPassword,
+    newPassword
+  }: {
+    currentPassword: string
+    newPassword: string
+  }) => {
+    try {
+      await authApi.post('/auth/updatePassword', {
+        currentPassword,
+        newPassword
+      })
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error(error?.message)
+      }
+    }
   }
 }
 
