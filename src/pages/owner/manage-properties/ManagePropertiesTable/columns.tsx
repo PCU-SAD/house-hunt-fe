@@ -1,14 +1,20 @@
-import { ColumnDef } from '@tanstack/react-table'
-import { Settings } from 'lucide-react'
-
-import { buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
 import { DataTableColumnHeader } from '@/components/ui/table/column-header'
-import { cn } from '@/lib/utils'
 import { PropertyType } from '@/services/property-service/types'
 import { CZK_DATE_FORMAT } from '@/utils/consts'
 import { czkCurrencyFormatter } from '@/utils/czkCurrencyFormatter'
 import { Link } from '@tanstack/react-router'
+import { ColumnDef } from '@tanstack/react-table'
 import { format } from 'date-fns'
+import { Calendar, MoreHorizontal } from 'lucide-react'
 
 export const managePropertyColumns: ColumnDef<PropertyType>[] = [
   {
@@ -40,32 +46,43 @@ export const managePropertyColumns: ColumnDef<PropertyType>[] = [
     cell: ({ row }) => {
       const date = row.original.availableFrom
 
-      return <div>{format(date, CZK_DATE_FORMAT)}</div>
+      return (
+        <div className="flex items-center gap-2">
+          <Calendar className="h-4 w-4" />
+          {format(date, CZK_DATE_FORMAT)}
+        </div>
+      )
     }
   },
   {
     id: 'actions',
-    header: () => {
-      return <div className="w-0 text-right"></div>
-    },
+    header: () => <div className="text-right">Actions</div>,
     cell: ({ row }) => {
       const propertyId = row.original.id
 
       return (
-        <div className="w-4 text-right">
-          <Link
-            className={cn(
-              buttonVariants({
-                size: 'icon',
-                variant: 'ghost'
-              })
-            )}
-            to={'/manage-properties/$id'}
-            params={{
-              id: propertyId
-            }}>
-            <Settings className="h-4 w-4 text-right" />
-          </Link>
+        <div className="flex justify-end">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <Link
+                  to={'/manage-properties/$id'}
+                  params={{
+                    id: propertyId
+                  }}>
+                  View Property
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       )
     }
