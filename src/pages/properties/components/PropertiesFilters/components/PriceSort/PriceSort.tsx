@@ -10,43 +10,54 @@ import { SortSearchType } from '@/routes/properties'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { FC } from 'react'
 
-type PriceSortProps = {
-  applyFilters: () => void
-}
+type PriceSortProps = {}
 
-const PriceSort: FC<PriceSortProps> = ({ applyFilters }) => {
+type SelectItemValue = 'price_asc' | 'price_desc' | 'createdAt'
+
+const PriceSort: FC<PriceSortProps> = () => {
   const { sort } = useSearch({
     from: '/properties'
   })
+
+  const selectValue =
+    sort.key === 'createdAt' ? 'createdAt' : sort.key + '_' + sort.order
 
   const navigate = useNavigate({
     from: '/properties'
   })
 
-  function handleChange(value: SortSearchType) {
+  function handleChange(value: SelectItemValue) {
+    const sortArr = value.split('_')
+
+    const sortKey = value === 'createdAt' ? 'createdAt' : sortArr[0]
+
+    const sortValue = value === 'createdAt' ? 'desc' : sortArr[1]
+
     navigate({
       search: (prev) => {
         return {
           ...prev,
-          sort: value
+          sort: {
+            key: sortKey,
+            order: sortValue
+          } as SortSearchType
         }
       }
     })
-
-    applyFilters()
   }
 
   return (
-    <div>
+    <div className="min-w-[220px]">
       <Label className="mb-2 inline-block">Sort</Label>
-      <Select onValueChange={handleChange} value={sort}>
+      <Select onValueChange={handleChange} value={selectValue}>
         <SelectTrigger className="h-8 py-0">
           <SelectValue />
         </SelectTrigger>
 
         <SelectContent>
-          <SelectItem value="ASC">From expensive to cheap</SelectItem>
-          <SelectItem value="DESC">From cheap to expensive</SelectItem>
+          <SelectItem value="price_asc">From cheap to expensive</SelectItem>
+          <SelectItem value="price_desc">From expensive to cheap</SelectItem>
+          <SelectItem value="createdAt">Newest</SelectItem>
         </SelectContent>
       </Select>
     </div>

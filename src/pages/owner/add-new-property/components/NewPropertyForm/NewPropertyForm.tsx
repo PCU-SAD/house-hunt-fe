@@ -10,17 +10,27 @@ import {
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { propertyService } from '@/services/property-service/property-service'
 import { useMutation } from '@tanstack/react-query'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { toast } from 'sonner'
 
 type NewPropertyFormProps = {}
 
 const NewPropertyForm: FC<NewPropertyFormProps> = () => {
   const form = useNewPropertyForm()
+  const [preview, setPreview] = useState('')
 
   const property = form.watch()
 
   const auth = useAuthContext()
+
+  const deleteImageMutation = useMutation({
+    mutationKey: ['deleteImage'],
+    mutationFn: (propertyId: string) =>
+      propertyService.deleteImages(propertyId),
+    onError: () => {
+      toast.error('Something went wrong')
+    }
+  })
 
   const imagesMutation = useMutation({
     mutationKey: ['images'],
@@ -35,10 +45,12 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
 
       form.reset(newPropertyFormDefaultValues)
     },
-    onError: (error: Error) => {
+    onError: (error: Error, data) => {
       toast.error('Something went wrong', {
         description: error.message
       })
+
+      deleteImageMutation.mutate(data.propertyId)
     }
   })
 
@@ -80,17 +92,17 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-4 flex items-start gap-4">
+        className="mt-4 flex flex-col-reverse items-stretch gap-4 md:flex-row md:items-start">
         <div className="flex-1">
-          <NewPropertyFormFields />
+          <NewPropertyFormFields setPreview={setPreview} />
 
           <Button type="submit" size="sm" className="mt-4">
             Submit
           </Button>
         </div>
 
-        <div className=" mt-[21px] flex-1">
-          <NewPropertyPreview property={property} />
+        <div className="mt-[21px] flex-1">
+          <NewPropertyPreview property={property} preview={preview} />
         </div>
       </form>
     </Form>

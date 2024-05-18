@@ -28,7 +28,7 @@ const ApartmentTypeSelect: FC<ApartmentTypeSelectProps> = () => {
       control={form.control}
       name="apartmentType"
       render={({ field }) => (
-        <FormItem>
+        <FormItem className='min-w-[200px]'>
           <FormLabel>Apartment type</FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>

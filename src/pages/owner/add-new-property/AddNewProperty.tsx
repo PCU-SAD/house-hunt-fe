@@ -10,7 +10,7 @@ type AddNewPropertyProps = {}
 const AddNewProperty: FC<AddNewPropertyProps> = () => {
   return (
     <Layout>
-      <Container className="mt-6">
+      <Container className="mt-6 max-w-[1200px]">
         <div className="flex items-center gap-2">
           <Link to="../">
             <ChevronLeft />

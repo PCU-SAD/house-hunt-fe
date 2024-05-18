@@ -43,3 +43,5 @@ export type PropertyType = {
   squareMeters: number
   title: string
 }
+
+export type SortOption = 'asc' | 'desc'

@@ -7,6 +7,7 @@ import {
   PropertyType
 } from '@/services/property-service/types'
 import axios from 'axios'
+import { format } from 'date-fns'
 
 export const propertyService = {
   createOne: async (values: CreatePropertyRequest) => {
@@ -34,7 +35,7 @@ export const propertyService = {
       })
 
       const { data } = await authApi.post(
-        `/properties/${propertyId}/images`,
+        `/properties/${propertyId}/images1`,
         formData,
         {
           headers: {
@@ -55,17 +56,39 @@ export const propertyService = {
   },
   getAll: async (searchParams: PropertySearchParams) => {
     try {
-      await wait(1000)
+      await wait(200)
       const PAGE_SIZE = 20
 
+      const sortKey = searchParams.sort.key
+      const sortOrder = searchParams.sort.order
+
+      const params = {
+        size: PAGE_SIZE,
+        page: searchParams.page - 1,
+        minPrice: searchParams.minPrice,
+        maxPrice: searchParams.maxPrice,
+        sort: `${sortKey},${sortOrder}`,
+        isFurnished: searchParams.isFurnished,
+        availableFrom: format(searchParams.availableFrom, 'yyyy-MM-dd'),
+        adType: searchParams.adType,
+        apartmentType: searchParams.apartmentType
+      }
+
+      if (searchParams.isFurnished === 'ALL') {
+        delete params.isFurnished
+      }
+
+      if (searchParams.adType === 'ALL') {
+        delete params.adType
+      }
+
+      console.log(params)
+
       const { data } = await api.get<GetAllPropertiesResponse>('/properties', {
-        params: {
-          size: PAGE_SIZE,
-          page: searchParams.page - 1,
-          minPrice: searchParams.minPrice,
-          maxPrice: searchParams.maxPrice
-        }
+        params
       })
+
+      console.log(data.content)
 
       return data
     } catch (error) {
@@ -96,7 +119,7 @@ export const propertyService = {
       const { data } = await authApi.get<PropertyType[]>(
         `/properties/${ownerEmail}`
       )
-      
+
       return data
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -111,6 +134,17 @@ export const propertyService = {
       const { data } = await authApi.get(`/properties/${propertyId}`)
 
       return data
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
+  },
+  deleteImages: async (propertyId: string) => {
+    try {
+      await authApi.delete(`/properties/${propertyId}`)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data.message)

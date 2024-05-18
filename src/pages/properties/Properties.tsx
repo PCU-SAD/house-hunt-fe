@@ -19,10 +19,8 @@ import {
   PropertiesList,
   PropertiesSkeletonList
 } from '@/pages/properties/components'
-
 import { propertyService } from '@/services/property-service/property-service'
 import { useBreakpoint } from '@/utils/hooks/useBreakpoint'
-
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { FC, useEffect, useState } from 'react'
@@ -41,7 +39,7 @@ const PropertiesPage: FC = () => {
 
   const { data, isFetching, isLoading, isError, refetch } = useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: ['properties', queryParams.page],
+    queryKey: ['properties', queryParams.page, queryParams.sort],
     queryFn: () => propertyService.getAll(queryParams),
     placeholderData: keepPreviousData,
     retry: false
@@ -112,7 +110,7 @@ const PropertiesPage: FC = () => {
 
       <Container className="mt-6 max-w-[1200px]">
         <div className="mb-2 ml-auto hidden min-w-[250px] max-w-fit lg:block">
-          <PriceSort applyFilters={applyFilters} />
+          <PriceSort />
         </div>
 
         <section className="flex max-w-[1200px] flex-col items-start gap-4 overflow-auto lg:flex-row">
@@ -132,7 +130,7 @@ const PropertiesPage: FC = () => {
               />
 
               <div className="lg:hidden">
-                <PriceSort applyFilters={applyFilters} />
+                <PriceSort />
               </div>
             </div>
           </aside>

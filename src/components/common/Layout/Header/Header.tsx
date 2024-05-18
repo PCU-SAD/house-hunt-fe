@@ -35,7 +35,7 @@ const Header: FC = () => {
   })
 
   return (
-    <NavigationMenu className="hidden md:block md:w-screen">
+    <NavigationMenu className="hidden md:block ">
       <NavigationMenuList>
         {filteredLinks.map((link) => (
           <NavigationMenuItem key={link.to}>

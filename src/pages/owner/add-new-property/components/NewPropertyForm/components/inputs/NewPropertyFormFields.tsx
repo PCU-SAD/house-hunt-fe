@@ -18,11 +18,18 @@ import {
   PropertyTypeSelect
 } from '@/pages/owner/add-new-property/components/NewPropertyForm/components/inputs'
 import { NewPropertyFormType } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
-import { FC } from 'react'
+import React, { FC } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-const NewPropertyFormFields: FC = () => {
+type NewPropertyFormFieldsProps = {
+  setPreview: React.Dispatch<React.SetStateAction<string>>
+
+}
+
+const NewPropertyFormFields: FC<NewPropertyFormFieldsProps> = ({ setPreview}) => {
   const form = useFormContext<NewPropertyFormType>()
+
+
 
   return (
     <div className="flex flex-col gap-4">
@@ -167,7 +174,7 @@ const NewPropertyFormFields: FC = () => {
         <Label className="mb-2 block">Images</Label>
         <div className="flex flex-wrap gap-2">
           {new Array(6).fill(null).map((_, index) => (
-            <FileInput name={`images.${index}`} key={`images.${index}`} />
+            <FileInput setPreview={setPreview} name={`images.${index}`} index={index} key={`images.${index}`} />
           ))}
         </div>
 

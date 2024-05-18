@@ -15,9 +15,11 @@ import { useFormContext } from 'react-hook-form'
 
 type FileInputProps = {
   name: string
+  index: number
+  setPreview: React.Dispatch<React.SetStateAction<string>>
 }
 
-const FileInput: FC<FileInputProps> = ({ name }) => {
+const FileInput: FC<FileInputProps> = ({ name, index, setPreview }) => {
   const form = useFormContext()
   const [currentPreview, setCurrentPreview] = useState('')
 
@@ -51,6 +53,10 @@ const FileInput: FC<FileInputProps> = ({ name }) => {
                 onChange={(event) => {
                   const { displayUrl } = getImageData(event)
                   setCurrentPreview(displayUrl)
+
+                  if (index === 0) {
+                    setPreview(displayUrl)
+                  }
 
                   onChange(event.target?.files?.[0] ?? undefined)
                 }}

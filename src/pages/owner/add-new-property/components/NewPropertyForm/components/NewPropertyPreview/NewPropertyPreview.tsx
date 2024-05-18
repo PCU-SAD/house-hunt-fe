@@ -7,6 +7,7 @@ import { FC } from 'react'
 
 type NewPropertyPreviewProps = {
   property: NewPropertyFormType
+  preview: string
 }
 
 export const czkMoneyFormatter = Intl.NumberFormat('cs-Cz', {
@@ -25,7 +26,10 @@ export const furnishedMessage: {
   SEMI_FURNISHED: 'Half furnished'
 }
 
-const NewPropertyPreview: FC<NewPropertyPreviewProps> = ({ property }) => {
+const NewPropertyPreview: FC<NewPropertyPreviewProps> = ({
+  property,
+  preview
+}) => {
   const {
     title,
     description,
@@ -52,8 +56,6 @@ const NewPropertyPreview: FC<NewPropertyPreviewProps> = ({ property }) => {
 
   const formattedAvailableFrom = format(availableFrom, CZK_DATE_FORMAT)
 
-
-
   const rooms = numberOfRooms > 1 ? 'rooms' : 'room'
 
   return (
@@ -71,7 +73,15 @@ const NewPropertyPreview: FC<NewPropertyPreviewProps> = ({ property }) => {
       adType={adType}
       cardHeader={
         <CardHeader className="pb-4">
-          <div className="h-52 w-full rounded-md bg-slate-100 object-contain" />
+          {preview ? (
+            <img
+              alt="Property Image"
+              className="h-[300px] w-full overflow-clip rounded-md object-cover"
+              src={preview}
+            />
+          ) : (
+            <div className="h-[300px] w-full rounded-md bg-slate-100 object-contain" />
+          )}
         </CardHeader>
       }
     />
