@@ -62,14 +62,17 @@ export const authService = {
   },
   updatePassword: async ({
     currentPassword,
-    newPassword
+    newPassword,
+    email
   }: {
     currentPassword: string
     newPassword: string
+    email: string
   }) => {
     try {
-      await authApi.post('/auth/updatePassword', {
-        currentPassword,
+      await authApi.put('/user/password', {
+        email,
+        oldPassword: currentPassword,
         newPassword
       })
     } catch (error) {

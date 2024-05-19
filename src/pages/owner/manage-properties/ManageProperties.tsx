@@ -24,8 +24,9 @@ const ManageProperties: FC<ManagePropertiesProps> = () => {
               buttonVariants({
                 size: 'noSize',
                 className: 'px-2 py-2',
-                variant: 'ghost'
-              })
+                variant: 'outline'
+              }),
+              'bg-green-600 text-white hover:bg-green-500 hover:text-white border-none'
             )}>
             <PlusIcon className="h-4 w-4" />
             <span>Add new</span>

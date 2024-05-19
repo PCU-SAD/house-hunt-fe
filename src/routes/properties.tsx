@@ -25,6 +25,9 @@ const defaultApartmentTypes: ApartmentType[] = [
   'TWO_ONE'
 ]
 
+const createdAtSearchSchema = z.enum(["last24hours", "lastWeek", "lastMonth", 'ALL'])
+export type CreatedAtSearchType = z.infer<typeof createdAtSearchSchema>
+
 const adTypeSearchSchema = z.enum(['ALL', 'SALE', 'RENTAL'])
 export type AdTypeSearchType = z.infer<typeof adTypeSearchSchema>
 
@@ -41,6 +44,7 @@ const PropertiesSearchParamsSchema = z.object({
     key: 'price',
     order: 'asc'
   }),
+  createdAt: createdAtSearchSchema.catch('ALL'),
   minPrice: z.number().int().min(MIN_PRICE).max(MAX_PRICE).catch(MIN_PRICE),
   maxPrice: z.number().int().min(MIN_PRICE).max(MAX_PRICE).catch(100_000),
   isFurnished: IsFurnishedSearchSchema,

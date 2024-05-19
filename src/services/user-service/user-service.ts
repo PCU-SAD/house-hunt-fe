@@ -1,5 +1,5 @@
 import { VerificationFormType } from '@/pages/settings/account/components/VerificationForm/useVerificationForm'
-import { authApi } from '@/providers/AuthProvider/AuthProvider'
+import { api, authApi } from '@/providers/AuthProvider/AuthProvider'
 import { GetAllUsersResponse, UserType } from '@/services/user-service/types'
 import axios from 'axios'
 
@@ -123,6 +123,17 @@ export const userService = {
     } catch (error) {
       console.error('Error fetching image data:', error)
       throw error
+    }
+  },
+  forgotPassword: async () => {
+    try {
+      await api.post('/user/forgot-password')
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
     }
   }
 }

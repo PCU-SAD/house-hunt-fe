@@ -55,7 +55,7 @@ export const propertyService = {
   },
   getAll: async (searchParams: PropertySearchParams) => {
     try {
-      const PAGE_SIZE = 20
+      const PAGE_SIZE = 5
 
       const sortKey = searchParams.sort.key
       const sortOrder = searchParams.sort.order
@@ -70,11 +70,18 @@ export const propertyService = {
         isFurnished: searchParams.isFurnished,
         availableFrom: format(searchParams.availableFrom, 'yyyy-MM-dd'),
         adType: searchParams.adType,
-        apartmentType: searchParams.apartmentType
+        apartmentType: searchParams.apartmentType,
+        createdAt: searchParams.createdAt,
+        minRooms: searchParams.minRooms,
+        maxRooms: searchParams.maxRooms
       }
 
       if (searchParams.isFurnished === 'ALL') {
         delete params.isFurnished
+      }
+
+      if (searchParams.createdAt === 'ALL') {
+        delete params.createdAt
       }
 
       if (searchParams.adType === 'ALL') {

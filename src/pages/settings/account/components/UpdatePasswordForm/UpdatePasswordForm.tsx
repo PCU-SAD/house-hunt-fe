@@ -13,20 +13,26 @@ import {
   UpdatePasswordSchemaType,
   useUpdatePasswordForm
 } from '@/pages/settings/account/components/UpdatePasswordForm/useUpdatePasswordForm'
+import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { authService } from '@/services/auth-service/auth-service'
 import { useMutation } from '@tanstack/react-query'
 import { FC } from 'react'
 import { toast } from 'sonner'
 
 const UpdatePasswordForm: FC = () => {
+  const { user } = useAuthContext()
   const form = useUpdatePasswordForm()
 
   const updatePasswordMutation = useMutation({
     mutationKey: ['auth/update-password'],
     mutationFn: authService.updatePassword,
     onSuccess: () => {
-      toast.success('Password updated successfully!', {
-        description: 'You have been logged in.'
+      toast.success('Password updated successfully!')
+
+      form.reset({
+        confirm_password: '',
+        current_password: '',
+        new_password: ''
       })
     },
     onError: (error) => {
@@ -39,7 +45,8 @@ const UpdatePasswordForm: FC = () => {
   function onSubmit(values: UpdatePasswordSchemaType) {
     updatePasswordMutation.mutate({
       currentPassword: values.current_password,
-      newPassword: values.new_password
+      newPassword: values.new_password,
+      email: user.email
     })
   }
 

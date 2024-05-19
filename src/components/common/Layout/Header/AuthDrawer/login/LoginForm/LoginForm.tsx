@@ -17,6 +17,7 @@ import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { authService } from '@/services/auth-service/auth-service'
 import { jwtService } from '@/services/jwt-service/jwt-service'
 import { useMutation } from '@tanstack/react-query'
+import { Link } from '@tanstack/react-router'
 import { toast } from 'sonner'
 
 function LoginForm() {
@@ -60,46 +61,49 @@ function LoginForm() {
   return (
     <div className="mt-6 w-full sm:w-[400px]">
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="mt-4 flex flex-col gap-3">
-          <FormField
-            name="email"
-            control={form.control}
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter your email"
-                      inputMode="email"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )
-            }}
-          />
-          <FormField
-            name="password"
-            control={form.control}
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <PasswordInput
-                      placeholder="Enter your password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage className="mt-2" />
-                </FormItem>
-              )
-            }}
-          />
+        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4">
+          <div className="flex flex-col gap-3">
+            <FormField
+              name="email"
+              control={form.control}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your email"
+                        inputMode="email"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+            <FormField
+              name="password"
+              control={form.control}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <PasswordInput
+                        placeholder="Enter your password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage className="mt-2" />
+                  </FormItem>
+                )
+              }}
+            />
+          </div>
+
+          <Link to='/'>Forgot password</Link>
+
           <Button
             type="submit"
             className="mt-3 gap-2"

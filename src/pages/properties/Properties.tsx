@@ -46,6 +46,15 @@ const PropertiesPage: FC = () => {
   })
 
   function applyFilters() {
+    navigate({
+      search: (prev) => {
+        return {
+          ...prev,
+          page: 1
+        }
+      }
+    })
+
     refetch()
   }
 
@@ -125,7 +134,7 @@ const PropertiesPage: FC = () => {
               />
             </div>
 
-            <div className="flex items-center justify-between lg:hidden">
+            <div className="flex items-end justify-between lg:hidden">
               <DrawerFilters
                 drawerOpen={drawerOpen}
                 setDrawerOpen={setDrawerOpen}

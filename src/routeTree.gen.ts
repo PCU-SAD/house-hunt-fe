@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as PropertiesImport } from './routes/properties'
+import { Route as ForgotPasswordImport } from './routes/forgot-password'
 import { Route as AuthUserImport } from './routes/_auth-user'
 import { Route as AuthOwnerImport } from './routes/_auth-owner'
 import { Route as AuthAdminImport } from './routes/_auth-admin'
@@ -24,11 +25,17 @@ import { Route as AuthOwnerManagePropertiesAddNewImport } from './routes/_auth-o
 import { Route as AuthOwnerManagePropertiesIdImport } from './routes/_auth-owner/manage-properties_.$id'
 import { Route as AuthAdminAdminDashboardIdImport } from './routes/_auth-admin/admin-dashboard_.$id'
 import { Route as AuthUserSettingsSettingsAccountImport } from './routes/_auth-user/_settings/settings.account'
+import { Route as AuthOwnerManagePropertiesEditIdImport } from './routes/_auth-owner/manage-properties_.edit.$id'
 
 // Create/Update Routes
 
 const PropertiesRoute = PropertiesImport.update({
   path: '/properties',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ForgotPasswordRoute = ForgotPasswordImport.update({
+  path: '/forgot-password',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -95,6 +102,12 @@ const AuthUserSettingsSettingsAccountRoute =
     getParentRoute: () => AuthUserSettingsRouteRoute,
   } as any)
 
+const AuthOwnerManagePropertiesEditIdRoute =
+  AuthOwnerManagePropertiesEditIdImport.update({
+    path: '/manage-properties/edit/$id',
+    getParentRoute: () => AuthOwnerRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -113,6 +126,10 @@ declare module '@tanstack/react-router' {
     }
     '/_auth-user': {
       preLoaderRoute: typeof AuthUserImport
+      parentRoute: typeof rootRoute
+    }
+    '/forgot-password': {
+      preLoaderRoute: typeof ForgotPasswordImport
       parentRoute: typeof rootRoute
     }
     '/properties': {
@@ -147,6 +164,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthOwnerManagePropertiesAddNewImport
       parentRoute: typeof AuthOwnerImport
     }
+    '/_auth-owner/manage-properties/edit/$id': {
+      preLoaderRoute: typeof AuthOwnerManagePropertiesEditIdImport
+      parentRoute: typeof AuthOwnerImport
+    }
     '/_auth-user/_settings/settings/account': {
       preLoaderRoute: typeof AuthUserSettingsSettingsAccountImport
       parentRoute: typeof AuthUserSettingsRouteImport
@@ -166,12 +187,14 @@ export const routeTree = rootRoute.addChildren([
     AuthOwnerManagePropertiesRoute,
     AuthOwnerManagePropertiesIdRoute,
     AuthOwnerManagePropertiesAddNewRoute,
+    AuthOwnerManagePropertiesEditIdRoute,
   ]),
   AuthUserRoute.addChildren([
     AuthUserSettingsRouteRoute.addChildren([
       AuthUserSettingsSettingsAccountRoute,
     ]),
   ]),
+  ForgotPasswordRoute,
   PropertiesRoute,
   PropertiesIdRoute,
 ])

@@ -10,22 +10,20 @@ type AccountSettingsProps = {}
 const AccountSettings: FC<AccountSettingsProps> = () => {
   return (
     <section>
-      <div className="">
-        <div className="space-y-8">
-          <div>
-            <Typography variant="h3">Identity Verification</Typography>
-            <Separator />
-            <VerificationForm />
-          </div>
-          <div>
-            <Typography variant="h3">Password & Security</Typography>
+      <div className="space-y-8">
+        <div>
+          <Typography variant="h3">Identity Verification</Typography>
+          <Separator />
+          <VerificationForm />
+        </div>
+        <div>
+          <Typography variant="h3">Password & Security</Typography>
 
-            <UpdatePasswordForm />
-          </div>
+          <UpdatePasswordForm />
+        </div>
 
-          <div className="flex justify-end">
-            <DeleteAccount />
-          </div>
+        <div className="flex justify-end">
+          <DeleteAccount />
         </div>
       </div>
     </section>

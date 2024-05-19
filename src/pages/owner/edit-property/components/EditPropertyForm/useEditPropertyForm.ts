@@ -1,40 +1,15 @@
+import {
+  adTypeSchema,
+  apartmentTypeSchema,
+  fileSchema,
+  FurnishedSchema,
+  newPropertyFormSchema
+} from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { addDays } from 'date-fns'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-export const apartmentType = [
-  'ONE_KK',
-  'ONE_ONE',
-  'TWO_KK',
-  'TWO_ONE',
-  'THREE_KK',
-  'THREE_ONE',
-  'FOUR_KK',
-  'FOUR_ONE',
-  'FIVE_KK',
-  'FIVE_ONE',
-  'SIX_KK',
-  'SIX_ONE',
-  'SEVEN_KK',
-  'SEVEN_ONE'
-] as const
-
-export const apartmentTypeSchema = z.enum(apartmentType)
-
-export type ApartmentType = z.infer<typeof apartmentTypeSchema>
-
-export const adTypeSchema = z.enum(['RENTAL', 'SALE'])
-
-export type AdType = z.infer<typeof adTypeSchema>
-
-export const FurnishedSchema = z.enum(['FURNISHED', 'SEMI_FURNISHED', 'UNFURNISHED'])
-
-export type FurnishedType = z.infer<typeof FurnishedSchema>
-
-export const fileSchema = z.instanceof(File).optional()
-
-export const newPropertyFormSchema = z
+export const editPropertyFormSchema = z
   .object({
     title: z
       .string()
@@ -86,26 +61,12 @@ export const newPropertyFormSchema = z
     }
   })
 
-export type NewPropertyFormType = z.infer<typeof newPropertyFormSchema>
+export type EditPropertyFormType = z.infer<typeof editPropertyFormSchema>
 
-export const newPropertyFormDefaultValues = {
-  title: '',
-  address: '',
-  price: 0.0,
-  squareMeters: 0,
-  description: '',
-  isFurnished: 'UNFURNISHED',
-  numberOfRooms: 1,
-  floorNumber: 1,
-  availableFrom: addDays(new Date(), 1),
-  adType: 'RENTAL',
-  apartmentType: 'ONE_KK'
-} as const
-
-export function useNewPropertyForm() {
-  return useForm<NewPropertyFormType>({
+export function useEditNewPropertyForm(defaultValues: EditPropertyFormType) {
+  return useForm<EditPropertyFormType>({
     resolver: zodResolver(newPropertyFormSchema),
     mode: 'onChange',
-    defaultValues: newPropertyFormDefaultValues
+    defaultValues
   })
 }

@@ -25,8 +25,9 @@ const DrawerFilters: FC<DrawerFiltersProps> = ({
   return (
     <Drawer open={drawerOpen} onOpenChange={setDrawerOpen} direction="left">
       <DrawerTrigger asChild>
-        <Button size="icon" variant="ghost">
-          <FilterIcon />
+        <Button variant="outline" size="noSize" className="h-8 px-3">
+          <p className="text-md">Filters</p>
+          <FilterIcon className="h-4 w-4" />
         </Button>
       </DrawerTrigger>
       <DrawerContent className="lg:hidden">

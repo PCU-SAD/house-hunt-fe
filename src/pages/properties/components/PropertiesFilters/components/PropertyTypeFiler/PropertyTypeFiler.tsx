@@ -74,14 +74,14 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
                     <Button
                       variant="outline"
                       size="noSize"
-                      className="h-8 justify-between px-2 py-0"
+                      className="h-8 justify-between px-2 py-0 font-normal"
                       aria-label="Open menu">
                       <span className="sr-only">Open menu</span>
                       Apartment type
                       <ChevronUp
                         className={cn(
                           'h-4 w-4 transition-transform',
-                          open && 'rotate-180'
+                          !open && 'rotate-180'
                         )}
                       />
                     </Button>
