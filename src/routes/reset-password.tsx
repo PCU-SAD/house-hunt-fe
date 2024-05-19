@@ -1,4 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { ResetPassword } from '@/pages'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import { z } from 'zod'
 
 const resetPasswordSearchSchema = z.object({
@@ -7,5 +8,10 @@ const resetPasswordSearchSchema = z.object({
 
 export const Route = createFileRoute('/reset-password')({
   validateSearch: (value) => resetPasswordSearchSchema.parse(value),
-  component: () => <div>Hello /forgot-password!</div>
+  component: ResetPassword,
+  onError: () => {
+    throw redirect({
+      to: '/'
+    })
+  }
 })
