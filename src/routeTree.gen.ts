@@ -11,8 +11,8 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as ResetPasswordImport } from './routes/reset-password'
 import { Route as PropertiesImport } from './routes/properties'
-import { Route as ForgotPasswordImport } from './routes/forgot-password'
 import { Route as AuthUserImport } from './routes/_auth-user'
 import { Route as AuthOwnerImport } from './routes/_auth-owner'
 import { Route as AuthAdminImport } from './routes/_auth-admin'
@@ -29,13 +29,13 @@ import { Route as AuthOwnerManagePropertiesEditIdImport } from './routes/_auth-o
 
 // Create/Update Routes
 
-const PropertiesRoute = PropertiesImport.update({
-  path: '/properties',
+const ResetPasswordRoute = ResetPasswordImport.update({
+  path: '/reset-password',
   getParentRoute: () => rootRoute,
 } as any)
 
-const ForgotPasswordRoute = ForgotPasswordImport.update({
-  path: '/forgot-password',
+const PropertiesRoute = PropertiesImport.update({
+  path: '/properties',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -128,12 +128,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthUserImport
       parentRoute: typeof rootRoute
     }
-    '/forgot-password': {
-      preLoaderRoute: typeof ForgotPasswordImport
-      parentRoute: typeof rootRoute
-    }
     '/properties': {
       preLoaderRoute: typeof PropertiesImport
+      parentRoute: typeof rootRoute
+    }
+    '/reset-password': {
+      preLoaderRoute: typeof ResetPasswordImport
       parentRoute: typeof rootRoute
     }
     '/_auth-user/_settings': {
@@ -194,8 +194,8 @@ export const routeTree = rootRoute.addChildren([
       AuthUserSettingsSettingsAccountRoute,
     ]),
   ]),
-  ForgotPasswordRoute,
   PropertiesRoute,
+  ResetPasswordRoute,
   PropertiesIdRoute,
 ])
 

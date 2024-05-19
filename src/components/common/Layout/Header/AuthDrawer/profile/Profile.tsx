@@ -3,16 +3,16 @@ import { buttonVariants } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Typography } from '@/components/ui/typography'
 import { cn } from '@/lib/utils'
+import { useAuthDrawerContext } from '@/providers/AuthDrawerProvider/AuthDrawerProvider'
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { Link } from '@tanstack/react-router'
 import { Check, CornerUpLeft, UserIcon } from 'lucide-react'
 import { FC } from 'react'
 
-type ProfileProps = {
-  handleClose: () => void
-}
+type ProfileProps = {}
 
-const Profile: FC<ProfileProps> = ({ handleClose }) => {
+const Profile: FC<ProfileProps> = () => {
+  const { handleCloseDrawer } = useAuthDrawerContext()
   const auth = useAuthContext()
   const isOwner = auth?.user.type === 'LANDLORD'
   const isUser = auth?.user.type === 'TENANT'
@@ -38,7 +38,7 @@ const Profile: FC<ProfileProps> = ({ handleClose }) => {
         </div>
 
         <Link
-          onClick={handleClose}
+          onClick={handleCloseDrawer}
           to="/properties"
           className={cn(
             buttonVariants({

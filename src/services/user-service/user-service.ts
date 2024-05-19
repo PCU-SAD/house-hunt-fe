@@ -125,9 +125,13 @@ export const userService = {
       throw error
     }
   },
-  forgotPassword: async () => {
+  forgotPassword: async (email: string) => {
     try {
-      await api.post('/user/forgot-password')
+      await api.post('/user/forgot-password', null, {
+        params: {
+          email
+        }
+      })
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data.message)

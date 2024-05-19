@@ -13,14 +13,15 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useAuthDrawerContext } from '@/providers/AuthDrawerProvider/AuthDrawerProvider'
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { authService } from '@/services/auth-service/auth-service'
 import { jwtService } from '@/services/jwt-service/jwt-service'
 import { useMutation } from '@tanstack/react-query'
-import { Link } from '@tanstack/react-router'
 import { toast } from 'sonner'
 
 function LoginForm() {
+  const { handleTabChange } = useAuthDrawerContext()
   const auth = useAuthContext()
   const form = useLoginForm()
 
@@ -61,7 +62,9 @@ function LoginForm() {
   return (
     <div className="mt-6 w-full sm:w-[400px]">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="mt-4 flex flex-col">
           <div className="flex flex-col gap-3">
             <FormField
               name="email"
@@ -102,11 +105,18 @@ function LoginForm() {
             />
           </div>
 
-          <Link to='/'>Forgot password</Link>
+          <Button
+            type="button"
+            variant="link"
+            size="noSize"
+            onClick={() => handleTabChange('forgot-password')}
+            className="mt-3 self-start underline">
+            Forgot password
+          </Button>
 
           <Button
             type="submit"
-            className="mt-3 gap-2"
+            className="mt-6 gap-2"
             loading={loginMutation.isPending}>
             Submit
           </Button>

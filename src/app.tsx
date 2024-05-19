@@ -1,4 +1,5 @@
 import { ErrorPage, InnerApp, NotFoundPage } from '@/pages'
+import AuthDrawerProvider from '@/providers/AuthDrawerProvider/AuthDrawerProvider'
 import AuthProvider from '@/providers/AuthProvider/AuthProvider'
 import { routeTree } from '@/routeTree.gen'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -37,7 +38,9 @@ if (!rootElement.innerHTML) {
   root.render(
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <InnerApp />
+        <AuthDrawerProvider>
+          <InnerApp />
+        </AuthDrawerProvider>
       </AuthProvider>
     </QueryClientProvider>
   )
