@@ -9,7 +9,10 @@ import { createContext, FC, ReactNode, useContext, useMemo } from 'react'
 export const API_URL = import.meta.env.VITE_API_URL
 
 export const api = axios.create({
-  baseURL: API_URL
+  baseURL: API_URL,
+  paramsSerializer: {
+    indexes: null
+  }
 })
 
 export const authApi = axios.create({

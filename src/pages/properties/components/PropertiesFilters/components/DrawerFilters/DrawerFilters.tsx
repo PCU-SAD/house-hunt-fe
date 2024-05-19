@@ -3,8 +3,6 @@ import {
   Drawer,
   DrawerContent,
   DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger
 } from '@/components/ui/drawer'
 import PropertiesFilters from '@/pages/properties/components/PropertiesFilters/PropertiesFilters'
@@ -25,16 +23,13 @@ const DrawerFilters: FC<DrawerFiltersProps> = ({
   const handleCloseDrawer = () => setDrawerOpen(false)
 
   return (
-    <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
+    <Drawer open={drawerOpen} onOpenChange={setDrawerOpen} direction="left">
       <DrawerTrigger asChild>
         <Button size="icon" variant="ghost">
           <FilterIcon />
         </Button>
       </DrawerTrigger>
       <DrawerContent className="lg:hidden">
-        <DrawerHeader>
-          <DrawerTitle>Filters</DrawerTitle>
-        </DrawerHeader>
         <DrawerFooter>
           <PropertiesFilters
             applyFilters={applyFilters}

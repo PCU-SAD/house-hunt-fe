@@ -58,7 +58,7 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
         apartmentType: values.items
       })
     })
-  }, [values.items])
+  }, [navigate, values.items])
 
   return (
     <div>
@@ -89,7 +89,7 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
 
                   <DropdownMenuContent
                     align="start"
-                    className="flex flex-col gap-3 p-4">
+                    className="flex max-h-[420px] flex-col gap-4 overflow-auto p-4 md:gap-3">
                     {apartmentTypeOptions.map((option) => (
                       <FormField
                         key={option.value}
@@ -99,7 +99,7 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
                           return (
                             <FormItem
                               key={option.value}
-                              className="flex flex-row items-start space-x-3 space-y-0">
+                              className="flex flex-row items-start space-x-2 space-y-0">
                               <FormControl>
                                 <Checkbox
                                   checked={field.value?.includes(option.value)}

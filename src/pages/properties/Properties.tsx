@@ -58,6 +58,7 @@ const PropertiesPage: FC = () => {
     navigate({
       search: (prev) => {
         return {
+          ...prev,
           page: prev.page + 1
         }
       }
@@ -69,10 +70,12 @@ const PropertiesPage: FC = () => {
       search: (prev) => {
         if (prev.page > 1) {
           return {
+            ...prev,
             page: prev.page - 1
           }
         } else {
           return {
+            ...prev,
             page: prev.page
           }
         }
@@ -167,7 +170,7 @@ const PropertiesPage: FC = () => {
                   />
                 </PaginationItem>
 
-                <PaginationItem onClick={handlePreviousPage} className="px-2">
+                <PaginationItem className="px-2">
                   {queryParams.page}
                 </PaginationItem>
 

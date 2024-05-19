@@ -33,7 +33,7 @@ const ApartmentTypeSelect: FC<ApartmentTypeSelectProps> = () => {
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder="Select a verified email to display" />
+                <SelectValue placeholder="" />
               </SelectTrigger>
             </FormControl>
 

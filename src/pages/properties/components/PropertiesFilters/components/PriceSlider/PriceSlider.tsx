@@ -36,7 +36,7 @@ const PriceSlider: FC = () => {
   }
 
   return (
-    <div className="mb-1 mt-2">
+    <div className="mb-1 mt-2" data-vaul-no-drag>
       <Label>Price range</Label>
 
       <div className="mt-2 flex items-center gap-4 text-sm">

@@ -1,6 +1,5 @@
 import { api, authApi } from '@/providers/AuthProvider/AuthProvider'
 import { PropertySearchParams } from '@/routes/properties'
-import { wait } from '@/services/auth-service/auth-service'
 import {
   CreatePropertyRequest,
   GetAllPropertiesResponse,
@@ -56,12 +55,12 @@ export const propertyService = {
   },
   getAll: async (searchParams: PropertySearchParams) => {
     try {
-      await wait(200)
       const PAGE_SIZE = 20
 
       const sortKey = searchParams.sort.key
       const sortOrder = searchParams.sort.order
 
+      // TODO: check all present filters
       const params = {
         size: PAGE_SIZE,
         page: searchParams.page - 1,
