@@ -2,28 +2,30 @@ import PasswordInput from '@/components/common/Layout/Header/AuthDrawer/componen
 import PasswordInputStrength from '@/components/common/Layout/Header/AuthDrawer/components/PasswordInputStrength'
 import { Button } from '@/components/ui/button'
 import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
 } from '@/components/ui/form'
+import { generateRandomString } from '@/lib/generateRandomValue'
 import {
-	ResetPasswordSchemaType,
-	useResetPasswordForm
+  ResetPasswordSchemaType,
+  useResetPasswordForm
 } from '@/pages/reset-password/components/ResetPasswordForm/useResetPassword'
+import { useAuthDrawerContext } from '@/providers/AuthDrawerProvider/AuthDrawerProvider'
+import { userService } from '@/services/user-service/user-service'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate, useSearch } from '@tanstack/react-router'
-import { FC } from 'react'
+import { ClipboardEvent, FC } from 'react'
 import { toast } from 'sonner'
 
 type ResetPasswordFormProps = {}
 
 const ResetPasswordForm: FC<ResetPasswordFormProps> = () => {
   const form = useResetPasswordForm()
-
-	// TODO: finish request
+  const { handleOpenDrawer, handleTabChange } = useAuthDrawerContext()
 
   const { token } = useSearch({
     from: '/reset-password'
@@ -35,14 +37,21 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = () => {
 
   const resetPasswordMutation = useMutation({
     mutationKey: ['auth/resetPasswordMutation-password'],
-    mutationFn: () => {},
+    mutationFn: userService.resetPassword,
     onSuccess: () => {
-      toast.success('Password updated successfully!')
+      toast.success('Password reset successfully!')
 
       form.reset({
         new_password: '',
         confirm_password: ''
       })
+
+      navigate({
+        to: '/'
+      })
+
+      handleOpenDrawer()
+      handleTabChange('login')
     },
     onError: (error) => {
       toast.error('Something went wrong.', {
@@ -52,9 +61,20 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = () => {
   })
 
   function onSubmit(values: ResetPasswordSchemaType) {
-    console.log(values)
+    resetPasswordMutation.mutate({
+      token,
+      new_password: values.new_password
+    })
   }
 
+  function onConfirmPasswordPaste(e: ClipboardEvent<HTMLInputElement>) {
+    e.preventDefault()
+
+    form.setValue('confirm_password', generateRandomString(20), {
+      shouldValidate: true
+    })
+  }
+  
   return (
     <Form {...form}>
       <form
@@ -88,6 +108,7 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = () => {
                 <FormLabel>Confirm password</FormLabel>
                 <FormControl>
                   <PasswordInput
+                  onPaste={onConfirmPasswordPaste}
                     placeholder="Enter your new password"
                     {...field}
                   />

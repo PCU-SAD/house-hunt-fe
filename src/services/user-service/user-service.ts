@@ -139,5 +139,30 @@ export const userService = {
         throw new Error('Something went wrong')
       }
     }
+  },
+  resetPassword: async ({
+    token,
+    new_password
+  }: {
+    token: string
+    new_password: string
+  }) => {
+    try {
+      await api.post(
+        '/user/reset-password',
+        { password: new_password },
+        {
+          params: {
+            token
+          }
+        }
+      )
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
   }
 }

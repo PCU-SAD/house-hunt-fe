@@ -3,7 +3,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router'
 import { z } from 'zod'
 
 const resetPasswordSearchSchema = z.object({
-  token: z.string().min(1)
+  token: z.coerce.string().min(1)
 })
 
 export const Route = createFileRoute('/reset-password')({

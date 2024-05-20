@@ -18,6 +18,10 @@ export type ResetPasswordSchemaType = z.infer<typeof resetPasswordFormSchema>
 export function useResetPasswordForm() {
   return useForm<ResetPasswordSchemaType>({
     mode: 'onChange',
-    resolver: zodResolver(resetPasswordFormSchema)
+    resolver: zodResolver(resetPasswordFormSchema),
+    defaultValues: {
+      new_password: '',
+      confirm_password: ''
+    }
   })
 }

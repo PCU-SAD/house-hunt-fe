@@ -9,6 +9,7 @@ import {
   FormLabel,
   FormMessage
 } from '@/components/ui/form'
+import { generateRandomString } from '@/lib/generateRandomValue'
 import {
   UpdatePasswordSchemaType,
   useUpdatePasswordForm
@@ -16,7 +17,7 @@ import {
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { authService } from '@/services/auth-service/auth-service'
 import { useMutation } from '@tanstack/react-query'
-import { FC } from 'react'
+import { ClipboardEvent, FC } from 'react'
 import { toast } from 'sonner'
 
 const UpdatePasswordForm: FC = () => {
@@ -47,6 +48,14 @@ const UpdatePasswordForm: FC = () => {
       currentPassword: values.current_password,
       newPassword: values.new_password,
       email: user.email
+    })
+  }
+
+  function onConfirmPasswordPaste(e: ClipboardEvent<HTMLInputElement>) {
+    e.preventDefault()
+
+    form.setValue('confirm_password', generateRandomString(20), {
+      shouldValidate: true
     })
   }
 
@@ -102,6 +111,7 @@ const UpdatePasswordForm: FC = () => {
                 <FormLabel>Confirm password</FormLabel>
                 <FormControl>
                   <PasswordInput
+                  onPaste={onConfirmPasswordPaste}
                     placeholder="Enter your new password"
                     {...field}
                   />
