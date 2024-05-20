@@ -1,11 +1,12 @@
 import { Layout } from '@/components/common'
 import { FC, useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { BadgeDollarSign, BookUser, HomeIcon, Users, Menu } from 'lucide-react'
 import { StatsResponse } from '@/services/stats-service/types'
 import { statsService } from '@/services/stats-service/stats-service'
 import Logo from '/logo.png'
+import Pricing from '@/pages/pricing/pricing.tsx'
 
 type HomeProps = {}
 
@@ -98,11 +99,13 @@ const Home: FC<HomeProps> = () => {
                 </div>
                 <div className="flex flex-col items-start space-y-4">
                   <div className="space-y-2">
-                    <h1 className="lg:leading-tighter text-3xl font-bold tracking-tighter text-gray-800 sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
+                    <h1
+                      className="lg:leading-tighter text-3xl font-bold tracking-tighter text-gray-800 sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
                       Your trusted real estate partner
                     </h1>
                     <p className="mx-auto max-w-[700px] text-gray-600 md:text-xl">
-                      Acme Realty has been helping families find their dream homes for over 20 years. Our experienced team
+                      Acme Realty has been helping families find their dream homes for over 20 years. Our experienced
+                      team
                       is dedicated to providing exceptional service and finding the perfect property for your needs.
                     </p>
                   </div>
@@ -142,7 +145,76 @@ const Home: FC<HomeProps> = () => {
               </Card>
             </div>
           </section>
+          <section className="w-full py-12 md:py-24 lg:py-32 border-t">
+            <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
+              <div className="space-y-3">
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">What Our Customers Say</h2>
+                <p
+                  className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                  Hear from real people who have used our platform to take control of their finances.
+                </p>
+              </div>
+              <div className="grid w-full max-w-3xl grid-cols-1 gap-6 sm:grid-cols-2">
+                <Card>
+                  <CardHeader>
+                    <div className="flex items-center space-x-4">
+                      <img
+                        alt="Avatar"
+                        className="h-12 w-12 rounded-full"
+                        height="48"
+                        src="/placeholder.svg"
+                        style={{
+                          aspectRatio: "48/48",
+                          objectFit: "cover",
+                        }}
+                        width="48"
+                      />
+                      <div>
+                        <div className="font-semibold">Jane Doe</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">Freelance Designer</div>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <blockquote className="text-lg font-semibold leading-snug lg:text-xl lg:leading-normal">
+                      “I've been using this platform for over a year and it has completely transformed my financial
+                      life.
+                      Highly recommended!”
+                    </blockquote>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <div className="flex items-center space-x-4">
+                      <img
+                        alt="Avatar"
+                        className="h-12 w-12 rounded-full"
+                        height="48"
+                        src="/placeholder.svg"
+                        style={{
+                          aspectRatio: "48/48",
+                          objectFit: "cover",
+                        }}
+                        width="48"
+                      />
+                      <div>
+                        <div className="font-semibold">John Smith</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">Software Engineer</div>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <blockquote className="text-lg font-semibold leading-snug lg:text-xl lg:leading-normal">
+                      “This platform has been a game-changer for me. I'm able to stay on top of my finances and reach my
+                      financial goals with ease.”
+                    </blockquote>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </section>
         </main>
+        <Pricing></Pricing>
         <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
           <p className="text-xs text-gray-500">© 2024 Acme Realty. All rights reserved.</p>
           <nav className="sm:ml-auto flex gap-4 sm:gap-6">
