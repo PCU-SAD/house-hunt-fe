@@ -1,9 +1,9 @@
 import { Typography } from '@/components/ui/typography'
-import { czkMoneyFormatter } from '@/pages/owner/add-new-property/components/NewPropertyForm/components/NewPropertyPreview/NewPropertyPreview'
 import ContactOwner from '@/pages/property/Property/components/ContactOwner/ContactOwner'
 import ImagesCarousel from '@/pages/property/Property/components/ImagesCarousel/ImagesCarousel'
 import PropertyDetails from '@/pages/property/Property/components/PropertyDetails/PropertyDetails'
 import { PropertyType } from '@/services/property-service/types'
+import { czkCurrencyFormatter } from '@/utils/czkCurrencyFormatter'
 import { FC } from 'react'
 
 type PropertyProps = {
@@ -16,8 +16,8 @@ const Property: FC<PropertyProps> = ({ property, images }) => {
 
   const formattedPrice =
     adType === 'RENTAL'
-      ? czkMoneyFormatter.format(price) + ' / monthly'
-      : czkMoneyFormatter.format(price)
+      ? czkCurrencyFormatter.format(price) + ' / monthly'
+      : czkCurrencyFormatter.format(price)
 
   return (
     <>

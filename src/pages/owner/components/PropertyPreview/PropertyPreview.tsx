@@ -1,16 +1,17 @@
 import { CardHeader } from '@/components/ui/card'
 import PropertyCard from '@/components/ui/PropertyCard'
 import { NewPropertyFormType } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
-import { CZK_DATE_FORMAT } from '@/utils/consts'
+import { PropertyType } from '@/services/property-service/types'
+import { CZK_DATE_FORMAT, furnishedMessage } from '@/utils/consts'
 import { format } from 'date-fns'
 import { FC } from 'react'
 
 type NewPropertyPreviewProps = {
-  property: NewPropertyFormType
+  property: NewPropertyFormType | PropertyType
   preview: string
 }
 
-export const czkMoneyFormatter = Intl.NumberFormat('cs-Cz', {
+const czkMoneyFormatter = Intl.NumberFormat('cs-Cz', {
   currency: 'CZK',
   currencyDisplay: 'narrowSymbol',
   currencySign: 'standard',
@@ -18,15 +19,7 @@ export const czkMoneyFormatter = Intl.NumberFormat('cs-Cz', {
   maximumFractionDigits: 2
 })
 
-export const furnishedMessage: {
-  [key: string]: string
-} = {
-  FURNISHED: 'Furnished',
-  UNFURNISHED: 'Not furnished',
-  SEMI_FURNISHED: 'Half furnished'
-}
-
-const NewPropertyPreview: FC<NewPropertyPreviewProps> = ({
+const PropertyPreview: FC<NewPropertyPreviewProps> = ({
   property,
   preview
 }) => {
@@ -88,4 +81,4 @@ const NewPropertyPreview: FC<NewPropertyPreviewProps> = ({
   )
 }
 
-export default NewPropertyPreview
+export default PropertyPreview

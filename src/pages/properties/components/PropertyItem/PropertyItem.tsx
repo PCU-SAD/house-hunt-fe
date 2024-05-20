@@ -1,13 +1,10 @@
 import { CardHeader } from '@/components/ui/card'
 import PropertyCard from '@/components/ui/PropertyCard'
 import { Skeleton } from '@/components/ui/skeleton'
-import {
-  czkMoneyFormatter,
-  furnishedMessage
-} from '@/pages/owner/add-new-property/components/NewPropertyForm/components/NewPropertyPreview/NewPropertyPreview'
 import { propertyService } from '@/services/property-service/property-service'
 import { PropertyType } from '@/services/property-service/types'
-import { CZK_DATE_FORMAT } from '@/utils/consts'
+import { CZK_DATE_FORMAT, furnishedMessage } from '@/utils/consts'
+import { czkCurrencyFormatter } from '@/utils/czkCurrencyFormatter'
 import { useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { AlertCircle } from 'lucide-react'
@@ -52,8 +49,8 @@ const PropertyItem: FC<PropertyItemProps> = ({ property }) => {
 
   const formattedPrice =
     adType === 'RENTAL'
-      ? czkMoneyFormatter.format(price) + ' / monthly'
-      : czkMoneyFormatter.format(price)
+      ? czkCurrencyFormatter.format(price) + ' / monthly'
+      : czkCurrencyFormatter.format(price)
 
   const formattedAvailableFrom = format(availableFrom, CZK_DATE_FORMAT)
 

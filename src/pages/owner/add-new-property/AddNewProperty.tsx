@@ -12,7 +12,7 @@ const AddNewProperty: FC<AddNewPropertyProps> = () => {
     <Layout>
       <Container className="mt-4 max-w-[1200px]">
         <div className="flex items-center gap-2">
-          <Link to="../">
+          <Link to="/manage-properties">
             <ChevronLeft />
           </Link>
           <Typography variant="h4">Add New Property</Typography>

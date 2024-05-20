@@ -74,15 +74,6 @@ export const managePropertyColumns: ColumnDef<PropertyType>[] = [
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Link
-                  to={'/manage-properties/$id'}
-                  params={{
-                    id: propertyId
-                  }}>
-                  View Property
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link
                   to={'/manage-properties/edit/$id'}
                   params={{
                     id: propertyId

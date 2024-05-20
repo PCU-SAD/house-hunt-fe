@@ -5,22 +5,25 @@ import {
   FormLabel
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import FilePreview from '@/pages/owner/add-new-property/components/NewPropertyForm/components/inputs/FileInput/FilePreview'
+import { NewPropertyFormType } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
+import FilePreview from '@/pages/owner/components/inputs/FileInput/FilePreview'
+import { EditPropertyFormType } from '@/pages/owner/edit-property/EditPropertyForm/useEditPropertyForm'
 
 import { getImageData } from '@/utils/GetImageData'
 
 import { PlusIcon } from 'lucide-react'
 import { FC, useState } from 'react'
-import { useFormContext } from 'react-hook-form'
+import { UseFormReturn } from 'react-hook-form'
 
 type FileInputProps = {
-  name: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  name: any
   index: number
   setPreview: React.Dispatch<React.SetStateAction<string>>
+  form: UseFormReturn<NewPropertyFormType> | UseFormReturn<EditPropertyFormType>
 }
 
-const FileInput: FC<FileInputProps> = ({ name, index, setPreview }) => {
-  const form = useFormContext()
+const FileInput: FC<FileInputProps> = ({ name, index, setPreview, form }) => {
   const [currentPreview, setCurrentPreview] = useState('')
 
   return (

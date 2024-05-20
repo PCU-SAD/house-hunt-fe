@@ -1,15 +1,17 @@
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
-import NewPropertyFormFields from '@/pages/owner/add-new-property/components/NewPropertyForm/components/inputs/NewPropertyFormFields'
-import NewPropertyPreview from '@/pages/owner/add-new-property/components/NewPropertyForm/components/NewPropertyPreview/NewPropertyPreview'
 import {
   newPropertyFormDefaultValues,
   NewPropertyFormType,
   useNewPropertyForm
 } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
+import NewPropertyFormFields from '@/pages/owner/components/inputs/NewPropertyFormFields'
+import PropertyPreview from '@/pages/owner/components/PropertyPreview/PropertyPreview'
+
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { propertyService } from '@/services/property-service/property-service'
 import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
 import { FC, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -18,39 +20,19 @@ type NewPropertyFormProps = {}
 const NewPropertyForm: FC<NewPropertyFormProps> = () => {
   const form = useNewPropertyForm()
   const [preview, setPreview] = useState('')
-
+  const navigate = useNavigate({
+    from: '/manage-properties/add-new'
+  })
   const property = form.watch()
 
   const auth = useAuthContext()
 
-  const deleteImageMutation = useMutation({
-    mutationKey: ['deleteImage'],
+  const deletePropertyMutation = useMutation({
+    mutationKey: ['delete-property'],
     mutationFn: (propertyId: string) =>
-      propertyService.deleteImages(propertyId),
+      propertyService.deleteProperty(propertyId),
     onError: () => {
       toast.error('Something went wrong')
-    }
-  })
-
-  const imagesMutation = useMutation({
-    mutationKey: ['images'],
-    mutationFn: (args: { propertyId: string; images: File[] }) =>
-      propertyService.uploadImages(
-        args.propertyId,
-        args.images,
-        auth?.accessToken
-      ),
-    onSuccess: () => {
-      toast.success('Property created')
-
-      form.reset(newPropertyFormDefaultValues)
-    },
-    onError: (error: Error, data) => {
-      toast.error('Something went wrong', {
-        description: error.message
-      })
-
-      deleteImageMutation.mutate(data.propertyId)
     }
   })
 
@@ -70,6 +52,33 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
       toast.error('Something went wrong', {
         description: error.message
       })
+    }
+  })
+
+  const imagesMutation = useMutation({
+    mutationKey: ['images'],
+    mutationFn: (args: { propertyId: string; images: File[] }) =>
+      propertyService.uploadImages(
+        args.propertyId,
+        args.images,
+        auth?.accessToken
+      ),
+    onSuccess: () => {
+      toast.success('Property created')
+
+      form.reset(newPropertyFormDefaultValues)
+      setPreview('')
+
+      navigate({
+        to: '/manage-properties'
+      })
+    },
+    onError: (error: Error, data) => {
+      toast.error('Something went wrong', {
+        description: error.message
+      })
+
+      deletePropertyMutation.mutate(data.propertyId)
     }
   })
 
@@ -102,7 +111,7 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
         </div>
 
         <div className="mt-[21px] flex-1">
-          <NewPropertyPreview property={property} preview={preview} />
+          <PropertyPreview property={property} preview={preview} />
         </div>
       </form>
     </Form>

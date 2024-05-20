@@ -14,8 +14,8 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { cn } from '@/lib/utils'
-import { apartmentTypeOptions } from '@/pages/owner/add-new-property/components/NewPropertyForm/components/inputs/ApartmentTypeSelect/ApartmentTypeData'
 import { apartmentTypeSchema } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
+import { apartmentTypeOptions } from '@/pages/owner/components/inputs/ApartmentTypeSelect/ApartmentTypeData'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { ChevronUp } from 'lucide-react'

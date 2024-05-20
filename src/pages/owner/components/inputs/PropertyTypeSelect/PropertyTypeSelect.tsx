@@ -12,33 +12,33 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { apartmentTypeOptions } from '@/pages/owner/add-new-property/components/NewPropertyForm/components/inputs/ApartmentTypeSelect/ApartmentTypeData'
-
 import { NewPropertyFormType } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
+import { propertyTypeOptions } from '@/pages/owner/components/inputs/PropertyTypeSelect/propertyTypeData'
+import { EditPropertyFormType } from '@/pages/owner/edit-property/EditPropertyForm/useEditPropertyForm'
 import { FC } from 'react'
-import { useFormContext } from 'react-hook-form'
+import { UseFormReturn } from 'react-hook-form'
 
-type ApartmentTypeSelectProps = {}
+type PropertyTypeSelectProps = {
+  form: UseFormReturn<NewPropertyFormType> | UseFormReturn<EditPropertyFormType>
+}
 
-const ApartmentTypeSelect: FC<ApartmentTypeSelectProps> = () => {
-  const form = useFormContext<NewPropertyFormType>()
-
+const PropertyTypeSelect: FC<PropertyTypeSelectProps> = ({ form }) => {
   return (
     <FormField
       control={form.control}
-      name="apartmentType"
+      name="adType"
       render={({ field }) => (
-        <FormItem className='min-w-[200px]'>
-          <FormLabel>Apartment type</FormLabel>
+        <FormItem className="">
+          <FormLabel>Type</FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder="" />
+                <SelectValue placeholder="Select a verified email to display" />
               </SelectTrigger>
             </FormControl>
 
-            <SelectContent className="max-h-[300px]">
-              {apartmentTypeOptions.map((option) => (
+            <SelectContent>
+              {propertyTypeOptions.map((option) => (
                 <SelectItem value={option.value} key={option.value}>
                   {option.label}
                 </SelectItem>
@@ -53,4 +53,4 @@ const ApartmentTypeSelect: FC<ApartmentTypeSelectProps> = () => {
   )
 }
 
-export default ApartmentTypeSelect
+export default PropertyTypeSelect

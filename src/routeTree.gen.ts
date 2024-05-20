@@ -22,7 +22,6 @@ import { Route as AuthOwnerManagePropertiesImport } from './routes/_auth-owner/m
 import { Route as AuthAdminAdminDashboardImport } from './routes/_auth-admin/admin-dashboard'
 import { Route as AuthUserSettingsRouteImport } from './routes/_auth-user/_settings/route'
 import { Route as AuthOwnerManagePropertiesAddNewImport } from './routes/_auth-owner/manage-properties_.add-new'
-import { Route as AuthOwnerManagePropertiesIdImport } from './routes/_auth-owner/manage-properties_.$id'
 import { Route as AuthAdminAdminDashboardIdImport } from './routes/_auth-admin/admin-dashboard_.$id'
 import { Route as AuthUserSettingsSettingsAccountImport } from './routes/_auth-user/_settings/settings.account'
 import { Route as AuthOwnerManagePropertiesEditIdImport } from './routes/_auth-owner/manage-properties_.edit.$id'
@@ -82,12 +81,6 @@ const AuthUserSettingsRouteRoute = AuthUserSettingsRouteImport.update({
 const AuthOwnerManagePropertiesAddNewRoute =
   AuthOwnerManagePropertiesAddNewImport.update({
     path: '/manage-properties/add-new',
-    getParentRoute: () => AuthOwnerRoute,
-  } as any)
-
-const AuthOwnerManagePropertiesIdRoute =
-  AuthOwnerManagePropertiesIdImport.update({
-    path: '/manage-properties/$id',
     getParentRoute: () => AuthOwnerRoute,
   } as any)
 
@@ -156,10 +149,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAdminAdminDashboardIdImport
       parentRoute: typeof AuthAdminImport
     }
-    '/_auth-owner/manage-properties/$id': {
-      preLoaderRoute: typeof AuthOwnerManagePropertiesIdImport
-      parentRoute: typeof AuthOwnerImport
-    }
     '/_auth-owner/manage-properties/add-new': {
       preLoaderRoute: typeof AuthOwnerManagePropertiesAddNewImport
       parentRoute: typeof AuthOwnerImport
@@ -185,7 +174,6 @@ export const routeTree = rootRoute.addChildren([
   ]),
   AuthOwnerRoute.addChildren([
     AuthOwnerManagePropertiesRoute,
-    AuthOwnerManagePropertiesIdRoute,
     AuthOwnerManagePropertiesAddNewRoute,
     AuthOwnerManagePropertiesEditIdRoute,
   ]),

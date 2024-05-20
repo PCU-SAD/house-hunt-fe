@@ -28,7 +28,11 @@ export const adTypeSchema = z.enum(['RENTAL', 'SALE'])
 
 export type AdType = z.infer<typeof adTypeSchema>
 
-export const FurnishedSchema = z.enum(['FURNISHED', 'SEMI_FURNISHED', 'UNFURNISHED'])
+export const FurnishedSchema = z.enum([
+  'FURNISHED',
+  'SEMI_FURNISHED',
+  'UNFURNISHED'
+])
 
 export type FurnishedType = z.infer<typeof FurnishedSchema>
 
@@ -88,10 +92,10 @@ export const newPropertyFormSchema = z
 
 export type NewPropertyFormType = z.infer<typeof newPropertyFormSchema>
 
-export const newPropertyFormDefaultValues = {
+export const newPropertyFormDefaultValues: NewPropertyFormType = {
   title: '',
   address: '',
-  price: 0.0,
+  price: 0,
   squareMeters: 0,
   description: '',
   isFurnished: 'UNFURNISHED',
@@ -99,7 +103,8 @@ export const newPropertyFormDefaultValues = {
   floorNumber: 1,
   availableFrom: addDays(new Date(), 1),
   adType: 'RENTAL',
-  apartmentType: 'ONE_KK'
+  apartmentType: 'ONE_KK',
+  images: []
 } as const
 
 export function useNewPropertyForm() {

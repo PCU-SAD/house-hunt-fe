@@ -1,10 +1,7 @@
-import {
-  czkMoneyFormatter,
-  furnishedMessage
-} from '@/pages/owner/add-new-property/components/NewPropertyForm/components/NewPropertyPreview/NewPropertyPreview'
 import DetailItem from '@/pages/property/Property/components/PropertyDetails/DetailItem'
 import { PropertyType } from '@/services/property-service/types'
-import { CZK_DATE_FORMAT } from '@/utils/consts'
+import { CZK_DATE_FORMAT, furnishedMessage } from '@/utils/consts'
+import { czkCurrencyFormatter } from '@/utils/czkCurrencyFormatter'
 import { format } from 'date-fns'
 import { FC } from 'react'
 
@@ -33,8 +30,8 @@ const PropertyDetails: FC<PropertyDetailsProps> = ({ property }) => {
 
   const formattedPrice =
     adType === 'RENTAL'
-      ? czkMoneyFormatter.format(price) + ' / monthly'
-      : czkMoneyFormatter.format(price)
+      ? czkCurrencyFormatter.format(price) + ' / monthly'
+      : czkCurrencyFormatter.format(price)
 
   const formattedAvailableFrom = format(availableFrom, CZK_DATE_FORMAT)
 

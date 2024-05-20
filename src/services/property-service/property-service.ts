@@ -1,3 +1,4 @@
+import { EditPropertyFormType } from '@/pages/owner/edit-property/EditPropertyForm/useEditPropertyForm'
 import { api, authApi } from '@/providers/AuthProvider/AuthProvider'
 import { PropertySearchParams } from '@/routes/properties'
 import {
@@ -22,6 +23,39 @@ export const propertyService = {
       }
     }
   },
+  updateOne: async ({
+    propertyId,
+    values
+  }: {
+    propertyId: string
+    values: EditPropertyFormType
+  }) => {
+    try {
+      const { data } = await authApi.put<string>(
+        `/properties/${propertyId}`,
+        values
+      )
+
+      return data
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
+  },
+  deleteOne: async (propertyId: string) => {
+    try {
+      await authApi.delete(`/properties/${propertyId}`)
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
+  },
   uploadImages: async (
     propertyId: string,
     images: File[],
@@ -34,7 +68,7 @@ export const propertyService = {
       })
 
       const { data } = await authApi.post(
-        `/properties/${propertyId}/images1`,
+        `/properties/${propertyId}/images`,
         formData,
         {
           headers: {
@@ -148,7 +182,7 @@ export const propertyService = {
       }
     }
   },
-  deleteImages: async (propertyId: string) => {
+  deleteProperty: async (propertyId: string) => {
     try {
       await authApi.delete(`/properties/${propertyId}`)
     } catch (error) {

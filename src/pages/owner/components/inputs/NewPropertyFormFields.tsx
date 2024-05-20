@@ -10,26 +10,25 @@ import { Input } from '@/components/ui/input'
 import MoneyInput from '@/components/ui/inputs/MoneyInput'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { NewPropertyFormType } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
 import {
   ApartmentTypeSelect,
   AvailableFromInput,
   FileInput,
   IsFurnishedSelect,
   PropertyTypeSelect
-} from '@/pages/owner/add-new-property/components/NewPropertyForm/components/inputs'
-import { NewPropertyFormType } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
+} from '@/pages/owner/components/inputs'
 import React, { FC } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 type NewPropertyFormFieldsProps = {
   setPreview: React.Dispatch<React.SetStateAction<string>>
-
 }
 
-const NewPropertyFormFields: FC<NewPropertyFormFieldsProps> = ({ setPreview}) => {
+const NewPropertyFormFields: FC<NewPropertyFormFieldsProps> = ({
+  setPreview
+}) => {
   const form = useFormContext<NewPropertyFormType>()
-
-
 
   return (
     <div className="flex flex-col gap-4">
@@ -151,10 +150,10 @@ const NewPropertyFormFields: FC<NewPropertyFormFieldsProps> = ({ setPreview}) =>
       <IsFurnishedSelect />
       <div className="flex gap-2">
         <div className="flex-1">
-          <PropertyTypeSelect />
+          <PropertyTypeSelect form={form} />
         </div>
         <div className="flex-1">
-          <ApartmentTypeSelect />
+          <ApartmentTypeSelect form={form} />
         </div>
       </div>
 
@@ -174,7 +173,13 @@ const NewPropertyFormFields: FC<NewPropertyFormFieldsProps> = ({ setPreview}) =>
         <Label className="mb-2 block">Images</Label>
         <div className="flex flex-wrap gap-2">
           {new Array(6).fill(null).map((_, index) => (
-            <FileInput setPreview={setPreview} name={`images.${index}`} index={index} key={`images.${index}`} />
+            <FileInput
+              form={form}
+              setPreview={setPreview}
+              name={`images.${index}`}
+              index={index}
+              key={`images.${index}`}
+            />
           ))}
         </div>
 
