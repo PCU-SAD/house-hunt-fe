@@ -35,13 +35,15 @@ export type PropertyType = {
   availableFrom: number
   adType: AdType
   apartmentType: ApartmentType
-  owner?: {
-    id: string
-    name: string
-    surname: string
-    email: string
-    phoneNumber: string
-  }
+  owner?: OwnerType
+}
+
+export type OwnerType = {
+  id: string
+  name: string
+  surname: string
+  email: string
+  phoneNumber: string
 }
 
 export type SortOption = 'asc' | 'desc'
