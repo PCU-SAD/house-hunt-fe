@@ -28,8 +28,9 @@ const AuthDrawerContext = createContext<AuthDrawerProviderType>(
 export type AuthDrawTab = 'login' | 'signup' | 'forgot-password'
 
 const AuthDrawerProvider: FC<AuthDrawerProviderProps> = ({ children }) => {
-  const [showMenu, setShowMenu] = useState(true)
-  const [activeTab, setActiveTab] = useState<AuthDrawTab>('forgot-password')
+  const [showMenu, setShowMenu] = useState(false)
+
+  const [activeTab, setActiveTab] = useState<AuthDrawTab>('login')
 
   function handleTabChange(tab: AuthDrawTab) {
     setActiveTab(tab)

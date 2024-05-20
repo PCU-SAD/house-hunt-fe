@@ -88,13 +88,9 @@ export const propertyService = {
         delete params.adType
       }
 
-      console.log(params)
-
       const { data } = await api.get<GetAllPropertiesResponse>('/properties', {
         params
       })
-
-      console.log(data.content)
 
       return data
     } catch (error) {
@@ -137,7 +133,11 @@ export const propertyService = {
   },
   getById: async (propertyId: string) => {
     try {
-      const { data } = await authApi.get(`/properties/${propertyId}`)
+      const { data } = await authApi.get<PropertyType>(`/properties/details`, {
+        params: {
+          id: propertyId
+        }
+      })
 
       return data
     } catch (error) {

@@ -63,7 +63,9 @@ const Profile: FC<ProfileProps> = () => {
 
               <ul className="ml-6 mt-2 flex list-disc flex-col gap-1">
                 <li>
-                  <Link to="/manage-properties">Manage properties</Link>
+                  <Link to="/manage-properties" onClick={handleCloseDrawer}>
+                    Manage properties
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -79,7 +81,9 @@ const Profile: FC<ProfileProps> = () => {
 
             <ul className="ml-6 mt-2 flex list-disc flex-col gap-1">
               <li>
-                <Link to="/">Ads</Link>
+                <Link to="/" onClick={handleCloseDrawer}>
+                  Ads
+                </Link>
               </li>
             </ul>
           </div>
@@ -94,7 +98,9 @@ const Profile: FC<ProfileProps> = () => {
 
           <ul className="ml-6 mt-2 flex list-disc flex-col gap-1">
             <li>
-              <Link to="/settings/account">Account</Link>
+              <Link to="/settings/account" onClick={handleCloseDrawer}>
+                Account
+              </Link>
             </li>
           </ul>
         </div>

@@ -3,7 +3,7 @@ import LoadingPage from '@/pages/loading/Loading'
 import AddNewProperty from '@/pages/owner/add-new-property/AddNewProperty'
 import ManageProperties from '@/pages/owner/manage-properties/ManageProperties'
 import ManageProperty from '@/pages/owner/manage-property/ManageProperty'
-import Property from '@/pages/property/Property'
+import PropertyPage from '@/pages/property/PropertyPage'
 import ResetPassword from '@/pages/reset-password/ResetPassword'
 import AdminPage from './admin/admin-dashboard/Admin'
 import ErrorPage from './error/ErrorPage'
@@ -26,7 +26,7 @@ export {
   ManageUser,
   NotFoundPage,
   PropertiesPage,
-  Property,
+  PropertyPage,
   ResetPassword,
   SettingsPage
 }

@@ -52,12 +52,6 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     retry: false
   })
 
-  const user = useMemo(() => {
-    return refreshData?.userData?.email
-      ? { email: refreshData.userData.email, type: refreshData.userData.role }
-      : null
-  }, [refreshData?.userData.email, refreshData?.userData.role])
-
   authApi.interceptors.response.use(
     (response) => {
       return response
@@ -132,10 +126,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   function logout() {
     queryClient.setQueryData(['refresh'], {
-      userData: {
-        email: '',
-        role: ''
-      },
+      userData: null,
       accessToken: ''
     })
 
@@ -144,14 +135,19 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   const value = useMemo(
     () => ({
-      user,
+      user: refreshData?.userData?.email
+        ? {
+            email: refreshData.userData.email,
+            type: refreshData.userData.role
+          }
+        : null,
       login,
       logout,
       isLoading,
       isError,
       accessToken: refreshData?.accessToken
     }),
-    [user, refreshData, isLoading, isError]
+    [refreshData, isLoading, isError]
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

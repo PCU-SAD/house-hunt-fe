@@ -11,13 +11,10 @@ import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { UserIcon } from 'lucide-react'
 import { FC } from 'react'
 
-export type AuthDrawTab = 'login' | 'signup' | 'forgot-password'
-
 const AuthDrawer: FC = () => {
   const {
     activeTab,
     setShowMenu,
-
     handleCloseDrawer,
     showMenu,
     handleOpenDrawer,
@@ -69,7 +66,7 @@ const AuthDrawer: FC = () => {
     <Sheet open={showMenu} onOpenChange={setShowMenu}>
       <SheetTrigger onClick={handleOpenDrawer} asChild>
         <Button variant="ghost" size="icon" className="border">
-          <UserIcon className="h-4 w-4" />
+        <UserIcon className="h-4 w-4" />
         </Button>
       </SheetTrigger>
 

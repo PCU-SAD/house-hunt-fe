@@ -1,34 +1,44 @@
 import { Container, Layout } from '@/components/common'
 import ErrorResult from '@/components/common/Errors/ErrorResult'
+import { Typography } from '@/components/ui/typography'
 import SkeletonCard from '@/pages/properties/components/Skeleton/SkeletonCard'
+import Property from '@/pages/property/Property/Property'
+
 import { propertyService } from '@/services/property-service/property-service'
 import { useQuery } from '@tanstack/react-query'
-import { getRouteApi, Link } from '@tanstack/react-router'
+import { Link, useParams } from '@tanstack/react-router'
 import { ChevronLeft } from 'lucide-react'
 import { FC } from 'react'
 
-type PropertyProps = {}
+type PropertyPageProps = {}
 
-const routeApi = getRouteApi('/properties/$id')
+const PropertyPage: FC<PropertyPageProps> = () => {
+  const { id } = useParams({
+    from: '/properties/$id'
+  })
 
-const Property: FC<PropertyProps> = () => {
-  const { id } = routeApi.useParams()
-
-  const { isLoading, data, isError, refetch } = useQuery({
+  const {
+    isLoading,
+    data: property,
+    isError,
+    refetch
+  } = useQuery({
     queryKey: ['property', id],
     queryFn: () => propertyService.getById(id),
     retry: 1
   })
 
-  const propertyImagesQuery = useQuery({
-    queryKey: ['property-image', id],
+  const {
+    isLoading: isImagesLoading,
+    data: images,
+    isError: isImagesError
+  } = useQuery({
+    queryKey: ['property-images', id],
     queryFn: () => propertyService.getPropertyImages(id),
     retry: 1
   })
 
-  console.log('propertyImagesQuery', propertyImagesQuery, data)
-
-  if (isError) {
+  if (isError || isImagesError) {
     return (
       <Layout>
         <Container>
@@ -46,13 +56,22 @@ const Property: FC<PropertyProps> = () => {
     <Layout>
       <Container>
         <Link to="../" className="mt-4 inline-block">
-          <ChevronLeft />
+          <div className="flex items-center gap-2">
+            <ChevronLeft />
+            <Typography variant="h3">Property details</Typography>
+          </div>
         </Link>
 
-        <div className="mt-4">{isLoading ? <SkeletonCard /> : null}</div>
+        <div className="mt-4">
+          {isLoading || isImagesLoading ? (
+            <SkeletonCard />
+          ) : (
+            <Property property={property} images={images} />
+          )}
+        </div>
       </Container>
     </Layout>
   )
 }
 
-export default Property
+export default PropertyPage

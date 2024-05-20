@@ -31,6 +31,13 @@ function LoginForm() {
     onSuccess: (response) => {
       const userData = jwtService.parse(response.token)
 
+      toast.success('Login successful!', {
+        description: 'You have been logged in.',
+        duration: 2_000
+      })
+
+      form.reset()
+
       auth.login(
         {
           email: userData.email,
@@ -39,12 +46,6 @@ function LoginForm() {
         response.refreshToken,
         response.token
       )
-
-      toast.success('Login successful!', {
-        description: 'You have been logged in.'
-      })
-
-      form.reset()
     },
     onError: (error) => {
       toast.error('Something went wrong.', {

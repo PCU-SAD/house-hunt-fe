@@ -23,25 +23,25 @@ export type PaginationT = {
 }
 
 export type PropertyType = {
-  adType: AdType
-  address: string
-  apartmentType: ApartmentType
-  availableFrom: number
-  description: string
-  floorNumber: number
   id: string
+  title: string
+  address: string
+  price: number
+  squareMeters: number
+  description: string
   isFurnished: FurnishedType
   numberOfRooms: number
-  owner: {
+  floorNumber: number
+  availableFrom: number
+  adType: AdType
+  apartmentType: ApartmentType
+  owner?: {
     id: string
     name: string
     surname: string
     email: string
     phoneNumber: string
   }
-  price: number
-  squareMeters: number
-  title: string
 }
 
 export type SortOption = 'asc' | 'desc'
