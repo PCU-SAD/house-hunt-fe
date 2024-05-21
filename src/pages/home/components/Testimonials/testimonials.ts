@@ -6,7 +6,7 @@ export const testimonials = [
     image:
       'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaW',
     comment:
-      "This platform has transformed my business. The user-friendly interface and vast audience have made selling properties a breeze."
+      'I had no trouble finding my new apartment with House Hunter. Selecting my ideal location from the comfort of my home was made simple by the comprehensive listings and the crisp, high-quality photos.'
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ export const testimonials = [
     image:
       'https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&ixid=eyJhcHBfaW',
     comment:
-      "I listed my home on this site and got multiple offers within days. The process was smooth and efficient, highly recommended!"
+      'I had a great response when I listed my rental property on House Hunter! Within a day, I received inquiries from possible renters, and by the end of the week, the property was rented out. This platform effectively matches landlords with qualified tenants.'
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ export const testimonials = [
     image:
       'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&ixid=eyJhcHBfaW',
     comment:
-      "Finding reliable tenants used to be a hassle, but this platform has made it so much easier. It's a game-changer for landlords."
+      "I adore House Hunter's intuitive user interface. It really simplified my search for a studio apartment. I was able to locate exactly what I needed within my budget by using the price and location filters."
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ export const testimonials = [
     image:
       'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaW',
     comment:
-      "Managing multiple properties is a lot of work, but this site simplifies everything. The tools and support are top-notch."
+      'Selling my house made me anxious, but House Hunter made the process simple and efficient. My ability to reach a larger audience thanks to their platform led to a speedy sale at a competitive price.'
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ export const testimonials = [
     image:
       'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaW',
     comment:
-      "I found my perfect apartment through this site. The search filters and detailed listings made it easy to find exactly what I wanted."
+      'I found my perfect apartment through this site. The search filters and detailed listings made it easy to find exactly what I wanted.'
   },
   {
     id: 6,
@@ -51,6 +51,6 @@ export const testimonials = [
     image:
       'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaW',
     comment:
-      "As an investor, finding good deals is crucial. This platform provides all the necessary information and connects me with great opportunities."
+      'As an investor, finding good deals is crucial. This platform provides all the necessary information and connects me with great opportunities.'
   }
-];
+]

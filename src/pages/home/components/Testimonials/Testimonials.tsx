@@ -33,13 +33,13 @@ const Testimonials: FC<TestimonialsProps> = () => {
             loop: true
           }}>
           <CarouselContent>
-            {testimonials.map(({ name, id, role, image }) => (
+            {testimonials.map(({ name, id, role, image, comment }) => (
               <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={id}>
-                <Card>
+                <Card className="h-[360px] md:h-[300px]">
                   <CardHeader>
                     <div className="flex gap-2">
                       <Avatar>
-                        <AvatarImage src={image} className="bg-contain" />
+                        <AvatarImage src={image} className="object-cover" />
                       </Avatar>
 
                       <div className="flex flex-col text-left">
@@ -51,10 +51,8 @@ const Testimonials: FC<TestimonialsProps> = () => {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <blockquote className="text-lg font-semibold leading-snug">
-                      “I've been using this platform for over a year and it has
-                      completely transformed my financial life. Highly
-                      recommended!”
+                    <blockquote className="text-lg font-semibold italic leading-snug">
+                      "{comment}"
                     </blockquote>
                   </CardContent>
                 </Card>
