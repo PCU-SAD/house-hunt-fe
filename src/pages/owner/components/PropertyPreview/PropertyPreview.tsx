@@ -1,13 +1,14 @@
 import { CardHeader } from '@/components/ui/card'
 import PropertyCard from '@/components/ui/PropertyCard'
 import { NewPropertyFormType } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
+import { EditPropertyFormType } from '@/pages/owner/edit-property/EditPropertyForm/useEditPropertyForm'
 import { PropertyType } from '@/services/property-service/types'
 import { CZK_DATE_FORMAT, furnishedMessage } from '@/utils/consts'
 import { format } from 'date-fns'
 import { FC } from 'react'
 
 type NewPropertyPreviewProps = {
-  property: NewPropertyFormType | PropertyType
+  property: NewPropertyFormType | PropertyType | EditPropertyFormType
   preview: string
 }
 

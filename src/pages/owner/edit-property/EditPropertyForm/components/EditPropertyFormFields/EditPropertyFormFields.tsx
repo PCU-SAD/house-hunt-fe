@@ -18,16 +18,12 @@ import {
   PropertyTypeSelect
 } from '@/pages/owner/components/inputs'
 import { EditPropertyFormType } from '@/pages/owner/edit-property/EditPropertyForm/useEditPropertyForm'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-type EditPropertyFormFieldsProps = {
-  setPreview: React.Dispatch<React.SetStateAction<string>>
-}
+type EditPropertyFormFieldsProps = {}
 
-const EditPropertyFormFields: FC<EditPropertyFormFieldsProps> = ({
-  setPreview
-}) => {
+const EditPropertyFormFields: FC<EditPropertyFormFieldsProps> = () => {
   const form = useFormContext<EditPropertyFormType>()
 
   return (
@@ -172,10 +168,8 @@ const EditPropertyFormFields: FC<EditPropertyFormFieldsProps> = ({
       <div>
         <Label className="mb-2 block">Images</Label>
         <div className="flex flex-wrap gap-2">
-					{/* TODO: refactor files */}
           {new Array(6).fill(null).map((_, index) => (
             <FileInput
-              setPreview={setPreview}
               name={`images.${index}`}
               index={index}
               form={form}

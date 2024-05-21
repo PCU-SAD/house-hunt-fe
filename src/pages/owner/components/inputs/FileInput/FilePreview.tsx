@@ -3,21 +3,19 @@ import { Trash } from 'lucide-react'
 import { FC } from 'react'
 
 type PreviewProps = {
-  currentPreview: string
+  currentPreview: File
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (...event: any[]) => void
-  setCurrentPreview: (value: string | undefined) => void
 }
 
 const FilePreview: FC<PreviewProps> = ({
   currentPreview,
   onChange,
-  setCurrentPreview
 }) => {
   return (
     <div className="group relative flex h-[150px] w-[150px] cursor-pointer items-center justify-center  overflow-hidden rounded border border-dashed  p-2 transition-colors duration-300 hover:bg-white">
       <img
-        src={currentPreview}
+        src={URL.createObjectURL(currentPreview)}
         className="object-contain transition-opacity group-hover:opacity-[10%]"
       />
       <Button
@@ -26,10 +24,8 @@ const FilePreview: FC<PreviewProps> = ({
         type="button"
         variant="ghost"
         onClick={() => {
-          setCurrentPreview('')
           onChange(undefined)
-        }}
-      >
+        }}>
         <Trash width={18} height={18} />
       </Button>
     </div>

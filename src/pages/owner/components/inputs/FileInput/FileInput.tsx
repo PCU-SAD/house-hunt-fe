@@ -9,22 +9,19 @@ import { NewPropertyFormType } from '@/pages/owner/add-new-property/components/N
 import FilePreview from '@/pages/owner/components/inputs/FileInput/FilePreview'
 import { EditPropertyFormType } from '@/pages/owner/edit-property/EditPropertyForm/useEditPropertyForm'
 
-import { getImageData } from '@/utils/GetImageData'
-
 import { PlusIcon } from 'lucide-react'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 
 type FileInputProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   name: any
   index: number
-  setPreview: React.Dispatch<React.SetStateAction<string>>
   form: UseFormReturn<NewPropertyFormType> | UseFormReturn<EditPropertyFormType>
 }
 
-const FileInput: FC<FileInputProps> = ({ name, index, setPreview, form }) => {
-  const [currentPreview, setCurrentPreview] = useState('')
+const FileInput: FC<FileInputProps> = ({ name, index, form }) => {
+  const currentPreview = form.watch().images[index]
 
   return (
     <FormField
@@ -37,7 +34,6 @@ const FileInput: FC<FileInputProps> = ({ name, index, setPreview, form }) => {
             {currentPreview ? (
               <FilePreview
                 onChange={onChange}
-                setCurrentPreview={setCurrentPreview}
                 currentPreview={currentPreview}
               />
             ) : (
@@ -54,13 +50,6 @@ const FileInput: FC<FileInputProps> = ({ name, index, setPreview, form }) => {
                 className="sr-only"
                 {...rest}
                 onChange={(event) => {
-                  const { displayUrl } = getImageData(event)
-                  setCurrentPreview(displayUrl)
-
-                  if (index === 0) {
-                    setPreview(displayUrl)
-                  }
-
                   onChange(event.target?.files?.[0] ?? undefined)
                 }}
               />

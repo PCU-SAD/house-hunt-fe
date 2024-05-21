@@ -18,16 +18,12 @@ import {
   IsFurnishedSelect,
   PropertyTypeSelect
 } from '@/pages/owner/components/inputs'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-type NewPropertyFormFieldsProps = {
-  setPreview: React.Dispatch<React.SetStateAction<string>>
-}
+type NewPropertyFormFieldsProps = {}
 
-const NewPropertyFormFields: FC<NewPropertyFormFieldsProps> = ({
-  setPreview
-}) => {
+const NewPropertyFormFields: FC<NewPropertyFormFieldsProps> = () => {
   const form = useFormContext<NewPropertyFormType>()
 
   return (
@@ -175,7 +171,6 @@ const NewPropertyFormFields: FC<NewPropertyFormFieldsProps> = ({
           {new Array(6).fill(null).map((_, index) => (
             <FileInput
               form={form}
-              setPreview={setPreview}
               name={`images.${index}`}
               index={index}
               key={`images.${index}`}

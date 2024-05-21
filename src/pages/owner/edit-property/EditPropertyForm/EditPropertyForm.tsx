@@ -12,7 +12,7 @@ import { propertyService } from '@/services/property-service/property-service'
 import { PropertyType } from '@/services/property-service/types'
 import { base64ToFile } from '@/utils/base64ToFile'
 import { useMutation } from '@tanstack/react-query'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { toast } from 'sonner'
 
 type EditPropertyFormProps = {
@@ -25,8 +25,6 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
   const files = images.length
     ? images.map((base64) => base64ToFile(base64, 'name'))
     : []
-
-  const [preview, setPreview] = useState(URL.createObjectURL(files[0]))
 
   const form = useEditNewPropertyForm({
     title: property.title,
@@ -42,6 +40,14 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
     squareMeters: property.squareMeters,
     images: files
   })
+
+  const watchedProperty = form.watch()
+
+  console.log(form.watch())
+
+  const previewImg = form.watch().images[0]
+    ? URL.createObjectURL(form.watch().images[0])
+    : ''
 
   const imagesMutation = useMutation({
     mutationKey: ['images'],
@@ -105,7 +111,7 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="mt-4 flex flex-col-reverse items-stretch gap-4 md:flex-row md:items-start">
         <div className="flex-1">
-          <EditPropertyFormFields setPreview={setPreview} />
+          <EditPropertyFormFields />
 
           <Button type="submit" size="sm" className="mt-4">
             Submit
@@ -113,7 +119,7 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
         </div>
 
         <div className="mt-[21px] flex-1">
-          <PropertyPreview property={property} preview={preview} />
+          <PropertyPreview property={watchedProperty} preview={previewImg} />
         </div>
       </form>
     </Form>

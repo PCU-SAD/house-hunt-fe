@@ -12,14 +12,18 @@ import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { propertyService } from '@/services/property-service/property-service'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { toast } from 'sonner'
 
 type NewPropertyFormProps = {}
 
 const NewPropertyForm: FC<NewPropertyFormProps> = () => {
   const form = useNewPropertyForm()
-  const [preview, setPreview] = useState('')
+
+  const previewImg = form.watch().images[0]
+    ? URL.createObjectURL(form.watch().images[0])
+    : ''
+
   const navigate = useNavigate({
     from: '/manage-properties/add-new'
   })
@@ -67,7 +71,6 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
       toast.success('Property created')
 
       form.reset(newPropertyFormDefaultValues)
-      setPreview('')
 
       navigate({
         to: '/manage-properties'
@@ -103,7 +106,7 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="mt-4 flex flex-col-reverse items-stretch gap-4 md:flex-row md:items-start">
         <div className="flex-1">
-          <NewPropertyFormFields setPreview={setPreview} />
+          <NewPropertyFormFields />
 
           <Button type="submit" size="sm" className="mt-4">
             Submit
@@ -111,7 +114,7 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
         </div>
 
         <div className="mt-[21px] flex-1">
-          <PropertyPreview property={property} preview={preview} />
+          <PropertyPreview property={property} preview={previewImg} />
         </div>
       </form>
     </Form>
