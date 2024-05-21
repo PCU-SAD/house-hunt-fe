@@ -13,6 +13,9 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as ResetPasswordImport } from './routes/reset-password'
 import { Route as PropertiesImport } from './routes/properties'
+import { Route as PricingImport } from './routes/pricing'
+import { Route as ContactImport } from './routes/contact'
+import { Route as AboutImport } from './routes/about'
 import { Route as AuthUserImport } from './routes/_auth-user'
 import { Route as AuthOwnerImport } from './routes/_auth-owner'
 import { Route as AuthAdminImport } from './routes/_auth-admin'
@@ -35,6 +38,21 @@ const ResetPasswordRoute = ResetPasswordImport.update({
 
 const PropertiesRoute = PropertiesImport.update({
   path: '/properties',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PricingRoute = PricingImport.update({
+  path: '/pricing',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ContactRoute = ContactImport.update({
+  path: '/contact',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AboutRoute = AboutImport.update({
+  path: '/about',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -121,6 +139,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthUserImport
       parentRoute: typeof rootRoute
     }
+    '/about': {
+      preLoaderRoute: typeof AboutImport
+      parentRoute: typeof rootRoute
+    }
+    '/contact': {
+      preLoaderRoute: typeof ContactImport
+      parentRoute: typeof rootRoute
+    }
+    '/pricing': {
+      preLoaderRoute: typeof PricingImport
+      parentRoute: typeof rootRoute
+    }
     '/properties': {
       preLoaderRoute: typeof PropertiesImport
       parentRoute: typeof rootRoute
@@ -182,6 +212,9 @@ export const routeTree = rootRoute.addChildren([
       AuthUserSettingsSettingsAccountRoute,
     ]),
   ]),
+  AboutRoute,
+  ContactRoute,
+  PricingRoute,
   PropertiesRoute,
   ResetPasswordRoute,
   PropertiesIdRoute,

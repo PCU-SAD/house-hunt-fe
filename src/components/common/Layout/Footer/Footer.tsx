@@ -1,67 +1,43 @@
 import Container from '@/components/common/Layout/Container'
-import { Typography } from '@/components/ui/typography'
-import { InstagramLogoIcon } from '@radix-ui/react-icons'
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import { Link } from '@tanstack/react-router'
 import { FC } from 'react'
-import Logo from '/logo.svg'
 
 type FooterProps = {}
 
 const Footer: FC<FooterProps> = () => {
   return (
-    <footer className="mt-12 min-h-[300px] rounded-tl-xl rounded-tr-xl border-t bg-secondary py-8 pb-16 text-primary shadow-lg">
-      <Container>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
-          <div>
-            <img src={Logo} className="w-[80px]" />
-            <Typography className="mt-6">Contacts:</Typography>
-            <a href="tel:+420 749 142 849">+420 749 142 849</a>
+    <footer className="mt-12 min-h-[80px] pb-16 text-primary shadow-lg">
+      <Container className="flex w-full shrink-0 flex-col items-center gap-2 border-t px-4 py-6 sm:flex-row sm:justify-between md:px-6">
+        <p className="text-xs text-gray-500">
+          © {new Date().getFullYear()} House hunter. All rights reserved.
+        </p>
 
-            <ul className="mt-2 flex gap-2">
-              <li>
-                <a>
-                  <InstagramLogoIcon className="h-5 w-5" />
-                </a>
-              </li>
-              <li>
-                <a>
-                  <InstagramLogoIcon className="h-5 w-5" />
-                </a>
-              </li>
-              <li>
-                <a>
-                  <InstagramLogoIcon className="h-5 w-5" />
-                </a>
-              </li>
-              <li>
-                <a>
-                  <InstagramLogoIcon className="h-5 w-5" />
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <ul>
-              <li>Link 1</li>
-              <li>Link 2</li>
-              <li>Link 3</li>
-            </ul>
-          </div>
-          <div>
-            <ul>
-              <li>Link 4</li>
-              <li>Link 5</li>
-              <li>Link 6</li>
-            </ul>
-          </div>
-          <div>
-            <ul>
-              <li>Link 7</li>
-              <li>Link 8</li>
-              <li>Link 9</li>
-            </ul>
-          </div>
-        </div>
+        <nav className="flex gap-2 sm:gap-2">
+          <Link
+            className={cn(
+              buttonVariants({
+                variant: 'link',
+                size: 'noSize'
+              }),
+              'text-xs font-normal text-slate-800 underline-offset-2'
+            )}
+            to="/">
+            Terms of Service
+          </Link>
+          <Link
+            className={cn(
+              buttonVariants({
+                variant: 'link',
+                size: 'noSize'
+              }),
+              'text-xs font-normal text-slate-800 underline-offset-2'
+            )}
+            to="/">
+            Privacy
+          </Link>
+        </nav>
       </Container>
     </footer>
   )

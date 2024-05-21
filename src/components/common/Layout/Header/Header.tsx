@@ -1,8 +1,7 @@
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuList,
-  navigationMenuTriggerStyle
+  NavigationMenuList
 } from '@/components/ui/navigation-menu'
 import { FC } from 'react'
 
@@ -35,15 +34,15 @@ const Header: FC = () => {
   })
 
   return (
-    <NavigationMenu className="hidden md:block ">
-      <NavigationMenuList>
+    <NavigationMenu className="-ml-6 hidden md:block">
+      <NavigationMenuList className="flex items-center gap-6">
         {filteredLinks.map((link) => (
           <NavigationMenuItem key={link.to}>
             <Link
               to={link.to}
-              className={navigationMenuTriggerStyle()}
+              className=""
               activeProps={{
-                className: cn('bg-slate-100')
+                className: cn('underline underline-offset-2')
               }}>
               {link.label}
             </Link>

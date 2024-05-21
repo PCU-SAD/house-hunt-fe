@@ -10,12 +10,27 @@ type LinkType = {
 export const navLinks: LinkType[] = [
   {
     to: '/',
-    label: 'Homepage',
+    label: 'Home',
     access: 'ALL'
   },
   {
     to: '/properties',
-    label: 'Properties',
+    label: 'Listings',
+    access: 'ALL'
+  },
+  {
+    to: '/about',
+    label: 'About us',
+    access: 'ALL'
+  },
+  {
+    to: '/pricing',
+    label: 'Pricing',
+    access: 'ALL'
+  },
+  {
+    to: '/contact',
+    label: 'Contact us',
     access: 'ALL'
   },
   {

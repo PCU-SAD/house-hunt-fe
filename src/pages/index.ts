@@ -12,8 +12,9 @@ import InnerApp from './InnerApp'
 import NotFoundPage from './not-found/NotFound'
 import PropertiesPage from './properties/Properties'
 import SettingsPage from './settings/Settings'
-
+import Pricing from '@/pages/pricing/pricing'
 export {
+  Pricing,
   AddNewProperty,
   AdminPage,
   ErrorPage,
