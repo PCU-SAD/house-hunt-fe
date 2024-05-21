@@ -37,7 +37,6 @@ export default {
         16: 'repeat(16, minmax(0, 1fr))',
         fluid: 'repeat(auto-fill, minmax(500px, 1fr))'
       },
-
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

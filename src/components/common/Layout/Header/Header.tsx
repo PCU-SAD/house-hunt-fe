@@ -34,15 +34,15 @@ const Header: FC = () => {
   })
 
   return (
-    <NavigationMenu className="-ml-6 hidden md:block">
-      <NavigationMenuList className="flex items-center gap-6">
+    <NavigationMenu className="hidden md:block xl:-ml-[100px]">
+      <NavigationMenuList className="flex items-center gap-4 xl:gap-6">
         {filteredLinks.map((link) => (
           <NavigationMenuItem key={link.to}>
             <Link
               to={link.to}
-              className=""
+              className="text-[15px] text-slate-600"
               activeProps={{
-                className: cn('underline underline-offset-2')
+                className: cn('text-black')
               }}>
               {link.label}
             </Link>
