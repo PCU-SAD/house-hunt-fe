@@ -1,8 +1,3 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/8KQ90AxfI5Z
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 import { Button } from '@/components/ui/button'
 import AdTypeFilter from '@/pages/properties/components/PropertiesFilters/components/AdTypeFilter/AdTypeFilter'
 import AvailableFromFilter from '@/pages/properties/components/PropertiesFilters/components/AvailableFromFilter/AvailableFromFilter'

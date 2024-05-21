@@ -11,7 +11,7 @@ export const testimonials = [
   {
     id: 2,
     name: 'Denver Hampton',
-    role: 'Homeowner',
+    role: 'Landlord',
     image:
       'https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&ixid=eyJhcHBfaW',
     comment:
