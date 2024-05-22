@@ -1,36 +1,67 @@
 import { Container, Layout } from '@/components/common'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Typography } from '@/components/ui/typography'
 import AboutCarousel from '@/pages/about/components/AboutCarousel/carousel'
 import { BriefcaseIcon, HeartIcon, HomeIcon } from 'lucide-react'
 import { FC } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
+import axios from 'axios'
 
-type AboutProps = {}
+const requestFormSchema = z.object({
+  name: z.string().nonempty('Name is required'),
+  email: z.string().nonempty('Email is required').email('Invalid email'),
+  subject: z.enum(['COMPLAINT', 'QUESTION', 'VIEWING']),
+  message: z.string().nonempty('Message is required'),
+  propertyId: z.string().optional(),
+})
 
-const About: FC<AboutProps> = () => {
+type RequestFormType = z.infer<typeof requestFormSchema>
+
+const About: FC = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm<RequestFormType>({
+    resolver: zodResolver(requestFormSchema),
+  })
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (data: RequestFormType) => axios.post('http://localhost:8080/api/v1/user/request', data),
+    onSuccess: () => {
+      toast.success('Your request has been successfully submitted.')
+    },
+    onError: () => {
+      toast.error('An error occurred while submitting the request.')
+    },
+  })
+
+  const onSubmit = (data: RequestFormType) => {
+    mutate(data)
+  }
+
   return (
     <Layout>
-      <Container>
-        <div className="mt-4">
-          <div className="flex flex-col gap-8 md:flex-row">
-            <AboutCarousel />
+      <Container>  <div className="mt-4">
+        <div className="flex flex-col gap-8 md:flex-row">
+          <AboutCarousel />
 
-            <div className="flex flex-col items-start justify-center space-y-6">
-              <h1 className="text-3xl font-black md:text-5xl">
-                Your Trusted Real Estate Partner
-              </h1>
+          <div className="flex flex-col items-start justify-center space-y-6">
+            <h1 className="text-3xl font-black md:text-5xl">
+              Your Trusted Real Estate Partner
+            </h1>
 
-              <p className="">
-                House Hunter has been helping families find their dream homes.
-                Our experienced team is dedicated to providing exceptional
-                service and finding the perfect property for your needs.
-              </p>
-            </div>
+            <p className="">
+              House Hunter has been helping families find their dream homes.
+              Our experienced team is dedicated to providing exceptional
+              service and finding the perfect property for your needs.
+            </p>
           </div>
         </div>
+      </div>
 
         <section className="mt-8 w-full rounded-md bg-gray-100 py-12 md:py-24">
           <div className="container grid gap-6 px-4 md:grid-cols-2 md:px-6 lg:grid-cols-3 lg:gap-8">
@@ -133,8 +164,8 @@ const About: FC<AboutProps> = () => {
               </div>
             </div>
           </div>
-        </section>
-        <section className="mt-8 w-full rounded-md bg-gray-100 py-12 md:py-24">
+        </section>       
+         <section className="mt-8 w-full rounded-md bg-gray-100 py-12 md:py-24">
           <div className="container grid gap-6 px-4 md:px-6">
             <div className="space-y-2 text-center">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
@@ -146,15 +177,35 @@ const About: FC<AboutProps> = () => {
               </p>
             </div>
             <div className="mx-auto w-full max-w-md space-y-4">
-              <form className="space-y-2">
-                <Input placeholder="Name" type="text" />
-                <Input placeholder="Email" type="email" />
-                <Textarea placeholder="Message" />
-                <div className="flex justify-between">
-                  <Button variant="outline">Email</Button>
-                  <Button variant="outline">Phone</Button>
-                  <Button variant="outline">Chat</Button>
-                </div>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <Input
+                  placeholder="Name"
+                  {...register('name')}
+                  error={errors.name?.message}
+                />
+                <Input
+                  placeholder="Email"
+                  type="email"
+                  {...register('email')}
+                  error={errors.email?.message}
+                />
+                <select
+                  {...register('subject')}
+                  className="w-full rounded-md border border-gray-300 px-3 py-2"
+                >
+                  <option value="">Select a subject</option>
+                  <option value="COMPLAINT">Complaint</option>
+                  <option value="QUESTION">Question</option>
+                  <option value="VIEWING">Viewing</option>
+                </select>
+                <Textarea
+                  placeholder="Message"
+                  {...register('message')}
+                  error={errors.message?.message}
+                />
+                <Button type="submit" variant="outline" isLoading={isLoading}>
+                  Submit
+                </Button>
               </form>
             </div>
           </div>
@@ -165,3 +216,4 @@ const About: FC<AboutProps> = () => {
 }
 
 export default About
+
