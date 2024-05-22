@@ -10,42 +10,38 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import { userService } from '@/services/user-service/user-service'
+import { propertyService } from '@/services/property-service/property-service'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { AlertCircleIcon, Trash } from 'lucide-react'
 import { FC, useState } from 'react'
 import { toast } from 'sonner'
 
-type DeleteUserProps = {
-  userEmail: string
-  refetch: () => void
+type DeletePropertyProps = {
+  property_id: string
 }
 
-const DeleteUser: FC<DeleteUserProps> = ({ userEmail }) => {
+const DeleteProperty: FC<DeletePropertyProps> = ({ property_id }) => {
   const navigate = useNavigate({
-    from: '/admin-dashboard/$id'
+    from: '/manage-properties/$id'
   })
 
   const [open, setOpen] = useState(false)
-
   const handleClose = () => setOpen(false)
 
-  const blockMutation = useMutation({
-    mutationKey: ['delete-user-admin'],
-    mutationFn: userService.deleteUser,
+  const deletePropertyMutation = useMutation({
+    mutationKey: ['delete-property'],
+    mutationFn: propertyService.deleteOne,
     onError: (error) => {
-      toast.error('Error deleting user', {
+      toast.error('Error deleting property', {
         description: error.message
       })
     },
     onSuccess: () => {
-      toast.success('User deleted successfully', {
-        description: userEmail
-      })
+      toast.success('Property deleted successfully')
 
       navigate({
-        to: '/admin-dashboard'
+        to: '/manage-properties'
       })
     }
   })
@@ -54,10 +50,12 @@ const DeleteUser: FC<DeleteUserProps> = ({ userEmail }) => {
     <>
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogTrigger asChild>
-          <Button size="sm" variant="destructive">
-            <Trash className="h-4 w-4" />
-            Delete user
-          </Button>
+          <div className="flex justify-end">
+            <Button size="sm" variant="destructive" className="mt-8">
+              <Trash className="h-4 w-4" />
+              Delete property
+            </Button>
+          </div>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -72,7 +70,8 @@ const DeleteUser: FC<DeleteUserProps> = ({ userEmail }) => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel onClick={handleClose}>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={() => blockMutation.mutate(userEmail)}>
+            <AlertDialogAction
+              onClick={() => deletePropertyMutation.mutate(property_id)}>
               Continue
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -82,4 +81,4 @@ const DeleteUser: FC<DeleteUserProps> = ({ userEmail }) => {
   )
 }
 
-export default DeleteUser
+export default DeleteProperty

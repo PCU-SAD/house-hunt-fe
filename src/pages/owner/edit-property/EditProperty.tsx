@@ -2,6 +2,7 @@ import { Container, Layout } from '@/components/common'
 import ErrorResult from '@/components/common/Errors/ErrorResult'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Typography } from '@/components/ui/typography'
+import DeleteProperty from '@/pages/owner/edit-property/DeleteProperty/DeleteProperty'
 import EditPropertyForm from '@/pages/owner/edit-property/EditPropertyForm/EditPropertyForm'
 import { propertyService } from '@/services/property-service/property-service'
 import { useQuery } from '@tanstack/react-query'
@@ -15,7 +16,7 @@ const EditProperty: FC<EditPropertyProps> = () => {
   const { id } = useParams({
     from: '/_auth-owner/manage-properties/edit/$id'
   })
-  
+
   const {
     data: property,
     isLoading,
@@ -64,6 +65,8 @@ const EditProperty: FC<EditPropertyProps> = () => {
         </div>
 
         <EditPropertyForm property={property} images={images} />
+
+        <DeleteProperty property_id={id} />
       </Container>
     </Layout>
   )

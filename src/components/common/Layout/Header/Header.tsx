@@ -1,14 +1,12 @@
+import { navLinks } from '@/components/common/Layout/Header/navLinks'
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList
 } from '@/components/ui/navigation-menu'
-import { FC } from 'react'
-
-import { navLinks } from '@/components/common/Layout/Header/navLinks'
-import { cn } from '@/lib/utils'
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { Link } from '@tanstack/react-router'
+import { FC } from 'react'
 
 const Header: FC = () => {
   const auth = useAuthContext()
@@ -40,9 +38,12 @@ const Header: FC = () => {
           <NavigationMenuItem key={link.to}>
             <Link
               to={link.to}
-              className="text-[15px] text-slate-600"
+              className="text-[15px] font-light text-slate-600 transition-colors hover:text-black"
               activeProps={{
-                className: cn('text-black')
+                style: {
+                  color: 'text-black',
+                  fontWeight: 'normal'
+                }
               }}>
               {link.label}
             </Link>
