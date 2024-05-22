@@ -46,9 +46,7 @@ const Home: FC<HomeProps> = () => {
 
               <Search
                 homesAround={
-                  stats?.totalRentalProperties ||
-                  0 + stats?.totalSaleProperties ||
-                  0
+                  stats?.totalRentalProperties + stats?.totalSaleProperties
                 }
               />
             </div>

@@ -87,6 +87,37 @@ export const propertyService = {
       }
     }
   },
+  updateImages: async (
+    propertyId: string,
+    images: File[],
+    accessToken?: string
+  ) => {
+    try {
+      const formData = new FormData()
+      images.forEach((image) => {
+        formData.append('images', image)
+      })
+
+      const { data } = await authApi.put(
+        `/properties/${propertyId}/images`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${accessToken || ''}`
+          }
+        }
+      )
+
+      return data
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
+  },
   getAll: async (searchParams: PropertySearchParams) => {
     try {
       const PAGE_SIZE = 5

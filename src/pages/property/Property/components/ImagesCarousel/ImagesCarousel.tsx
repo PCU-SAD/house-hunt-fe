@@ -20,7 +20,7 @@ const ImagesCarousel: FC<ImagesCarouselProps> = ({ images }) => {
         {!isImagesEmpty &&
           images.map((image) => {
             return (
-              <CarouselItem className="lg:basis-1/2">
+              <CarouselItem className="lg:basis-1/2" key={image}>
                 <img
                   alt="Property"
                   className="h-[400px] w-full rounded-md object-cover object-center"

@@ -1,9 +1,16 @@
 import { buttonVariants } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
 import { cn } from '@/lib/utils'
+import { districts } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
 import { Link } from '@tanstack/react-router'
-import { ChevronRight, SearchIcon } from 'lucide-react'
-import { FC, useState } from 'react'
+import { ChevronRight } from 'lucide-react'
+import { FC } from 'react'
 
 const places = [
   'Prague 1',
@@ -23,54 +30,30 @@ type SearchProps = {
 }
 
 const Search: FC<SearchProps> = ({ homesAround }) => {
-  const [searchTerm, setSearchTerm] = useState('')
-  const [isFocused, setIsFocused] = useState(false)
-
-  const handlePlaceClick = (place: string) => {
-    setSearchTerm(place)
-    setIsFocused(false)
-  }
-
-  const filteredPlaces = places.filter((place) =>
-    place.toLowerCase().includes(searchTerm.toLowerCase())
-  )
-
   return (
     <div className="mt-6">
       <div className="relative mb-4">
-        <Input
-          placeholder="Search in Prague"
-          className="w-full flex-1 rounded-full"
-          icon={<SearchIcon className="h-4 w-4 text-gray-500" />}
-          iconClassName="right-5"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setTimeout(() => setIsFocused(false), 100)}
-        />
-        {isFocused && (
-          <div className="absolute top-full z-10 mt-2 w-full rounded-lg border bg-white">
-            <div className="p-4">
-              <h2 className="text-md mb-2 font-semibold">Places in Prague</h2>
-              <ul>
-                {filteredPlaces.map((place) => (
-                  <li
-                    key={place}
-                    className="cursor-pointer px-4 py-2"
-                    onClick={() => handlePlaceClick(place)}>
-                    {place}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
+        <Select onValueChange={() => {}} defaultValue={'PRAGUE 1'}>
+          <SelectTrigger className="rounded-full">
+            <SelectValue placeholder="Select your district" />
+          </SelectTrigger>
+
+          <SelectContent className="rounded-xl">
+            {districts.map((option) => (
+              <SelectItem value={option} key={option}>
+                {option.at(0).toUpperCase() + option.slice(1).toLowerCase()}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="text-center">
-        <p className="text-md font-semibold text-gray-800">
-          Properties around {homesAround}
-        </p>
+        {!isNaN(homesAround) && (
+          <p className="text-md font-semibold text-gray-800">
+            Properties around {homesAround}
+          </p>
+        )}
 
         <Link
           className={cn(

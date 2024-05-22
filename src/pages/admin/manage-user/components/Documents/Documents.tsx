@@ -16,13 +16,13 @@ const Documents: FC<DocumentsProps> = ({ documents }) => {
 
   async function handleDownload(documentName: string) {
     try {
-      const { imageData, extension, formattedFileName } =
+      const { imageData, formattedFileName } =
         await userService.downloadDocument(documentName)
 
       const url = window.URL.createObjectURL(imageData)
       const a = document.createElement('a')
       a.href = url
-      a.download = `${formattedFileName}.${extension}`
+      a.download = `${formattedFileName}.jpeg`
       document.body.appendChild(a)
       a.click()
       window.URL.revokeObjectURL(url)

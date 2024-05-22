@@ -1,7 +1,8 @@
 import { PropertiesPage } from '@/pages'
 import {
   ApartmentType,
-  apartmentTypeSchema
+  apartmentTypeSchema,
+  districtTypeSchema
 } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
 import {
   MAX_PRICE,
@@ -58,7 +59,8 @@ const PropertiesSearchParamsSchema = z.object({
   minRooms: z.number().int().min(1).max(50).catch(1),
   maxRooms: z.number().int().min(1).max(50).catch(5),
   apartmentType: z.array(apartmentTypeSchema).catch(defaultApartmentTypes),
-  adType: adTypeSearchSchema.catch('RENTAL')
+  adType: adTypeSearchSchema.catch('RENTAL'),
+  district: districtTypeSchema.catch('PRAGUE 1') 
 })
 
 export type PropertySearchParams = z.infer<typeof PropertiesSearchParamsSchema>

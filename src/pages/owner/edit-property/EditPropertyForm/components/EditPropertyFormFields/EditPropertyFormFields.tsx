@@ -17,6 +17,7 @@ import {
   IsFurnishedSelect,
   PropertyTypeSelect
 } from '@/pages/owner/components/inputs'
+import DistrictsSelect from '@/pages/owner/components/inputs/DistrictsSelect/DistrictsSelect'
 import { EditPropertyFormType } from '@/pages/owner/edit-property/EditPropertyForm/useEditPropertyForm'
 import { FC } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -76,6 +77,8 @@ const EditPropertyFormFields: FC<EditPropertyFormFieldsProps> = () => {
           )
         }}
       />
+
+      <DistrictsSelect form={form} />
 
       <FormField
         name="numberOfRooms"

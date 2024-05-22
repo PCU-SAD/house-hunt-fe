@@ -20,6 +20,23 @@ export const apartmentType = [
   'SEVEN_ONE'
 ] as const
 
+export const districts = [
+  'PRAGUE 1',
+  'PRAGUE 2',
+  'PRAGUE 3',
+  'PRAGUE 4',
+  'PRAGUE 5',
+  'PRAGUE 6',
+  'PRAGUE 7',
+  'PRAGUE 8',
+  'PRAGUE 9'
+] as const
+
+export const districtTypeSchema = z.enum(districts, {
+  required_error: 'District is required'
+})
+export type DistrictType = z.infer<typeof districtTypeSchema>
+
 export const apartmentTypeSchema = z.enum(apartmentType)
 
 export type ApartmentType = z.infer<typeof apartmentTypeSchema>
@@ -72,7 +89,8 @@ export const newPropertyFormSchema = z
     availableFrom: z.date(),
     adType: adTypeSchema,
     apartmentType: apartmentTypeSchema,
-    images: z.array(fileSchema)
+    images: z.array(fileSchema),
+    district: districtTypeSchema
   })
   .superRefine((val, ctx) => {
     const atLeastOneImage = val.images.some((image) => {
@@ -104,6 +122,7 @@ export const newPropertyFormDefaultValues: NewPropertyFormType = {
   availableFrom: addDays(new Date(), 1),
   adType: 'RENTAL',
   apartmentType: 'ONE_KK',
+  district: undefined,
   images: []
 } as const
 

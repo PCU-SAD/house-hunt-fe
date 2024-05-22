@@ -1,21 +1,21 @@
 import { Container, Layout } from '@/components/common'
 import ErrorResult from '@/components/common/Errors/ErrorResult'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Typography } from '@/components/ui/typography'
 import AccountStatus from '@/pages/admin/manage-user/components/AccountStatus/AccountStatus'
 import BlockUser from '@/pages/admin/manage-user/components/action-buttons/BlockUser'
 import DeleteUser from '@/pages/admin/manage-user/components/action-buttons/DeleteUser'
+import UnverifyUser from '@/pages/admin/manage-user/components/action-buttons/Unverify'
 import VerifyUser from '@/pages/admin/manage-user/components/action-buttons/VerifyUser'
 import Documents from '@/pages/admin/manage-user/components/Documents/Documents'
 import UserSkeleton from '@/pages/admin/manage-user/components/UserSkeleton/UserSkeleton'
 import VerificationStatus from '@/pages/admin/manage-user/components/VerificationStatus/VerificationStatus'
+import ManagePropertiesTable from '@/pages/owner/manage-properties/ManagePropertiesTable/ManagePropertiesTable'
 import { userService } from '@/services/user-service/user-service'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
-import { ChevronLeft, FileText } from 'lucide-react'
+import { ChevronLeft } from 'lucide-react'
 import { FC } from 'react'
 
 type ManageUserProps = {}
@@ -49,7 +49,9 @@ const ManageUser: FC<ManageUserProps> = () => {
 
   const avatarFallback =
     user?.name?.at(0).toUpperCase() + user?.surname?.at(0).toUpperCase()
-
+  const isUserAdmin = user?.role === 'ADMIN'
+  const isUserLandlord = user?.role === 'LANDLORD'
+ 
   if (isError || isDocError) {
     return (
       <Layout>
@@ -96,42 +98,32 @@ const ManageUser: FC<ManageUserProps> = () => {
               <AccountStatus accountStatus={user.accountStatus} />
               <VerificationStatus status={user.verificationStatus} />
 
-              <div className="mt-4">
-                <Label htmlFor="reports">Reports</Label>
-                <div className="flex flex-col gap-2 text-sm">
-                  <div className="flex items-center justify-between">
-                    <p>Complaint about rude customer service</p>
-                    <Button size="sm" variant="outline">
-                      <FileText className="h-4 w-4" />
-                      View Report
-                    </Button>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <p>Complaint about rude customer service</p>
-                    <Button size="sm" variant="outline">
-                      <FileText className="h-4 w-4" />
-                      View Report
-                    </Button>
-                  </div>
-                </div>
-              </div>
-
               <div className="mt-4 flex justify-between gap-2">
-                <VerifyUser refetch={refetch} userEmail={user.email} />
+                <div className="flex flex-col gap-2">
+                  <VerifyUser refetch={refetch} userEmail={user.email} />
+                  <UnverifyUser refetch={refetch} userEmail={user.email} />
+                </div>
 
                 <div className="flex gap-2">
-                  <BlockUser
-                    refetch={refetch}
-                    userEmail={user.email}
-                    disabled={user.accountStatus === 'BLOCKED'}
-                  />
+                  {!isUserAdmin && (
+                    <>
+                      <BlockUser
+                        refetch={refetch}
+                        userEmail={user.email}
+                        disabled={user.accountStatus === 'BLOCKED'}
+                      />
 
-                  <DeleteUser refetch={refetch} userEmail={user.email} />
+                      <DeleteUser refetch={refetch} userEmail={user.email} />
+                    </>
+                  )}
                 </div>
               </div>
             </div>
           )}
+        </div>
+
+        <div className="mt-12">
+          {isUserLandlord && <ManagePropertiesTable email={user?.email} />}
         </div>
       </Container>
     </Layout>

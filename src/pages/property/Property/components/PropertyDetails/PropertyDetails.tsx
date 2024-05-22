@@ -20,7 +20,8 @@ const PropertyDetails: FC<PropertyDetailsProps> = ({ property }) => {
     floorNumber,
     apartmentType,
     availableFrom,
-    isFurnished
+    isFurnished,
+    district
   } = property
 
   const lowercaseApType = apartmentType.toLowerCase().split('_').join(' + ')
@@ -56,6 +57,12 @@ const PropertyDetails: FC<PropertyDetailsProps> = ({ property }) => {
         <DetailItem title="Price" description={formattedPrice} />
         <DetailItem title="Floor number" description={floorNumber} />
         <DetailItem title="Square meters" description={squareMeters} />
+        <DetailItem
+          title="District"
+          description={
+            district.at(0).toUpperCase() + district.slice(1).toLowerCase()
+          }
+        />
 
         <DetailItem
           title="Is furnished"

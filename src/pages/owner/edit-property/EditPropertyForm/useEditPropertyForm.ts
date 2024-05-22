@@ -1,6 +1,7 @@
 import {
   adTypeSchema,
   apartmentTypeSchema,
+  districtTypeSchema,
   fileSchema,
   FurnishedSchema,
   newPropertyFormSchema
@@ -43,7 +44,8 @@ export const editPropertyFormSchema = z
     availableFrom: z.date(),
     adType: adTypeSchema,
     apartmentType: apartmentTypeSchema,
-    images: z.array(fileSchema)
+    images: z.array(fileSchema),
+    district: districtTypeSchema
   })
   .superRefine((val, ctx) => {
     const atLeastOneImage = val.images.some((image) => {

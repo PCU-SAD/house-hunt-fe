@@ -64,8 +64,8 @@ const DeleteProperty: FC<DeletePropertyProps> = ({ property_id }) => {
               Are you absolutely sure?
             </AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete user
-              and remove data from our servers.
+              This action cannot be undone. This will permanently delete your
+              property and remove data from our servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

@@ -1,6 +1,7 @@
 import {
   AdType,
   ApartmentType,
+  DistrictType,
   FurnishedType,
   NewPropertyFormType
 } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
@@ -36,6 +37,7 @@ export type PropertyType = {
   adType: AdType
   apartmentType: ApartmentType
   owner?: OwnerType
+  district: DistrictType
 }
 
 export type OwnerType = {

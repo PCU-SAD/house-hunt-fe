@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button'
 import AdTypeFilter from '@/pages/properties/components/PropertiesFilters/components/AdTypeFilter/AdTypeFilter'
 import AvailableFromFilter from '@/pages/properties/components/PropertiesFilters/components/AvailableFromFilter/AvailableFromFilter'
 import CreatedAtFilter from '@/pages/properties/components/PropertiesFilters/components/CreatedAtFilter/CreatedAtFilter'
+import DistrictsFilter from '@/pages/properties/components/PropertiesFilters/components/DistrictFilter/DistrictFilter'
 import IsFurnishedFilter from '@/pages/properties/components/PropertiesFilters/components/IsFurnishedFilter/IsFurnishedFilter'
 import PriceSlider from '@/pages/properties/components/PropertiesFilters/components/PriceSlider/PriceSlider'
 import PropertyTypeFiler from '@/pages/properties/components/PropertiesFilters/components/PropertyTypeFiler/PropertyTypeFiler'
@@ -33,6 +34,8 @@ const PropertiesFilters: FC<PropertiesFiltersProps> = ({
         <RoomsRangeFilter />
 
         <IsFurnishedFilter />
+
+        <DistrictsFilter />
 
         <AvailableFromFilter />
 

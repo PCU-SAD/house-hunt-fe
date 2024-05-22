@@ -12,6 +12,7 @@ import { propertyService } from '@/services/property-service/property-service'
 import { PropertyType } from '@/services/property-service/types'
 import { base64ToFile } from '@/utils/base64ToFile'
 import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
 import { FC } from 'react'
 import { toast } from 'sonner'
 
@@ -21,6 +22,9 @@ type EditPropertyFormProps = {
 }
 
 const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
+  const navigate = useNavigate({
+    from:'/manage-properties/edit/$id'
+  })
   const auth = useAuthContext()
   const files = images.length
     ? images.map((base64) => base64ToFile(base64, 'name'))
@@ -38,12 +42,11 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
     price: property.price,
     apartmentType: property.apartmentType,
     squareMeters: property.squareMeters,
-    images: files
+    images: files,
+    district: property.district
   })
 
   const watchedProperty = form.watch()
-
-  console.log(form.watch())
 
   const previewImg = form.watch().images[0]
     ? URL.createObjectURL(form.watch().images[0])
@@ -52,15 +55,21 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
   const imagesMutation = useMutation({
     mutationKey: ['images'],
     mutationFn: (args: { propertyId: string; images: File[] }) =>
-      propertyService.uploadImages(
+      propertyService.updateImages(
         args.propertyId,
         args.images,
         auth?.accessToken
       ),
     onSuccess: () => {
-      toast.success('Property created')
+      toast.success('Images updated successfully', {
+        duration: 2_000
+      })
 
       form.reset(newPropertyFormDefaultValues)
+
+      navigate({
+        to: '/manage-properties'
+      })
     },
     onError: (error: Error) => {
       toast.error('Something went wrong', {
@@ -75,6 +84,10 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
     mutationFn: propertyService.updateOne,
     onSuccess: () => {
       const images = form.getValues('images').filter((image) => !!image)
+
+      toast.success('Property updated successfully', {
+        duration: 2_000
+      })
 
       imagesMutation.mutate({
         propertyId: property.id,
@@ -97,6 +110,10 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
       availableFrom: new Date(
         values.availableFrom
       ).toISOString() as unknown as Date
+    }
+
+    if (!form.getFieldState('availableFrom').isDirty) {
+      delete formattedValues.availableFrom
     }
 
     editPropertyMutation.mutate({
