@@ -12,19 +12,6 @@ import { Link } from '@tanstack/react-router'
 import { ChevronRight } from 'lucide-react'
 import { FC } from 'react'
 
-const places = [
-  'Prague 1',
-  'Prague 2',
-  'Prague 3',
-  'Prague 4',
-  'Prague 5',
-  'Prague 6',
-  'Prague 7',
-  'Prague 8',
-  'Prague 9',
-  'Prague 10'
-]
-
 type SearchProps = {
   homesAround: number
 }
