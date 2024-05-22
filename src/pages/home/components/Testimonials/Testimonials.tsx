@@ -10,7 +10,7 @@ import {
   CarouselPrevious
 } from '@/components/ui/carousel'
 import { Typography } from '@/components/ui/typography'
-import { testimonials } from '@/pages/home/components/Testimonials/testimonials'
+import { testimonials } from '@/pages/home/components/Testimonials/testimonialsData'
 
 type TestimonialsProps = {}
 
