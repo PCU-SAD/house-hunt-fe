@@ -5,10 +5,11 @@ import { ReactNode } from '@tanstack/react-router'
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   icon?: ReactNode
+  iconClassName?: string
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, icon, ...props }, ref) => {
+  ({ className, type, icon, iconClassName, ...props }, ref) => {
     return (
       <div className="relative">
         <input
@@ -23,7 +24,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />
-        <div className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500">
+        <div
+          className={cn(
+            'absolute right-2 top-1/2 -translate-y-1/2 text-gray-500',
+            iconClassName
+          )}>
           {icon}
         </div>
       </div>

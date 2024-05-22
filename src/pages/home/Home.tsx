@@ -1,18 +1,10 @@
 import { Container, Layout } from '@/components/common'
-import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
+import Search from '@/pages/home/components/Search/Search'
 import Testimonials from '@/pages/home/components/Testimonials/Testimonials'
 import { statsService } from '@/services/stats-service/stats-service'
 import { StatsResponse } from '@/services/stats-service/types'
-import { Link } from '@tanstack/react-router'
-import {
-  BadgeDollarSign,
-  BookUser,
-  ChevronRight,
-  HomeIcon,
-  Users
-} from 'lucide-react'
+import { BadgeDollarSign, BookUser, HomeIcon, Users } from 'lucide-react'
 import { FC, useEffect, useState } from 'react'
 
 type HomeProps = {}
@@ -52,10 +44,13 @@ const Home: FC<HomeProps> = () => {
                 personalized support every step of the way.
               </p>
 
-              <Link className={cn(buttonVariants(), 'mt-8')} to="/properties">
-                Browse properties
-                <ChevronRight className="h-4 w-4" />
-              </Link>
+              <Search
+                homesAround={
+                  stats?.totalRentalProperties ||
+                  0 + stats?.totalSaleProperties ||
+                  0
+                }
+              />
             </div>
           </div>
         </section>
