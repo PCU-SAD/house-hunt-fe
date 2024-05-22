@@ -38,6 +38,7 @@ export default {
         fluid: 'repeat(auto-fill, minmax(500px, 1fr))'
       },
       colors: {
+        navy: '#001f3f',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
