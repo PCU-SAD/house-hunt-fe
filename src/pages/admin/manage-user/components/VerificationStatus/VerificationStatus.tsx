@@ -8,7 +8,7 @@ type VerificationStatusProps = {
   status: AccountVerificationStatus
 }
 
-const VerificationStatus: FC<VerificationStatusProps> = ({ status }) => {
+const VerificationStatusCol: FC<VerificationStatusProps> = ({ status }) => {
   const messages = {
     VERIFIED: 'Verified',
     NOT_VERIFIED: 'Not Verified',
@@ -31,4 +31,4 @@ const VerificationStatus: FC<VerificationStatusProps> = ({ status }) => {
   )
 }
 
-export default VerificationStatus
+export default VerificationStatusCol

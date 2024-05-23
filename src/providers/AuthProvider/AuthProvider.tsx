@@ -4,7 +4,7 @@ import { RefreshResponse } from '@/services/auth-service/types'
 import { jwtService } from '@/services/jwt-service/jwt-service'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { createContext, FC, ReactNode, useContext, useMemo } from 'react'
+import { createContext, FC, ReactNode, useContext } from 'react'
 
 export const API_URL = import.meta.env.VITE_API_URL
 
@@ -24,10 +24,12 @@ type AuthProviderProps = {
 }
 
 export type UserRole = 'TENANT' | 'LANDLORD' | 'ADMIN'
+export type UserVerificationType = 'VERIFIED' | 'PENDING_VERIFICATION' | 'NOT_VERIFIED'
 
 export type UserDTO = {
   email: string
   type: UserRole
+  status: UserVerificationType
 }
 
 export type AuthContextType = {
@@ -116,7 +118,8 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     queryClient.setQueryData(['refresh'], {
       userData: {
         email: user.email,
-        role: user.type
+        role: user.type,
+        status: user.status
       },
       accessToken
     })
@@ -133,22 +136,20 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     localStorage.removeItem('refreshToken')
   }
 
-  const value = useMemo(
-    () => ({
-      user: refreshData?.userData?.email
-        ? {
-            email: refreshData.userData.email,
-            type: refreshData.userData.role
-          }
-        : null,
-      login,
-      logout,
-      isLoading,
-      isError,
-      accessToken: refreshData?.accessToken
-    }),
-    [refreshData, isLoading, isError]
-  )
+  const value = {
+    user: refreshData?.userData?.email
+      ? {
+          email: refreshData.userData.email,
+          type: refreshData.userData.role,
+          status: refreshData.userData.status
+        }
+      : null,
+    login,
+    logout,
+    isLoading,
+    isError,
+    accessToken: refreshData?.accessToken
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

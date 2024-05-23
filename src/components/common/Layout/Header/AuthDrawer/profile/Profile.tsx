@@ -1,4 +1,5 @@
 import Logout from '@/components/common/Layout/Header/AuthDrawer/components/Logout'
+import VerificationStatus from '@/components/common/Layout/Header/AuthDrawer/profile/VerificationStatus'
 import { buttonVariants } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Typography } from '@/components/ui/typography'
@@ -6,7 +7,7 @@ import { cn } from '@/lib/utils'
 import { useAuthDrawerContext } from '@/providers/AuthDrawerProvider/AuthDrawerProvider'
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { Link } from '@tanstack/react-router'
-import { Check, CornerUpLeft, UserIcon } from 'lucide-react'
+import { CornerUpLeft, UserIcon } from 'lucide-react'
 import { FC } from 'react'
 
 type ProfileProps = {}
@@ -14,6 +15,7 @@ type ProfileProps = {}
 const Profile: FC<ProfileProps> = () => {
   const { handleCloseDrawer } = useAuthDrawerContext()
   const auth = useAuthContext()
+
   const isOwner = auth?.user.type === 'LANDLORD'
   const isUser = auth?.user.type === 'TENANT'
 
@@ -28,12 +30,7 @@ const Profile: FC<ProfileProps> = () => {
           <div>
             <p>{auth?.user?.email}</p>
 
-            <div className="flex items-center gap-2">
-              <div className="flex h-[16px] w-[16px] items-center justify-center rounded-full border border-green-500 text-green-500">
-                <Check className="h-[11px] w-[11px]" />
-              </div>
-              <p className="text-sm">Verified</p>
-            </div>
+            <VerificationStatus />
           </div>
         </div>
 

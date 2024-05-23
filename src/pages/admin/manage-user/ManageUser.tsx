@@ -10,7 +10,7 @@ import UnverifyUser from '@/pages/admin/manage-user/components/action-buttons/Un
 import VerifyUser from '@/pages/admin/manage-user/components/action-buttons/VerifyUser'
 import Documents from '@/pages/admin/manage-user/components/Documents/Documents'
 import UserSkeleton from '@/pages/admin/manage-user/components/UserSkeleton/UserSkeleton'
-import VerificationStatus from '@/pages/admin/manage-user/components/VerificationStatus/VerificationStatus'
+import VerificationStatusCol from '@/pages/admin/manage-user/components/VerificationStatus/VerificationStatus'
 import ManagePropertiesTable from '@/pages/owner/manage-properties/ManagePropertiesTable/ManagePropertiesTable'
 import { userService } from '@/services/user-service/user-service'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
@@ -51,7 +51,7 @@ const ManageUser: FC<ManageUserProps> = () => {
     user?.name?.at(0).toUpperCase() + user?.surname?.at(0).toUpperCase()
   const isUserAdmin = user?.role === 'ADMIN'
   const isUserLandlord = user?.role === 'LANDLORD'
- 
+
   if (isError || isDocError) {
     return (
       <Layout>
@@ -96,7 +96,7 @@ const ManageUser: FC<ManageUserProps> = () => {
               )}
 
               <AccountStatus accountStatus={user.accountStatus} />
-              <VerificationStatus status={user.verificationStatus} />
+              <VerificationStatusCol status={user.verificationStatus} />
 
               <div className="mt-4 flex justify-between gap-2">
                 <div className="flex flex-col gap-2">

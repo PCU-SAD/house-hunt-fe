@@ -30,13 +30,15 @@ function LoginForm() {
     mutationKey: ['auth/login'],
     onSuccess: (response) => {
       const userData = jwtService.parse(response.token)
+      console.log("🚀 ~ LoginForm ~ userData:", userData)
 
       form.reset()
 
       auth.login(
         {
           email: userData.email,
-          type: userData.role
+          type: userData.role,
+          status: userData.status
         },
         response.refreshToken,
         response.token
@@ -46,8 +48,6 @@ function LoginForm() {
       toast.error('Something went wrong.', {
         description: error.message
       })
-
-      form.reset()
     }
   })
 
