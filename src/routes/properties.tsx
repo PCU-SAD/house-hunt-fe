@@ -1,9 +1,9 @@
 import { PropertiesPage } from '@/pages'
 import {
   ApartmentType,
-  apartmentTypeSchema,
-  districtTypeSchema
+  apartmentTypeSchema
 } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
+import { districtSearchSchema } from '@/pages/properties/components/PropertiesFilters/components/DistrictFilter/DistrictFilter'
 import {
   MAX_PRICE,
   MIN_PRICE
@@ -26,7 +26,12 @@ const defaultApartmentTypes: ApartmentType[] = [
   'TWO_ONE'
 ]
 
-const createdAtSearchSchema = z.enum(["last24hours", "lastWeek", "lastMonth", 'ALL'])
+const createdAtSearchSchema = z.enum([
+  'last24hours',
+  'lastWeek',
+  'lastMonth',
+  'ALL'
+])
 export type CreatedAtSearchType = z.infer<typeof createdAtSearchSchema>
 
 const adTypeSearchSchema = z.enum(['ALL', 'SALE', 'RENTAL'])
@@ -60,7 +65,7 @@ const PropertiesSearchParamsSchema = z.object({
   maxRooms: z.number().int().min(1).max(50).catch(5),
   apartmentType: z.array(apartmentTypeSchema).catch(defaultApartmentTypes),
   adType: adTypeSearchSchema.catch('RENTAL'),
-  district: districtTypeSchema.catch('PRAGUE 1') 
+  district: districtSearchSchema.catch('ALL')
 })
 
 export type PropertySearchParams = z.infer<typeof PropertiesSearchParamsSchema>

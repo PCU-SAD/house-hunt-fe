@@ -24,6 +24,7 @@ const CreatedAtFilter: FC<CreatedAtFilterProps> = () => {
 
   function handleChange(value: CreatedAtSearchType) {
     navigate({
+      resetScroll: false,
       search: (prev) => {
         return {
           ...prev,

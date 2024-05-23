@@ -125,7 +125,6 @@ export const propertyService = {
       const sortKey = searchParams.sort.key
       const sortOrder = searchParams.sort.order
 
-      // TODO: check all present filters
       const params = {
         size: PAGE_SIZE,
         page: searchParams.page - 1,
@@ -138,7 +137,8 @@ export const propertyService = {
         apartmentType: searchParams.apartmentType,
         createdAt: searchParams.createdAt,
         minRooms: searchParams.minRooms,
-        maxRooms: searchParams.maxRooms
+        maxRooms: searchParams.maxRooms,
+        district: searchParams.district
       }
 
       if (searchParams.isFurnished === 'ALL') {
@@ -151,6 +151,10 @@ export const propertyService = {
 
       if (searchParams.adType === 'ALL') {
         delete params.adType
+      }
+
+      if (searchParams.district === 'ALL') {
+        delete params.district
       }
 
       const { data } = await api.get<GetAllPropertiesResponse>('/properties', {

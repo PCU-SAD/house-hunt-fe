@@ -53,6 +53,7 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
 
   useEffect(() => {
     navigate({
+      resetScroll: false,
       search: (prev) => ({
         ...prev,
         apartmentType: values.items

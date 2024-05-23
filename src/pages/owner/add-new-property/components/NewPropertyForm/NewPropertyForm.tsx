@@ -27,6 +27,7 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
   const navigate = useNavigate({
     from: '/manage-properties/add-new'
   })
+  
   const property = form.watch()
 
   const auth = useAuthContext()
@@ -72,9 +73,15 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
 
       form.reset(newPropertyFormDefaultValues)
 
-      navigate({
-        to: '/manage-properties'
-      })
+      if (auth?.user?.type === 'ADMIN') {
+        navigate({
+          to: '/admin-dashboard'
+        })
+      } else {
+        navigate({
+          to: '/manage-properties'
+        })
+      }
     },
     onError: (error: Error, data) => {
       toast.error('Something went wrong', {

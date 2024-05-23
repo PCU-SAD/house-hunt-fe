@@ -23,7 +23,7 @@ type EditPropertyFormProps = {
 
 const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
   const navigate = useNavigate({
-    from:'/manage-properties/edit/$id'
+    from: '/manage-properties/edit/$id'
   })
   const auth = useAuthContext()
   const files = images.length
@@ -67,9 +67,15 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
 
       form.reset(newPropertyFormDefaultValues)
 
-      navigate({
-        to: '/manage-properties'
-      })
+      if (auth?.user?.type === 'ADMIN') {
+        navigate({
+          to: '/admin-dashboard'
+        })
+      } else {
+        navigate({
+          to: '/manage-properties'
+        })
+      }
     },
     onError: (error: Error) => {
       toast.error('Something went wrong', {

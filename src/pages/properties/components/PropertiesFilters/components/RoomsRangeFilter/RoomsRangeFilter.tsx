@@ -28,6 +28,7 @@ const RoomsRangeFilter: FC<RoomsRangeFilterProps> = () => {
     ) {
       minRef.current.value = '1'
       return navigate({
+        resetScroll: false,
         search: (prev) => ({
           ...prev,
           minRooms: 1
@@ -36,6 +37,7 @@ const RoomsRangeFilter: FC<RoomsRangeFilterProps> = () => {
     }
 
     navigate({
+      resetScroll: false,
       search: (prev) => ({
         ...prev,
         minRooms: minRoomsInput
@@ -62,6 +64,7 @@ const RoomsRangeFilter: FC<RoomsRangeFilterProps> = () => {
     }
 
     navigate({
+      resetScroll: false,
       search: (prev) => ({
         ...prev,
         maxRooms: maxRoomsInput

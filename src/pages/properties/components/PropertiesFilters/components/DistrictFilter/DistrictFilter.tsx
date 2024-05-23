@@ -6,13 +6,25 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-
-import {
-  districts,
-  DistrictType
-} from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { FC } from 'react'
+import { z } from 'zod'
+
+export const districtsSearch = [
+  'PRAGUE 1',
+  'PRAGUE 2',
+  'PRAGUE 3',
+  'PRAGUE 4',
+  'PRAGUE 5',
+  'PRAGUE 6',
+  'PRAGUE 7',
+  'PRAGUE 8',
+  'PRAGUE 9',
+  'ALL'
+] as const
+
+export const districtSearchSchema = z.enum(districtsSearch)
+export type DistrictSearchType = z.infer<typeof districtSearchSchema>
 
 const DistrictsFilter: FC = () => {
   const { district } = useSearch({
@@ -23,8 +35,9 @@ const DistrictsFilter: FC = () => {
     from: '/properties'
   })
 
-  function handleChange(value: DistrictType) {
+  function handleChange(value: DistrictSearchType) {
     navigate({
+      resetScroll: false,
       search: (prev) => ({
         ...prev,
         district: value
@@ -41,7 +54,7 @@ const DistrictsFilter: FC = () => {
         </SelectTrigger>
 
         <SelectContent>
-          {districts.map((option) => (
+          {districtsSearch.map((option) => (
             <SelectItem value={option} key={option}>
               {option.at(0).toUpperCase() + option.slice(1).toLowerCase()}
             </SelectItem>

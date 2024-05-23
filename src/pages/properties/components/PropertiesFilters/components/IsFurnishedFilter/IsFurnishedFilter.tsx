@@ -22,6 +22,7 @@ const IsFurnishedFilter: FC = () => {
 
   function handleChange(value: IsFurnishedSearchType) {
     navigate({
+      resetScroll: false,
       search: (prev) => ({
         ...prev,
         isFurnished: value

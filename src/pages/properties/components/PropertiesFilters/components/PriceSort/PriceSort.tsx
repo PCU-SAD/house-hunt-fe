@@ -34,6 +34,7 @@ const PriceSort: FC<PriceSortProps> = () => {
     const sortValue = value === 'createdAt' ? 'desc' : sortArr[1]
 
     navigate({
+      resetScroll: false,
       search: (prev) => {
         return {
           ...prev,

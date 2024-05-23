@@ -28,6 +28,7 @@ const AvailableFromFilter: FC<AvailableFromFilterProps> = () => {
 
   function handleChange(value: Date) {
     navigate({
+      resetScroll: false,
       search: (prev) => ({
         ...prev,
         availableFrom: formatDate(value, URL_SEARCH_DATE_FORMAT)

@@ -27,6 +27,7 @@ const AdTypeFilter: FC<AdTypeFilterProps> = () => {
     const isFullPriceRangeAvailable = value === 'SALE' || value === 'ALL'
 
     navigate({
+      resetScroll: false,
       search: (prev) => {
         return {
           ...prev,

@@ -47,6 +47,7 @@ const PropertiesPage: FC = () => {
 
   function applyFilters() {
     navigate({
+      resetScroll: false,
       search: (prev) => {
         return {
           ...prev,
@@ -65,6 +66,7 @@ const PropertiesPage: FC = () => {
 
   function handleNextPage() {
     navigate({
+      resetScroll: true,
       search: (prev) => {
         return {
           ...prev,
@@ -76,6 +78,7 @@ const PropertiesPage: FC = () => {
 
   function handlePreviousPage() {
     navigate({
+      resetScroll: true,
       search: (prev) => {
         if (prev.page > 1) {
           return {
@@ -94,6 +97,7 @@ const PropertiesPage: FC = () => {
 
   function handleGoLast() {
     navigate({
+      resetScroll: true,
       search: (prev) => ({
         ...prev,
         page: data.totalPages
@@ -103,6 +107,7 @@ const PropertiesPage: FC = () => {
 
   function handleGoFirst() {
     navigate({
+      resetScroll: true,
       search: (prev) => ({
         ...prev,
         page: 1

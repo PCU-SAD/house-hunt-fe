@@ -27,6 +27,7 @@ const PriceSlider: FC = () => {
 
   function handleChange(range: RangeType) {
     navigate({
+      resetScroll: false,
       search: (prev) => ({
         ...prev,
         minPrice: range[0],

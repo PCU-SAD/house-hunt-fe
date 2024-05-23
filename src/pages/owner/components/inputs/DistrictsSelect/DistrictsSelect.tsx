@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/select'
 
 import {
-  districts,
+  districtsForm,
   NewPropertyFormType
 } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
 import { EditPropertyFormType } from '@/pages/owner/edit-property/EditPropertyForm/useEditPropertyForm'
@@ -41,7 +41,7 @@ const DistrictsSelect: FC<DistrictsSelectType> = ({ form }) => {
             </FormControl>
 
             <SelectContent>
-              {districts.map((option) => (
+              {districtsForm.map((option) => (
                 <SelectItem value={option} key={option}>
                   {option.at(0).toUpperCase() + option.slice(1).toLowerCase()}
                 </SelectItem>

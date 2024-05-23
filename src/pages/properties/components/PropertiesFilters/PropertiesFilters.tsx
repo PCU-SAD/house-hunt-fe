@@ -48,7 +48,7 @@ const PropertiesFilters: FC<PropertiesFiltersProps> = ({
           disabled={isFetching}
           onClick={() => {
             applyFilters()
-            handleCloseDrawer()
+            handleCloseDrawer?.()
           }}>
           Apply Filters
         </Button>
