@@ -6,7 +6,7 @@ import AuthDrawer from '@/components/common/Layout/Header/AuthDrawer/AuthDrawer'
 import Container from './Container'
 import Header from './Header/Header'
 import MobileMenu from './Header/MobileMenu/MobileMenu'
-import Logo from '/logo.png'
+import Logo from '/logo-white.png'
 
 type LayoutProps = {
   children: ReactNode
@@ -15,7 +15,7 @@ type LayoutProps = {
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <main className="flex min-h-screen flex-col">
-      <header className="border-b">
+      <header className="border-b bg-gray-900 text-white">
         <Container className="flex h-[70px] items-center justify-between">
           <MobileMenu />
 

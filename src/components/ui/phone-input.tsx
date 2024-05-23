@@ -100,8 +100,7 @@ const CountrySelect = ({
           type="button"
           variant={'outline'}
           className={cn('flex gap-1 rounded-e-none rounded-s-lg px-3')}
-          disabled={disabled}
-        >
+          disabled={disabled}>
           <FlagComponent country={value} countryName={value} />
           <ChevronsUpDown
             className={cn(
@@ -111,7 +110,7 @@ const CountrySelect = ({
           />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[300px] p-0">
+      <PopoverContent className="w-full p-0 md:w-[260px]">
         <Command>
           <CommandList>
             <ScrollArea className="h-72">
@@ -124,8 +123,7 @@ const CountrySelect = ({
                     <CommandItem
                       className="gap-2"
                       key={option.value}
-                      onSelect={() => handleSelect(option.value)}
-                    >
+                      onSelect={() => handleSelect(option.value)}>
                       <FlagComponent
                         country={option.value}
                         countryName={option.label}

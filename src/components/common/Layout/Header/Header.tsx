@@ -38,10 +38,10 @@ const Header: FC = () => {
           <NavigationMenuItem key={link.to}>
             <Link
               to={link.to}
-              className="text-[15px] font-light text-slate-600 transition-colors hover:text-black"
+              className="text-[15px] font-light text-slate-100 transition-colors hover:text-slate-300"
               activeProps={{
                 style: {
-                  color: 'text-black',
+                  color: 'white',
                   fontWeight: 'normal'
                 }
               }}>

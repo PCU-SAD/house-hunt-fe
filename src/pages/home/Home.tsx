@@ -34,10 +34,10 @@ const Home: FC<HomeProps> = () => {
 
             <div className="p-6 text-center">
               <div className="mx-auto max-w-[600px]">
-                <h1 className="text-2xl font-extrabold text-slate-700 md:text-3xl lg:text-5xl">
+                <h1 className="text-2xl font-extrabold text-primary md:text-3xl lg:text-5xl">
                   Your trusted real estate partner
                 </h1>
-                <p className="mt-4 font-semibold text-slate-900">
+                <p className="mt-4 font-semibold text-slate-800">
                   Discover a seamless and rewarding experience in buying,
                   selling, or renting your next home. With our expert guidance
                   and comprehensive resources, we turn your real estate dreams

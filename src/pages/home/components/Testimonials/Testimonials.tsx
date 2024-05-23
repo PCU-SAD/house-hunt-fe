@@ -35,7 +35,7 @@ const Testimonials: FC<TestimonialsProps> = () => {
           <CarouselContent>
             {testimonials.map(({ name, id, role, image, comment }) => (
               <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={id}>
-                <Card className="h-[360px] md:h-[300px]">
+                <Card className="h-[360px] md:h-[360px] lg:h-[360px]">
                   <CardHeader>
                     <div className="flex gap-2">
                       <Avatar>
