@@ -66,41 +66,42 @@ const About: FC = () => {
               </div>
             </div>
           </div>
-          <section className="mt-8 w-full rounded-md bg-gray-100 py-12 md:py-24">
-            <div className="container grid gap-6 px-4 md:grid-cols-2 md:px-6 lg:grid-cols-3 lg:gap-8">
-              <Card>
-                <CardHeader>
+          <section className="mt-8 w-full h-[550px] md:py-24 relative grid place-items-center">
+            <div className="absolute inset-0 bg-cover bg-center opacity-80 right-[-300px] left-[-300px] bg-bottom[1000px_center] bg-[url('/bg_about_1.jpeg')]"></div>
+            <div className="container grid gap-6 px-4 md:grid-cols-2 md:px-6 lg:grid-cols-3 lg:gap-8 relative z-10">
+              <Card className="flex flex-col items-center justify-center text-center">
+                <CardHeader className="flex justify-center">
                   <BriefcaseIcon className="h-8 w-8 text-gray-500 dark:text-gray-400" />
                 </CardHeader>
-                <CardContent>
+                <CardContent className="mt-4">
                   <h3 className="text-xl font-bold">Expertise</h3>
-                  <p className="text-gray-500 dark:text-gray-400">
+                  <p className="mt-2 text-gray-500 dark:text-gray-400">
                     Our team of experienced real estate professionals has
                     in-depth knowledge of the local market, enabling us to
                     provide you with expert guidance and insights.
                   </p>
                 </CardContent>
               </Card>
-              <Card>
-                <CardHeader>
+              <Card className="flex flex-col items-center justify-center text-center">
+                <CardHeader className="flex justify-center">
                   <HeartIcon className="h-8 w-8 text-gray-500 dark:text-gray-400" />
                 </CardHeader>
-                <CardContent>
+                <CardContent className="mt-4">
                   <h3 className="text-xl font-bold">Values</h3>
-                  <p className="text-gray-500 dark:text-gray-400">
+                  <p className="mt-2 text-gray-500 dark:text-gray-400">
                     At House Hunter, we prioritize integrity, transparency, and
                     personalized service, ensuring that your real estate journey
                     is smooth and tailored to your unique needs.
                   </p>
                 </CardContent>
               </Card>
-              <Card>
-                <CardHeader>
+              <Card className="flex flex-col items-center justify-center text-center">
+                <CardHeader className="flex justify-center">
                   <HomeIcon className="h-8 w-8 text-gray-500 dark:text-gray-400" />
                 </CardHeader>
-                <CardContent>
+                <CardContent className="mt-4">
                   <h3 className="text-xl font-bold">Services</h3>
-                  <p className="text-gray-500 dark:text-gray-400">
+                  <p className="mt-2 text-gray-500 dark:text-gray-400">
                     From property search and evaluation to negotiation and
                     transaction support, our comprehensive services cover every
                     aspect of your real estate needs.
@@ -109,7 +110,10 @@ const About: FC = () => {
               </Card>
             </div>
           </section>
-          <section className="mt-8 w-full rounded-md bg-gray-100 px-4 py-12 md:py-24">
+
+          <section className="mt-8 w-full h-[550px] md:py-24 relative grid place-items-center">
+
+      
             <div className="flex flex-col items-center gap-6">
               <div className="text-center">
                 <Typography variant="h2">Meet Our Team</Typography>
@@ -155,13 +159,13 @@ const About: FC = () => {
                   <Input
                     placeholder="Name"
                     {...register('name')}
-                    // error={errors.name?.message}
+                  // error={errors.name?.message}
                   />
                   <Input
                     placeholder="Email"
                     type="email"
                     {...register('email')}
-                    // error={errors.email?.message}
+                  // error={errors.email?.message}
                   />
                   <select
                     {...register('subject')}
@@ -174,7 +178,7 @@ const About: FC = () => {
                   <Textarea
                     placeholder="Message"
                     {...register('message')}
-                    // error={errors.message?.message}
+                  // error={errors.message?.message}
                   />
                   <Button type="submit" variant="outline" loading={isPending}>
                     Submit

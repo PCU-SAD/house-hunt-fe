@@ -29,26 +29,81 @@ export const AboutCarousel: FC = () => {
         })
       ]}>
       <CarouselContent>
-        {images.map((image, index) => (
-          <CarouselItem key={index} className="relative">
-            <div className="relative">
-              <img
-                alt={`Real Estate ${index + 1}`}
-                className="h-[500px] w-full rounded-xl object-cover"
-                src={image}></img>
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-gray-900/50 to-transparent" />
-            </div>
+        <CarouselItem className="relative">
+          <div className="relative">
+            <img
+              alt="Real Estate 1"
+              className="h-[500px] w-full rounded-xl object-cover"
+              src={Image1}
+            ></img>
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-gray-900/50 to-transparent" />
+          </div>
+          <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12">
+            <h2 className="text-3xl font-bold text-white md:text-4xl">
+              Find Your Dream Home
+            </h2>
+            <p className="mt-2 max-w-md text-gray-200 md:text-lg">
+              Discover the perfect property for you and your family.
+            </p>
+          </div>
+        </CarouselItem>
 
-            <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12">
-              <h2 className="text-3xl font-bold text-white md:text-4xl">
-                Find Your Dream Home
-              </h2>
-              <p className="mt-2 max-w-md text-gray-200 md:text-lg">
-                Discover the perfect property for you and your family.
-              </p>
-            </div>
-          </CarouselItem>
-        ))}
+        <CarouselItem className="relative">
+          <div className="relative">
+            <img
+              alt="Real Estate 2"
+              className="h-[500px] w-full rounded-xl object-cover"
+              src={Image2}
+            ></img>
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-gray-900/50 to-transparent" />
+          </div>
+          <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12">
+            <h2 className="text-3xl font-bold text-white md:text-4xl">
+              Luxury Living
+            </h2>
+            <p className="mt-2 max-w-md text-gray-200 md:text-lg">
+              Experience the epitome of luxury in our high-end properties.
+            </p>
+          </div>
+        </CarouselItem>
+
+        <CarouselItem className="relative">
+          <div className="relative">
+            <img
+              alt="Real Estate 3"
+              className="h-[500px] w-full rounded-xl object-cover"
+              src={Image3}
+            ></img>
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-gray-900/50 to-transparent" />
+          </div>
+          <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12">
+            <h2 className="text-3xl font-bold text-white md:text-4xl">
+              Modern Amenities
+            </h2>
+            <p className="mt-2 max-w-md text-gray-200 md:text-lg">
+              Enjoy state-of-the-art amenities in our contemporary properties.
+            </p>
+          </div>
+        </CarouselItem>
+
+        <CarouselItem className="relative">
+          <div className="relative">
+            <img
+              alt="Real Estate 4"
+              className="h-[500px] w-full rounded-xl object-cover"
+              src={Image4}
+            ></img>
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-gray-900/50 to-transparent" />
+          </div>
+          <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12">
+            <h2 className="text-3xl font-bold text-white md:text-4xl">
+              Serene Locations
+            </h2>
+            <p className="mt-2 max-w-md text-gray-200 md:text-lg">
+              Discover tranquil properties in the most desirable locations.
+            </p>
+          </div>
+        </CarouselItem>
       </CarouselContent>
 
       <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 transition duration-300 hover:bg-white" />
