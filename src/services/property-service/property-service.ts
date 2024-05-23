@@ -120,7 +120,7 @@ export const propertyService = {
   },
   getAll: async (searchParams: PropertySearchParams) => {
     try {
-      const PAGE_SIZE = 5
+      const PAGE_SIZE = 10
 
       const sortKey = searchParams.sort.key
       const sortOrder = searchParams.sort.order

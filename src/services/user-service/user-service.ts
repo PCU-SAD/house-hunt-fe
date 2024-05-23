@@ -150,7 +150,7 @@ export const userService = {
     try {
       await api.post(
         '/user/reset-password',
-        { password: new_password },
+        { newPassword: new_password },
         {
           params: {
             token
