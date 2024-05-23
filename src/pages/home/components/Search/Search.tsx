@@ -36,6 +36,7 @@ const Search: FC<SearchProps> = ({ homesAround }) => {
             </SelectTrigger>
             <Link
               to="/properties"
+              resetScroll={true}
               search={{
                 district
               }}

@@ -1,4 +1,3 @@
-import { MoreHorizontal } from 'lucide-react'
 import * as React from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -9,6 +8,7 @@ import {
   DoubleArrowLeftIcon,
   DoubleArrowRightIcon
 } from '@radix-ui/react-icons'
+import { MoreHorizontal } from 'lucide-react'
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav
@@ -99,13 +99,11 @@ const PaginationNext = ({
 )
 PaginationNext.displayName = 'PaginationNext'
 
-const PaginationEllipsis = ({
-  ...props
-}: React.ComponentProps<typeof Button>) => (
-  <Button variant="ghost" {...props}>
+const PaginationEllipsis = () => (
+  <div className="flex h-8 w-8 items-center justify-center p-0">
     <MoreHorizontal className="h-4 w-4" />
     <span className="sr-only">More pages</span>
-  </Button>
+  </div>
 )
 PaginationEllipsis.displayName = 'PaginationEllipsis'
 

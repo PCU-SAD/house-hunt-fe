@@ -1,4 +1,3 @@
-import { AuthDrawTab } from '@/components/common/Layout/Header/AuthDrawer/AuthDrawer'
 import PasswordInput from '@/components/common/Layout/Header/AuthDrawer/components/PasswordInput'
 import PasswordInputStrength from '@/components/common/Layout/Header/AuthDrawer/components/PasswordInputStrength'
 import ConsentFields from '@/components/common/Layout/Header/AuthDrawer/signup/components/ConsentFields'
@@ -20,6 +19,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { generateRandomString } from '@/lib/generateRandomValue'
+import { AuthDrawerTab } from '@/providers/AuthDrawerProvider/AuthDrawerProvider'
 import { authService } from '@/services/auth-service/auth-service'
 import { useMutation } from '@tanstack/react-query'
 
@@ -27,7 +27,7 @@ import { ClipboardEvent, FC } from 'react'
 import { toast } from 'sonner'
 
 type SignupFormProps = {
-  handleTabChange: (tab: AuthDrawTab) => void
+  handleTabChange: (tab: AuthDrawerTab) => void
 }
 
 const SignupForm: FC<SignupFormProps> = ({ handleTabChange }) => {
@@ -36,7 +36,7 @@ const SignupForm: FC<SignupFormProps> = ({ handleTabChange }) => {
   const signupMutation = useMutation({
     mutationFn: authService.signup,
     onSuccess: () => {
-      toast.info('Verification code sent to your email!', {
+      toast.info('Verification link is sent to your email!', {
         duration: 4_000
       })
 

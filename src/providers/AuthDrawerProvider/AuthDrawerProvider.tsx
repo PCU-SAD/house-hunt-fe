@@ -13,8 +13,8 @@ type AuthDrawerProviderType = {
   setShowMenu: Dispatch<SetStateAction<boolean>>
   handleOpenDrawer: () => void
   handleCloseDrawer: () => void
-  activeTab: AuthDrawTab
-  handleTabChange: Dispatch<SetStateAction<AuthDrawTab>>
+  activeTab: AuthDrawerTab
+  handleTabChange: Dispatch<SetStateAction<AuthDrawerTab>>
 }
 
 type AuthDrawerProviderProps = {
@@ -25,14 +25,14 @@ const AuthDrawerContext = createContext<AuthDrawerProviderType>(
   {} as AuthDrawerProviderType
 )
 
-export type AuthDrawTab = 'login' | 'signup' | 'forgot-password'
+export type AuthDrawerTab = 'login' | 'signup' | 'forgot-password'
 
 const AuthDrawerProvider: FC<AuthDrawerProviderProps> = ({ children }) => {
   const [showMenu, setShowMenu] = useState(false)
 
-  const [activeTab, setActiveTab] = useState<AuthDrawTab>('login')
+  const [activeTab, setActiveTab] = useState<AuthDrawerTab>('login')
 
-  function handleTabChange(tab: AuthDrawTab) {
+  function handleTabChange(tab: AuthDrawerTab) {
     setActiveTab(tab)
   }
 

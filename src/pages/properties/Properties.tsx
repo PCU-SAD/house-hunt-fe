@@ -3,15 +3,6 @@ import ErrorResult from '@/components/common/Errors/ErrorResult'
 import NoContent from '@/components/common/Errors/NoContent'
 
 import {
-  Pagination,
-  PaginationContent,
-  PaginationGoFirst,
-  PaginationGoLast,
-  PaginationItem,
-  PaginationNext,
-  PaginationPrevious
-} from '@/components/ui/pagination'
-import {
   DrawerFilters,
   HeaderWelcome,
   PriceSort,
@@ -19,6 +10,7 @@ import {
   PropertiesList,
   PropertiesSkeletonList
 } from '@/pages/properties/components'
+import PropertiesPagination from '@/pages/properties/components/PropertiesPagination/PropertiesPagination'
 import { propertyService } from '@/services/property-service/property-service'
 import { useBreakpoint } from '@/utils/hooks/useBreakpoint'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
@@ -60,60 +52,6 @@ const PropertiesPage: FC = () => {
   }
 
   const isEmpty = data?.content?.length === 0
-  const isLast = data?.last
-  const isFirst = data?.first
-  const isMoreThanFivePages = data?.totalPages >= 5
-
-  function handleNextPage() {
-    navigate({
-      resetScroll: true,
-      search: (prev) => {
-        return {
-          ...prev,
-          page: prev.page + 1
-        }
-      }
-    })
-  }
-
-  function handlePreviousPage() {
-    navigate({
-      resetScroll: true,
-      search: (prev) => {
-        if (prev.page > 1) {
-          return {
-            ...prev,
-            page: prev.page - 1
-          }
-        } else {
-          return {
-            ...prev,
-            page: prev.page
-          }
-        }
-      }
-    })
-  }
-
-  function handleGoLast() {
-    navigate({
-      resetScroll: true,
-      search: (prev) => ({
-        ...prev,
-        page: data.totalPages
-      })
-    })
-  }
-
-  function handleGoFirst() {
-    navigate({
-      resetScroll: true,
-      search: (prev) => ({
-        ...prev,
-        page: 1
-      })
-    })
-  }
 
   useEffect(() => {
     if (isLg) {
@@ -167,44 +105,11 @@ const PropertiesPage: FC = () => {
               <NoContent className="md:mt-[100px]" />
             )}
 
-            <Pagination className="mt-6">
-              <PaginationContent>
-                {isMoreThanFivePages && (
-                  <PaginationItem>
-                    <PaginationGoFirst
-                      disabled={isFetching || isFirst || isError}
-                      onClick={handleGoFirst}
-                    />
-                  </PaginationItem>
-                )}
-                <PaginationItem>
-                  <PaginationPrevious
-                    disabled={isFirst || isFetching || isError}
-                    onClick={handlePreviousPage}
-                  />
-                </PaginationItem>
-
-                <PaginationItem className="px-2">
-                  {queryParams.page}
-                </PaginationItem>
-
-                <PaginationItem>
-                  <PaginationNext
-                    disabled={isLast || isFetching || isError}
-                    onClick={handleNextPage}
-                  />
-                </PaginationItem>
-
-                {isMoreThanFivePages && (
-                  <PaginationItem>
-                    <PaginationGoLast
-                      disabled={isFetching || isLast || isError}
-                      onClick={handleGoLast}
-                    />
-                  </PaginationItem>
-                )}
-              </PaginationContent>
-            </Pagination>
+            <PropertiesPagination
+              data={data}
+              isFetching={isFetching}
+              isError={isError}
+            />
           </div>
         </section>
       </Container>

@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router"
 import Logo from '/logo.png'
+
 export default function Component() {
   return (
-    <footer className="bg-gray-900 text-white py-12 md:py-16">
+    <footer className="bg-gray-900 text-white py-12 mt-12">
       <div className="container mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="flex items-center justify-center md:justify-start">
           <Link className="flex items-center space-x-2" href="#">
