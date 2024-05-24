@@ -1,14 +1,13 @@
 import { Container, Layout } from '@/components/common'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Typography } from '@/components/ui/typography'
 import AboutCarousel from '@/pages/about/components/AboutCarousel/carousel'
+import OurTeam from '@/pages/about/components/OurTeam/OurTeam'
+import OurValues from '@/pages/about/components/OurValues/OurValues'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
-import { BriefcaseIcon, HeartIcon, HomeIcon } from 'lucide-react'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -47,102 +46,10 @@ const About: FC = () => {
   return (
     <>
       <Layout>
-        <Container>
-          {' '}
-          <div className="mt-4">
-            <div className="flex flex-col gap-8 md:flex-row">
-              <AboutCarousel />
-
-              <div className="flex flex-col items-start justify-center space-y-6">
-                <h1 className="text-3xl font-black md:text-5xl">
-                  Your Trusted Real Estate Partner
-                </h1>
-
-                <p className="">
-                  House Hunter has been helping families find their dream homes.
-                  Our experienced team is dedicated to providing exceptional
-                  service and finding the perfect property for your needs.
-                </p>
-              </div>
-            </div>
-          </div>
-          <section className="mt-8 w-full h-[550px] md:py-24 relative grid place-items-center">
-            <div className="absolute inset-0 bg-cover bg-center opacity-80 right-[-300px] left-[-300px] bg-bottom[1000px_center] bg-[url('/bg_about_1.jpeg')]"></div>
-            <div className="container grid gap-6 px-4 md:grid-cols-2 md:px-6 lg:grid-cols-3 lg:gap-8 relative z-10">
-              <Card className="flex flex-col items-center justify-center text-center">
-                <CardHeader className="flex justify-center">
-                  <BriefcaseIcon className="h-8 w-8 text-gray-500 dark:text-gray-400" />
-                </CardHeader>
-                <CardContent className="mt-4">
-                  <h3 className="text-xl font-bold">Expertise</h3>
-                  <p className="mt-2 text-gray-500 dark:text-gray-400">
-                    Our team of experienced real estate professionals has
-                    in-depth knowledge of the local market, enabling us to
-                    provide you with expert guidance and insights.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="flex flex-col items-center justify-center text-center">
-                <CardHeader className="flex justify-center">
-                  <HeartIcon className="h-8 w-8 text-gray-500 dark:text-gray-400" />
-                </CardHeader>
-                <CardContent className="mt-4">
-                  <h3 className="text-xl font-bold">Values</h3>
-                  <p className="mt-2 text-gray-500 dark:text-gray-400">
-                    At House Hunter, we prioritize integrity, transparency, and
-                    personalized service, ensuring that your real estate journey
-                    is smooth and tailored to your unique needs.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="flex flex-col items-center justify-center text-center">
-                <CardHeader className="flex justify-center">
-                  <HomeIcon className="h-8 w-8 text-gray-500 dark:text-gray-400" />
-                </CardHeader>
-                <CardContent className="mt-4">
-                  <h3 className="text-xl font-bold">Services</h3>
-                  <p className="mt-2 text-gray-500 dark:text-gray-400">
-                    From property search and evaluation to negotiation and
-                    transaction support, our comprehensive services cover every
-                    aspect of your real estate needs.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          <section className="mt-8 w-full h-[550px] md:py-24 relative grid place-items-center">
-
-      
-            <div className="flex flex-col items-center gap-6">
-              <div className="text-center">
-                <Typography variant="h2">Meet Our Team</Typography>
-                <p className="text-center text-muted-foreground">
-                  Our dedicated team of real estate experts is here to guide you
-                  every step of the way.
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center justify-center gap-8 md:flex-row">
-                <div className="space-y-2 text-center">
-                  <h4 className="text-md font-bold">John Doe</h4>
-                  <p className="text-gray-500 dark:text-gray-400">Broker</p>
-                </div>
-                <div className="space-y-2 text-center">
-                  <h4 className="text-md font-bold">Jane Smith</h4>
-                  <p className="text-gray-500 dark:text-gray-400">Agent</p>
-                </div>
-                <div className="space-y-2 text-center">
-                  <h4 className="text-md font-bold">Michael Johnson</h4>
-                  <p className="text-gray-500 dark:text-gray-400">Agent</p>
-                </div>
-                <div className="space-y-2 text-center">
-                  <h4 className="text-md font-bold">Emily Davis</h4>
-                  <p className="text-gray-500 dark:text-gray-400">Marketing</p>
-                </div>
-              </div>
-            </div>
-          </section>
+        <Container className="mt-4">
+          <AboutCarousel />
+          <OurValues />
+          <OurTeam />
           <section className="mt-8 w-full rounded-md bg-gray-100 py-12 md:py-24">
             <div className="container grid gap-6 px-4 md:px-6">
               <div className="space-y-2 text-center">
@@ -159,13 +66,13 @@ const About: FC = () => {
                   <Input
                     placeholder="Name"
                     {...register('name')}
-                  // error={errors.name?.message}
+                    // error={errors.name?.message}
                   />
                   <Input
                     placeholder="Email"
                     type="email"
                     {...register('email')}
-                  // error={errors.email?.message}
+                    // error={errors.email?.message}
                   />
                   <select
                     {...register('subject')}
@@ -178,7 +85,7 @@ const About: FC = () => {
                   <Textarea
                     placeholder="Message"
                     {...register('message')}
-                  // error={errors.message?.message}
+                    // error={errors.message?.message}
                   />
                   <Button type="submit" variant="outline" loading={isPending}>
                     Submit
