@@ -13,9 +13,11 @@ const AccountSettings: FC<AccountSettingsProps> = () => {
       <div className="space-y-8">
         <div>
           <Typography variant="h3">Identity Verification</Typography>
-          <Separator />
           <VerificationForm />
         </div>
+
+        <Separator />
+
         <div>
           <Typography variant="h3">Password & Security</Typography>
 

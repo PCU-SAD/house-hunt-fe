@@ -7,13 +7,16 @@ import {
 import { czkCurrencyFormatter } from '@/utils/czkCurrencyFormatter'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { ArrowBigUp } from 'lucide-react'
-import { FC } from 'react'
+import { FC, useEffect, useRef } from 'react'
 
 const STEP = 1000
 
 type RangeType = [number, number]
 
 const PriceSlider: FC = () => {
+  const priceOneRef = useRef<HTMLParagraphElement>(null)
+  const priceTwoRef = useRef<HTMLParagraphElement>(null)
+
   const { minPrice, maxPrice, adType } = useSearch({
     from: '/properties'
   })
@@ -25,7 +28,7 @@ const PriceSlider: FC = () => {
     from: '/properties'
   })
 
-  function handleChange(range: RangeType) {
+  function handleCommitChange(range: RangeType) {
     navigate({
       resetScroll: false,
       search: (prev) => ({
@@ -36,13 +39,26 @@ const PriceSlider: FC = () => {
     })
   }
 
+  useEffect(() => {
+    if (priceOneRef.current && priceTwoRef.current) {
+      priceOneRef.current.textContent = czkCurrencyFormatter.format(minPrice)
+      priceTwoRef.current.textContent = czkCurrencyFormatter.format(maxPrice)
+    }
+  }, [maxPrice, minPrice])
+
+  function onChange(range: RangeType) {
+    if (priceOneRef.current && priceTwoRef.current) {
+      priceOneRef.current.textContent = czkCurrencyFormatter.format(range[0])
+      priceTwoRef.current.textContent = czkCurrencyFormatter.format(range[1])
+    }
+  }
+
   return (
     <div className="mb-1 mt-2" data-vaul-no-drag>
       <Label>Price range</Label>
 
       <div className="mt-2 flex items-center gap-4 text-sm">
-        <p>{czkCurrencyFormatter.format(minPrice)}</p>—
-        <p>{czkCurrencyFormatter.format(maxPrice)}</p>
+        <p ref={priceOneRef}></p>—<p ref={priceTwoRef}></p>
       </div>
 
       <div className="mt-2">
@@ -51,8 +67,9 @@ const PriceSlider: FC = () => {
           step={isSale ? 10_000 : STEP}
           min={MIN_PRICE}
           max={maxPriceValue}
-          value={[minPrice, maxPrice]}
-          onValueChange={handleChange}
+          defaultValue={[minPrice, maxPrice]}
+          onValueChange={onChange}
+          onValueCommit={handleCommitChange}
         />
 
         {isSale && (

@@ -13,15 +13,17 @@ type ImagesCarouselProps = {
 
 const ImagesCarousel: FC<ImagesCarouselProps> = ({ images }) => {
   const isImagesEmpty = images.length === 0
+  const isAtLeastTwo = images.length >= 2
+  const isOneImage = images.length === 1
 
   return (
     <Carousel
-      className="flex max-w-[900px] justify-center rounded-md"
+      className="flex max-w-[900px] flex-1 justify-center rounded-md"
       opts={{
         align: 'start',
         loop: true
       }}>
-      {!isImagesEmpty && (
+      {!isImagesEmpty && isAtLeastTwo && (
         <>
           <CarouselContent>
             {images.map((image) => {
@@ -39,6 +41,14 @@ const ImagesCarousel: FC<ImagesCarouselProps> = ({ images }) => {
           <CarouselPrevious className="-bottom-10 right-14" />
           <CarouselNext className="-bottom-10 right-5" />
         </>
+      )}
+
+      {isOneImage && (
+        <img
+          alt="Property"
+          className="h-[400px] w-full flex-1 rounded-md object-cover object-center"
+          src={'data:image/*;base64,' + images[0]}
+        />
       )}
     </Carousel>
   )

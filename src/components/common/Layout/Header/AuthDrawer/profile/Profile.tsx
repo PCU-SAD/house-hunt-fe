@@ -17,7 +17,6 @@ const Profile: FC<ProfileProps> = () => {
   const auth = useAuthContext()
 
   const isOwner = auth?.user.type === 'LANDLORD'
-  const isUser = auth?.user.type === 'TENANT'
 
   return (
     <div className="mt-4 flex w-full flex-1 flex-col justify-between gap-4">
@@ -69,24 +68,6 @@ const Profile: FC<ProfileProps> = () => {
             <div className="py-2"></div>
           </>
         )}
-
-        {isUser && (
-          <div>
-            <Typography variant="h3" className="font-normal">
-              For seekers
-            </Typography>
-
-            <ul className="ml-6 mt-2 flex list-disc flex-col gap-1">
-              <li>
-                <Link to="/" onClick={handleCloseDrawer}>
-                  Ads
-                </Link>
-              </li>
-            </ul>
-          </div>
-        )}
-
-        <Separator className="my-4" />
 
         <div>
           <Typography variant="h3" className="font-normal">

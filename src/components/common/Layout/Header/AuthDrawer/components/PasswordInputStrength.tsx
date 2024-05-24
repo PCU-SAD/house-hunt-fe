@@ -20,10 +20,12 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
   PasswordInputProps
 >(({ ...props }, ref) => {
   const form = useFormContext()
-  const password = form.watch(props.name)
+
+  const password = form.watch(props.name) || ''
+  const isPasswordDirty = form.getFieldState(props.name).isDirty
 
   function evaluatePasswordStrength(password: string) {
-    let strength = 10
+    let strength = 5
 
     if (password?.length >= minChars) strength += 22
     if (lowercasePattern.test(password)) strength += 11
@@ -31,7 +33,7 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
     if (numberPattern.test(password)) strength += 22
     if (specialCharPattern.test(password)) strength += 22
 
-    if (strength >= 90) strength = 100
+    if (strength >= 88) strength = 100
 
     if (form.formState.errors[props.name]?.message === noWhiteSpaceMessage) {
       return 10
@@ -53,23 +55,26 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
   return (
     <div>
       <PasswordInput ref={ref} {...props} />
+      {isPasswordDirty && (
+        <>
+          <Progress
+            className={cn('mt-4 h-3 rounded-md')}
+            isColorful
+            value={strength}
+          />
 
-      <Progress
-        className={cn('mt-4 h-3 rounded-md')}
-        isColorful
-        value={strength}
-      />
-
-      <p
-        className={cn('mt-1 text-xs', {
-          'text-red-500': weakPassword,
-          'text-yellow-500': moderatePassword,
-          'text-green-500': strongPassword
-        })}>
-        {weakPassword && 'Weak password'}
-        {moderatePassword && 'Moderate password'}
-        {strongPassword && 'Strong password'}
-      </p>
+          <p
+            className={cn('mt-1 text-xs', {
+              'text-red-500': weakPassword,
+              'text-yellow-500': moderatePassword,
+              'text-green-500': strongPassword
+            })}>
+            {weakPassword && 'Weak password'}
+            {moderatePassword && 'Moderate password'}
+            {strongPassword && 'Strong password'}
+          </p>
+        </>
+      )}
     </div>
   )
 })

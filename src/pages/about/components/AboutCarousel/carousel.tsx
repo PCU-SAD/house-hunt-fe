@@ -13,12 +13,10 @@ import Image2 from '/placeholder2.jpeg'
 import Image3 from '/placeholder3.jpeg'
 import Image4 from '/placeholder4.jpeg'
 
-const images = [Image1, Image2, Image3, Image4]
-
 export const AboutCarousel: FC = () => {
   return (
     <Carousel
-      className="max-w-[500px]"
+      className="max-w-[500px] min-w-[300px]"
       opts={{
         loop: true
       }}

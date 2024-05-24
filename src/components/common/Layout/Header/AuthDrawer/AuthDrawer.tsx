@@ -65,8 +65,8 @@ const AuthDrawer: FC = () => {
   return (
     <Sheet open={showMenu} onOpenChange={setShowMenu}>
       <SheetTrigger onClick={handleOpenDrawer} asChild>
-        <Button variant="ghost" size="icon" className="border">
-        <UserIcon className="h-4 w-4" />
+        <Button variant="ghost" size="icon" className="rounded-full border">
+          <UserIcon className="h-4 w-4" />
         </Button>
       </SheetTrigger>
 

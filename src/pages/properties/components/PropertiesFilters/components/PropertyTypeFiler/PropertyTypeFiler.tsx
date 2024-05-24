@@ -13,6 +13,7 @@ import {
   FormLabel,
   FormMessage
 } from '@/components/ui/form'
+import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
 import { apartmentTypeSchema } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
 import { apartmentTypeOptions } from '@/pages/owner/components/inputs/ApartmentTypeSelect/ApartmentTypeData'
@@ -91,46 +92,66 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
                   <DropdownMenuContent
                     align="start"
                     className="flex max-h-[420px] flex-col gap-4 overflow-auto p-4 md:gap-3">
-                    {apartmentTypeOptions.map((option) => (
-                      <FormField
-                        key={option.value}
-                        control={form.control}
-                        name="items"
-                        render={({ field }) => {
-                          return (
-                            <FormItem
-                              key={option.value}
-                              className="flex flex-row items-start space-x-2 space-y-0">
-                              <FormControl>
-                                <Checkbox
-                                  checked={field.value?.includes(option.value)}
-                                  onCheckedChange={(checked) => {
-                                    if (!checked && values.items.length === 1)
-                                      return
+                    <>
+                      <div className="">
+                        <Button
+                        size='noSize'
+                        variant='outline'
+                        className='w-full py-1'
+                          onClick={() => {
+                            form.setValue(
+                              'items',
+                              apartmentTypeOptions.map((option) => option.value)
+                            )
+                          }}>
+                          Select All
+                        </Button>
+                        <Separator className="w-full mt-2" />
+                      </div>
 
-                                    return checked
-                                      ? field.onChange([
-                                          ...field.value,
-                                          option.value
-                                        ])
-                                      : field.onChange(
-                                          field.value?.filter(
-                                            (value) => value !== option.value
+                      {apartmentTypeOptions.map((option) => (
+                        <FormField
+                          key={option.value}
+                          control={form.control}
+                          name="items"
+                          render={({ field }) => {
+                            return (
+                              <FormItem
+                                key={option.value}
+                                className="flex flex-row items-start space-x-2 space-y-0">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value?.includes(
+                                      option.value
+                                    )}
+                                    onCheckedChange={(checked) => {
+                                      if (!checked && values.items.length === 1)
+                                        return
+
+                                      return checked
+                                        ? field.onChange([
+                                            ...field.value,
+                                            option.value
+                                          ])
+                                        : field.onChange(
+                                            field.value?.filter(
+                                              (value) => value !== option.value
+                                            )
                                           )
-                                        )
-                                  }}
-                                />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                {option.label}
-                              </FormLabel>
+                                    }}
+                                  />
+                                </FormControl>
+                                <FormLabel className="font-normal">
+                                  {option.label}
+                                </FormLabel>
 
-                              <FormMessage />
-                            </FormItem>
-                          )
-                        }}
-                      />
-                    ))}
+                                <FormMessage />
+                              </FormItem>
+                            )
+                          }}
+                        />
+                      ))}
+                    </>
                   </DropdownMenuContent>
                 </DropdownMenu>
                 <FormMessage />

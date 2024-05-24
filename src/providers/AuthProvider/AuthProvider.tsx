@@ -24,7 +24,10 @@ type AuthProviderProps = {
 }
 
 export type UserRole = 'TENANT' | 'LANDLORD' | 'ADMIN'
-export type UserVerificationType = 'VERIFIED' | 'PENDING_VERIFICATION' | 'NOT_VERIFIED'
+export type UserVerificationType =
+  | 'VERIFIED'
+  | 'PENDING_VERIFICATION'
+  | 'NOT_VERIFIED'
 
 export type UserDTO = {
   email: string

@@ -7,9 +7,9 @@ const userTypeSchema = z.enum(['TENANT', 'LANDLORD'])
 export type UserRoleSignup = z.infer<typeof userTypeSchema>
 
 export const specialCharPattern = /[@#$%^&+=*!()\-[\]{};:'",.<>/?\\|_~`]/
-export const numberPattern = /\d/
-export const uppercasePattern = /[A-Z]/
-export const lowercasePattern = /[a-z]/
+export const numberPattern = /^(?=.*\d)/
+export const uppercasePattern = /^(?=.*[A-Z])/
+export const lowercasePattern = /^(?=.*[a-z])/
 export const minChars = 8
 export const maxChars = 50
 export const whiteSpacePattern = /\s/

@@ -105,11 +105,13 @@ const PropertiesPage: FC = () => {
               <NoContent className="md:mt-[100px]" />
             )}
 
-            <PropertiesPagination
-              data={data}
-              isFetching={isFetching}
-              isError={isError}
-            />
+            {!isError && !isEmpty && !isLoading && (
+              <PropertiesPagination
+                data={data}
+                isFetching={isFetching}
+                isError={isError}
+              />
+            )}
           </div>
         </section>
       </Container>

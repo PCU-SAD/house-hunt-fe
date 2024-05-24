@@ -47,7 +47,7 @@ const DeleteAccount: FC<DeleteAccountProps> = () => {
       <AlertDialogTrigger asChild>
         <Button size="sm" variant="destructive">
           <Trash className="h-4 w-4" />
-          Delete user
+          Delete account
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
