@@ -3,6 +3,7 @@ import { FC, ReactNode } from 'react'
 import Footer from '@/components/common/Layout/Footer/Footer'
 
 import AuthDrawer from '@/components/common/Layout/Header/AuthDrawer/AuthDrawer'
+import { Link } from '@tanstack/react-router'
 import Container from './Container'
 import Header from './Header/Header'
 import MobileMenu from './Header/MobileMenu/MobileMenu'
@@ -19,7 +20,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         <Container className="flex h-[70px] items-center justify-between">
           <MobileMenu />
 
-          <img src={Logo} className="h-10" />
+          <Link to="/">
+            <img src={Logo} className="h-10" />
+          </Link>
 
           <Header />
 
