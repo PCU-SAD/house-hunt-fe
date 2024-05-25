@@ -3,22 +3,11 @@ import '@/index.css'
 import LoadingPage from '@/pages/loading/Loading'
 import { AuthContextType } from '@/providers/AuthProvider/AuthProvider'
 import { QueryClient } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import {
   Outlet,
   ScrollRestoration,
   createRootRouteWithContext
 } from '@tanstack/react-router'
-import React, { Suspense } from 'react'
-
-const TanStackRouterDevtools =
-  import.meta.env.VITE_NODE_ENV === 'development'
-    ? React.lazy(() =>
-        import('@tanstack/router-devtools').then((res) => ({
-          default: res.TanStackRouterDevtools
-        }))
-      )
-    : () => null
 
 type RouteContext = {
   auth: AuthContextType
@@ -35,12 +24,7 @@ function Index() {
     <>
       <ScrollRestoration />
       <Outlet />
-      <ReactQueryDevtools buttonPosition="bottom-left" />
-
       <Toaster />
-      <Suspense>
-        <TanStackRouterDevtools position="bottom-right" />
-      </Suspense>
     </>
   )
 }

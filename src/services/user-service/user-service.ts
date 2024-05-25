@@ -1,3 +1,4 @@
+import { GetInTouchFormType } from '@/components/common/GetInTouch/useGetInTouchForm'
 import { VerificationFormType } from '@/pages/settings/account/components/VerificationForm/useVerificationForm'
 import { api, authApi } from '@/providers/AuthProvider/AuthProvider'
 import { GetAllUsersResponse, UserType } from '@/services/user-service/types'
@@ -157,6 +158,23 @@ export const userService = {
           }
         }
       )
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
+  },
+  getInTouch: async (
+    values: GetInTouchFormType & {
+      propertyId?: string
+    }
+  ) => {
+    try {
+      const { data } = await api.post(`user/request`, values)
+
+      return data
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data.message)

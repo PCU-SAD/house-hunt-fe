@@ -41,7 +41,7 @@ const Search: FC<SearchProps> = ({ homesAround }) => {
                 district
               }}
               className={cn(buttonVariants(), 'rounded-r-full text-white')}>
-              Search
+              <span className="hidden sm:block">Search</span>
               <SearchIcon className="h-5 w-5" />
             </Link>
           </div>

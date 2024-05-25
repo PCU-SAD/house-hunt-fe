@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { Typography } from '@/components/ui/typography'
 import VerificationSkeletonList from '@/pages/settings/account/components/VerificationForm/components/VerificationSkeletonList'
+import DeleteDocument from '@/pages/settings/account/components/VerificationForm/inputs/DeleteDocument/DeleteDocument'
 import DocumentFile from '@/pages/settings/account/components/VerificationForm/inputs/DocumentFile/DocumentFile'
 import DocumentSelect from '@/pages/settings/account/components/VerificationForm/inputs/DocumentSelect/DocumentSelect'
 import {
@@ -10,9 +11,9 @@ import {
   useVerificationForm,
   VerificationFormType
 } from '@/pages/settings/account/components/VerificationForm/useVerificationForm'
-import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { userService } from '@/services/user-service/user-service'
 import { useMutation, useQuery } from '@tanstack/react-query'
+import { getRouteApi } from '@tanstack/react-router'
 import { Paperclip } from 'lucide-react'
 
 import { FC } from 'react'
@@ -20,9 +21,11 @@ import { toast } from 'sonner'
 
 type VerificationFormProps = {}
 
+const routeApi = getRouteApi('/_auth-user/_settings/settings/account')
+
 const VerificationForm: FC<VerificationFormProps> = () => {
-  const auth = useAuthContext()
-  const userEmail = auth.user.email
+  const auth = routeApi.useRouteContext().auth
+  const userEmail = auth?.user?.email
 
   const {
     data: documents,
@@ -35,6 +38,7 @@ const VerificationForm: FC<VerificationFormProps> = () => {
   })
 
   const form = useVerificationForm()
+
   const verifyMutation = useMutation({
     mutationKey: ['verify_account'],
     mutationFn: userService.verifyAccount,
@@ -86,6 +90,8 @@ const VerificationForm: FC<VerificationFormProps> = () => {
                     <Paperclip className="h-4 w-4" />
                     {document.split('_', 2)[1]}
                   </Button>
+
+                  <DeleteDocument document={document} refresh={refetch} />
                 </li>
               ))}
             </ul>

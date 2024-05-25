@@ -1,16 +1,17 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth-user')({
-  beforeLoad: async ({ context }) => {
-    if (!context.auth) return
+  beforeLoad: ({ context }) => {
+    const auth = context.auth
 
-    if (!context.auth?.user?.email) {
+    if (!auth) return context
+
+    if (!auth?.user || auth?.user.type !== 'TENANT') {
       throw redirect({
-        to: '/',
-        search: {
-          redirect: location.href
-        }
+        to: '/'
       })
     }
+
+    return context
   }
 })

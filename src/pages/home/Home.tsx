@@ -28,7 +28,7 @@ const Home: FC<HomeProps> = () => {
   return (
     <>
       <Layout>
-        <div className="mt-14 flex flex-col">
+        <div className="mt-6 flex flex-col sm:mt-14">
           <section className="relative min-h-[600px] w-full py-12 shadow-xl">
             <div className="absolute inset-0 -left-[200px] -right-[200px] -top-[200px] -z-10 rounded-md bg-[url('/images/hero.jpg')] bg-cover bg-[bottom_center] bg-no-repeat opacity-30"></div>
 
@@ -37,7 +37,7 @@ const Home: FC<HomeProps> = () => {
                 <h1 className="text-2xl font-extrabold text-primary md:text-3xl lg:text-5xl">
                   Your trusted real estate partner
                 </h1>
-                <p className="mt-4 font-semibold text-slate-800">
+                <p className="mt-4 text-sm font-semibold text-slate-800 sm:text-base">
                   Discover a seamless and rewarding experience in buying,
                   selling, or renting your next home. With our expert guidance
                   and comprehensive resources, we turn your real estate dreams

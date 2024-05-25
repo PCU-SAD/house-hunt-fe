@@ -28,7 +28,7 @@ const DocumentFile: FC<DocumentFileProps> = () => {
               <Input
                 type="file"
                 placeholder="Choose a document"
-                accept=".pdf, .jpg, .png, .pdf"
+                accept=".pdf, .jpg, .png"
                 {...rest}
                 onChange={(event) =>
                   onChange(event.target?.files?.[0] ?? undefined)

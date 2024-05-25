@@ -1,4 +1,7 @@
-import { useGetInTouchForm } from '@/components/common/GetInTouch/useGetInTouchForm'
+import {
+  GetInTouchFormType,
+  useGetInTouchForm
+} from '@/components/common/GetInTouch/useGetInTouchForm'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -17,20 +20,39 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
+import { userService } from '@/services/user-service/user-service'
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
 import { FC } from 'react'
 import { toast } from 'sonner'
 
-type GetInTouchFormProps = {}
+type GetInTouchFormProps = {
+  propertyId?: string
+}
 
-const GetInTouchForm: FC<GetInTouchFormProps> = () => {
-  const form = useGetInTouchForm()
+const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
+  const auth = useAuthContext()
+  const email = auth.user?.email
+
+  const defaultValues: GetInTouchFormType = propertyId
+    ? {
+        name: '',
+        email: email,
+        subject: 'COMPLAINT',
+        message: `I am filing a complaint against the property with ID of ${propertyId}. They provided misleading information...`
+      }
+    : {
+        name: '',
+        email: '',
+        subject: undefined,
+        message: ''
+      }
+
+  const form = useGetInTouchForm(defaultValues)
 
   const getInTouchMutation = useMutation({
     mutationKey: ['get-in-touch'],
-    mutationFn: (data: any) =>
-      axios.post('http://localhost:8080/api/v1/user/request', data),
+    mutationFn: userService.getInTouch,
     onSuccess: () => {
       toast.success('Your request has been successfully submitted.')
     },
@@ -39,8 +61,11 @@ const GetInTouchForm: FC<GetInTouchFormProps> = () => {
     }
   })
 
-  const onSubmit = (data: RequestFormType) => {
-    getInTouchMutation.mutate(data)
+  const onSubmit = (data: GetInTouchFormType) => {
+    getInTouchMutation.mutate({
+      ...data,
+      propertyId
+    })
   }
 
   return (
@@ -54,7 +79,7 @@ const GetInTouchForm: FC<GetInTouchFormProps> = () => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Name" {...field} />
+                  <Input placeholder="Enter your name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -119,8 +144,8 @@ const GetInTouchForm: FC<GetInTouchFormProps> = () => {
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Enter a description of the property"
-                  className="resize-none"
+                  placeholder="Describe your inquiry..."
+                  className="max-h-[500px] min-h-[200px]"
                   {...field}
                 />
               </FormControl>

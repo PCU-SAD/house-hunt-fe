@@ -1,21 +1,20 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth-owner')({
-  beforeLoad: async ({ location, context }) => {
-    if (!context.auth) return
+  beforeLoad: ({ context }) => {
+    const auth = context.auth
+
+    if (!auth) return context
 
     if (
-      !context.auth.user ||
-      (context.auth.user.type !== 'ADMIN' &&
-        context.auth.user.type !== 'LANDLORD')
+      !auth?.user ||
+      (auth.user.type !== 'LANDLORD' && auth.user.type !== 'ADMIN')
     ) {
       throw redirect({
-        to: '/',
-        search: {
-          redirect: location.href
-        }
+        to: '/'
       })
     }
+
     return context
   }
 })

@@ -1,5 +1,6 @@
 import { Typography } from '@/components/ui/typography'
 import ContactOwner from '@/pages/property/Property/components/ContactOwner/ContactOwner'
+import FileComplaint from '@/pages/property/Property/components/FileComplaint/FileComplaint'
 import ImagesCarousel from '@/pages/property/Property/components/ImagesCarousel/ImagesCarousel'
 import PropertyDetails from '@/pages/property/Property/components/PropertyDetails/PropertyDetails'
 import { PropertyType } from '@/services/property-service/types'
@@ -36,6 +37,10 @@ const Property: FC<PropertyProps> = ({ property, images }) => {
         <PropertyDetails property={property} />
 
         <ContactOwner owner={property.owner} />
+      </div>
+
+      <div className="mt-6 flex justify-end">
+        <FileComplaint propertyId={property.id} />
       </div>
     </>
   )

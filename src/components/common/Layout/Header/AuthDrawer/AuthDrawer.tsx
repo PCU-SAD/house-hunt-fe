@@ -14,9 +14,9 @@ import { FC } from 'react'
 const AuthDrawer: FC = () => {
   const {
     activeTab,
-    setShowMenu,
     handleCloseDrawer,
     showMenu,
+    setShowMenu,
     handleOpenDrawer,
     handleTabChange
   } = useAuthDrawerContext()
@@ -63,9 +63,15 @@ const AuthDrawer: FC = () => {
   )
 
   return (
-    <Sheet open={showMenu} onOpenChange={setShowMenu}>
+    <Sheet open={showMenu} onOpenChange={open => {
+      if (!isLoggedIn) {
+        return
+      }
+
+      setShowMenu(open)
+    }}>
       <SheetTrigger onClick={handleOpenDrawer} asChild>
-        <Button variant="ghost" size="icon" className="rounded-full border">
+        <Button variant="ghost" size="icon" className="rounded-md border">
           <UserIcon className="h-4 w-4" />
         </Button>
       </SheetTrigger>

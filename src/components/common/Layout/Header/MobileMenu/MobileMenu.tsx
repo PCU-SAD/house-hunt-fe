@@ -56,7 +56,7 @@ const MobileMenu: FC<MobileMenuProps> = () => {
         className="flex w-full flex-col items-center justify-center md:hidden">
         <div className="-ml-6 flex flex-col gap-4">
           {filteredLinks.map((link) => (
-            <NavigationMenuItem key={link.to}>
+            <NavigationMenuItem key={link.to} className="list-none">
               <Link
                 to={link.to}
                 className="text-md"

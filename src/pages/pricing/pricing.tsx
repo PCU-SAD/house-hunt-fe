@@ -13,7 +13,7 @@ export default function Pricing() {
             <div className="container px-4 md:px-6">
               <div className="space-y-4 text-center">
                 <Typography variant="h1">Pricing</Typography>
-                <p className="mx-auto max-w-[700px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed">
+                <p className="mx-auto text-muted-foreground">
                   Choose the plan that fits your needs. Monthly or lifetime,
                   we've got you covered.
                 </p>

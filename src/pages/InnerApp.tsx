@@ -2,27 +2,36 @@ import { router } from '@/app'
 import LoadingPage from '@/pages/loading/Loading'
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { RouterProvider } from '@tanstack/react-router'
-import { FC, useEffect, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
-const InnerApp: FC = () => {
+const InnerApp = () => {
   const auth = useAuthContext()
 
-  const routerContext = useMemo(
-    () => ({
-      auth
-    }),
-    [auth]
-  )
+  console.log('🚀 ~ auth:', auth)
+
+  const routerContext = useMemo(() => {
+    return auth
+  }, [auth])
 
   useEffect(() => {
     router.invalidate()
-  }, [routerContext])
+  }, [auth])
 
-  if (auth.isLoading) {
+  if (auth?.isLoading) {
+    console.log('loading')
     return <LoadingPage />
   }
 
-  return <RouterProvider router={router} context={routerContext} />
+  console.log('user type', auth.user?.type)
+
+  return (
+    <RouterProvider
+      router={router}
+      context={{
+        auth: routerContext
+      }}
+    />
+  )
 }
 
 export default InnerApp

@@ -8,7 +8,13 @@ import {
   specialCharPattern,
   uppercasePattern
 } from '@/components/common/Layout/Header/AuthDrawer/signup/SignupForm/useSignupForm'
-import { FC, InputHTMLAttributes, forwardRef, useMemo } from 'react'
+import {
+  FC,
+  InputHTMLAttributes,
+  forwardRef,
+  useCallback,
+  useMemo
+} from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Progress } from '../../../../../ui/progress'
 import PasswordInput from './PasswordInput'
@@ -24,28 +30,32 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
   const password = form.watch(props.name) || ''
   const isPasswordDirty = form.getFieldState(props.name).isDirty
 
-  function evaluatePasswordStrength(password: string) {
-    let strength = 5
+  const evaluatePasswordStrength = useCallback(
+    (password: string) => {
+      let strength = 5
 
-    if (password?.length >= minChars) strength += 22
-    if (lowercasePattern.test(password)) strength += 11
-    if (uppercasePattern.test(password)) strength += 11
-    if (numberPattern.test(password)) strength += 22
-    if (specialCharPattern.test(password)) strength += 22
+      if (password.length === 1) return 10
 
-    if (strength >= 88) strength = 100
+      if (password?.length >= minChars) strength += 22
+      if (lowercasePattern.test(password)) strength += 11
+      if (uppercasePattern.test(password)) strength += 11
+      if (numberPattern.test(password)) strength += 22
+      if (specialCharPattern.test(password)) strength += 22
 
-    if (form.formState.errors[props.name]?.message === noWhiteSpaceMessage) {
-      return 10
-    }
+      if (strength >= 88) strength = 100
 
-    return strength
-  }
+      if (form.formState.errors[props.name]?.message === noWhiteSpaceMessage) {
+        return 10
+      }
+
+      return strength
+    },
+    [form.formState.errors, props.name]
+  )
 
   const strength = useMemo(
     () => evaluatePasswordStrength(password),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [form.formState.errors[props.name], password]
+    [evaluatePasswordStrength, password]
   )
 
   const weakPassword = strength < 40

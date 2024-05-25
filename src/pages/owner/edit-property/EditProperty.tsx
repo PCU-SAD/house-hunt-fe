@@ -6,6 +6,7 @@ import DeleteProperty from '@/pages/owner/edit-property/DeleteProperty/DeletePro
 import EditPropertyForm from '@/pages/owner/edit-property/EditPropertyForm/EditPropertyForm'
 import { propertyService } from '@/services/property-service/property-service'
 import { useQuery } from '@tanstack/react-query'
+import { useRouter } from '@tanstack/react-router'
 import { Link, useParams } from '@tanstack/react-router'
 import { ChevronLeft } from 'lucide-react'
 import { FC } from 'react'
@@ -13,6 +14,9 @@ import { FC } from 'react'
 type EditPropertyProps = {}
 
 const EditProperty: FC<EditPropertyProps> = () => {
+  const router = useRouter();
+const onBack = () => router.history.back();
+
   const { id } = useParams({
     from: '/_auth-owner/manage-properties/edit/$id'
   })
@@ -58,7 +62,7 @@ const EditProperty: FC<EditPropertyProps> = () => {
     <Layout>
       <Container className="mt-4 max-w-[1200px]">
         <div className="flex items-center gap-2">
-          <Link to="/manage-properties">
+          <Link onClick={onBack}>
             <ChevronLeft />
           </Link>
           <Typography variant="h4">Edit property</Typography>

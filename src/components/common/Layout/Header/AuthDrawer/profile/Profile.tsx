@@ -77,7 +77,7 @@ const Profile: FC<ProfileProps> = () => {
 
         <nav className="grid gap-2">
           <Link
-            className="flex items-center gap-2 rounded-md bg-gray-200 px-3 py-2 text-sm font-medium"
+            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-200"
             to="/settings/account"
             onClick={handleCloseDrawer}>
             <SettingsIcon className="h-5 w-5" />

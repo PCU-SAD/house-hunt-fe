@@ -30,7 +30,6 @@ function LoginForm() {
     mutationKey: ['auth/login'],
     onSuccess: (response) => {
       const userData = jwtService.parse(response.token)
-      console.log("🚀 ~ LoginForm ~ userData:", userData)
 
       form.reset()
 

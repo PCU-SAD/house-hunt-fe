@@ -2,9 +2,15 @@ import { queryClient } from '@/app'
 import { authService } from '@/services/auth-service/auth-service'
 import { RefreshResponse } from '@/services/auth-service/types'
 import { jwtService } from '@/services/jwt-service/jwt-service'
-import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { createContext, FC, ReactNode, useContext } from 'react'
+import {
+  createContext,
+  FC,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 
 export const API_URL = import.meta.env.VITE_API_URL
 
@@ -36,7 +42,7 @@ export type UserDTO = {
 }
 
 export type AuthContextType = {
-  user: UserDTO | null
+  user: UserDTO | null | undefined
   login: (user: UserDTO, refreshToken: string, accessToken: string) => void
   logout: () => void
   isLoading: boolean
@@ -47,15 +53,36 @@ export type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
 const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-  const {
-    data: refreshData,
-    isLoading,
-    isError
-  } = useQuery({
-    queryKey: ['refresh'],
-    queryFn: authService.refresh,
-    retry: false
-  })
+  const [user, setUser] = useState<UserDTO>()
+  const [accessToken, setAccessToken] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
+  const [isError, setIsError] = useState(false)
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await authService.refresh()
+
+        if (data.userData) {
+          setUser({
+            email: data.userData.email,
+            type: data.userData.role,
+            status: data.userData.status
+          })
+        } else {
+          setUser(null)
+        }
+
+        setAccessToken(data.accessToken)
+      } catch (error) {
+        setIsError(true)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   authApi.interceptors.response.use(
     (response) => {
@@ -101,8 +128,6 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   authApi.interceptors.request.use(
     (config) => {
       if (!config?.headers?.Authorization) {
-        const accessToken = refreshData?.accessToken
-
         if (!accessToken) {
           return config
         }
@@ -118,40 +143,26 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   )
 
   function login(user: UserDTO, refreshToken: string, accessToken: string) {
-    queryClient.setQueryData(['refresh'], {
-      userData: {
-        email: user.email,
-        role: user.type,
-        status: user.status
-      },
-      accessToken
-    })
+    setUser(user)
+    setAccessToken(accessToken)
 
     localStorage.setItem('refreshToken', refreshToken)
   }
 
   function logout() {
-    queryClient.setQueryData(['refresh'], {
-      userData: null,
-      accessToken: ''
-    })
+    setUser(null)
+    setAccessToken('')
 
     localStorage.removeItem('refreshToken')
   }
 
   const value = {
-    user: refreshData?.userData?.email
-      ? {
-          email: refreshData.userData.email,
-          type: refreshData.userData.role,
-          status: refreshData.userData.status
-        }
-      : null,
+    user,
     login,
     logout,
     isLoading,
     isError,
-    accessToken: refreshData?.accessToken
+    accessToken: accessToken
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

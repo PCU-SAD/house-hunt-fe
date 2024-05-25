@@ -38,6 +38,7 @@ export const adminColumns: ColumnDef<UserType>[] = [
   },
   {
     accessorKey: 'verificationStatus',
+    size: 100,
     enableSorting: false,
     header: ({ column }) => {
       return (

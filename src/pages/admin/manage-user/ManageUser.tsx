@@ -9,15 +9,14 @@ import DeleteUser from '@/pages/admin/manage-user/components/action-buttons/Dele
 import UnverifyUser from '@/pages/admin/manage-user/components/action-buttons/Unverify'
 import VerifyUser from '@/pages/admin/manage-user/components/action-buttons/VerifyUser'
 import Documents from '@/pages/admin/manage-user/components/Documents/Documents'
+import ManageOwner from '@/pages/admin/manage-user/components/ManageOwner/ManageOwner'
 import UserSkeleton from '@/pages/admin/manage-user/components/UserSkeleton/UserSkeleton'
 import VerificationStatusCol from '@/pages/admin/manage-user/components/VerificationStatus/VerificationStatus'
-import ManagePropertiesTable from '@/pages/owner/manage-properties/ManagePropertiesTable/ManagePropertiesTable'
 import { userService } from '@/services/user-service/user-service'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
 import { ChevronLeft } from 'lucide-react'
 import { FC } from 'react'
-
 type ManageUserProps = {}
 
 const routeApi = getRouteApi('/_auth-admin/admin-dashboard/$id')
@@ -123,7 +122,7 @@ const ManageUser: FC<ManageUserProps> = () => {
         </div>
 
         <div className="mt-12">
-          {isUserLandlord && <ManagePropertiesTable email={user?.email} />}
+          {isUserLandlord && <ManageOwner email={user.email} />}
         </div>
       </Container>
     </Layout>

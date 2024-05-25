@@ -18,9 +18,9 @@ const getInTouchFormSchema = z.object({
     .max(1000, 'Message must be 5000 characters or less')
 })
 
-type GetInTouchFormType = z.infer<typeof getInTouchFormSchema>
+export type GetInTouchFormType = z.infer<typeof getInTouchFormSchema>
 
-export function useGetInTouchForm(defaultValues?: GetInTouchFormType) {
+export function useGetInTouchForm(defaultValues: GetInTouchFormType) {
   return useForm<GetInTouchFormType>({
     resolver: zodResolver(getInTouchFormSchema),
     mode: 'onChange',
