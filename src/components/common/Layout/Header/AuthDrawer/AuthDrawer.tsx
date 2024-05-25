@@ -63,13 +63,15 @@ const AuthDrawer: FC = () => {
   )
 
   return (
-    <Sheet open={showMenu} onOpenChange={open => {
-      if (!isLoggedIn) {
-        return
-      }
+    <Sheet
+      open={showMenu}
+      onOpenChange={(open) => {
+        if (!isLoggedIn) {
+          return
+        }
 
-      setShowMenu(open)
-    }}>
+        setShowMenu(open)
+      }}>
       <SheetTrigger onClick={handleOpenDrawer} asChild>
         <Button variant="ghost" size="icon" className="rounded-md border">
           <UserIcon className="h-4 w-4" />

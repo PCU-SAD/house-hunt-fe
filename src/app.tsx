@@ -6,8 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import {
   createHashHistory,
   createRouter,
-  ParseRoute,
-  RouterProvider
+  ParseRoute
 } from '@tanstack/react-router'
 import ReactDOM from 'react-dom/client'
 

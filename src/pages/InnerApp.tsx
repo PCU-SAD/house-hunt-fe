@@ -7,8 +7,6 @@ import { useEffect, useMemo } from 'react'
 const InnerApp = () => {
   const auth = useAuthContext()
 
-  console.log('🚀 ~ auth:', auth)
-
   const routerContext = useMemo(() => {
     return auth
   }, [auth])
@@ -18,11 +16,8 @@ const InnerApp = () => {
   }, [auth])
 
   if (auth?.isLoading) {
-    console.log('loading')
     return <LoadingPage />
   }
-
-  console.log('user type', auth.user?.type)
 
   return (
     <RouterProvider
