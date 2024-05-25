@@ -14,7 +14,16 @@ const About: FC = () => {
           <OurValues />
           <OurTeam />
           <section className="mt-8 w-full rounded-md bg-gray-100 py-12 md:py-24">
-            <GetInTouchForm />
+            <div className="mx-auto max-w-[500px]">
+              <h2 className="text-center text-2xl font-bold">
+                Get in touch with us
+              </h2>
+              <p className="mt-4 text-center text-gray-500">
+                We are always ready to help you.
+              </p>
+
+              <GetInTouchForm />
+            </div>
           </section>
         </Container>
       </Layout>

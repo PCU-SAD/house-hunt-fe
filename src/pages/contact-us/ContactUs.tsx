@@ -64,55 +64,7 @@ const ContactUs: FC = () => {
               </p>
             </div>
             <div className="mx-auto w-full max-w-md">
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div>
-                  <Input
-                    placeholder="Name"
-                    type="text"
-                    {...register('name')}
-                    className="w-full"
-                  />
-                  {errors.name && <span className="text-red-500">{errors.name.message}</span>}
-                </div>
-                <div>
-                  <Input
-                    placeholder="Email"
-                    type="email"
-                    {...register('email')}
-                    className="w-full"
-                  />
-                  {errors.email && <span className="text-red-500">{errors.email.message}</span>}
-                </div>
-                <div>
-                  <select
-                    {...register('subject')}
-                    className="w-full rounded-md border border-gray-300 px-4 py-3"
-                  >
-                    <option value="">Select a subject</option>
-                    <option value="COMPLAINT">Complaint</option>
-                    <option value="QUESTION">Question</option>
-                    <option value="VIEWING">Viewing</option>
-                  </select>
-                  {errors.subject && <span className="text-red-500"></span>}
-                </div>
-                <div>
-                  <Textarea
-                    placeholder="Message"
-                    {...register('message')}
-                    className="w-full"
-                    rows={6}
-                  />
-                  {errors.message && <span className="text-red-500">{errors.message.message}</span>}
-                </div>
-                <Button
-                  type="submit"
-                  variant="outline"
-                  className="w-full py-3 font-semibold"
-                  // isLoading={isLoading}
-                >
-                  Submit
-                </Button>
-              </form>
+              
             </div>
           </div>
         </section>

@@ -53,7 +53,7 @@ export const AboutCarousel: FC = () => {
         ]}>
         <CarouselContent>
           {carouselData.map(({ image, title, description }) => (
-            <CarouselItem className="relative">
+            <CarouselItem className="relative" key={title}>
               <div className="relative">
                 <img
                   alt="Real Estate 1"
