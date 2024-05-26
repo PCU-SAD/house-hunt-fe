@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import Img1 from '/images/our-team/matvii.jpg'
+import Img4 from '/images/our-team/artem.png'
 import Img2 from '/images/our-team/burak.png'
 import Img3 from '/images/our-team/kory.jpg'
-import Img4 from '/images/our-team/artem.png'
+import Img1 from '/images/our-team/matvii.jpg'
 
 type TeamMember = {
   id: number
@@ -15,33 +15,34 @@ type TeamMember = {
 const teamMembers: TeamMember[] = [
   {
     id: 1,
-    name: 'John Doe',
-    role: 'CEO',
+    name: 'Matvii Kharchenko',
+    role: 'Frontend Developer',
     description:
-      'John is the visionary leader who has guided our company to success.',
+      'Matvii is the visionary crafting our user-friendly interface and ensuring seamless performance.',
     image: Img1
   },
   {
     id: 2,
-    name: 'Jane Smith',
-    role: 'CTO',
+    name: 'Burak Ugar',
+    role: 'Backend Developer',
     description:
-      'Jane is the technical mastermind behind our innovative products.',
+      'Burak is the architect behind our robust server-side logic and secure deployment.',
     image: Img2
   },
   {
     id: 3,
-    name: 'Michael Johnson',
-    role: 'Lead Designer',
-    description: 'Michael is the creative genius behind our stunning designs.',
+    name: 'Kory DeJong',
+    role: 'Project Manager',
+    description:
+      'Kory is the catalyst orchestrating our project timeline and driving our social media engagement.',
     image: Img3
   },
   {
     id: 4,
-    name: 'Emily Davis',
-    role: 'Marketing Manager',
+    name: 'Artem Fortelnyi',
+    role: 'Reference Designer.',
     description:
-      'Emily is the driving force behind our successful marketing campaigns.',
+      'Artem is the meticulous curator of our comprehensive documentation and innovative design inspirations.',
     image: Img4
   }
 ]

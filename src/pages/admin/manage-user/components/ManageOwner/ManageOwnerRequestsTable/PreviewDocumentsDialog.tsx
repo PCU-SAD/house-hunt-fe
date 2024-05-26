@@ -15,17 +15,20 @@ import { toast } from 'sonner'
 type PreviewDocumentsDialogContentProps = {
   propertyId: string
   documentName: string
+  refetch: () => void
 }
 
 const PreviewDocumentsDialogContent: FC<PreviewDocumentsDialogContentProps> = ({
   propertyId,
-  documentName
+  documentName,
+  refetch
 }) => {
   const verifyPropertyMutation = useMutation({
     mutationKey: ['verify-property'],
     mutationFn: adminService.verifyProperty,
     onSuccess: () => {
       toast.success('Property verified')
+      refetch()
     },
     onError: (error: Error) => {
       toast.error('Something went wrong', {
@@ -39,6 +42,7 @@ const PreviewDocumentsDialogContent: FC<PreviewDocumentsDialogContentProps> = ({
     mutationFn: adminService.verifyProperty,
     onSuccess: () => {
       toast.success('Property rejected')
+      refetch()
     },
     onError: (error: Error) => {
       toast.error('Something went wrong', {
