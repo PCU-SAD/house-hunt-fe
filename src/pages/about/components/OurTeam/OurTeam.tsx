@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import Img1 from '/images/our-team/matvii.jpg'
 import Img2 from '/images/our-team/burak.png'
-import Img3 from '/images/our-team/3.jpeg'
-import Img4 from '/images/our-team/4.jpeg'
+import Img3 from '/images/our-team/kory.jpg'
+import Img4 from '/images/our-team/artem.png'
 
 type TeamMember = {
   id: number

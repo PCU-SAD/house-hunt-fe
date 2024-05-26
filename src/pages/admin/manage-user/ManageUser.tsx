@@ -24,8 +24,6 @@ const routeApi = getRouteApi('/_auth-admin/admin-dashboard/$id')
 const ManageUser: FC<ManageUserProps> = () => {
   const { id } = routeApi.useParams()
 
-  console.log('🚀 ~ id:', id)
-
   const {
     data: user,
     isLoading,

@@ -70,7 +70,7 @@ export const manageOwnerRequestsColumns: ColumnDef<PropertyType>[] = [
 
       const statusMessage = {
         VERIFIED: 'Verified',
-        'PENDING_REQUEST': 'Pending'
+        PENDING_REQUEST: 'Pending'
       }
 
       return (
@@ -90,12 +90,16 @@ export const manageOwnerRequestsColumns: ColumnDef<PropertyType>[] = [
     id: 'actions',
     header: () => <div className="text-right">Actions</div>,
     cell: ({ row }) => {
-      const propertyId = row.original.id
+      const propertyId = row.original?.id
+      const documentName = row.original.ownershipDocument
 
       return (
         <div className="flex justify-end">
           <Dialog>
-            <PreviewDocumentsDialogContent propertyId={propertyId} />
+            <PreviewDocumentsDialogContent
+              propertyId={propertyId}
+              documentName={documentName}
+            />
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -107,18 +111,16 @@ export const manageOwnerRequestsColumns: ColumnDef<PropertyType>[] = [
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Link
-                    to={'/manage-properties/edit/$id'}
-                    params={{
-                      id: propertyId
-                    }}>
-                    Edit Property
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <DialogTrigger>View documents</DialogTrigger>
-                </DropdownMenuItem>
+                <Link
+                  to={'/manage-properties/edit/$id'}
+                  params={{
+                    id: propertyId
+                  }}>
+                  <DropdownMenuItem>Edit Property</DropdownMenuItem>
+                </Link>
+                <DialogTrigger>
+                  <DropdownMenuItem>View documents</DropdownMenuItem>
+                </DialogTrigger>
               </DropdownMenuContent>
             </DropdownMenu>
           </Dialog>

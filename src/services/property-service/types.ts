@@ -10,7 +10,7 @@ export type CreatePropertyRequest = NewPropertyFormType & {
   ownerEmail: string | undefined
 }
 
-export  type PropertyStatus = 'VERIFIED' | 'PENDING_REQUEST'
+export type PropertyStatus = 'VERIFIED' | 'PENDING_REQUEST'
 
 export type GetAllPropertiesResponse = {
   content: PropertyType[]
@@ -39,6 +39,8 @@ export type PropertyType = {
   adType: AdType
   apartmentType: ApartmentType
   owner?: OwnerType
+  ownerEmail?: string
+  ownershipDocument?: string
   district: DistrictFormType
   status: PropertyStatus
 }

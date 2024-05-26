@@ -139,11 +139,9 @@ export const adminColumns: ColumnDef<UserType>[] = [
                 Copy user ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link to="/admin-dashboard/$id" params={{ id: user.id }}>
-                  View user
-                </Link>
-              </DropdownMenuItem>
+              <Link to="/admin-dashboard/$id" params={{ id: user.id }}>
+                <DropdownMenuItem>View user</DropdownMenuItem>
+              </Link>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

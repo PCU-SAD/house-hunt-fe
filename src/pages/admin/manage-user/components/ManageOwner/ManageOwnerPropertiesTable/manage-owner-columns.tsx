@@ -103,23 +103,24 @@ export const manageOwnerPropertyColumns: ColumnDef<PropertyType>[] = [
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Link
-                    to={'/manage-properties/edit/$id'}
-                    params={{
-                      id: propertyId
-                    }}>
-                    Edit Property
-                  </Link>
-                </DropdownMenuItem>
+                <Link
+                  to={'/manage-properties/edit/$id'}
+                  params={{
+                    id: propertyId
+                  }}>
+                  <DropdownMenuItem>Edit Property</DropdownMenuItem>
+                </Link>
 
-                <DropdownMenuItem>
-                  <DialogTrigger>View documents</DialogTrigger>
-                </DropdownMenuItem>
+                <DialogTrigger>
+                  <DropdownMenuItem>View documents</DropdownMenuItem>
+                </DialogTrigger>
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <PreviewDocumentsDialogContent propertyId={propertyId} />
+            <PreviewDocumentsDialogContent
+              propertyId={propertyId}
+              documentName={row.original.ownershipDocument}
+            />
           </Dialog>
         </div>
       )

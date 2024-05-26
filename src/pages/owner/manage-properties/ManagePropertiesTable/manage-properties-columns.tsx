@@ -66,7 +66,7 @@ export const managePropertyColumns: ColumnDef<PropertyType>[] = [
 
       const statusMessage = {
         VERIFIED: 'Verified',
-        'PENDING_REQUEST': 'Pending'
+        PENDING_REQUEST: 'Pending'
       }
 
       return (
@@ -100,15 +100,13 @@ export const managePropertyColumns: ColumnDef<PropertyType>[] = [
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link
-                  to={'/manage-properties/edit/$id'}
-                  params={{
-                    id: propertyId
-                  }}>
-                  Edit Property
-                </Link>
-              </DropdownMenuItem>
+              <Link
+                to={'/manage-properties/edit/$id'}
+                params={{
+                  id: propertyId
+                }}>
+                <DropdownMenuItem>Edit Property</DropdownMenuItem>
+              </Link>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

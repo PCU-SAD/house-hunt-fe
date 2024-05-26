@@ -280,9 +280,15 @@ export const propertyService = {
       }
     }
   },
-  getPropertyDocument: async () => {
+  getPropertyDocument: async ({
+    userId,
+    propertyId
+  }: {
+    userId: string
+    propertyId: string
+  }) => {
     try {
-      const { data } = await authApi.get('/properties/documents')
+      const { data } = await authApi.get(`/user/documents/${userId}/property/${propertyId}`)
 
       return data
     } catch (error) {
