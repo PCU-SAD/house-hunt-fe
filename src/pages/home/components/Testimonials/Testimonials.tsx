@@ -51,7 +51,7 @@ const Testimonials: FC<TestimonialsProps> = () => {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <blockquote className="text-lg font-semibold italic leading-snug">
+                    <blockquote className="text font-semibold italic leading-snug sm:text-lg">
                       "{comment}"
                     </blockquote>
                   </CardContent>

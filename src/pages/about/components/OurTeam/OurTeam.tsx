@@ -1,4 +1,8 @@
 import { FC } from 'react'
+import Img1 from '/images/our-team/matvii.jpg'
+import Img2 from '/images/our-team/burak.png'
+import Img3 from '/images/our-team/3.jpeg'
+import Img4 from '/images/our-team/4.jpeg'
 
 type TeamMember = {
   id: number
@@ -15,8 +19,7 @@ const teamMembers: TeamMember[] = [
     role: 'CEO',
     description:
       'John is the visionary leader who has guided our company to success.',
-    image:
-      'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
+    image: Img1
   },
   {
     id: 2,
@@ -24,14 +27,14 @@ const teamMembers: TeamMember[] = [
     role: 'CTO',
     description:
       'Jane is the technical mastermind behind our innovative products.',
-    image: 'https://source.unsplash.com/grayscale-photo-of-man-c_GmwfHBDzk'
+    image: Img2
   },
   {
     id: 3,
     name: 'Michael Johnson',
     role: 'Lead Designer',
     description: 'Michael is the creative genius behind our stunning designs.',
-    image: 'https://source.unsplash.com/man-in-black-jacket-smiling-a19OVaa2rzA'
+    image: Img3
   },
   {
     id: 4,
@@ -39,14 +42,13 @@ const teamMembers: TeamMember[] = [
     role: 'Marketing Manager',
     description:
       'Emily is the driving force behind our successful marketing campaigns.',
-    image:
-      'https://source.unsplash.com/man-in-black-crew-neck-shirt-uyaTT9u6AvI'
+    image: Img4
   }
 ]
 
 const OurTeam: FC = () => {
   return (
-    <section className="w-full py-12">
+    <section className="w-full py-12" id="our-team">
       <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10">
         <div className="space-y-3">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">

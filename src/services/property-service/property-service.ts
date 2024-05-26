@@ -45,7 +45,6 @@ export const propertyService = {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${accessToken || ''}`
           },
-
           params: {
             propertyId
           }

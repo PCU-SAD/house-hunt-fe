@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 import { useAuthDrawerContext } from '@/providers/AuthDrawerProvider/AuthDrawerProvider'
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { Link } from '@tanstack/react-router'
-import { BellIcon, CornerUpLeft, SettingsIcon, UserIcon } from 'lucide-react'
+import { CornerUpLeft, SettingsIcon, UserIcon } from 'lucide-react'
 import { FC } from 'react'
 
 type ProfileProps = {}
@@ -96,15 +96,10 @@ const Profile: FC<ProfileProps> = () => {
 
             <Link
               className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-200"
-              href="#">
+              onClick={() => setTimeout(handleCloseDrawer, 0)}
+              to="/about">
               <UserIcon className="h-5 w-5" />
               Team
-            </Link>
-            <Link
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-200"
-              href="#">
-              <BellIcon className="h-5 w-5" />
-              Notifications
             </Link>
           </nav>
         </div>

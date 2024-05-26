@@ -10,9 +10,9 @@ type DocumentsProps = {
 }
 
 const Documents: FC<DocumentsProps> = ({ documents }) => {
-  const formattedDocName = documents[0]?.split('_')[1]
+  const formattedDocName = documents?.[0]?.split('_')[1]
 
-  const isEmpty = documents.length === 0
+  const isEmpty = documents?.length === 0
 
   async function handleDownload(documentName: string) {
     try {
@@ -47,21 +47,23 @@ const Documents: FC<DocumentsProps> = ({ documents }) => {
         </div>
       ) : (
         <div className="mt-2 flex flex-col items-start gap-2">
-          {documents.map((document) => (
-            <Badge
-              variant="outline"
-              key={document}
-              className="cursor-pointer"
-              onClick={() => handleDownload(document)}>
-              <div className="flex items-center gap-2">
-                <FileIcon className="h-4 w-4" />
-                <span className="underline underline-offset-2">
-                  {formattedDocName}
-                </span>
-              </div>
-            </Badge>
+          {documents?.map((document) => (
+            <>
+              <Badge
+                variant="outline"
+                key={document}
+                className="cursor-pointer"
+                onClick={() => handleDownload(document)}>
+                <div className="flex items-center gap-2">
+                  <FileIcon className="h-4 w-4" />
+                  <span className="underline underline-offset-2">
+                    {formattedDocName}
+                  </span>
+                </div>
+              </Badge>
+              <p className="text-xs text-muted-foreground">Click to download</p>
+            </>
           ))}
-          <p className="text-xs text-muted-foreground">Click to download</p>
         </div>
       )}
     </div>

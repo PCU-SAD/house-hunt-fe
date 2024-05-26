@@ -7,7 +7,6 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import {
   DistrictFormType,
@@ -68,9 +67,7 @@ const Search: FC<SearchProps> = ({ statsQuery }) => {
 
       <div className="text-center">
         {isLoading ? (
-          <div className="flex justify-center">
-            <Skeleton className="h-6 w-[50px] bg-gray-400" />
-          </div>
+          <p>Loading...</p>
         ) : isError ? null : (
           <p className="text-md font-semibold text-gray-800">
             Properties around {homesAround}
