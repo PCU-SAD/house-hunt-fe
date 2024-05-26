@@ -38,7 +38,7 @@ const PropertyPage: FC<PropertyPageProps> = () => {
     retry: 1
   })
 
-  if (isError || isImagesError) {
+  if (isError) {
     return (
       <Layout>
         <Container>
@@ -66,7 +66,7 @@ const PropertyPage: FC<PropertyPageProps> = () => {
           {isLoading || isImagesLoading ? (
             <SkeletonCard />
           ) : (
-            <Property property={property} images={images} />
+            <Property property={property} images={isImagesError ? [] : images} />
           )}
         </div>
       </Container>

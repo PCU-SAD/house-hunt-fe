@@ -1,13 +1,13 @@
 import { CardHeader } from '@/components/ui/card'
 import PropertyCard from '@/components/ui/PropertyCard'
 import { Skeleton } from '@/components/ui/skeleton'
+import { cn } from '@/lib/utils'
 import { propertyService } from '@/services/property-service/property-service'
 import { PropertyType } from '@/services/property-service/types'
 import { CZK_DATE_FORMAT, furnishedMessage } from '@/utils/consts'
 import { czkCurrencyFormatter } from '@/utils/czkCurrencyFormatter'
 import { useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
-import { AlertCircle } from 'lucide-react'
 import { FC } from 'react'
 
 type PropertyItemProps = {
@@ -71,17 +71,13 @@ const PropertyItem: FC<PropertyItemProps> = ({ property }) => {
       address={address}
       adType={adType}
       cardHeader={
-        <CardHeader className="">
+        <CardHeader
+          className={cn({
+            'py-0': hasError
+          })}>
           {isLoading ? (
             <Skeleton className="h-[300px] w-full overflow-clip rounded-t-md object-cover sm:rounded-md" />
-          ) : hasError ? (
-            <div className="flex h-[300px] w-full flex-col items-center justify-center rounded-md">
-              <AlertCircle className="h-10 w-10 text-red-500" />
-              <p className="mt-2 text-sm text-muted-foreground">
-                Something went wrong
-              </p>
-            </div>
-          ) : (
+          ) : hasError ? null : (
             <img
               alt="Property Image"
               className="h-[300px] w-full overflow-clip rounded-t-md object-cover sm:rounded-md"

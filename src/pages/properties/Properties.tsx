@@ -77,7 +77,7 @@ const PropertiesPage: FC = () => {
               />
             </div>
 
-            <div className="flex items-end justify-between lg:hidden">
+            <div className="flex items-end justify-between lg:hidden gap-2">
               <DrawerFilters
                 drawerOpen={drawerOpen}
                 setDrawerOpen={setDrawerOpen}
