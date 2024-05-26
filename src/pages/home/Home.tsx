@@ -1,29 +1,18 @@
 import { Container, Layout } from '@/components/common'
-import { Card, CardContent } from '@/components/ui/card'
 import Search from '@/pages/home/components/Search/Search'
+import Stats from '@/pages/home/components/Stats/Stats'
 import Testimonials from '@/pages/home/components/Testimonials/Testimonials'
 import { statsService } from '@/services/stats-service/stats-service'
-import { StatsResponse } from '@/services/stats-service/types'
-import { BadgeDollarSign, BookUser, HomeIcon, Users } from 'lucide-react'
-import { FC, useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { FC } from 'react'
 
 type HomeProps = {}
 
 const Home: FC<HomeProps> = () => {
-  const [stats, setStats] = useState<StatsResponse | null>(null)
-
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const data = await statsService.getStats()
-        setStats(data)
-      } catch (error) {
-        console.error('Error fetching stats:', error)
-      }
-    }
-
-    fetchStats()
-  }, [])
+  const statsQuery = useQuery({
+    queryKey: ['stats'],
+    queryFn: statsService.getStats
+  })
 
   return (
     <>
@@ -45,56 +34,13 @@ const Home: FC<HomeProps> = () => {
                   providing personalized support every step of the way.
                 </p>
 
-                <Search
-                  homesAround={
-                    stats?.totalRentalProperties + stats?.totalSaleProperties
-                  }
-                />
+                <Search statsQuery={statsQuery} />
               </div>
             </div>
           </section>
 
           <Container>
-            <section className="w-full py-12">
-              <div className="flex flex-col items-center justify-center gap-8 md:flex-row">
-                <Card className="transition-shadow hover:shadow-lg">
-                  <CardContent className="flex flex-col items-center justify-center space-y-2 p-6">
-                    <HomeIcon className="h-8 w-8 text-gray-500" />
-                    <div className="text-3xl font-bold">
-                      {stats?.totalRentalProperties || 0}
-                    </div>
-                    <p className="text-gray-500">Rental Properties</p>
-                  </CardContent>
-                </Card>
-                <Card className="transition-shadow hover:shadow-lg">
-                  <CardContent className="flex flex-col items-center justify-center space-y-2 p-6">
-                    <BadgeDollarSign className="h-8 w-8 text-gray-500" />
-                    <div className="text-3xl font-bold">
-                      {stats?.totalSaleProperties || 0}
-                    </div>
-                    <p className="text-gray-500">Sale Properties</p>
-                  </CardContent>
-                </Card>
-                <Card className="transition-shadow hover:shadow-lg">
-                  <CardContent className="flex flex-col items-center justify-center space-y-2 p-6">
-                    <BookUser className="h-8 w-8 text-gray-500" />
-                    <div className="text-3xl font-bold">
-                      {stats?.totalLandlords || 0}
-                    </div>
-                    <p className="text-gray-500">Total Landlords</p>
-                  </CardContent>
-                </Card>
-                <Card className="transition-shadow hover:shadow-lg">
-                  <CardContent className="flex flex-col items-center justify-center space-y-2 p-6">
-                    <Users className="h-8 w-8 text-gray-500" />
-                    <div className="text-3xl font-bold">
-                      {stats?.totalTenants || 0}
-                    </div>
-                    <p className="text-gray-500">Total Tenants</p>
-                  </CardContent>
-                </Card>
-              </div>
-            </section>
+            <Stats statsQuery={statsQuery} />
 
             <Testimonials />
           </Container>

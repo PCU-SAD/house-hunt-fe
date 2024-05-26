@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { DataTableColumnHeader } from '@/components/ui/table/column-header'
+import { cn } from '@/lib/utils'
 import PreviewDocumentsDialogContent from '@/pages/admin/manage-user/components/ManageOwner/ManageOwnerRequestsTable/PreviewDocumentsDialog'
 import { PropertyType } from '@/services/property-service/types'
 import { CZK_DATE_FORMAT } from '@/utils/consts'
@@ -18,7 +19,7 @@ import { czkCurrencyFormatter } from '@/utils/czkCurrencyFormatter'
 import { Link } from '@tanstack/react-router'
 import { ColumnDef } from '@tanstack/react-table'
 import { format } from 'date-fns'
-import { Calendar, MoreHorizontal } from 'lucide-react'
+import { Calendar, Check, Clock, MoreHorizontal } from 'lucide-react'
 
 export const manageOwnerRequestsColumns: ColumnDef<PropertyType>[] = [
   {
@@ -59,6 +60,33 @@ export const manageOwnerRequestsColumns: ColumnDef<PropertyType>[] = [
     }
   },
   {
+    accessorKey: 'status',
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Status" />
+    },
+    enableSorting: false,
+    cell: ({ row }) => {
+      const status = row.original.status
+
+      const statusMessage = {
+        VERIFIED: 'Verified',
+        'PENDING_REQUEST': 'Pending'
+      }
+
+      return (
+        <div
+          className={cn('flex items-center gap-2', {
+            'text-green-500': status === 'VERIFIED',
+            'text-yellow-500': status === 'PENDING_REQUEST'
+          })}>
+          {status === 'VERIFIED' && <Check className="h-4 w-4" />}
+          {status === 'PENDING_REQUEST' && <Clock className="h-4 w-4" />}
+          {statusMessage[status]}
+        </div>
+      )
+    }
+  },
+  {
     id: 'actions',
     header: () => <div className="text-right">Actions</div>,
     cell: ({ row }) => {
@@ -67,7 +95,7 @@ export const manageOwnerRequestsColumns: ColumnDef<PropertyType>[] = [
       return (
         <div className="flex justify-end">
           <Dialog>
-            <PreviewDocumentsDialogContent />
+            <PreviewDocumentsDialogContent propertyId={propertyId} />
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

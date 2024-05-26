@@ -10,6 +10,8 @@ export type CreatePropertyRequest = NewPropertyFormType & {
   ownerEmail: string | undefined
 }
 
+export  type PropertyStatus = 'VERIFIED' | 'PENDING_REQUEST'
+
 export type GetAllPropertiesResponse = {
   content: PropertyType[]
   pageable: PaginationT
@@ -38,6 +40,7 @@ export type PropertyType = {
   apartmentType: ApartmentType
   owner?: OwnerType
   district: DistrictFormType
+  status: PropertyStatus
 }
 
 export type OwnerType = {

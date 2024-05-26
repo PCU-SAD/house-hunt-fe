@@ -1,3 +1,4 @@
+import ErrorResult from '@/components/common/Errors/ErrorResult'
 import { buttonVariants } from '@/components/ui/button'
 import {
   Select,
@@ -6,24 +7,33 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import {
   DistrictFormType,
   districtsForm
 } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
+import { StatsResponse } from '@/services/stats-service/types'
+import { UseQueryResult } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { ChevronRight, SearchIcon } from 'lucide-react'
 import { FC, useState } from 'react'
 
 type SearchProps = {
-  homesAround: number
+  statsQuery: UseQueryResult<StatsResponse, Error>
 }
 
-const Search: FC<SearchProps> = ({ homesAround }) => {
+const Search: FC<SearchProps> = ({ statsQuery }) => {
+  const { isLoading, isError, data, refetch } = statsQuery
   const [district, setDistrict] = useState<DistrictFormType>('PRAGUE 1')
+  const homesAround = data?.totalRentalProperties + data?.totalSaleProperties
 
   function handleChange(value: DistrictFormType) {
     setDistrict(value)
+  }
+
+  if (isError) {
+    return <ErrorResult onRetry={refetch} />
   }
 
   return (
@@ -57,7 +67,11 @@ const Search: FC<SearchProps> = ({ homesAround }) => {
       </div>
 
       <div className="text-center">
-        {!isNaN(homesAround) && (
+        {isLoading ? (
+          <div className="flex justify-center">
+            <Skeleton className="h-6 w-[50px] bg-gray-400" />
+          </div>
+        ) : isError ? null : (
           <p className="text-md font-semibold text-gray-800">
             Properties around {homesAround}
           </p>

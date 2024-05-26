@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ManageOwnerPropertiesTable from '@/pages/admin/manage-user/components/ManageOwner/ManageOwnerPropertiesTable/ManageOwnerPropertiesTable'
 import ManageOwnerRequestsTable from '@/pages/admin/manage-user/components/ManageOwner/ManageOwnerRequestsTable/ManageOwnerRequestsTable'
-import { AlertTriangleIcon, HomeIcon } from 'lucide-react'
+import { Clock, HomeIcon } from 'lucide-react'
 import { FC, useState } from 'react'
 
 type ManageOwnerProps = {
@@ -23,9 +23,9 @@ const ManageOwner: FC<ManageOwnerProps> = ({ email }) => {
         <TabsList className="relative w-full">
           <TabsTrigger
             value="requests"
-            className="flex w-full items-center gap-2 text-red-400 data-[state=active]:text-red-500"
+            className="flex w-full items-center gap-2 text-yellow-400 data-[state=active]:text-yellow-500"
             onClick={() => handleTabChange('requests')}>
-            <AlertTriangleIcon className="h-5 w-5" />
+            <Clock className="h-5 w-5" />
             Requests
           </TabsTrigger>
           <TabsTrigger
