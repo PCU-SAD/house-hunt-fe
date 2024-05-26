@@ -41,7 +41,7 @@ const ManageProperties: FC<ManagePropertiesProps> = () => {
               'border-none bg-green-600 text-white hover:bg-green-500 hover:text-white'
             )}>
             <PlusIcon className="h-4 w-4" />
-            <span>Add new</span>
+            <span>Add new request</span>
           </Link>
         </div>
 

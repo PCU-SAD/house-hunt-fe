@@ -45,7 +45,7 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
     mutationKey: ['upload-ownership-document'],
     mutationFn: propertyService.uploadOwnershipDocument,
     onSuccess: () => {
-      toast.success('Property created')
+      toast.success('Property request submitted successfully')
 
       form.reset(newPropertyFormDefaultValues)
 
