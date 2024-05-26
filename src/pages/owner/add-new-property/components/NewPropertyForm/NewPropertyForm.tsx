@@ -27,11 +27,10 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
   const navigate = useNavigate({
     from: '/manage-properties/add-new'
   })
-  
+
   const property = form.watch()
 
   const auth = useAuthContext()
-
   const deletePropertyMutation = useMutation({
     mutationKey: ['delete-property'],
     mutationFn: (propertyId: string) =>
@@ -41,33 +40,9 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
     }
   })
 
-  const newPropertyMutation = useMutation({
-    mutationKey: ['newProperty'],
-    retry: false,
-    mutationFn: propertyService.createOne,
-    onSuccess: (data) => {
-      const images = form.getValues('images').filter((image) => !!image)
-
-      imagesMutation.mutate({
-        propertyId: data,
-        images
-      })
-    },
-    onError: (error: Error) => {
-      toast.error('Something went wrong', {
-        description: error.message
-      })
-    }
-  })
-
-  const imagesMutation = useMutation({
-    mutationKey: ['images'],
-    mutationFn: (args: { propertyId: string; images: File[] }) =>
-      propertyService.uploadImages(
-        args.propertyId,
-        args.images,
-        auth?.accessToken
-      ),
+  const uploadDocumentMutation = useMutation({
+    mutationKey: ['upload-ownership-document'],
+    mutationFn: propertyService.uploadOwnershipDocument,
     onSuccess: () => {
       toast.success('Property created')
 
@@ -84,6 +59,28 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
       }
     },
     onError: (error: Error, data) => {
+      toast.error('Error uploading document', {
+        description: error.message
+      })
+
+      deletePropertyMutation.mutate(data.propertyId)
+    }
+  })
+
+ 
+
+  const imagesMutation = useMutation({
+    mutationKey: ['images'],
+    mutationFn: (args: { propertyId: string; images: File[] }) =>
+      propertyService.uploadImages(
+        args.propertyId,
+        args.images,
+        auth?.accessToken
+      ),
+    onSuccess: () => {
+      console.log('images mutation done')
+    },
+    onError: (error: Error, data) => {
       toast.error('Something went wrong', {
         description: error.message
       })
@@ -92,9 +89,36 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
     }
   })
 
+  const newPropertyMutation = useMutation({
+    mutationKey: ['newProperty'],
+    retry: false,
+    mutationFn: propertyService.createOne,
+    onSuccess: (data) => {
+      const images = form.getValues('images').filter((image) => !!image)
+
+      console.log('images mutation')
+      imagesMutation.mutate({
+        propertyId: data,
+        images
+      })
+
+      console.log('upload document mutation')
+      uploadDocumentMutation.mutate({
+        propertyId: data,
+        document: form.getValues('document'),
+        accessToken: auth.accessToken
+      })
+    },
+    onError: (error: Error) => {
+      toast.error('Something went wrong', {
+        description: error.message
+      })
+    }
+  })
+
   function onSubmit(values: NewPropertyFormType) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { images, ...rest } = values
+    const { images, document, ...rest } = values
 
     const formattedValues = {
       ...rest,

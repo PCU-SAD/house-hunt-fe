@@ -6,7 +6,7 @@ export const Route = createFileRoute('/_auth-user')({
 
     if (!auth) return context
 
-    if (!auth?.user || auth?.user.type !== 'TENANT') {
+    if (!auth?.user.email) {
       throw redirect({
         to: '/'
       })

@@ -25,6 +25,7 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
   const navigate = useNavigate({
     from: '/manage-properties/edit/$id'
   })
+
   const auth = useAuthContext()
   const files = images.length
     ? images.map((base64) => base64ToFile(base64, 'name'))
@@ -109,7 +110,7 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
 
   function onSubmit(values: NewPropertyFormType) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { images, ...rest } = values
+    const { images, document, ...rest } = values
 
     const formattedValues = {
       ...rest,

@@ -23,6 +23,44 @@ export const propertyService = {
       }
     }
   },
+  uploadOwnershipDocument: async ({
+    propertyId,
+    document,
+    accessToken
+  }: {
+    propertyId: string
+    document: File
+    accessToken?: string
+  }) => {
+    try {
+      const formData = new FormData()
+
+      formData.append('file', document)
+
+      const { data } = await authApi.post<string>(
+        '/user/documents/ownership/upload',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${accessToken || ''}`
+          },
+
+          params: {
+            propertyId
+          }
+        }
+      )
+
+      return data
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
+  },
   updateOne: async ({
     propertyId,
     values

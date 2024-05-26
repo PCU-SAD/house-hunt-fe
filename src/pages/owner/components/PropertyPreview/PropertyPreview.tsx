@@ -66,15 +66,15 @@ const PropertyPreview: FC<NewPropertyPreviewProps> = ({
       address={address}
       adType={adType}
       cardHeader={
-        <CardHeader className="pb-4">
+        <CardHeader className="p-0 pb-4 sm:p-6">
           {preview ? (
             <img
               alt="Property Image"
-              className="h-[300px] w-full overflow-clip rounded-md object-cover"
+              className="h-[300px] w-full overflow-clip rounded-t-md object-cover sm:rounded-md"
               src={preview}
             />
           ) : (
-            <div className="h-[300px] w-full rounded-md bg-slate-100 object-contain" />
+            <div className="h-[300px] w-full rounded-t-md bg-slate-100 object-contain sm:rounded-md" />
           )}
         </CardHeader>
       }

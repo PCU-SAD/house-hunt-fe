@@ -8,7 +8,7 @@ type ContainerProps = {
 
 const Container: FC<ContainerProps> = ({ children, className, ...rest }) => {
   return (
-    <div className={cn('container', className)} {...rest}>
+    <div className={cn('container px-4 sm:px-6', className)} {...rest}>
       {children}
     </div>
   )

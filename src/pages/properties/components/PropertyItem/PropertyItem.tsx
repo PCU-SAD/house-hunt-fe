@@ -73,9 +73,9 @@ const PropertyItem: FC<PropertyItemProps> = ({ property }) => {
       cardHeader={
         <CardHeader className="">
           {isLoading ? (
-            <Skeleton className="h-[400px] w-full rounded-md" />
+            <Skeleton className="h-[300px] w-full overflow-clip rounded-t-md object-cover sm:rounded-md" />
           ) : hasError ? (
-            <div className="flex h-[400px] w-full flex-col items-center justify-center rounded-md">
+            <div className="flex h-[300px] w-full flex-col items-center justify-center rounded-md">
               <AlertCircle className="h-10 w-10 text-red-500" />
               <p className="mt-2 text-sm text-muted-foreground">
                 Something went wrong
@@ -84,7 +84,7 @@ const PropertyItem: FC<PropertyItemProps> = ({ property }) => {
           ) : (
             <img
               alt="Property Image"
-              className="h-[400px] w-full overflow-clip rounded-md object-cover"
+              className="h-[300px] w-full overflow-clip rounded-t-md object-cover sm:rounded-md"
               src={`data:image/;base64,${images[0]}`}
             />
           )}

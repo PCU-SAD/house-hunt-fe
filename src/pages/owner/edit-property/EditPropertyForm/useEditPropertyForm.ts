@@ -45,7 +45,10 @@ export const editPropertyFormSchema = z
     adType: adTypeSchema,
     apartmentType: apartmentTypeSchema,
     images: z.array(fileSchema),
-    district: districtFormTypeSchema
+    district: districtFormTypeSchema,
+    document: z.any().refine((file) => {
+      return !!file
+    }, 'Document is required.')
   })
   .superRefine((val, ctx) => {
     const atLeastOneImage = val.images.some((image) => {
