@@ -12,12 +12,13 @@ import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { propertyService } from '@/services/property-service/property-service'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { toast } from 'sonner'
 
 type NewPropertyFormProps = {}
 
 const NewPropertyForm: FC<NewPropertyFormProps> = () => {
+  const [propertyId, setPropertyId] = useState('')
   const form = useNewPropertyForm()
 
   const previewImg = form.watch().images[0]
@@ -48,14 +49,18 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
 
       form.reset(newPropertyFormDefaultValues)
 
-      if (auth?.user?.type === 'ADMIN') {
-        navigate({
-          to: '/admin-dashboard'
-        })
+      if (imagesMutation.isSuccess && newPropertyMutation.isSuccess) {
+        if (auth?.user?.type === 'ADMIN') {
+          navigate({
+            to: '/admin-dashboard'
+          })
+        } else {
+          navigate({
+            to: '/manage-properties'
+          })
+        }
       } else {
-        navigate({
-          to: '/manage-properties'
-        })
+        toast.error('Something went wrong')
       }
     },
     onError: (error: Error, data) => {
@@ -67,8 +72,6 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
     }
   })
 
- 
-
   const imagesMutation = useMutation({
     mutationKey: ['images'],
     mutationFn: (args: { propertyId: string; images: File[] }) =>
@@ -79,6 +82,12 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
       ),
     onSuccess: () => {
       console.log('images mutation done')
+
+      uploadDocumentMutation.mutate({
+        propertyId: propertyId,
+        document: form.getValues('document'),
+        accessToken: auth.accessToken
+      })
     },
     onError: (error: Error, data) => {
       toast.error('Something went wrong', {
@@ -93,26 +102,20 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
     mutationKey: ['newProperty'],
     retry: false,
     mutationFn: propertyService.createOne,
-    onSuccess: (data) => {
+    onSuccess: (propertyId) => {
       const images = form.getValues('images').filter((image) => !!image)
 
-      console.log('images mutation')
+      setPropertyId(propertyId)
       imagesMutation.mutate({
-        propertyId: data,
+        propertyId: propertyId,
         images
-      })
-
-      console.log('upload document mutation')
-      uploadDocumentMutation.mutate({
-        propertyId: data,
-        document: form.getValues('document'),
-        accessToken: auth.accessToken
       })
     },
     onError: (error: Error) => {
       toast.error('Something went wrong', {
         description: error.message
       })
+      setPropertyId('')
     }
   })
 

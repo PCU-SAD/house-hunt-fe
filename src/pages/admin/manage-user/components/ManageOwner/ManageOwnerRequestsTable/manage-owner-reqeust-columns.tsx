@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button'
+
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,7 +20,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import { format } from 'date-fns'
 import { Calendar, MoreHorizontal } from 'lucide-react'
 
-export const manageOwnerPropertyColumns: ColumnDef<PropertyType>[] = [
+export const manageOwnerRequestsColumns: ColumnDef<PropertyType>[] = [
   {
     accessorKey: 'apartmentType',
     header: 'Ap. type'
@@ -65,6 +67,8 @@ export const manageOwnerPropertyColumns: ColumnDef<PropertyType>[] = [
       return (
         <div className="flex justify-end">
           <Dialog>
+            <PreviewDocumentsDialogContent />
+
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-8 w-8 p-0">
@@ -84,14 +88,11 @@ export const manageOwnerPropertyColumns: ColumnDef<PropertyType>[] = [
                     Edit Property
                   </Link>
                 </DropdownMenuItem>
-
                 <DropdownMenuItem>
                   <DialogTrigger>View documents</DialogTrigger>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-
-            <PreviewDocumentsDialogContent propertyId={propertyId} />
           </Dialog>
         </div>
       )

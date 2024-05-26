@@ -34,5 +34,27 @@ export const adminService = {
         throw new Error('Something went wrong')
       }
     }
+  },
+  verifyProperty: async (propertyId: string) => {
+    try {
+      await authApi.put(`/properties/admin/verify/${propertyId}`)
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
+  },
+  rejectProperty: async (propertyId: string) => {
+    try {
+      await authApi.put(`/properties/admin/reject/${propertyId}`)
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
   }
 }

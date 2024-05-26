@@ -24,13 +24,15 @@ const routeApi = getRouteApi('/_auth-admin/admin-dashboard/$id')
 const ManageUser: FC<ManageUserProps> = () => {
   const { id } = routeApi.useParams()
 
+  console.log('🚀 ~ id:', id)
+
   const {
     data: user,
     isLoading,
     isError,
     refetch
   } = useQuery({
-    queryKey: ['admin-user-management', id],
+    queryKey: ['get-admin-user-management', id],
     queryFn: () => userService.getById(id),
     placeholderData: keepPreviousData
   })
@@ -40,8 +42,9 @@ const ManageUser: FC<ManageUserProps> = () => {
     isLoading: isDocLoading,
     isError: isDocError
   } = useQuery({
-    queryKey: ['admin-user-management-documents', id, user],
-    enabled: !!user,
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: ['admin-user-management-documents', user?.email],
+    enabled: !!user?.email,
     queryFn: () => userService.getDocuments(user.email),
     placeholderData: keepPreviousData
   })

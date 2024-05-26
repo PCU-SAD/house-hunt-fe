@@ -1,5 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ManageOwnerPropertiesTable from '@/pages/admin/manage-user/components/ManageOwner/ManageOwnerPropertiesTable/ManageOwnerPropertiesTable'
+import ManageOwnerRequestsTable from '@/pages/admin/manage-user/components/ManageOwner/ManageOwnerRequestsTable/ManageOwnerRequestsTable'
+import { AlertTriangleIcon, HomeIcon } from 'lucide-react'
 import { FC, useState } from 'react'
 
 type ManageOwnerProps = {
@@ -9,7 +11,7 @@ type ManageOwnerProps = {
 type OwnerTableTab = 'properties' | 'requests'
 
 const ManageOwner: FC<ManageOwnerProps> = ({ email }) => {
-  const [activeTab, setActiveTab] = useState<OwnerTableTab>('properties')
+  const [activeTab, setActiveTab] = useState<OwnerTableTab>('requests')
 
   function handleTabChange(tab: OwnerTableTab) {
     setActiveTab(tab)
@@ -20,16 +22,18 @@ const ManageOwner: FC<ManageOwnerProps> = ({ email }) => {
       <Tabs value={activeTab} className="mt-6 w-full">
         <TabsList className="relative w-full">
           <TabsTrigger
-            value="properties"
-            className="relative w-full"
-            onClick={() => handleTabChange('properties')}>
-            Properties
+            value="requests"
+            className="flex w-full items-center gap-2 text-red-400 data-[state=active]:text-red-500"
+            onClick={() => handleTabChange('requests')}>
+            <AlertTriangleIcon className="h-5 w-5" />
+            Requests
           </TabsTrigger>
           <TabsTrigger
-            value="requests"
-            className="w-full"
-            onClick={() => handleTabChange('requests')}>
-            Requests
+            value="properties"
+            className="relative flex w-full items-center gap-2"
+            onClick={() => handleTabChange('properties')}>
+            <HomeIcon className="h-5 w-5" />
+            Verified Properties
           </TabsTrigger>
         </TabsList>
 
@@ -37,7 +41,9 @@ const ManageOwner: FC<ManageOwnerProps> = ({ email }) => {
           <ManageOwnerPropertiesTable email={email} />
         </TabsContent>
 
-        <TabsContent value="requests">requests</TabsContent>
+        <TabsContent value="requests">
+          <ManageOwnerRequestsTable email={email} />
+        </TabsContent>
       </Tabs>
     </div>
   )

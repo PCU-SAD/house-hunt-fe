@@ -238,6 +238,21 @@ export const propertyService = {
       }
     }
   },
+  getPropertiesRequests: async (ownerEmail: string) => {
+    try {
+      const { data } = await authApi.get<PropertyType[]>(
+        `/properties/property-requests/${ownerEmail}`
+      )
+
+      return data
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
+  },
   getById: async (propertyId: string) => {
     try {
       const { data } = await authApi.get<PropertyType>(`/properties/details`, {
@@ -258,6 +273,19 @@ export const propertyService = {
   deleteProperty: async (propertyId: string) => {
     try {
       await authApi.delete(`/properties/${propertyId}`)
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data.message)
+      } else {
+        throw new Error('Something went wrong')
+      }
+    }
+  },
+  getPropertyDocument: async () => {
+    try {
+      const { data } = await authApi.get('/properties/documents')
+
+      return data
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data.message)

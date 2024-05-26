@@ -53,6 +53,35 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
     ? URL.createObjectURL(form.watch().images[0])
     : ''
 
+  const uploadDocumentMutation = useMutation({
+    mutationKey: ['upload-ownership-document'],
+    mutationFn: propertyService.uploadOwnershipDocument,
+    onSuccess: () => {
+      toast.success('Property updated successfully')
+
+      form.reset(newPropertyFormDefaultValues)
+
+      if (imagesMutation.isSuccess && editPropertyMutation.isSuccess) {
+        if (auth?.user?.type === 'ADMIN') {
+          navigate({
+            to: '/admin-dashboard'
+          })
+        } else {
+          navigate({
+            to: '/manage-properties'
+          })
+        }
+      } else {
+        toast.error('Something went wrong')
+      }
+    },
+    onError: (error: Error) => {
+      toast.error('Error uploading document', {
+        description: error.message
+      })
+    }
+  })
+
   const imagesMutation = useMutation({
     mutationKey: ['images'],
     mutationFn: (args: { propertyId: string; images: File[] }) =>
@@ -62,21 +91,15 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
         auth?.accessToken
       ),
     onSuccess: () => {
-      toast.success('Images updated successfully', {
-        duration: 2_000
+      uploadDocumentMutation.mutate({
+        propertyId: property.id,
+        accessToken: auth?.accessToken,
+        document: form.getValues('document')
       })
 
-      form.reset(newPropertyFormDefaultValues)
-
-      if (auth?.user?.type === 'ADMIN') {
-        navigate({
-          to: '/admin-dashboard'
-        })
-      } else {
-        navigate({
-          to: '/manage-properties'
-        })
-      }
+      toast.success('Images updated successfully', {
+        duration: 1_500
+      })
     },
     onError: (error: Error) => {
       toast.error('Something went wrong', {
@@ -92,8 +115,8 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
     onSuccess: () => {
       const images = form.getValues('images').filter((image) => !!image)
 
-      toast.success('Property updated successfully', {
-        duration: 2_000
+      toast.success('Property data updated successfully', {
+        duration: 1_500
       })
 
       imagesMutation.mutate({
