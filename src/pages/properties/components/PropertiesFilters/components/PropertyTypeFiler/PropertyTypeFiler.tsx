@@ -63,7 +63,7 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
   }, [navigate, values.items])
 
   return (
-    <div>
+    <div className="mt-2">
       <Form {...form}>
         <form>
           <FormField
@@ -82,7 +82,7 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
                       Apartment type
                       <ChevronUp
                         className={cn(
-                          'h-4 w-4 transition-transform',
+                          '-translate-x-[3px] h-4 w-4 text-muted-foreground transition-transform block',
                           !open && 'rotate-180'
                         )}
                       />
@@ -95,9 +95,9 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
                     <>
                       <div className="">
                         <Button
-                        size='noSize'
-                        variant='outline'
-                        className='w-full py-1'
+                          size="noSize"
+                          variant="outline"
+                          className="w-full py-1"
                           onClick={() => {
                             form.setValue(
                               'items',
@@ -106,7 +106,7 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
                           }}>
                           Select All
                         </Button>
-                        <Separator className="w-full mt-2" />
+                        <Separator className="mt-2 w-full" />
                       </div>
 
                       {apartmentTypeOptions.map((option) => (

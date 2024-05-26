@@ -36,7 +36,7 @@ const CreatedAtFilter: FC<CreatedAtFilterProps> = () => {
 
   return (
     <div>
-      <Label className="mb-2 block">Posted at</Label>
+      <Label className="mb-2 mt-1 block">Posted at</Label>
       <Select onValueChange={handleChange} value={createdAt}>
         <SelectTrigger className="h-8 py-0">
           <SelectValue placeholder="Select last added properties" />

@@ -18,8 +18,8 @@ const Home: FC<HomeProps> = () => {
     <>
       <Layout>
         <div className="mt-6 flex flex-col sm:mt-14">
-          <section className="relative min-h-[600px] w-full py-12 shadow-xl">
-            <div className="absolute inset-0 -left-[200px] -right-[200px] -top-[200px] -z-10 rounded-md bg-[url('/images/hero.jpg')] bg-cover bg-[bottom_center] bg-no-repeat opacity-30"></div>
+          <section className="shadow-sm relative min-h-[600px] w-full py-12">
+            <div className="absolute inset-0 -left-[200px] -right-[200px] -top-[200px] -z-10 rounded-md bg-[url('/images/hero.jpg')] bg-cover bg-[bottom_center] bg-no-repeat opacity-30 blur-[2px]"></div>
 
             <div className="p-6 text-center">
               <div className="mx-auto max-w-[600px]">
