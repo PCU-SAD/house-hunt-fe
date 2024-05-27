@@ -41,16 +41,19 @@ const FloatingGoUp: FC<FloatingGoUpProps> = () => {
   return (
     <Button
       ref={ref}
-      size="icon"
       variant="outline"
+      size="lg"
       onClick={scrollToTop}
       className={cn(
-        'fixed bottom-4 right-4 z-50 rounded-full shadow-sm transition-opacity',
+        'fixed bottom-8 right-8 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg transition-all duration-300 hover:-translate-y-1',
         {
-          'pointer-events-none opacity-0': !isVisible
+          'opacity-0 pointer-events-none': !isVisible,
+          'opacity-100': isVisible
         }
       )}>
-      <ChevronUp className="h-5 w-5" />
+      <div className="flex items-center justify-center">
+        <ChevronUp className="h-8 w-8" />
+      </div>
     </Button>
   )
 }
