@@ -66,6 +66,7 @@ export default function Pricing() {
                 <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
                   <div className="space-y-4">
                     <div>
+                      
                       <h3 className="text-2xl font-bold">Lifetime</h3>
                       <p className="text-4xl font-bold">$199</p>
                       <p className="text-gray-500 dark:text-gray-400">
