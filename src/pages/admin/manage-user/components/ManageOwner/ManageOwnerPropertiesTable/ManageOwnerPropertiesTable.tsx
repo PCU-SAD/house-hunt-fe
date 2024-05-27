@@ -35,7 +35,7 @@ const ManageOwnerPropertiesTable: FC<ManageOwnerPropertiesTableProps> = ({
     data: serverData,
     isLoading,
     isError,
-    refetch
+    refetch,
   } = useQuery({
     queryKey: ['properties/owner', email],
     queryFn: () => propertyService.getOwnerProperties(email)

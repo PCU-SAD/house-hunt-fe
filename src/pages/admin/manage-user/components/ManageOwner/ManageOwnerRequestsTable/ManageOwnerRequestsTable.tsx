@@ -39,7 +39,7 @@ const ManageOwnerRequestsTable: FC<ManageOwnerRequestsTableProps> = ({
     refetch,
     isError
   } = useQuery({
-    queryKey: ['properties/owner', email],
+    queryKey: ['properties/owner-requests', email],
     queryFn: () => propertyService.getPropertiesRequests(email)
   })
 

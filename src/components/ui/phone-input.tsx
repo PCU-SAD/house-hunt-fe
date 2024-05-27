@@ -1,5 +1,3 @@
-import { CheckIcon, ChevronsUpDown } from 'lucide-react'
-
 import * as React from 'react'
 
 import * as RPNInput from 'react-phone-number-input'
@@ -7,23 +5,10 @@ import * as RPNInput from 'react-phone-number-input'
 import flags from 'react-phone-number-input/flags'
 
 import { Button } from '@/components/ui/button'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList
-} from '@/components/ui/command'
 import { Input, InputProps } from '@/components/ui/input'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '@/components/ui/popover'
+import { Popover, PopoverTrigger } from '@/components/ui/popover'
 
 import { cn } from '@/lib/utils'
-import { ScrollArea } from './scroll-area'
 
 type PhoneInputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -80,37 +65,21 @@ type CountrySelectProps = {
   options: CountrySelectOption[]
 }
 
-const CountrySelect = ({
-  disabled,
-  value,
-  onChange,
-  options
-}: CountrySelectProps) => {
-  const handleSelect = React.useCallback(
-    (country: RPNInput.Country) => {
-      onChange(country)
-    },
-    [onChange]
-  )
+const CountrySelect = ({ disabled, value }: CountrySelectProps) => {
+  const [open, setOpen] = React.useState(false)
 
   return (
-    <Popover modal>
-      <PopoverTrigger asChild>
+    <Popover modal open={open}>
+      <PopoverTrigger asChild onClick={() => setOpen(true)}>
         <Button
           type="button"
           variant={'outline'}
           className={cn('flex gap-1 rounded-e-none rounded-s-lg px-3')}
           disabled={disabled}>
           <FlagComponent country={value} countryName={value} />
-          <ChevronsUpDown
-            className={cn(
-              '-mr-2 h-4 w-4 opacity-50',
-              disabled ? 'hidden' : 'opacity-900'
-            )}
-          />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0 md:w-[260px]">
+      {/* <PopoverContent className="w-full p-0 md:w-[260px]">
         <Command>
           <CommandList>
             <ScrollArea className="h-72">
@@ -146,7 +115,7 @@ const CountrySelect = ({
             </ScrollArea>
           </CommandList>
         </Command>
-      </PopoverContent>
+      </PopoverContent> */}
     </Popover>
   )
 }
