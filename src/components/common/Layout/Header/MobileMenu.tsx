@@ -79,20 +79,6 @@ const MobileMenu: FC<MobileMenuProps> = () => {
             </Link>
           ))}
         </nav>
-        {/*           
-        <div className="flex flex-col gap-2">
-          {filteredLinks.map((link) => (
-            <NavigationMenuItem key={link.to}>
-              <Link
-                to={link.to}
-                activeProps={{
-                  className: cn('underline underline-offset-2')
-                }}>
-                {link.label}
-              </Link>
-            </NavigationMenuItem>
-          ))}
-        </div> */}
       </SheetContent>
     </Sheet>
   )
