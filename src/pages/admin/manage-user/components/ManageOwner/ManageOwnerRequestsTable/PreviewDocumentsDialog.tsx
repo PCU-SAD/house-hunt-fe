@@ -23,6 +23,16 @@ const PreviewDocumentsDialogContent: FC<PreviewDocumentsDialogContentProps> = ({
   documentName,
   refetch
 }) => {
+  const extensionCandidate = documentName?.split('.')?.pop()
+
+  const extension =
+    extensionCandidate === 'pdf' ||
+    extensionCandidate === 'png' ||
+    extensionCandidate === 'jpg' ||
+    extensionCandidate === 'jpeg'
+      ? extensionCandidate
+      : 'jpeg'
+
   const verifyPropertyMutation = useMutation({
     mutationKey: ['verify-property'],
     mutationFn: adminService.verifyProperty,
@@ -61,7 +71,7 @@ const PreviewDocumentsDialogContent: FC<PreviewDocumentsDialogContentProps> = ({
       const url = window.URL.createObjectURL(imageData)
       const a = document.createElement('a')
       a.href = url
-      a.download = `${formattedFileName}.jpeg`
+      a.download = `${formattedFileName}.${extension}`
       document.body.appendChild(a)
       a.click()
       window.URL.revokeObjectURL(url)
@@ -80,7 +90,7 @@ const PreviewDocumentsDialogContent: FC<PreviewDocumentsDialogContentProps> = ({
         <DialogTitle>Ownership proof</DialogTitle>
       </DialogHeader>
 
-      <div className="pt-2 pb-12">
+      <div className="pb-12 pt-2">
         {documentName ? (
           <div className="flex items-center gap-2">
             <Paperclip className="h-4 w-4 shrink-0" />
@@ -96,7 +106,7 @@ const PreviewDocumentsDialogContent: FC<PreviewDocumentsDialogContentProps> = ({
         )}
       </div>
 
-      <DialogFooter className='gap-1'>
+      <DialogFooter className="gap-1">
         <Button
           size="sm"
           variant="outline"
