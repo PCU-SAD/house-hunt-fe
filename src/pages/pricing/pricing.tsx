@@ -29,31 +29,31 @@ export default function Pricing() {
                     <Table>
                       <TableBody>
                         <TableRow>
-                          <TableCell>Unlimited projects</TableCell>
+                          <TableCell>Unlimited Listings: Post as many property listings as you need without any restrictions.</TableCell>
                           <TableCell>
                             <CheckIcon className="h-5 w-5" />
                           </TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell>Unlimited collaborators</TableCell>
+                          <TableCell>Unlimited Contacts: Connect with an unlimited number of potential buyers or renters.</TableCell>
                           <TableCell>
                             <CheckIcon className="h-5 w-5" />
                           </TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell>Unlimited storage</TableCell>
+                          <TableCell>Premium Property Photos: Upload and showcase high-quality photos for all your listings.</TableCell>
                           <TableCell>
                             <CheckIcon className="h-5 w-5" />
                           </TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell>Advanced analytics</TableCell>
+                          <TableCell>Advanced Analytics: Gain insights into your listings' performance with our comprehensive analytics tools.</TableCell>
                           <TableCell>
                             <CheckIcon className="h-5 w-5" />
                           </TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell>Priority support</TableCell>
+                          <TableCell>Priority Customer Support: Get your questions answered and issues resolved faster with our priority support service.</TableCell>
                           <TableCell>
                             <CheckIcon className="h-5 w-5 " />
                           </TableCell>
@@ -75,31 +75,31 @@ export default function Pricing() {
                     <Table>
                       <TableBody>
                         <TableRow>
-                          <TableCell>Unlimited projects</TableCell>
+                          <TableCell>Unlimited Listings: Enjoy the freedom to post unlimited property listings for life.</TableCell>
                           <TableCell>
                             <CheckIcon className="h-5 w-5 " />
                           </TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell>Unlimited collaborators</TableCell>
+                          <TableCell>Unlimited Contacts: Network with as many buyers or renters as you want, forever.</TableCell>
                           <TableCell>
                             <CheckIcon className="h-5 w-5 " />
                           </TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell>Unlimited storage</TableCell>
+                          <TableCell>Premium Property Photos: Benefit from the ability to upload and display high-quality images for all your properties.</TableCell>
                           <TableCell>
                             <CheckIcon className="h-5 w-5 " />
                           </TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell>Advanced analytics</TableCell>
+                          <TableCell>Advanced Analytics: Access powerful analytics tools to help you track and optimize your listings' performance.</TableCell>
                           <TableCell>
                             <CheckIcon className="h-5 w-5 " />
                           </TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell>Priority support</TableCell>
+                          <TableCell>Priority Customer Support: Receive top-notch priority support whenever you need it, ensuring a smooth experience.</TableCell>
                           <TableCell>
                             <CheckIcon className="h-5 w-5 " />
                           </TableCell>
