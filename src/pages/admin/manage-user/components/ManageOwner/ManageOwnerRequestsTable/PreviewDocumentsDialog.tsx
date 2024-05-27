@@ -27,7 +27,9 @@ const PreviewDocumentsDialogContent: FC<PreviewDocumentsDialogContentProps> = ({
     mutationKey: ['verify-property'],
     mutationFn: adminService.verifyProperty,
     onSuccess: () => {
-      toast.success('Property verified')
+      toast.success('Property verified', {
+        duration: 2_000
+      })
       refetch()
     },
     onError: (error: Error) => {
@@ -39,7 +41,7 @@ const PreviewDocumentsDialogContent: FC<PreviewDocumentsDialogContentProps> = ({
 
   const rejectPropertyMutation = useMutation({
     mutationKey: ['reject-property'],
-    mutationFn: adminService.verifyProperty,
+    mutationFn: adminService.rejectProperty,
     onSuccess: () => {
       toast.success('Property rejected')
       refetch()
@@ -94,7 +96,7 @@ const PreviewDocumentsDialogContent: FC<PreviewDocumentsDialogContentProps> = ({
         )}
       </div>
 
-      <DialogFooter>
+      <DialogFooter className='gap-1'>
         <Button
           size="sm"
           variant="outline"

@@ -47,40 +47,13 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
     district: property.district
   })
 
+  console.log(form.formState.errors)
+
   const watchedProperty = form.watch()
 
   const previewImg = form.watch().images[0]
     ? URL.createObjectURL(form.watch().images[0])
     : ''
-
-  const uploadDocumentMutation = useMutation({
-    mutationKey: ['upload-ownership-document'],
-    mutationFn: propertyService.uploadOwnershipDocument,
-    onSuccess: () => {
-      toast.success('Property updated successfully')
-
-      form.reset(newPropertyFormDefaultValues)
-
-      if (imagesMutation.isSuccess && editPropertyMutation.isSuccess) {
-        if (auth?.user?.type === 'ADMIN') {
-          navigate({
-            to: '/admin-dashboard'
-          })
-        } else {
-          navigate({
-            to: '/manage-properties'
-          })
-        }
-      } else {
-        toast.error('Something went wrong')
-      }
-    },
-    onError: (error: Error) => {
-      toast.error('Error uploading document', {
-        description: error.message
-      })
-    }
-  })
 
   const imagesMutation = useMutation({
     mutationKey: ['images'],
@@ -91,15 +64,19 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
         auth?.accessToken
       ),
     onSuccess: () => {
-      uploadDocumentMutation.mutate({
-        propertyId: property.id,
-        accessToken: auth?.accessToken,
-        document: form.getValues('document')
-      })
+      toast.success('Property updated successfully')
 
-      toast.success('Images updated successfully', {
-        duration: 1_500
-      })
+      form.reset(newPropertyFormDefaultValues)
+
+      if (auth?.user?.type === 'ADMIN') {
+        navigate({
+          to: '/admin-dashboard'
+        })
+      } else {
+        navigate({
+          to: '/manage-properties'
+        })
+      }
     },
     onError: (error: Error) => {
       toast.error('Something went wrong', {
@@ -133,7 +110,7 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
 
   function onSubmit(values: NewPropertyFormType) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { images, document, ...rest } = values
+    const { images, ...rest } = values
 
     const formattedValues = {
       ...rest,
@@ -146,6 +123,7 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
       delete formattedValues.availableFrom
     }
 
+    console.log('here')
     editPropertyMutation.mutate({
       values: formattedValues,
       propertyId: property.id
@@ -160,7 +138,13 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
         <div className="flex-1">
           <EditPropertyFormFields />
 
-          <Button type="submit" size="sm" className="mt-4">
+          <Button
+            type="submit"
+            size="sm"
+            className="mt-4"
+            disabled={
+              editPropertyMutation.isPending || imagesMutation.isPending
+            }>
             Submit
           </Button>
         </div>

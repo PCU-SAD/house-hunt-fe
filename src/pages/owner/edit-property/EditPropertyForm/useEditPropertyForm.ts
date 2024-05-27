@@ -3,8 +3,7 @@ import {
   apartmentTypeSchema,
   districtFormTypeSchema,
   fileSchema,
-  FurnishedSchema,
-  newPropertyFormSchema
+  FurnishedSchema
 } from '@/pages/owner/add-new-property/components/NewPropertyForm/useNewPropertyForm'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -39,16 +38,13 @@ export const editPropertyFormSchema = z
     floorNumber: z.coerce
       .number()
       .int()
-      .min(-10, 'Min floor number is -10')
+      .min(0, 'Min floor number is 0')
       .max(140, 'Max floor number is 140'),
     availableFrom: z.date(),
     adType: adTypeSchema,
     apartmentType: apartmentTypeSchema,
     images: z.array(fileSchema),
-    district: districtFormTypeSchema,
-    document: z.any().refine((file) => {
-      return !!file
-    }, 'Document is required.')
+    district: districtFormTypeSchema
   })
   .superRefine((val, ctx) => {
     const atLeastOneImage = val.images.some((image) => {
@@ -70,7 +66,7 @@ export type EditPropertyFormType = z.infer<typeof editPropertyFormSchema>
 
 export function useEditNewPropertyForm(defaultValues: EditPropertyFormType) {
   return useForm<EditPropertyFormType>({
-    resolver: zodResolver(newPropertyFormSchema),
+    resolver: zodResolver(editPropertyFormSchema),
     mode: 'onChange',
     defaultValues
   })

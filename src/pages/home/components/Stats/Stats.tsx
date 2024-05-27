@@ -11,10 +11,10 @@ type StatsProps = {
 }
 
 const Stats: FC<StatsProps> = ({ statsQuery }) => {
-  const { data: stats, isLoading, isError, refetch } = statsQuery
+  const { data: stats, isLoading, isError } = statsQuery
 
   if (isError) {
-    return <ErrorResult onRetry={refetch} className="my-12" />
+    return null
   }
 
   if (isLoading) {

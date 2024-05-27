@@ -1,4 +1,3 @@
-import ErrorResult from '@/components/common/Errors/ErrorResult'
 import { buttonVariants } from '@/components/ui/button'
 import {
   Select,
@@ -23,16 +22,12 @@ type SearchProps = {
 }
 
 const Search: FC<SearchProps> = ({ statsQuery }) => {
-  const { isLoading, isError, data, refetch } = statsQuery
+  const { isLoading, isError, data } = statsQuery
   const [district, setDistrict] = useState<DistrictFormType>('PRAGUE 1')
   const homesAround = data?.totalRentalProperties + data?.totalSaleProperties
 
   function handleChange(value: DistrictFormType) {
     setDistrict(value)
-  }
-
-  if (isError) {
-    return <ErrorResult onRetry={refetch} />
   }
 
   return (

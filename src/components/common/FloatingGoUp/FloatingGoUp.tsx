@@ -13,11 +13,10 @@ const FloatingGoUp: FC<FloatingGoUpProps> = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleScroll = useCallback(
     throttle(() => {
-      console.log(window.scrollY)
       if (
         window.innerHeight + window.scrollY >=
           document.body.offsetHeight / 1.5 &&
-        document.body.offsetHeight > 1500
+        document.body.offsetHeight > 2000
       ) {
         setIsVisible(true)
       } else {

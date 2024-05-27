@@ -189,37 +189,6 @@ const EditPropertyFormFields: FC<EditPropertyFormFieldsProps> = () => {
           </p>
         )}
       </div>
-
-      <FormField
-      name="document"
-      control={form.control}
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      render={({ field: { value, onChange, ...rest } }) => {
-        return (
-          <FormItem>
-            <FormLabel>Document</FormLabel>
-            <FormControl>
-              <Input
-                type="file"
-                placeholder="Choose a document"
-                accept=".pdf, .jpg, .png"
-                {...rest}
-                onChange={(event) =>
-                  onChange(event.target?.files?.[0] ?? undefined)
-                }
-              />
-            </FormControl>
-
-            <FormMessage />
-
-            <FormDescription>
-              Upload a document to verify the ownership of the property. Accepted file types:
-              JPG, PNG, PDF.
-            </FormDescription>
-          </FormItem>
-        )
-      }}
-    />
     </div>
   )
 }

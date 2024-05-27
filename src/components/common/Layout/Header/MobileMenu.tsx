@@ -67,6 +67,7 @@ const MobileMenu: FC<MobileMenuProps> = () => {
         <nav className="grid min-w-[200px] gap-2">
           {filteredLinks.map((link) => (
             <Link
+              key={link.label}
               to={link.to}
               onClick={handleCloseDrawer}
               className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-200"
