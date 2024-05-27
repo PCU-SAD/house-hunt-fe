@@ -1,3 +1,4 @@
+import FloatingGoUp from '@/components/common/FloatingGoUp/FloatingGoUp'
 import { Toaster } from '@/components/ui/sonner'
 import '@/index.css'
 import LoadingPage from '@/pages/loading/Loading'
@@ -25,6 +26,7 @@ function Index() {
       <ScrollRestoration />
       <Outlet />
       <Toaster />
+      <FloatingGoUp />
     </>
   )
 }
