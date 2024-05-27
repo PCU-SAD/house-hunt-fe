@@ -47,8 +47,6 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
     district: property.district
   })
 
-  console.log(form.formState.errors)
-
   const watchedProperty = form.watch()
 
   const previewImg = form.watch().images[0]
@@ -123,7 +121,6 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
       delete formattedValues.availableFrom
     }
 
-    console.log('here')
     editPropertyMutation.mutate({
       values: formattedValues,
       propertyId: property.id

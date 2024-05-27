@@ -83,8 +83,6 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
         auth?.accessToken
       ),
     onSuccess: () => {
-      console.log('images mutation done')
-
       uploadDocumentMutation.mutate({
         propertyId: propertyId,
         document: form.getValues('document'),
