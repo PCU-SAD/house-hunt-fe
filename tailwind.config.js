@@ -89,15 +89,17 @@ export default {
         },
         shake: {
           '0%, 100%': { transform: 'translateX(0)' },
-          '25%': { transform: 'translateX(-5px)' },
-          '50%': { transform: 'translateX(5px)' },
-          '75%': { transform: 'translateX(-5px)' },
+          '10%': { transform: 'translateX(-4px)' },
+          '30%': { transform: 'translateX(4px)' },
+          '50%': { transform: 'translateX(-3px)' },
+          '70%': { transform: 'translateX(3px)' },
+          '90%': { transform: 'translateX(-0.5px)' }
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        shake: 'shake 0.5s',
+        shake: 'shake 0.3s ease-in-out'
       }
     }
   },

@@ -76,7 +76,6 @@ const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
         // Remove the shake class if it already exists to restart the animation
         field.classList.remove('animate-shake')
         // Trigger a reflow to restart the animation
-        void field.offsetWidth
         // Add the shake class
         field.classList.add('animate-shake')
         field.addEventListener('animationend', () => {
@@ -84,7 +83,11 @@ const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
         })
       })
     }
-  }, [form.formState.submitCount, form.formState.isValid])
+  }, [
+    form.formState.submitCount,
+    form.formState.isValid,
+    form.formState.isSubmitted
+  ])
 
   return (
     <Form {...form}>
@@ -103,10 +106,10 @@ const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
                   <Input
                     placeholder="Enter your name"
                     {...field}
-                    className={`bg-white border-gray-300 text-black placeholder-gray-500 ${hasError ? 'animate-shake' : ''}`}
+                    className={`border-gray-300 bg-white text-black placeholder-gray-500 ${hasError ? 'animate-shake' : ''}`}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-white" />
               </FormItem>
             )
           }}
@@ -125,10 +128,10 @@ const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
                     placeholder="Enter your email"
                     inputMode="email"
                     {...field}
-                    className={`bg-white border-gray-300 text-black placeholder-gray-500 ${hasError ? 'animate-shake' : ''}`}
+                    className={`border-gray-300 bg-white text-black placeholder-gray-500 ${hasError ? 'animate-shake' : ''}`}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-white" />
               </FormItem>
             )
           }}
@@ -146,19 +149,20 @@ const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
                   onValueChange={field.onChange}
                   defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger className={`bg-white border-gray-300 text-black ${hasError ? 'animate-shake' : ''}`}>
+                    <SelectTrigger
+                      className={`border-gray-300 bg-white text-black ${hasError ? 'animate-shake' : ''}`}>
                       <SelectValue placeholder="Select your request subject" />
                     </SelectTrigger>
                   </FormControl>
 
-                  <SelectContent className="max-h-[300px] bg-white border-gray-300 text-black">
+                  <SelectContent className="max-h-[300px] border-gray-300 bg-white text-black">
                     <SelectItem value="COMPLAINT">Complaint</SelectItem>
                     <SelectItem value="QUESTION">Question</SelectItem>
                     <SelectItem value="VIEWING">Viewing</SelectItem>
                   </SelectContent>
                 </Select>
 
-                <FormMessage />
+                <FormMessage className="text-white" />
               </FormItem>
             )
           }}
@@ -175,11 +179,11 @@ const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
                 <FormControl>
                   <Textarea
                     placeholder="Describe your inquiry..."
-                    className={`max-h-[500px] min-h-[200px] bg-white border-gray-300 text-black placeholder-gray-500 ${hasError ? 'animate-shake' : ''}`}
+                    className={`max-h-[500px] min-h-[200px] border-gray-300 bg-white text-black placeholder-gray-500 ${hasError ? 'animate-shake' : ''}`}
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-white" />
               </FormItem>
             )
           }}

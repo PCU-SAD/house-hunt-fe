@@ -13,7 +13,7 @@ const ContactUs: FC = () => {
     <Layout>
       <Container>
         <section className="relative mt-8 w-full rounded-md py-12">
-          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-gray-800 via-gray-900 to-black opacity-80"></div>
+          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-gray-800 via-gray-900 to-slate-900 opacity-60"></div>
           <div className="relative z-10 grid gap-8 px-4 md:px-6">
             <div className="space-y-4 text-center">
               <Typography variant="h1" className="text-3xl text-white">
