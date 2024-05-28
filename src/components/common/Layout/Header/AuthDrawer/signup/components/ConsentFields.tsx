@@ -17,6 +17,10 @@ type ConsentFieldsProps = {}
 const ConsentFields: FC<ConsentFieldsProps> = () => {
   const form = useFormContext<SignupFormType>()
 
+  function onAccept() {
+    form.setValue('terms', true)
+  }
+
   return (
     <div className="flex flex-col gap-5">
       <FormField
@@ -34,8 +38,7 @@ const ConsentFields: FC<ConsentFieldsProps> = () => {
                 </FormControl>
 
                 <FormLabel className="leading-4">
-                  Agree to{' '}
-                  <ConsentPopup />
+                  Agree to <ConsentPopup onAccept={onAccept} />
                 </FormLabel>
               </div>
 

@@ -1,10 +1,8 @@
-import { SignupFormType } from '@/components/common/Layout/Header/AuthDrawer/signup/SignupForm/useSignupForm'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTrigger
@@ -12,19 +10,18 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Typography } from '@/components/ui/typography'
 import { FC, ReactNode } from 'react'
-import { useFormContext } from 'react-hook-form'
 
 type ConsentPopupProps = {
   trigger?: ReactNode
+  onAccept?: () => void
+  acceptButton?: boolean
 }
 
-const ConsentPopup: FC<ConsentPopupProps> = ({ trigger }) => {
-  const form = useFormContext<SignupFormType>()
-
-  function onAccept() {
-    form.setValue('terms', true)
-  }
-
+const ConsentPopup: FC<ConsentPopupProps> = ({
+  trigger,
+  onAccept,
+  acceptButton = true
+}) => {
   return (
     <Dialog>
       {trigger ? (
@@ -39,7 +36,7 @@ const ConsentPopup: FC<ConsentPopupProps> = ({ trigger }) => {
         closeIcon={false}>
         <ScrollArea>
           <DialogHeader>
-            <DialogDescription className="mt-2 text-foreground">
+            <div className="mt-2 text-left text-sm text-foreground">
               <div className="flex flex-col gap-2 pr-2">
                 <div>
                   <Typography variant="h4">14. Terms and Conditions</Typography>
@@ -417,26 +414,29 @@ const ConsentPopup: FC<ConsentPopupProps> = ({ trigger }) => {
                   </p>
                 </div>
               </div>
-            </DialogDescription>
+            </div>
           </DialogHeader>
         </ScrollArea>
 
-        <DialogFooter className="bottom-0 flex items-center bg-white sm:justify-end">
+        <DialogFooter className="">
           <DialogClose asChild>
             <Button type="button" variant="secondary" size="sm">
               Close
             </Button>
           </DialogClose>
-          <DialogClose asChild>
-            <Button
-              type="button"
-              onClick={onAccept}
-              variant="default"
-              size="sm"
-              className="bg-green-500 text-white hover:bg-green-400">
-              Accept
-            </Button>
-          </DialogClose>
+
+          {acceptButton && (
+            <DialogClose asChild>
+              <Button
+                type="button"
+                onClick={onAccept}
+                variant="default"
+                size="sm"
+                className="bg-green-500 text-white hover:bg-green-400">
+                Accept
+              </Button>
+            </DialogClose>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>

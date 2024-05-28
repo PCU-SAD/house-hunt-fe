@@ -1,4 +1,5 @@
 import Container from '@/components/common/Layout/Container'
+import ConsentPopup from '@/components/common/Layout/Header/AuthDrawer/signup/components/ConsentPopup'
 import { navLinks } from '@/components/common/Layout/Header/navLinks'
 import { Separator } from '@/components/ui/separator'
 import {
@@ -11,6 +12,7 @@ import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { Link } from '@tanstack/react-router'
 import { FC } from 'react'
 import Logo from '/logo-white.png'
+import { DialogTrigger } from '@/components/ui/dialog'
 
 const Footer: FC = () => {
   const auth = useAuthContext()
@@ -45,13 +47,14 @@ const Footer: FC = () => {
             <img src={Logo} className="h-[80px]" />
           </Link>
 
-          <div className="grid max-w-[600px] sm:grid-cols-2 gap-6 md:grid-cols-3">
+          <div className="grid max-w-[600px] gap-6 sm:grid-cols-2 md:grid-cols-3">
             <div className="space-y-2">
               <h4 className="text-lg font-bold">Quick Links</h4>
               <ul className="flex flex-col gap-2">
                 {filteredLinks.map((link) => (
                   <Link
                     to={link.to}
+                    key={link.label}
                     className="hover:underline"
                     activeProps={{
                       className: cn('underline underline-offset-2')
@@ -112,16 +115,24 @@ const Footer: FC = () => {
         </div>
         <div className="mt-[60px] text-center text-sm text-muted-foreground">
           <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
-            <Link className="underline-offset-2 hover:underline" to="/privacy-policy">
+            <Link
+              className="underline-offset-2 hover:underline"
+              to="/privacy-policy">
               Privacy policy
             </Link>
             <Separator
               orientation="vertical"
               className="hidden h-5 bg-muted-foreground md:block"
             />
-            <Link className="underline-offset-2 hover:underline">
-              Terms & Conditions
-            </Link>
+
+            <ConsentPopup
+            acceptButton={false}
+              trigger={
+                <DialogTrigger className="underline-offset-2 hover:underline">
+                  Terms & Conditions
+                </DialogTrigger>
+              }
+            />
           </div>
 
           <p className="mt-4">© 2024 House Hunt. All rights reserved.</p>
