@@ -41,19 +41,19 @@ const ContactOwner: FC<ContactOwnerProps> = ({ owner }) => {
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
                   Name
                 </div>
-                <div>{`${owner.name} ${owner.surname}`}</div>
+                <div>{`${owner?.name} ${owner?.surname}`}</div>
               </div>
               <div>
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
                   Email
                 </div>
-                <a href={`mailto:${owner.email}`}>{owner.email}</a>
+                <a href={`mailto:${owner?.email}`}>{owner?.email}</a>
               </div>
               <div>
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
                   Phone
                 </div>
-                <a href={`tel:${owner.phoneNumber}`}>{owner.phoneNumber}</a>
+                <a href={`tel:${owner?.phoneNumber}`}>{owner?.phoneNumber}</a>
               </div>
             </CardContent>
           ) : (

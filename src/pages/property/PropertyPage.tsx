@@ -42,7 +42,7 @@ const PropertyPage: FC<PropertyPageProps> = () => {
     return (
       <Layout>
         <Container>
-          <Link to="../" className="mt-4 inline-block">
+          <Link to=".." className="mt-4 inline-block">
             <ChevronLeft />
           </Link>
 
@@ -55,7 +55,7 @@ const PropertyPage: FC<PropertyPageProps> = () => {
   return (
     <Layout>
       <Container>
-        <Link to="../" className="mt-4 inline-block">
+        <Link to=".." className="mt-4 inline-block">
           <div className="flex items-center gap-2">
             <ChevronLeft />
             <Typography variant="h3">Property details</Typography>
@@ -66,7 +66,10 @@ const PropertyPage: FC<PropertyPageProps> = () => {
           {isLoading || isImagesLoading ? (
             <SkeletonCard />
           ) : (
-            <Property property={property} images={isImagesError ? [] : images} />
+            <Property
+              property={property}
+              images={isImagesError ? [] : images}
+            />
           )}
         </div>
       </Container>
