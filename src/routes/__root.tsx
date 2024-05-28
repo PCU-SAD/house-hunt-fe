@@ -1,3 +1,4 @@
+import { CookiesDialog } from '@/components/common/CookiesDialog/CookiesDialog'
 import FloatingGoUp from '@/components/common/FloatingGoUp/FloatingGoUp'
 import { Toaster } from '@/components/ui/sonner'
 import '@/index.css'
@@ -23,6 +24,7 @@ export const Route = createRootRouteWithContext<RouteContext>()({
 function Index() {
   return (
     <>
+      {/* <CookiesDialog /> */}
       <ScrollRestoration />
       <Outlet />
       <Toaster />
