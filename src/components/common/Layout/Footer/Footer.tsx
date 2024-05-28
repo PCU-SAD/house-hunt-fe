@@ -112,7 +112,7 @@ const Footer: FC = () => {
         </div>
         <div className="mt-[60px] text-center text-sm text-muted-foreground">
           <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
-            <Link className="underline-offset-2 hover:underline">
+            <Link className="underline-offset-2 hover:underline" to="/privacy-policy">
               Privacy policy
             </Link>
             <Separator

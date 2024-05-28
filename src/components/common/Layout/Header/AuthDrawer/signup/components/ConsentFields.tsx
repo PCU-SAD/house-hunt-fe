@@ -82,7 +82,9 @@ const ConsentFields: FC<ConsentFieldsProps> = () => {
 
                 <FormLabel className="leading-4">
                   I have read and agree to the privacy policy.{' '}
-                  <Link to="/" className="text-blue-800 underline">
+                  <Link
+                    to="/privacy-policy"
+                    className="text-blue-800 underline">
                     Privacy Policy
                   </Link>
                 </FormLabel>

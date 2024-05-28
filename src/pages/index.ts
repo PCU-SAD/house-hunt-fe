@@ -5,6 +5,7 @@ import LoadingPage from '@/pages/loading/Loading'
 import AddNewProperty from '@/pages/owner/add-new-property/AddNewProperty'
 import ManageProperties from '@/pages/owner/manage-properties/ManageProperties'
 import Pricing from '@/pages/pricing/pricing'
+import PrivacyPolicy from '@/pages/privacy-policy/PrivacyPolicy'
 import PropertyPage from '@/pages/property/PropertyPage'
 import ResetPassword from '@/pages/reset-password/ResetPassword'
 import AdminPage from './admin/admin-dashboard/Admin'
@@ -29,6 +30,7 @@ export {
   ManageUser,
   NotFoundPage,
   Pricing,
+  PrivacyPolicy,
   PropertiesPage,
   PropertyPage,
   ResetPassword,

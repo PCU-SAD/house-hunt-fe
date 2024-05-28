@@ -23,7 +23,7 @@ const DrawerFilters: FC<DrawerFiltersProps> = ({
   const handleCloseDrawer = () => setDrawerOpen(false)
 
   return (
-    <div className='overflow-auto'>
+    <div className="overflow-auto">
       <Drawer open={drawerOpen} onOpenChange={setDrawerOpen} direction="left">
         <DrawerTrigger asChild>
           <Button variant="outline" size="noSize" className="h-8 px-3">
@@ -31,7 +31,7 @@ const DrawerFilters: FC<DrawerFiltersProps> = ({
             <FilterIcon className="h-4 w-4" />
           </Button>
         </DrawerTrigger>
-        <DrawerContent className="lg:hidden overflow-auto">
+        <DrawerContent className="overflow-auto lg:hidden">
           <DrawerFooter>
             <PropertiesFilters
               applyFilters={applyFilters}
