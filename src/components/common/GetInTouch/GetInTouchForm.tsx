@@ -23,7 +23,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { userService } from '@/services/user-service/user-service'
 import { useMutation } from '@tanstack/react-query'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { toast } from 'sonner'
 
 type GetInTouchFormProps = {
@@ -62,11 +62,29 @@ const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
   })
 
   const onSubmit = (data: GetInTouchFormType) => {
+    form.handleSubmit(onSubmit)
     getInTouchMutation.mutate({
       ...data,
       propertyId
     })
   }
+
+  useEffect(() => {
+    if (form.formState.isSubmitted && !form.formState.isValid) {
+      const invalidFields = document.querySelectorAll('.form-field-invalid')
+      invalidFields.forEach((field) => {
+        // Remove the shake class if it already exists to restart the animation
+        field.classList.remove('animate-shake')
+        // Trigger a reflow to restart the animation
+        void field.offsetWidth
+        // Add the shake class
+        field.classList.add('animate-shake')
+        field.addEventListener('animationend', () => {
+          field.classList.remove('animate-shake')
+        })
+      })
+    }
+  }, [form.formState.submitCount, form.formState.isValid])
 
   return (
     <Form {...form}>
@@ -76,12 +94,17 @@ const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
         <FormField
           control={form.control}
           name="name"
-          render={({ field }) => {
+          render={({ field, fieldState }) => {
+            const hasError = fieldState.invalid && form.formState.isSubmitted
             return (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
+              <FormItem className={hasError ? 'form-field-invalid' : ''}>
+                <FormLabel className="text-white">Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your name" {...field} />
+                  <Input
+                    placeholder="Enter your name"
+                    {...field}
+                    className={`bg-white border-gray-300 text-black placeholder-gray-500 ${hasError ? 'animate-shake' : ''}`}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -92,15 +115,17 @@ const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
         <FormField
           control={form.control}
           name="email"
-          render={({ field }) => {
+          render={({ field, fieldState }) => {
+            const hasError = fieldState.invalid && form.formState.isSubmitted
             return (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
+              <FormItem className={hasError ? 'form-field-invalid' : ''}>
+                <FormLabel className="text-white">Email</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter your email"
                     inputMode="email"
                     {...field}
+                    className={`bg-white border-gray-300 text-black placeholder-gray-500 ${hasError ? 'animate-shake' : ''}`}
                   />
                 </FormControl>
                 <FormMessage />
@@ -112,20 +137,21 @@ const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
         <FormField
           name="subject"
           control={form.control}
-          render={({ field }) => {
+          render={({ field, fieldState }) => {
+            const hasError = fieldState.invalid && form.formState.isSubmitted
             return (
-              <FormItem>
-                <FormLabel>Request subject</FormLabel>
+              <FormItem className={hasError ? 'form-field-invalid' : ''}>
+                <FormLabel className="text-white">Request subject</FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className={`bg-white border-gray-300 text-black ${hasError ? 'animate-shake' : ''}`}>
                       <SelectValue placeholder="Select your request subject" />
                     </SelectTrigger>
                   </FormControl>
 
-                  <SelectContent className="max-h-[300px]">
+                  <SelectContent className="max-h-[300px] bg-white border-gray-300 text-black">
                     <SelectItem value="COMPLAINT">Complaint</SelectItem>
                     <SelectItem value="QUESTION">Question</SelectItem>
                     <SelectItem value="VIEWING">Viewing</SelectItem>
@@ -141,19 +167,22 @@ const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
         <FormField
           control={form.control}
           name="message"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Describe your inquiry..."
-                  className="max-h-[500px] min-h-[200px]"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          render={({ field, fieldState }) => {
+            const hasError = fieldState.invalid && form.formState.isSubmitted
+            return (
+              <FormItem className={hasError ? 'form-field-invalid' : ''}>
+                <FormLabel className="text-white">Description</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Describe your inquiry..."
+                    className={`max-h-[500px] min-h-[200px] bg-white border-gray-300 text-black placeholder-gray-500 ${hasError ? 'animate-shake' : ''}`}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
         />
         <Button
           type="submit"

@@ -13,14 +13,14 @@ const ContactUs: FC = () => {
     <Layout>
       <Container>
         <section className="relative mt-8 w-full rounded-md py-12">
-          <div className="absolute inset-0 rounded-xl bg-gray-100 opacity-40"></div>
-          <div className="container relative z-10 grid gap-8 px-4 md:px-6">
+          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-gray-800 via-gray-900 to-black opacity-80"></div>
+          <div className="relative z-10 grid gap-8 px-4 md:px-6">
             <div className="space-y-4 text-center">
-              <Typography variant="h1" className="text-3xl">
+              <Typography variant="h1" className="text-3xl text-white">
                 Get in Touch
               </Typography>
 
-              <p className="mx-auto max-w-[700px] text-muted-foreground">
+              <p className="mx-auto max-w-[700px] text-muted-foreground text-white">
                 Have a question or ready to start your real estate journey?
                 Contact us today.
               </p>

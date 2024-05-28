@@ -13,15 +13,15 @@ const About: FC = () => {
           <AboutCarousel />
           <OurValues />
           <OurTeam />
-          <section className="mt-8 w-full rounded-md bg-gray-100 py-12 md:py-24">
-            <div className="mx-auto max-w-[500px]">
-              <h2 className="text-center text-2xl font-bold">
+          <section className="relative mt-8 w-full rounded-md py-12 md:py-24">
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-gray-800 via-gray-900 to-black opacity-80"></div>
+            <div className="relative z-10 mx-auto max-w-[500px]">
+              <h2 className="text-center text-2xl font-bold text-white">
                 Get in touch with us
               </h2>
-              <p className="mt-4 text-center text-gray-500">
+              <p className="mt-4 text-center text-gray-300">
                 We are always ready to help you.
               </p>
-
               <GetInTouchForm />
             </div>
           </section>
