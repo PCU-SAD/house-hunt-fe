@@ -9,11 +9,11 @@ import { SortSearchType } from '@/routes/properties'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { FC } from 'react'
-type PriceSortProps = {}
+type PropertiesSortProps = {}
 
 type SelectItemValue = 'price_asc' | 'price_desc' | 'createdAt'
 
-const PriceSort: FC<PriceSortProps> = () => {
+const PropertiesSort: FC<PropertiesSortProps> = () => {
   const { sort } = useSearch({
     from: '/properties'
   })
@@ -37,6 +37,7 @@ const PriceSort: FC<PriceSortProps> = () => {
       search: (prev) => {
         return {
           ...prev,
+          page: 1,
           sort: {
             key: sortKey,
             order: sortValue
@@ -66,4 +67,4 @@ const PriceSort: FC<PriceSortProps> = () => {
   )
 }
 
-export default PriceSort
+export default PropertiesSort

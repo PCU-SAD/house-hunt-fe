@@ -36,7 +36,7 @@ const Footer: FC = () => {
   })
 
   return (
-    <footer className="mt-12 bg-gray-900 pb-4 pt-12 text-white">
+    <footer className="mt-12 bg-gray-900 pb-10 pt-12 text-white">
       <Container className="max-w-[1200px]">
         <div className="flex flex-col justify-between gap-12 md:flex-row">
           <Link
@@ -45,7 +45,7 @@ const Footer: FC = () => {
             <img src={Logo} className="h-[80px]" />
           </Link>
 
-          <div className="grid max-w-[600px] grid-cols-2 gap-6 md:grid-cols-3">
+          <div className="grid max-w-[600px] sm:grid-cols-2 gap-6 md:grid-cols-3">
             <div className="space-y-2">
               <h4 className="text-lg font-bold">Quick Links</h4>
               <ul className="flex flex-col gap-2">

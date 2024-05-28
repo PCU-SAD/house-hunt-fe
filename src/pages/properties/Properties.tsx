@@ -5,7 +5,7 @@ import NoContent from '@/components/common/Errors/NoContent'
 import {
   DrawerFilters,
   HeaderWelcome,
-  PriceSort,
+  PropertiesSort,
   PropertiesFilters,
   PropertiesList,
   PropertiesSkeletonList
@@ -65,7 +65,7 @@ const PropertiesPage: FC = () => {
 
       <Container className="mt-6 max-w-[1200px]">
         <div className="mb-2 ml-auto hidden min-w-[250px] max-w-fit lg:block">
-          <PriceSort />
+          <PropertiesSort />
         </div>
 
         <section className="flex max-w-[1200px] flex-col items-start gap-4 overflow-auto lg:flex-row">
@@ -85,7 +85,7 @@ const PropertiesPage: FC = () => {
               />
 
               <div className="lg:hidden">
-                <PriceSort />
+                <PropertiesSort />
               </div>
             </div>
           </aside>

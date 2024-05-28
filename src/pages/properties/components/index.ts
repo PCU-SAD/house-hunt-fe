@@ -1,6 +1,6 @@
 import HeaderWelcome from '@/pages/properties/components/HeaderWelcome/HeaderWelcome'
 import DrawerFilters from '@/pages/properties/components/PropertiesFilters/components/DrawerFilters/DrawerFilters'
-import PriceSort from '@/pages/properties/components/PropertiesFilters/components/PriceSort/PriceSort'
+import PropertiesSort from '@/pages/properties/components/PropertiesFilters/components/PropertiesSort/PropertiesSort'
 import PropertiesFilters from '@/pages/properties/components/PropertiesFilters/PropertiesFilters'
 import PropertiesList from '@/pages/properties/components/PropertiesList/PropertiesList'
 import PropertiesSkeletonList from '@/pages/properties/components/Skeleton/PropertiesSkeletonList'
@@ -8,7 +8,7 @@ import PropertiesSkeletonList from '@/pages/properties/components/Skeleton/Prope
 export {
   DrawerFilters,
   HeaderWelcome,
-  PriceSort,
+  PropertiesSort,
   PropertiesFilters,
   PropertiesList,
   PropertiesSkeletonList
