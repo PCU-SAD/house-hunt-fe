@@ -11,7 +11,7 @@ const PrivacyPolicy: FC<PrivacyPolicyProps> = () => {
       <Container className="mx-auto mt-4 max-w-[700px]">
         <PrivacyHeader />
 
-        <div className="mt-4 flex flex-col gap-4">
+        <div className="mt-4 flex flex-col gap-4 mt-8">
           <div>
             <Typography variant="h3">1. Introduction</Typography>
             <p className="flex flex-col gap-2">

@@ -1,3 +1,4 @@
+import ConsentPopup from '@/components/common/Layout/Header/AuthDrawer/signup/components/ConsentPopup'
 import { SignupFormType } from '@/components/common/Layout/Header/AuthDrawer/signup/SignupForm/useSignupForm'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
@@ -33,7 +34,8 @@ const ConsentFields: FC<ConsentFieldsProps> = () => {
                 </FormControl>
 
                 <FormLabel className="leading-4">
-                  Agree to terms and conditions.
+                  Agree to{' '}
+                  <ConsentPopup />
                 </FormLabel>
               </div>
 
@@ -81,9 +83,13 @@ const ConsentFields: FC<ConsentFieldsProps> = () => {
                 </FormControl>
 
                 <FormLabel className="leading-4">
-                  I have read and agree to the privacy policy.{' '}
-                  <Link to="/" className="text-blue-800 underline">
-                    Privacy Policy
+                  I have read and agree to the{' '}
+                  <Link
+                    to="/privacy-policy"
+                    target="_blank"
+                    className="text-blue-800 underline">
+                    {' '}
+                    Privacy Policy.
                   </Link>
                 </FormLabel>
               </div>
