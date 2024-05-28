@@ -22,32 +22,20 @@ export default function Pricing() {
                 <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
                   <div className="space-y-4">
                     <div>
-                      <h3 className="text-2xl font-bold">Monthly</h3>
-                      <p className="text-4xl font-bold">$9</p>
+                      <h3 className="text-2xl font-bold">Tenant</h3>
+                      <p className="text-4xl font-bold">300 Kč</p>
                       <p className="text-gray-500 dark:text-gray-400">/month</p>
                     </div>
                     <Table>
                       <TableBody>
                         <TableRow>
-                          <TableCell>Unlimited Listings: Post as many property listings as you need without any restrictions.</TableCell>
+                          <TableCell>Unlimited Contacts: Connect with an unlimited number of potential landlords.</TableCell>
                           <TableCell>
                             <CheckIcon className="h-5 w-5" />
                           </TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell>Unlimited Contacts: Connect with an unlimited number of potential buyers or renters.</TableCell>
-                          <TableCell>
-                            <CheckIcon className="h-5 w-5" />
-                          </TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>Premium Property Photos: Upload and showcase high-quality photos for all your listings.</TableCell>
-                          <TableCell>
-                            <CheckIcon className="h-5 w-5" />
-                          </TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>Advanced Analytics: Gain insights into your listings' performance with our comprehensive analytics tools.</TableCell>
+                          <TableCell>Get your property with a secure way with our verified landlords.</TableCell>
                           <TableCell>
                             <CheckIcon className="h-5 w-5" />
                           </TableCell>
@@ -67,10 +55,10 @@ export default function Pricing() {
                   <div className="space-y-4">
                     <div>
                       
-                      <h3 className="text-2xl font-bold">Lifetime</h3>
-                      <p className="text-4xl font-bold">$199</p>
+                      <h3 className="text-2xl font-bold">Landlord</h3>
+                      <p className="text-4xl font-bold">500 Kč</p>
                       <p className="text-gray-500 dark:text-gray-400">
-                        One-time payment
+                      /month
                       </p>
                     </div>
                     <Table>
@@ -87,12 +75,7 @@ export default function Pricing() {
                             <CheckIcon className="h-5 w-5 " />
                           </TableCell>
                         </TableRow>
-                        <TableRow>
-                          <TableCell>Premium Property Photos: Benefit from the ability to upload and display high-quality images for all your properties.</TableCell>
-                          <TableCell>
-                            <CheckIcon className="h-5 w-5 " />
-                          </TableCell>
-                        </TableRow>
+                
                         <TableRow>
                           <TableCell>Advanced Analytics: Access powerful analytics tools to help you track and optimize your listings' performance.</TableCell>
                           <TableCell>
