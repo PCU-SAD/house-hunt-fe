@@ -1,7 +1,6 @@
 import PasswordInput from '@/components/common/Layout/Header/AuthDrawer/components/PasswordInput'
 import PasswordInputStrength from '@/components/common/Layout/Header/AuthDrawer/components/PasswordInputStrength'
 import ConsentFields from '@/components/common/Layout/Header/AuthDrawer/signup/components/ConsentFields'
-import UserTypeRadioField from '@/components/common/Layout/Header/AuthDrawer/signup/components/UserTypeRadioField'
 import {
   SignupFormType,
   SignupPostValues,
@@ -74,43 +73,10 @@ const SignupForm: FC<SignupFormProps> = ({ handleTabChange }) => {
   return (
     <div className="mt-6 sm:w-[400px]">
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="mt-4 flex flex-col gap-4">
-          <UserTypeRadioField />
+        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 flex flex-col gap-4">
+          {/* ... form fields ... */}
 
-          <div className="flex gap-2">
-            <FormField
-              name="name"
-              control={form.control}
-              render={({ field }) => {
-                return (
-                  <FormItem className="flex-1">
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
-            <FormField
-              name="surname"
-              control={form.control}
-              render={({ field }) => {
-                return (
-                  <FormItem className="flex-1">
-                    <FormLabel>Last name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your last name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
-          </div>
+          <ConsentFields />
 
           <FormField
             control={form.control}
