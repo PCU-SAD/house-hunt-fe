@@ -9,7 +9,7 @@ const PrivacyHeader: FC<PrivacyHeaderProps> = () => {
     <div>
       <div className="flex items-center gap-2">
         <LockIcon />
-        <Typography variant="h1">Privacy & Security</Typography>
+        <Typography variant="h1">GDPR Compliance</Typography>
       </div>
 
       <p className="text-sm text-muted-foreground">
