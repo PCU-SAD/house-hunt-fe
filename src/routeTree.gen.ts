@@ -15,6 +15,7 @@ import { Route as ResetPasswordImport } from './routes/reset-password'
 import { Route as PropertiesImport } from './routes/properties'
 import { Route as PrivacyPolicyImport } from './routes/privacy-policy'
 import { Route as PricingImport } from './routes/pricing'
+import { Route as PaymentImport } from './routes/payment'
 import { Route as ContactImport } from './routes/contact'
 import { Route as AboutImport } from './routes/about'
 import { Route as AuthUserImport } from './routes/_auth-user'
@@ -49,6 +50,11 @@ const PrivacyPolicyRoute = PrivacyPolicyImport.update({
 
 const PricingRoute = PricingImport.update({
   path: '/pricing',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PaymentRoute = PaymentImport.update({
+  path: '/payment',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -171,6 +177,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactImport
       parentRoute: typeof rootRoute
     }
+    '/payment': {
+      id: '/payment'
+      path: '/payment'
+      fullPath: '/payment'
+      preLoaderRoute: typeof PaymentImport
+      parentRoute: typeof rootRoute
+    }
     '/pricing': {
       id: '/pricing'
       path: '/pricing'
@@ -278,6 +291,7 @@ export const routeTree = rootRoute.addChildren({
   }),
   AboutRoute,
   ContactRoute,
+  PaymentRoute,
   PricingRoute,
   PrivacyPolicyRoute,
   PropertiesRoute,
@@ -299,6 +313,7 @@ export const routeTree = rootRoute.addChildren({
         "/_auth-user",
         "/about",
         "/contact",
+        "/payment",
         "/pricing",
         "/privacy-policy",
         "/properties",
@@ -335,6 +350,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/contact": {
       "filePath": "contact.tsx"
+    },
+    "/payment": {
+      "filePath": "payment.tsx"
     },
     "/pricing": {
       "filePath": "pricing.tsx"
