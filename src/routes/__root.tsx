@@ -24,7 +24,7 @@ export const Route = createRootRouteWithContext<RouteContext>()({
 function Index() {
   return (
     <>
-      {/* <CookiesDialog /> */}
+      <CookiesDialog />
       <ScrollRestoration />
       <Outlet />
       <Toaster />

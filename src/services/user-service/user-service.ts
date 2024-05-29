@@ -122,8 +122,7 @@ export const userService = {
         formattedFileName: formattedFileName.split('.')[0]
       }
     } catch (error) {
-      console.error('Error fetching image data:', error)
-      throw error
+      throw new Error('Something went wrong')
     }
   },
   forgotPassword: async (email: string) => {

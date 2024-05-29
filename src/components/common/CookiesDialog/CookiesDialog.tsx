@@ -13,11 +13,43 @@ import { Switch } from '@/components/ui/switch'
 import { Typography } from '@/components/ui/typography'
 import { cn } from '@/lib/utils'
 import { Cookie } from 'lucide-react'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 export const CookiesDialog: FC = () => {
+  const [open, setOpen] = useState(false)
+  const [cookies, setCookies] = useState({
+    functional: false
+  })
+
+  const onClose = () => {
+    setOpen(false)
+    localStorage.setItem(
+      'cookies',
+      JSON.stringify({
+        functional: true
+      })
+    )
+  }
+
+  useEffect(() => {
+    const cookies = JSON.parse(localStorage.getItem('cookies')) || ''
+    setCookies(cookies)
+
+    if (!cookies) {
+      setOpen(true)
+    }
+  }, [])
+
   return (
-    <Dialog>
+    <Dialog
+      open={open}
+      onOpenChange={(state) => {
+        if (!state) {
+          onClose()
+        } else {
+          setOpen(state)
+        }
+      }}>
       <DialogTrigger
         className={cn(
           buttonVariants({
@@ -51,7 +83,7 @@ export const CookiesDialog: FC = () => {
             </Label>
           </div>
 
-          <Switch id="strictly_necessary_cookies" />
+          <Switch id="strictly_necessary_cookies" checked disabled />
         </div>
         <div className="flex items-center space-x-6 rounded-md px-3">
           <div>
@@ -65,24 +97,21 @@ export const CookiesDialog: FC = () => {
             </Label>
           </div>
 
-          <Switch id="functional_cookies" />
-        </div>
-        <div className="flex items-center space-x-6 rounded-md px-3">
-          <div>
-            <Label htmlFor="performance_cookies">
-              <Typography className="font-bold">Performance Cookies</Typography>
-
-              <Typography variant="muted" className="font-normal leading-5">
-                These cookies help to improve the performance of the website.
-              </Typography>
-            </Label>
-          </div>
-
-          <Switch id="performance_cookies" />
+          <Switch
+            id="functional_cookies"
+            checked={cookies.functional}
+            onCheckedChange={(checked) => {
+              setCookies({ ...cookies, functional: checked })
+            }}
+          />
         </div>
 
         <DialogFooter>
-          <Button type="submit" className="mt-4 w-full" variant="outline">
+          <Button
+            type="submit"
+            className="mt-4 w-full"
+            variant="outline"
+            onClick={onClose}>
             Save preferences
           </Button>
         </DialogFooter>
