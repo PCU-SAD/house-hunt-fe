@@ -6,6 +6,8 @@ export const Route = createFileRoute('/_auth-user')({
 
     if (!auth) return
 
+    console.log('🚀 ~ Route ~ auth:', auth)
+
     if (!auth?.user) {
       throw redirect({
         to: '/'

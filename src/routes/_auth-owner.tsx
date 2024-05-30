@@ -6,6 +6,8 @@ export const Route = createFileRoute('/_auth-owner')({
 
     if (!auth) return context
 
+    console.log('🚀 ~ Route ~ auth:', auth)
+
     if (
       !auth?.user ||
       (auth.user.type !== 'LANDLORD' && auth.user.type !== 'ADMIN')

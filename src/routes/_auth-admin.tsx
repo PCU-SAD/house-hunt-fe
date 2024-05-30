@@ -6,6 +6,8 @@ export const Route = createFileRoute('/_auth-admin')({
 
     if (!auth) return context
 
+    console.log('🚀 ~ Route ~ auth:', auth)
+
     if (!auth?.user || auth.user.type !== 'ADMIN') {
       throw redirect({
         to: '/'

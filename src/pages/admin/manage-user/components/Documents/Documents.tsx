@@ -10,6 +10,16 @@ type DocumentsProps = {
 }
 
 const Documents: FC<DocumentsProps> = ({ documents }) => {
+  const extensionCandidate = documents?.[0]?.split('.')?.pop()
+
+  const extension =
+    extensionCandidate === 'pdf' ||
+    extensionCandidate === 'png' ||
+    extensionCandidate === 'jpg' ||
+    extensionCandidate === 'jpeg'
+      ? extensionCandidate
+      : 'jpeg'
+
   const formattedDocName = documents?.[0]?.split('_')[1]
 
   const isEmpty = documents?.length === 0
@@ -22,7 +32,7 @@ const Documents: FC<DocumentsProps> = ({ documents }) => {
       const url = window.URL.createObjectURL(imageData)
       const a = document.createElement('a')
       a.href = url
-      a.download = `${formattedFileName}.jpeg`
+      a.download = `${formattedFileName}.${extension}`
       document.body.appendChild(a)
       a.click()
       window.URL.revokeObjectURL(url)
@@ -47,8 +57,8 @@ const Documents: FC<DocumentsProps> = ({ documents }) => {
         </div>
       ) : (
         <div className="mt-2 flex flex-col items-start gap-2">
-          {documents?.map((document) => (
-            <>
+          {documents?.map((document, i) => (
+            <div key={i}>
               <Badge
                 variant="outline"
                 key={document}
@@ -62,7 +72,7 @@ const Documents: FC<DocumentsProps> = ({ documents }) => {
                 </div>
               </Badge>
               <p className="text-xs text-muted-foreground">Click to download</p>
-            </>
+            </div>
           ))}
         </div>
       )}

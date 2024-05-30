@@ -12,10 +12,13 @@ import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { Typography } from '@/components/ui/typography'
 import { cn } from '@/lib/utils'
+import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { Cookie } from 'lucide-react'
 import { FC, useEffect, useState } from 'react'
 
 export const CookiesDialog: FC = () => {
+  const { user } = useAuthContext()
+
   const [open, setOpen] = useState(false)
   const [cookies, setCookies] = useState(null)
 
@@ -47,6 +50,12 @@ export const CookiesDialog: FC = () => {
 
     setCookies(cookies)
   }, [open])
+
+  useEffect(() => {
+    if (user?.email) {
+      setOpen(false)
+    }
+  }, [user])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

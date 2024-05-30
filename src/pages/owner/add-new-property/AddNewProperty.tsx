@@ -15,7 +15,7 @@ const AddNewProperty: FC<AddNewPropertyProps> = () => {
           <Link to="/manage-properties">
             <ChevronLeft />
           </Link>
-          <Typography variant="h4">Add New Property</Typography>
+          <Typography variant="h4">Add new property request</Typography>
         </div>
 
         <NewPropertyForm />

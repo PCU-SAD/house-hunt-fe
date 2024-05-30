@@ -11,10 +11,6 @@ const InnerApp = () => {
     return auth
   }, [auth])
 
-  // useEffect(() => {
-  //   router.invalidate()
-  // }, [auth])
-
   if (auth?.isLoading) {
     return <LoadingPage />
   }

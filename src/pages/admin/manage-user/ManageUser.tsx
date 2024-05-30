@@ -67,7 +67,7 @@ const ManageUser: FC<ManageUserProps> = () => {
       <Container>
         <div className="mx-auto mt-4 max-w-[600px]">
           <div className="mb-6 flex items-center gap-2">
-            <Link to="../" className="inline-block">
+            <Link to=".." className="inline-block">
               <ChevronLeft />
             </Link>
             <Typography variant="h4" className="m-0">

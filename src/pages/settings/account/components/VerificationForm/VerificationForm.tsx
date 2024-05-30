@@ -25,8 +25,7 @@ const routeApi = getRouteApi('/_auth-user/_settings/settings/account')
 
 const VerificationForm: FC<VerificationFormProps> = () => {
   const auth = routeApi.useRouteContext().auth
-  console.log("🚀 ~ auth:", auth)
-  
+
   const userEmail = auth?.user?.email
 
   const {
