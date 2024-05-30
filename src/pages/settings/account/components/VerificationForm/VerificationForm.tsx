@@ -25,6 +25,8 @@ const routeApi = getRouteApi('/_auth-user/_settings/settings/account')
 
 const VerificationForm: FC<VerificationFormProps> = () => {
   const auth = routeApi.useRouteContext().auth
+  console.log("🚀 ~ auth:", auth)
+  
   const userEmail = auth?.user?.email
 
   const {
@@ -84,8 +86,8 @@ const VerificationForm: FC<VerificationFormProps> = () => {
             </Typography>
 
             <ul className="ml-3 mt-4 list-disc [&>li]:mt-2">
-              {documents.map((document) => (
-                <li key={document} className="flex items-center gap-4">
+              {documents.map((document, i) => (
+                <li key={i} className="flex items-center gap-4">
                   <Button variant="link" size="noSize">
                     <Paperclip className="h-4 w-4" />
                     {document.split('_', 2)[1]}

@@ -17,26 +17,34 @@ import { FC, useEffect, useState } from 'react'
 
 export const CookiesDialog: FC = () => {
   const [open, setOpen] = useState(false)
-  const [cookies, setCookies] = useState({
-    functional: false
-  })
+  const [cookies, setCookies] = useState(null)
 
   const onAccept = () => {
     setOpen(false)
-    localStorage.setItem('cookies', JSON.stringify(cookies))
+    const cookiesToSet =
+      cookies === null
+        ? {
+            functional: false
+          }
+        : {
+            functional: true
+          }
+
+    localStorage.setItem('cookies', JSON.stringify(cookiesToSet))
   }
 
   useEffect(() => {
-    const cookies = JSON.parse(localStorage.getItem('cookies')) || ''
+    const cookies = JSON.parse(localStorage.getItem('cookies')) || null
     setCookies(cookies)
 
-    if (!cookies) {
+    if (cookies === null) {
       setOpen(true)
     }
   }, [])
 
   useEffect(() => {
-    const cookies = JSON.parse(localStorage.getItem('cookies')) || ''
+    const cookies = JSON.parse(localStorage.getItem('cookies')) || null
+
     setCookies(cookies)
   }, [open])
 
@@ -91,7 +99,7 @@ export const CookiesDialog: FC = () => {
 
           <Switch
             id="functional_cookies"
-            checked={cookies.functional}
+            checked={cookies?.functional}
             onCheckedChange={(checked) => {
               setCookies({ ...cookies, functional: checked })
             }}

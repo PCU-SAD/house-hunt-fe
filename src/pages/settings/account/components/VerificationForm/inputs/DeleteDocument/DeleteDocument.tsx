@@ -13,6 +13,7 @@ type DeleteDocumentProps = {
 }
 
 const DeleteDocument: FC<DeleteDocumentProps> = ({ document, refresh }) => {
+  console.log("🚀 ~ document:", document)
   const form = useFormContext<VerificationFormType>()
 
   const deleteDocumentMutation = useMutation({

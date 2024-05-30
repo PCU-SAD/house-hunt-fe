@@ -2,7 +2,7 @@ import { router } from '@/app'
 import LoadingPage from '@/pages/loading/Loading'
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { RouterProvider } from '@tanstack/react-router'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 
 const InnerApp = () => {
   const auth = useAuthContext()
@@ -11,9 +11,9 @@ const InnerApp = () => {
     return auth
   }, [auth])
 
-  useEffect(() => {
-    router.invalidate()
-  }, [auth])
+  // useEffect(() => {
+  //   router.invalidate()
+  // }, [auth])
 
   if (auth?.isLoading) {
     return <LoadingPage />
