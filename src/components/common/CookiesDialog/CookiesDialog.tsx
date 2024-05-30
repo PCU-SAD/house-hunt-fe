@@ -21,14 +21,9 @@ export const CookiesDialog: FC = () => {
     functional: false
   })
 
-  const onClose = () => {
+  const onAccept = () => {
     setOpen(false)
-    localStorage.setItem(
-      'cookies',
-      JSON.stringify({
-        functional: true
-      })
-    )
+    localStorage.setItem('cookies', JSON.stringify(cookies))
   }
 
   useEffect(() => {
@@ -40,16 +35,13 @@ export const CookiesDialog: FC = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const cookies = JSON.parse(localStorage.getItem('cookies')) || ''
+    setCookies(cookies)
+  }, [open])
+
   return (
-    <Dialog
-      open={open}
-      onOpenChange={(state) => {
-        if (!state) {
-          onClose()
-        } else {
-          setOpen(state)
-        }
-      }}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
         className={cn(
           buttonVariants({
@@ -111,7 +103,7 @@ export const CookiesDialog: FC = () => {
             type="submit"
             className="mt-4 w-full"
             variant="outline"
-            onClick={onClose}>
+            onClick={onAccept}>
             Save preferences
           </Button>
         </DialogFooter>
