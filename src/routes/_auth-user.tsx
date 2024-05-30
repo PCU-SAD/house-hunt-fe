@@ -4,9 +4,9 @@ export const Route = createFileRoute('/_auth-user')({
   beforeLoad: ({ context }) => {
     const auth = context.auth
 
-    if (!auth) return context
+    if (!auth) return
 
-    if (!auth?.user.email) {
+    if (!auth?.user) {
       throw redirect({
         to: '/'
       })

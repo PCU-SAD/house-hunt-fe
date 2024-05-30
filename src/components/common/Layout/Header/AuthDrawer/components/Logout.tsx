@@ -3,6 +3,7 @@ import { useAuthDrawerContext } from '@/providers/AuthDrawerProvider/AuthDrawerP
 import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
 import { authService } from '@/services/auth-service/auth-service'
 import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
 import { LogOut as LogoutIcon } from 'lucide-react'
 import { FC } from 'react'
 import { toast } from 'sonner'
@@ -11,6 +12,9 @@ type LogoutProps = {}
 
 const Logout: FC<LogoutProps> = () => {
   const auth = useAuthContext()
+  const navigate = useNavigate({
+    from: ''
+  })
   const { handleCloseDrawer } = useAuthDrawerContext()
 
   function handleLogout() {
@@ -22,6 +26,9 @@ const Logout: FC<LogoutProps> = () => {
     mutationFn: authService.logout,
     onSuccess: () => {
       auth.logout()
+      navigate({
+        to: '/'
+      })
       handleCloseDrawer()
     },
     onError: (error) => {
