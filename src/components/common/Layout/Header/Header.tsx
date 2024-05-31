@@ -44,7 +44,8 @@ const Header: FC = () => {
                   color: 'white',
                   fontWeight: 'normal'
                 }
-              }}>
+              }}
+            >
               {link.label}
             </Link>
           </NavigationMenuItem>

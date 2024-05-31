@@ -23,7 +23,7 @@ type DeletePropertyProps = {
 
 const DeleteProperty: FC<DeletePropertyProps> = ({ property_id }) => {
   const navigate = useNavigate({
-    from: '/manage-properties/$id'
+    from: '/manage-properties/edit/$id'
   })
 
   const [open, setOpen] = useState(false)
@@ -71,7 +71,8 @@ const DeleteProperty: FC<DeletePropertyProps> = ({ property_id }) => {
           <AlertDialogFooter>
             <AlertDialogCancel onClick={handleClose}>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => deletePropertyMutation.mutate(property_id)}>
+              onClick={() => deletePropertyMutation.mutate(property_id)}
+            >
               Continue
             </AlertDialogAction>
           </AlertDialogFooter>

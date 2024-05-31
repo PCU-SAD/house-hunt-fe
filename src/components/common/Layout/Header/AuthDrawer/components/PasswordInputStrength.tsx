@@ -78,7 +78,8 @@ const PasswordInputStrength: FC<PasswordInputProps> = forwardRef<
               'text-red-500': weakPassword,
               'text-yellow-500': moderatePassword,
               'text-green-500': strongPassword
-            })}>
+            })}
+          >
             {weakPassword && 'Weak password'}
             {moderatePassword && 'Moderate password'}
             {strongPassword && 'Strong password'}

@@ -90,7 +90,8 @@ const ConsentFields: FC<ConsentFieldsProps> = () => {
                   <Link
                     to="/privacy-policy"
                     target="_blank"
-                    className="text-blue-800 underline">
+                    className="text-blue-800 underline"
+                  >
                     {' '}
                     Privacy Policy.
                   </Link>

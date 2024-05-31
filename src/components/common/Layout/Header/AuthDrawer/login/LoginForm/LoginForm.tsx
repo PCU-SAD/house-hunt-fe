@@ -59,7 +59,8 @@ function LoginForm() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="mt-4 flex flex-col">
+          className="mt-4 flex flex-col"
+        >
           <div className="flex flex-col gap-3">
             <FormField
               name="email"
@@ -105,14 +106,16 @@ function LoginForm() {
             variant="link"
             size="noSize"
             onClick={() => handleTabChange('forgot-password')}
-            className="mt-3 self-start underline">
+            className="mt-3 self-start underline"
+          >
             Forgot password
           </Button>
 
           <Button
             type="submit"
             className="mt-6 gap-2"
-            loading={loginMutation.isPending}>
+            loading={loginMutation.isPending}
+          >
             Submit
           </Button>
         </form>

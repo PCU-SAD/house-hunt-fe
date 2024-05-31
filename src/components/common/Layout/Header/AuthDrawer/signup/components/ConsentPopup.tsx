@@ -33,7 +33,8 @@ const ConsentPopup: FC<ConsentPopupProps> = ({
       )}
       <DialogContent
         className="h-[600px] w-full sm:max-w-[600px]"
-        closeIcon={false}>
+        closeIcon={false}
+      >
         <ScrollArea>
           <DialogHeader>
             <div className="mt-2 text-left text-sm text-foreground">
@@ -432,7 +433,8 @@ const ConsentPopup: FC<ConsentPopupProps> = ({
                 onClick={onAccept}
                 variant="default"
                 size="sm"
-                className="bg-green-500 text-white hover:bg-green-400">
+                className="bg-green-500 text-white hover:bg-green-400"
+              >
                 Accept
               </Button>
             </DialogClose>

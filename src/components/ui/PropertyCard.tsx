@@ -47,7 +47,7 @@ const PropertyCard: FC<PropertyCardProps> = ({
   return (
     <Card className="h-full w-full">
       {cardHeader}
-      <CardContent className="space-y-4 p-4 pb-4 sm:p-6 pt-0">
+      <CardContent className="space-y-4 p-4 pb-4 pt-0 sm:p-6">
         <div>
           <h3 className=" whitespace-pre-wrap text-xl font-bold">{title}</h3>
 
@@ -56,7 +56,7 @@ const PropertyCard: FC<PropertyCardProps> = ({
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-4 text-sm">
+        <div className="grid gap-4 text-sm sm:grid-cols-2">
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
               <Calendar className="h-5 w-5 text-muted-foreground" />
@@ -113,7 +113,8 @@ const PropertyCard: FC<PropertyCardProps> = ({
             to="/properties/$id"
             params={{
               id
-            }}>
+            }}
+          >
             <InfoCircledIcon />
             See details
           </Link>

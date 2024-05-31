@@ -149,7 +149,8 @@ const PropertiesPagination: FC<PropertiesPaginationProps> = ({
               className={cn(
                 'h-8 w-8 p-0',
                 page === currentPage && 'bg-gray-100'
-              )}>
+              )}
+            >
               {page}
             </Button>
           </PaginationItem>

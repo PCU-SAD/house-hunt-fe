@@ -44,7 +44,8 @@ const DrawerContent = React.forwardRef<
         'fixed inset-x-0 top-0 z-50 flex h-screen w-3/4 flex-col rounded-r-[5px] border bg-background',
         className
       )}
-      {...props}>
+      {...props}
+    >
       {children}
     </DrawerPrimitive.Content>
   </DrawerPortal>

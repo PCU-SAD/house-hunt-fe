@@ -49,7 +49,8 @@ const PropertiesFilters: FC<PropertiesFiltersProps> = ({
           onClick={() => {
             applyFilters()
             handleCloseDrawer?.()
-          }}>
+          }}
+        >
           Apply Filters
         </Button>
       </div>

@@ -46,7 +46,8 @@ const VerificationStatus: FC<VerificationStatusProps> = () => {
         <Link
           to="/settings/account"
           className="text-xs text-blue-500 underline"
-          onClick={handleCloseDrawer}>
+          onClick={handleCloseDrawer}
+        >
           Verify account
         </Link>
       </div>

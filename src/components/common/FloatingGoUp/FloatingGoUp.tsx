@@ -50,7 +50,8 @@ const FloatingGoUp: FC<FloatingGoUpProps> = () => {
           'pointer-events-none opacity-0': !isVisible,
           'opacity-100': isVisible
         }
-      )}>
+      )}
+    >
       <div className="flex items-center justify-center">
         <ChevronUp className="h-6 w-6" />
       </div>

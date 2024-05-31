@@ -138,7 +138,8 @@ const NewPropertyForm: FC<NewPropertyFormProps> = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-4 flex flex-col-reverse items-stretch gap-4 md:flex-row md:items-start">
+        className="mt-4 flex flex-col-reverse items-stretch gap-4 md:flex-row md:items-start"
+      >
         <div className="flex-1">
           <NewPropertyFormFields />
 

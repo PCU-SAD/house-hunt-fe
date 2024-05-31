@@ -63,7 +63,8 @@ const MobileMenu: FC<MobileMenuProps> = () => {
       <SheetContent
         handleClose={handleClose}
         side="left"
-        className="flex w-full flex-col items-center justify-center sm:max-w-[400px] md:hidden">
+        className="flex w-full flex-col items-center justify-center sm:max-w-[400px] md:hidden"
+      >
         <nav className="grid min-w-[200px] gap-2">
           {filteredLinks.map((link) => (
             <Link
@@ -73,7 +74,8 @@ const MobileMenu: FC<MobileMenuProps> = () => {
               className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-200"
               activeProps={{
                 className: cn('bg-gray-200')
-              }}>
+              }}
+            >
               <NavigationMenuItem key={link.to} className="list-none">
                 {link.label}
               </NavigationMenuItem>

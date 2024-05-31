@@ -24,7 +24,8 @@ const AccountStatus: FC<AccountStatusProps> = ({ accountStatus }) => {
           'bg-yellow-400 text-white': accountStatus === 'NOT_ACTIVATED',
           'bg-red-500 text-white': accountStatus === 'BLOCKED'
         })}
-        variant="outline">
+        variant="outline"
+      >
         {messages[accountStatus]}
       </Badge>
     </div>

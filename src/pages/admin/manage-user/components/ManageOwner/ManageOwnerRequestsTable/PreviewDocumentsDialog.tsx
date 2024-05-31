@@ -97,7 +97,8 @@ const PreviewDocumentsDialogContent: FC<PreviewDocumentsDialogContentProps> = ({
 
             <span
               className="cursor-pointer underline-offset-2 hover:underline"
-              onClick={() => handleDownload(documentName)}>
+              onClick={() => handleDownload(documentName)}
+            >
               {documentName}
             </span>
           </div>
@@ -111,14 +112,16 @@ const PreviewDocumentsDialogContent: FC<PreviewDocumentsDialogContentProps> = ({
           size="sm"
           variant="outline"
           loading={verifyPropertyMutation.isPending}
-          onClick={() => verifyPropertyMutation.mutate(propertyId)}>
+          onClick={() => verifyPropertyMutation.mutate(propertyId)}
+        >
           Verify property
         </Button>
         <Button
           size="sm"
           variant="destructive"
           loading={rejectPropertyMutation.isPending}
-          onClick={() => rejectPropertyMutation.mutate(propertyId)}>
+          onClick={() => rejectPropertyMutation.mutate(propertyId)}
+        >
           Reject property
         </Button>
       </DialogFooter>

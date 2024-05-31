@@ -62,7 +62,8 @@ export const adminColumns: ColumnDef<UserType>[] = [
               verificationStatus === 'PENDING_VERIFICATION',
             'bg-red-500 text-white': verificationStatus === 'NOT_VERIFIED'
           })}
-          variant="outline">
+          variant="outline"
+        >
           {messages[verificationStatus]}
         </Badge>
       )
@@ -135,7 +136,8 @@ export const adminColumns: ColumnDef<UserType>[] = [
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(user.id)}>
+                onClick={() => navigator.clipboard.writeText(user.id)}
+              >
                 Copy user ID
               </DropdownMenuItem>
               <DropdownMenuSeparator />

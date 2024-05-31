@@ -35,7 +35,8 @@ const BlockUser: FC<BlockUserProps> = ({ userEmail, refetch, disabled }) => {
       size="sm"
       variant="destructive"
       disabled={disabled}
-      onClick={() => blockMutation.mutate(userEmail)}>
+      onClick={() => blockMutation.mutate(userEmail)}
+    >
       <Ban className="h-4 w-4" />
       Block user
     </Button>

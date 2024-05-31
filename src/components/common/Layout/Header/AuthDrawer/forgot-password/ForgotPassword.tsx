@@ -56,7 +56,8 @@ const ForgotPassword: FC<ForgotPasswordProps> = () => {
           size="noSize"
           variant="ghost"
           className="p-[6px]"
-          onClick={() => handleTabChange('login')}>
+          onClick={() => handleTabChange('login')}
+        >
           <ChevronLeft className="h-5 w-5" />
         </Button>
 
@@ -87,7 +88,8 @@ const ForgotPassword: FC<ForgotPasswordProps> = () => {
           <Button
             size="sm"
             className="mt-2"
-            loading={forgotPasswordMutation.isPending}>
+            loading={forgotPasswordMutation.isPending}
+          >
             Submit
           </Button>
         </form>

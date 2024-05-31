@@ -24,14 +24,16 @@ const ManageOwner: FC<ManageOwnerProps> = ({ email }) => {
           <TabsTrigger
             value="requests"
             className="flex w-full items-center gap-2 text-yellow-400 data-[state=active]:text-yellow-500"
-            onClick={() => handleTabChange('requests')}>
+            onClick={() => handleTabChange('requests')}
+          >
             <Clock className="h-5 w-5" />
             Requests
           </TabsTrigger>
           <TabsTrigger
             value="properties"
             className="relative flex w-full items-center gap-2"
-            onClick={() => handleTabChange('properties')}>
+            onClick={() => handleTabChange('properties')}
+          >
             <HomeIcon className="h-5 w-5" />
             Verified Properties
           </TabsTrigger>

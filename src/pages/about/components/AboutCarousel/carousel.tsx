@@ -50,7 +50,8 @@ export const AboutCarousel: FC = () => {
             delay: 4000,
             stopOnInteraction: true
           })
-        ]}>
+        ]}
+      >
         <CarouselContent>
           {carouselData.map(({ image, title, description }) => (
             <CarouselItem className="relative" key={title}>
@@ -58,7 +59,8 @@ export const AboutCarousel: FC = () => {
                 <img
                   alt="Real Estate 1"
                   className="h-[500px] w-full rounded-xl object-cover"
-                  src={image}></img>
+                  src={image}
+                ></img>
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-gray-900/50 to-transparent" />
               </div>
               <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12">

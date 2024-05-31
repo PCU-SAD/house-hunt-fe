@@ -42,7 +42,8 @@ const Logout: FC<LogoutProps> = () => {
     <Button
       onClick={handleLogout}
       loading={logoutMutation.isPending}
-      className="mt-6 w-full flex-1">
+      className="mt-6 w-full flex-1"
+    >
       <>
         {!logoutMutation.isPending && <LogoutIcon className="rotate-180" />}
         Log out

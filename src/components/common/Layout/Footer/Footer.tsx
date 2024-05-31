@@ -43,7 +43,8 @@ const Footer: FC = () => {
         <div className="flex flex-col justify-between gap-12 md:flex-row">
           <Link
             className="flex shrink-0 items-center space-x-2 self-start"
-            to="/">
+            to="/"
+          >
             <img src={Logo} className="h-[80px]" />
           </Link>
 
@@ -58,7 +59,8 @@ const Footer: FC = () => {
                     className="hover:underline"
                     activeProps={{
                       className: cn('underline underline-offset-2')
-                    }}>
+                    }}
+                  >
                     {link.label}
                   </Link>
                 ))}
@@ -72,7 +74,8 @@ const Footer: FC = () => {
                   <a
                     className="hover:underline"
                     href="https://maps.app.goo.gl/ueinn9UK9tJMS5C1A"
-                    target="_blank">
+                    target="_blank"
+                  >
                     123 Karlova Street, Old Town, Prague, Czech Republic
                   </a>
                 </li>
@@ -80,7 +83,8 @@ const Footer: FC = () => {
                   <a
                     className="hover:underline"
                     href="mailto:househunter773@gmail.com"
-                    target="_blank">
+                    target="_blank"
+                  >
                     househunter773@gmail.com
                   </a>
                 </li>
@@ -93,19 +97,22 @@ const Footer: FC = () => {
                   <a
                     className="transition-colors hover:text-gray-300"
                     href="https://www.facebook.com/profile.php?id=61560104906832"
-                    target="_blank">
+                    target="_blank"
+                  >
                     <FacebookIcon className="h-5 w-5" />
                   </a>
                   <a
                     className="transition-colors hover:text-gray-300"
                     href="https://x.com/House_Hunter24"
-                    target="_blank">
+                    target="_blank"
+                  >
                     <TwitterIcon className="h-5 w-5" />
                   </a>
                   <a
                     className="transition-colors hover:text-gray-300"
                     href="https://www.instagram.com/house_hunter24/"
-                    target="_blank">
+                    target="_blank"
+                  >
                     <InstagramIcon className="h-5 w-5" />
                   </a>
                 </div>
@@ -117,7 +124,8 @@ const Footer: FC = () => {
           <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
             <Link
               className="underline-offset-2 hover:underline"
-              to="/privacy-policy">
+              to="/privacy-policy"
+            >
               Privacy policy
             </Link>
             <Separator
@@ -126,7 +134,7 @@ const Footer: FC = () => {
             />
 
             <ConsentPopup
-            acceptButton={false}
+              acceptButton={false}
               trigger={
                 <DialogTrigger className="underline-offset-2 hover:underline">
                   Terms & Conditions

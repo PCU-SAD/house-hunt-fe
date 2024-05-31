@@ -14,8 +14,8 @@ import { FC } from 'react'
 type EditPropertyProps = {}
 
 const EditProperty: FC<EditPropertyProps> = () => {
-  const router = useRouter();
-const onBack = () => router.history.back();
+  const router = useRouter()
+  const onBack = () => router.history.back()
 
   const { id } = useParams({
     from: '/_auth-owner/manage-properties/edit/$id'

@@ -77,7 +77,8 @@ const VerificationForm: FC<VerificationFormProps> = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-4 flex flex-col gap-4">
+        className="mt-4 flex flex-col gap-4"
+      >
         {documents.length > 0 && (
           <div className="mb-4">
             <Typography variant="h4">
@@ -111,7 +112,8 @@ const VerificationForm: FC<VerificationFormProps> = () => {
           type="submit"
           size="sm"
           className="self-start"
-          loading={verifyMutation.isPending}>
+          loading={verifyMutation.isPending}
+        >
           Upload
         </Button>
       </form>

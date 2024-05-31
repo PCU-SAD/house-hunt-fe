@@ -24,7 +24,8 @@ const VerificationStatusCol: FC<VerificationStatusProps> = ({ status }) => {
           'bg-yellow-400 text-white': status === 'PENDING_VERIFICATION',
           'bg-red-500 text-white': status === 'NOT_VERIFIED'
         })}
-        variant="outline">
+        variant="outline"
+      >
         {messages[status]}
       </Badge>
     </div>

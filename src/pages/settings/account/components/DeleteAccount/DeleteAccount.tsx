@@ -64,7 +64,8 @@ const DeleteAccount: FC<DeleteAccountProps> = () => {
         <AlertDialogFooter>
           <AlertDialogCancel onClick={handleClose}>Cancel</AlertDialogCancel>
           <AlertDialogAction
-            onClick={() => deleteAccountMutation.mutate(auth.user.email)}>
+            onClick={() => deleteAccountMutation.mutate(auth.user.email)}
+          >
             Continue
           </AlertDialogAction>
         </AlertDialogFooter>

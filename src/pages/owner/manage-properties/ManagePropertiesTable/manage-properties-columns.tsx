@@ -74,7 +74,8 @@ export const managePropertyColumns: ColumnDef<PropertyType>[] = [
           className={cn('flex items-center gap-2', {
             'text-green-500': status === 'VERIFIED',
             'text-yellow-500': status === 'PENDING_REQUEST'
-          })}>
+          })}
+        >
           {status === 'VERIFIED' && <Check className="h-4 w-4" />}
           {status === 'PENDING_REQUEST' && <Clock className="h-4 w-4" />}
           {statusMessage[status]}
@@ -104,7 +105,8 @@ export const managePropertyColumns: ColumnDef<PropertyType>[] = [
                 to={'/manage-properties/edit/$id'}
                 params={{
                   id: propertyId
-                }}>
+                }}
+              >
                 <DropdownMenuItem>Edit Property</DropdownMenuItem>
               </Link>
             </DropdownMenuContent>

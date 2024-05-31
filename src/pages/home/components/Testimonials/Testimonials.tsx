@@ -31,7 +31,8 @@ const Testimonials: FC<TestimonialsProps> = () => {
           opts={{
             align: 'start',
             loop: true
-          }}>
+          }}
+        >
           <CarouselContent>
             {testimonials.map(({ name, id, role, image, comment }) => (
               <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={id}>

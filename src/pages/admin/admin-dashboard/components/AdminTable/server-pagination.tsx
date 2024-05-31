@@ -80,7 +80,8 @@ export function DataTableServerPagination<TData>({
                 pageIndex: 0,
                 pageSize: Number(value)
               })
-            }}>
+            }}
+          >
             <SelectTrigger className="h-8 w-[70px]">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
@@ -102,7 +103,8 @@ export function DataTableServerPagination<TData>({
             variant="outline"
             className="hidden h-8 w-8 p-0 lg:flex"
             onClick={goFirst}
-            disabled={!table.getCanPreviousPage()}>
+            disabled={!table.getCanPreviousPage()}
+          >
             <span className="sr-only">Go to first page</span>
             <DoubleArrowLeftIcon className="h-4 w-4" />
           </Button>
@@ -110,7 +112,8 @@ export function DataTableServerPagination<TData>({
             variant="outline"
             className="h-8 w-8 p-0"
             onClick={goPrev}
-            disabled={!table.getCanPreviousPage()}>
+            disabled={!table.getCanPreviousPage()}
+          >
             <span className="sr-only">Go to previous page</span>
             <ChevronLeftIcon className="h-4 w-4" />
           </Button>
@@ -118,7 +121,8 @@ export function DataTableServerPagination<TData>({
             variant="outline"
             className="h-8 w-8 p-0"
             onClick={goNext}
-            disabled={!table.getCanNextPage()}>
+            disabled={!table.getCanNextPage()}
+          >
             <span className="sr-only">Go to next page</span>
             <ChevronRightIcon className="h-4 w-4" />
           </Button>
@@ -126,7 +130,8 @@ export function DataTableServerPagination<TData>({
             variant="outline"
             className="hidden h-8 w-8 p-0 lg:flex"
             onClick={goLast}
-            disabled={!table.getCanNextPage()}>
+            disabled={!table.getCanNextPage()}
+          >
             <span className="sr-only">Go to last page</span>
             <DoubleArrowRightIcon className="h-4 w-4" />
           </Button>

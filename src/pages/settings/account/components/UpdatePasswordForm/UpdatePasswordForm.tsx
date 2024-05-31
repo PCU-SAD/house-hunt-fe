@@ -63,7 +63,8 @@ const UpdatePasswordForm: FC = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-4 flex max-w-[600px] flex-col gap-4">
+        className="mt-4 flex max-w-[600px] flex-col gap-4"
+      >
         <FormField
           name="current_password"
           control={form.control}
@@ -111,7 +112,7 @@ const UpdatePasswordForm: FC = () => {
                 <FormLabel>Confirm password</FormLabel>
                 <FormControl>
                   <PasswordInput
-                  onPaste={onConfirmPasswordPaste}
+                    onPaste={onConfirmPasswordPaste}
                     placeholder="Enter your new password"
                     {...field}
                   />
@@ -125,7 +126,8 @@ const UpdatePasswordForm: FC = () => {
         <Button
           loading={updatePasswordMutation.isPending}
           size="sm"
-          className="mt-2 self-start">
+          className="mt-2 self-start"
+        >
           Update Password
         </Button>
       </form>

@@ -93,7 +93,8 @@ const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 p-4 sm:p-0">
+        className="space-y-6 p-4 sm:p-0"
+      >
         <FormField
           control={form.control}
           name="name"
@@ -147,10 +148,12 @@ const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
                 <FormLabel className="text-white">Request subject</FormLabel>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={field.value}>
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger
-                      className={`border-gray-300 bg-white text-black ${hasError ? 'animate-shake' : ''}`}>
+                      className={`border-gray-300 bg-white text-black ${hasError ? 'animate-shake' : ''}`}
+                    >
                       <SelectValue placeholder="Select your request subject" />
                     </SelectTrigger>
                   </FormControl>
@@ -192,7 +195,8 @@ const GetInTouchForm: FC<GetInTouchFormProps> = ({ propertyId }) => {
           type="submit"
           variant="outline"
           className="w-full py-3 font-semibold"
-          loading={getInTouchMutation.isPending}>
+          loading={getInTouchMutation.isPending}
+        >
           Submit
         </Button>
       </form>

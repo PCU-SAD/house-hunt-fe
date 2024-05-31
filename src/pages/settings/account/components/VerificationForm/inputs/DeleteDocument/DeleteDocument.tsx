@@ -1,5 +1,8 @@
 import { Button } from '@/components/ui/button'
-import { defaultVerificationFormValues, VerificationFormType } from '@/pages/settings/account/components/VerificationForm/useVerificationForm'
+import {
+  defaultVerificationFormValues,
+  VerificationFormType
+} from '@/pages/settings/account/components/VerificationForm/useVerificationForm'
 import { userService } from '@/services/user-service/user-service'
 import { useMutation } from '@tanstack/react-query'
 import { Trash } from 'lucide-react'
@@ -9,11 +12,10 @@ import { toast } from 'sonner'
 
 type DeleteDocumentProps = {
   document: string
-	refresh: () => void
+  refresh: () => void
 }
 
 const DeleteDocument: FC<DeleteDocumentProps> = ({ document, refresh }) => {
-  console.log("🚀 ~ document:", document)
   const form = useFormContext<VerificationFormType>()
 
   const deleteDocumentMutation = useMutation({
@@ -27,7 +29,7 @@ const DeleteDocument: FC<DeleteDocumentProps> = ({ document, refresh }) => {
     onSuccess: () => {
       toast.success('Document deleted successfully')
 
-			refresh()
+      refresh()
       form.reset(defaultVerificationFormValues)
     }
   })
@@ -38,7 +40,8 @@ const DeleteDocument: FC<DeleteDocumentProps> = ({ document, refresh }) => {
       size="noSize"
       type="button"
       onClick={() => deleteDocumentMutation.mutate(document)}
-      loading={deleteDocumentMutation.isPending}>
+      loading={deleteDocumentMutation.isPending}
+    >
       {!deleteDocumentMutation.isPending && (
         <Trash className="h-4 w-4 text-red-500" />
       )}

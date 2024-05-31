@@ -74,12 +74,13 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = () => {
       shouldValidate: true
     })
   }
-  
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-4 flex max-w-[600px] flex-col gap-4">
+        className="mt-4 flex max-w-[600px] flex-col gap-4"
+      >
         <FormField
           name="new_password"
           control={form.control}
@@ -108,7 +109,7 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = () => {
                 <FormLabel>Confirm password</FormLabel>
                 <FormControl>
                   <PasswordInput
-                  onPaste={onConfirmPasswordPaste}
+                    onPaste={onConfirmPasswordPaste}
                     placeholder="Enter your new password"
                     {...field}
                   />
@@ -122,7 +123,8 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = () => {
         <Button
           loading={resetPasswordMutation.isPending}
           size="sm"
-          className="mt-2 self-start">
+          className="mt-2 self-start"
+        >
           Reset password
         </Button>
       </form>

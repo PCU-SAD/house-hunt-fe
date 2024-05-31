@@ -66,7 +66,8 @@ export const CookiesDialog: FC = () => {
             size: 'icon'
           }),
           'shadow-full fixed bottom-8 left-8 z-50 rounded-full bg-white p-2'
-        )}>
+        )}
+      >
         <Cookie size={18} />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px">
@@ -120,7 +121,8 @@ export const CookiesDialog: FC = () => {
             type="submit"
             className="mt-4 w-full"
             variant="outline"
-            onClick={onAccept}>
+            onClick={onAccept}
+          >
             Save preferences
           </Button>
         </DialogFooter>

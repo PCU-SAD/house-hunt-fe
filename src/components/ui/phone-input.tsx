@@ -37,7 +37,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
            *
            * @param {E164Number | undefined} value - The entered value
            */
-          onChange={(value) => onChange?.(value || '')}
+          onChange={(value) => onChange?.(value || undefined)}
           {...props}
         />
       )
@@ -75,47 +75,11 @@ const CountrySelect = ({ disabled, value }: CountrySelectProps) => {
           type="button"
           variant={'outline'}
           className={cn('flex gap-1 rounded-e-none rounded-s-lg px-3')}
-          disabled={disabled}>
+          disabled={disabled}
+        >
           <FlagComponent country={value} countryName={value} />
         </Button>
       </PopoverTrigger>
-      {/* <PopoverContent className="w-full p-0 md:w-[260px]">
-        <Command>
-          <CommandList>
-            <ScrollArea className="h-72">
-              <CommandInput placeholder="Search country..." />
-              <CommandEmpty>No country found.</CommandEmpty>
-              <CommandGroup>
-                {options
-                  .filter((x) => x.value)
-                  .map((option) => (
-                    <CommandItem
-                      className="gap-2"
-                      key={option.value}
-                      onSelect={() => handleSelect(option.value)}>
-                      <FlagComponent
-                        country={option.value}
-                        countryName={option.label}
-                      />
-                      <span className="flex-1 text-sm">{option.label}</span>
-                      {option.value && (
-                        <span className="text-sm text-foreground/50">
-                          {`+${RPNInput.getCountryCallingCode(option.value)}`}
-                        </span>
-                      )}
-                      <CheckIcon
-                        className={cn(
-                          'ml-auto h-4 w-4',
-                          option.value === value ? 'opacity-100' : 'opacity-0'
-                        )}
-                      />
-                    </CommandItem>
-                  ))}
-              </CommandGroup>
-            </ScrollArea>
-          </CommandList>
-        </Command>
-      </PopoverContent> */}
     </Popover>
   )
 }

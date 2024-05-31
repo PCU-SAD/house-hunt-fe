@@ -74,7 +74,8 @@ const PropertyItem: FC<PropertyItemProps> = ({ property }) => {
         <CardHeader
           className={cn({
             'py-0': hasError
-          })}>
+          })}
+        >
           {isLoading ? (
             <Skeleton className="h-[300px] w-full overflow-clip rounded-t-md object-cover sm:rounded-md" />
           ) : hasError ? null : (

@@ -24,7 +24,8 @@ const SettingsLink: FC<SettingsLinkProps> = ({ icon, to, children }) => {
       )}
       activeProps={{
         className: `bg-gray-100 before:h-5 before:w-1 before:rounded-md before:bg-blue-600 before:absolute before:top-1/2 before:-translate-y-1/2 before:left-1 before:content=['']`
-      }}>
+      }}
+    >
       {icon}
 
       {children}

@@ -20,7 +20,8 @@ const FileComplaint: FC<FileComplaintProps> = ({ propertyId }) => {
           variant: 'destructive',
           size: 'sm'
         })
-      )}>
+      )}
+    >
       <ThumbsDown className="h-4 w-4" />
       File a complaint
     </Link>

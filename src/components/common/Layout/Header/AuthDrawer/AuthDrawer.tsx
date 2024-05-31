@@ -35,13 +35,15 @@ const AuthDrawer: FC = () => {
             <TabsTrigger
               value="signup"
               className="relative w-full"
-              onClick={() => handleTabChange('signup')}>
+              onClick={() => handleTabChange('signup')}
+            >
               Sign up
             </TabsTrigger>
             <TabsTrigger
               value="login"
               className="w-full"
-              onClick={() => handleTabChange('login')}>
+              onClick={() => handleTabChange('login')}
+            >
               Log in
             </TabsTrigger>
           </TabsList>
@@ -71,7 +73,8 @@ const AuthDrawer: FC = () => {
         }
 
         setShowMenu(open)
-      }}>
+      }}
+    >
       <SheetTrigger onClick={handleOpenDrawer} asChild>
         <Button variant="ghost" size="icon" className="rounded-md border">
           <UserIcon className="h-4 w-4" />
@@ -82,7 +85,8 @@ const AuthDrawer: FC = () => {
         className={cn('flex w-full max-w-[500px] flex-col items-center', {
           'sm:max-w-[600px]': !isLoggedIn
         })}
-        handleClose={handleCloseDrawer}>
+        handleClose={handleCloseDrawer}
+      >
         {isLoggedIn ? <Profile /> : loggedOutContent}
       </SheetContent>
     </Sheet>

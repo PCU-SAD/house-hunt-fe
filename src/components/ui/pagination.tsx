@@ -49,7 +49,8 @@ const PaginationPrevious = ({
     size="default"
     variant="outline"
     className={cn('h-8 w-8 p-0', className)}
-    {...props}>
+    {...props}
+  >
     <ChevronLeftIcon className="h-4 w-4" />
   </Button>
 )
@@ -64,7 +65,8 @@ const PaginationGoFirst = ({
     size="default"
     variant="outline"
     className={cn('h-8 w-8 p-0', className)}
-    {...props}>
+    {...props}
+  >
     <DoubleArrowLeftIcon className="h-4 w-4" />
   </Button>
 )
@@ -79,7 +81,8 @@ const PaginationGoLast = ({
     size="default"
     variant="outline"
     className={cn('h-8 w-8 p-0', className)}
-    {...props}>
+    {...props}
+  >
     <DoubleArrowRightIcon className="h-4 w-4" />
   </Button>
 )
@@ -93,7 +96,8 @@ const PaginationNext = ({
     size="default"
     variant="outline"
     className={cn('h-8 w-8 p-0', className)}
-    {...props}>
+    {...props}
+  >
     <ChevronRightIcon className="h-4 w-4" />
   </Button>
 )

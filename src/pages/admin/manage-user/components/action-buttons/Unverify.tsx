@@ -33,7 +33,8 @@ const UnverifyUser: FC<UnverifyUserUserProps> = ({ userEmail, refetch }) => {
     <Button
       size="sm"
       variant="destructive"
-      onClick={() => verifyMutation.mutate(userEmail)}>
+      onClick={() => verifyMutation.mutate(userEmail)}
+    >
       <CheckCheckIcon className="h-4 w-4" />
       Unverify user
     </Button>

@@ -63,7 +63,8 @@ const OurTeam: FC = () => {
           {teamMembers.map((member) => (
             <div
               key={member.id}
-              className="flex flex-col items-center justify-center space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:scale-105 hover:shadow-md">
+              className="flex flex-col items-center justify-center space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:scale-105 hover:shadow-md"
+            >
               <img
                 alt={`Team Member ${member.id}`}
                 className="h-40 w-40 rounded-full object-cover"

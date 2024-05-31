@@ -36,7 +36,8 @@ const RequestedPropertiesTable: FC<RequestedPropertiesTableProps> = ({
                 <div
                   className={cn('flex', {
                     'justify-end': column.id === 'actions'
-                  })}>
+                  })}
+                >
                   <Skeleton className={cn('h-[18px] w-1/2')} />
                 </div>
               )

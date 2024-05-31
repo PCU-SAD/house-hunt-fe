@@ -1,6 +1,8 @@
-import { UserRole, UserVerificationType } from '@/providers/AuthProvider/AuthProvider'
+import {
+  UserRole,
+  UserVerificationType
+} from '@/providers/AuthProvider/AuthProvider'
 import { jwtDecode } from 'jwt-decode'
-
 
 export type JWTUserPayload = {
   role: UserRole

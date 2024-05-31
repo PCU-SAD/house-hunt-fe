@@ -35,7 +35,7 @@ const ManageOwnerPropertiesTable: FC<ManageOwnerPropertiesTableProps> = ({
     data: serverData,
     isLoading,
     isError,
-    refetch,
+    refetch
   } = useQuery({
     queryKey: ['properties/owner', email],
     queryFn: () => propertyService.getOwnerProperties(email)
@@ -105,7 +105,8 @@ const ManageOwnerPropertiesTable: FC<ManageOwnerPropertiesTableProps> = ({
               className={cn('flex items-center gap-2', {
                 'text-green-500': status === 'VERIFIED',
                 'text-yellow-500': status === 'PENDING_REQUEST'
-              })}>
+              })}
+            >
               {status === 'VERIFIED' && <Check className="h-4 w-4" />}
               {status === 'PENDING_REQUEST' && <Clock className="h-4 w-4" />}
               {statusMessage[status]}
@@ -136,7 +137,8 @@ const ManageOwnerPropertiesTable: FC<ManageOwnerPropertiesTableProps> = ({
                       to={'/manage-properties/edit/$id'}
                       params={{
                         id: propertyId
-                      }}>
+                      }}
+                    >
                       <DropdownMenuItem>Edit Property</DropdownMenuItem>
                     </Link>
 
@@ -170,7 +172,8 @@ const ManageOwnerPropertiesTable: FC<ManageOwnerPropertiesTableProps> = ({
                 <div
                   className={cn('flex', {
                     'justify-end': column.id === 'actions'
-                  })}>
+                  })}
+                >
                   <Skeleton className={cn('h-[18px] w-1/2')} />
                 </div>
               )

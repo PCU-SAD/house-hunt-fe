@@ -33,7 +33,8 @@ const VerifyUser: FC<VerifyUserProps> = ({ userEmail, refetch }) => {
     <Button
       size="sm"
       variant="outline"
-      onClick={() => verifyMutation.mutate(userEmail)}>
+      onClick={() => verifyMutation.mutate(userEmail)}
+    >
       <CheckCheckIcon className="h-4 w-4" />
       Verify user
     </Button>

@@ -131,7 +131,8 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-4 flex flex-col-reverse items-stretch gap-4 md:flex-row md:items-start">
+        className="mt-4 flex flex-col-reverse items-stretch gap-4 md:flex-row md:items-start"
+      >
         <div className="flex-1">
           <EditPropertyFormFields />
 
@@ -141,7 +142,8 @@ const EditPropertyForm: FC<EditPropertyFormProps> = ({ property, images }) => {
             className="mt-4"
             disabled={
               editPropertyMutation.isPending || imagesMutation.isPending
-            }>
+            }
+          >
             Submit
           </Button>
         </div>

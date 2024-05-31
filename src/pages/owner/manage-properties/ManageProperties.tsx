@@ -48,7 +48,8 @@ const ManageProperties: FC<ManagePropertiesProps> = () => {
                   variant: 'outline'
                 }),
                 'border-none bg-green-600 text-white hover:bg-green-500 hover:text-white'
-              )}>
+              )}
+            >
               <PlusIcon className="h-4 w-4" />
               <span>Add new request</span>
             </Link>
@@ -80,14 +81,16 @@ const ManageProperties: FC<ManagePropertiesProps> = () => {
             <TabsTrigger
               value="properties"
               className="relative flex w-full items-center gap-2"
-              onClick={() => handleTabChange('properties')}>
+              onClick={() => handleTabChange('properties')}
+            >
               <HomeIcon className="h-5 w-5" />
               Verified Properties
             </TabsTrigger>
             <TabsTrigger
               value="requests"
               className="flex w-full items-center gap-2 text-yellow-400 data-[state=active]:text-yellow-500"
-              onClick={() => handleTabChange('requests')}>
+              onClick={() => handleTabChange('requests')}
+            >
               <Clock className="h-5 w-5" />
               Requests
             </TabsTrigger>

@@ -47,7 +47,8 @@ const AvailableFromFilter: FC<AvailableFromFilterProps> = () => {
             className={cn(
               'flex h-8 w-[140px] justify-start gap-2 py-0 pl-3 text-left font-normal',
               !value && 'text-muted-foreground'
-            )}>
+            )}
+          >
             <CalendarIcon className="h-4 w-4 opacity-50" />
             {value ? format(value, CZK_DATE_FORMAT) : <span>Pick a date</span>}
           </Button>

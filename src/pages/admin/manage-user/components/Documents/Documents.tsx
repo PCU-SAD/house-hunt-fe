@@ -63,7 +63,8 @@ const Documents: FC<DocumentsProps> = ({ documents }) => {
                 variant="outline"
                 key={document}
                 className="cursor-pointer"
-                onClick={() => handleDownload(document)}>
+                onClick={() => handleDownload(document)}
+              >
                 <div className="flex items-center gap-2">
                   <FileIcon className="h-4 w-4" />
                   <span className="underline underline-offset-2">

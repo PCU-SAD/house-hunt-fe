@@ -125,7 +125,8 @@ export default function Pricing() {
 
                     <Link
                       to="/payment"
-                      className={cn(buttonVariants(), 'w-full')}>
+                      className={cn(buttonVariants(), 'w-full')}
+                    >
                       Get Started
                     </Link>
                   </div>

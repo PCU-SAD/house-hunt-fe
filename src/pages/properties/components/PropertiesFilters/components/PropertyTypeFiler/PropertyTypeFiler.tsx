@@ -77,12 +77,13 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
                       variant="outline"
                       size="noSize"
                       className="h-8 justify-between px-2 py-0 font-normal"
-                      aria-label="Open menu">
+                      aria-label="Open menu"
+                    >
                       <span className="sr-only">Open menu</span>
                       Apartment type
                       <ChevronUp
                         className={cn(
-                          '-translate-x-[3px] h-4 w-4 text-muted-foreground transition-transform block',
+                          'block h-4 w-4 -translate-x-[3px] text-muted-foreground transition-transform',
                           !open && 'rotate-180'
                         )}
                       />
@@ -91,7 +92,8 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
 
                   <DropdownMenuContent
                     align="start"
-                    className="flex max-h-[420px] flex-col gap-4 overflow-auto p-4 md:gap-3">
+                    className="flex max-h-[420px] flex-col gap-4 overflow-auto p-4 md:gap-3"
+                  >
                     <>
                       <div className="">
                         <Button
@@ -103,7 +105,8 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
                               'items',
                               apartmentTypeOptions.map((option) => option.value)
                             )
-                          }}>
+                          }}
+                        >
                           Select All
                         </Button>
                         <Separator className="mt-2 w-full" />
@@ -118,7 +121,8 @@ const PropertyTypeFiler: FC<PropertyTypeFilerProps> = () => {
                             return (
                               <FormItem
                                 key={option.value}
-                                className="flex flex-row items-start space-x-2 space-y-0">
+                                className="flex flex-row items-start space-x-2 space-y-0"
+                              >
                                 <FormControl>
                                   <Checkbox
                                     checked={field.value?.includes(

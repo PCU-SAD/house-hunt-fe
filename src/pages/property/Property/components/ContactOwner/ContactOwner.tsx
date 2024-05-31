@@ -60,11 +60,13 @@ const ContactOwner: FC<ContactOwnerProps> = ({ owner }) => {
             <CardContent className="text-sm">
               <div
                 className="rounded-md border-l-4 border-orange-500 bg-orange-100 p-4 text-orange-700"
-                role="alert">
+                role="alert"
+              >
                 <p>Verify your identity to see owner contact details</p>
                 <Link
                   to="/settings/account"
-                  className="text-blue-500 underline underline-offset-2">
+                  className="text-blue-500 underline underline-offset-2"
+                >
                   Verify
                 </Link>
               </div>
@@ -74,7 +76,8 @@ const ContactOwner: FC<ContactOwnerProps> = ({ owner }) => {
           <CardContent>
             <div
               className="rounded-md border-l-4 border-orange-500 bg-orange-100 p-4 text-orange-700"
-              role="alert">
+              role="alert"
+            >
               <p>Please log in to see the owner's contact details.</p>
             </div>
 

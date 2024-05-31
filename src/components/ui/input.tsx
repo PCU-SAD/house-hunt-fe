@@ -28,7 +28,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           className={cn(
             'absolute right-2 top-1/2 -translate-y-1/2 text-gray-500',
             iconClassName
-          )}>
+          )}
+        >
           {icon}
         </div>
       </div>

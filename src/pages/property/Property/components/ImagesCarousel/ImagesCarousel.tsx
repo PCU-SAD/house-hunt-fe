@@ -22,7 +22,8 @@ const ImagesCarousel: FC<ImagesCarouselProps> = ({ images }) => {
       opts={{
         align: 'start',
         loop: true
-      }}>
+      }}
+    >
       {!isImagesEmpty && isAtLeastTwo && (
         <>
           <CarouselContent>

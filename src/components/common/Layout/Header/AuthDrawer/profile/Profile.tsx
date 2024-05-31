@@ -60,7 +60,8 @@ const Profile: FC<ProfileProps> = () => {
                 className: 'mt-6 h-12 w-full border',
                 variant: 'ghost'
               })
-            )}>
+            )}
+          >
             <CornerUpLeft />
             View properties
           </Link>
@@ -78,7 +79,8 @@ const Profile: FC<ProfileProps> = () => {
                   className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-200"
                   activeProps={{
                     className: cn('bg-gray-200')
-                  }}>
+                  }}
+                >
                   {link.label}
                 </Link>
               </NavigationMenuItem>
@@ -89,7 +91,8 @@ const Profile: FC<ProfileProps> = () => {
             <Link
               className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-200"
               to="/settings/account"
-              onClick={handleCloseDrawer}>
+              onClick={handleCloseDrawer}
+            >
               <SettingsIcon className="h-5 w-5" />
               Profile Settings
             </Link>
@@ -97,7 +100,8 @@ const Profile: FC<ProfileProps> = () => {
             <Link
               className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-200"
               onClick={() => setTimeout(handleCloseDrawer, 0)}
-              to="/about">
+              to="/about"
+            >
               <UserIcon className="h-5 w-5" />
               Team
             </Link>

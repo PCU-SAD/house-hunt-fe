@@ -288,7 +288,9 @@ export const propertyService = {
     propertyId: string
   }) => {
     try {
-      const { data } = await authApi.get(`/user/documents/${userId}/property/${propertyId}`)
+      const { data } = await authApi.get(
+        `/user/documents/${userId}/property/${propertyId}`
+      )
 
       return data
     } catch (error) {

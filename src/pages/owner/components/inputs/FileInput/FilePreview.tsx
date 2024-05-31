@@ -8,10 +8,7 @@ type PreviewProps = {
   onChange: (...event: any[]) => void
 }
 
-const FilePreview: FC<PreviewProps> = ({
-  currentPreview,
-  onChange,
-}) => {
+const FilePreview: FC<PreviewProps> = ({ currentPreview, onChange }) => {
   return (
     <div className="group relative flex h-[150px] w-[150px] cursor-pointer items-center justify-center  overflow-hidden rounded border border-dashed  p-2 transition-colors duration-300 hover:bg-white">
       <img
@@ -25,7 +22,8 @@ const FilePreview: FC<PreviewProps> = ({
         variant="ghost"
         onClick={() => {
           onChange(undefined)
-        }}>
+        }}
+      >
         <Trash width={18} height={18} />
       </Button>
     </div>

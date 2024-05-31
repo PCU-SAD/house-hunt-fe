@@ -44,7 +44,8 @@ const Search: FC<SearchProps> = ({ statsQuery }) => {
               search={{
                 district
               }}
-              className={cn(buttonVariants(), 'rounded-r-full text-white')}>
+              className={cn(buttonVariants(), 'rounded-r-full text-white')}
+            >
               <span className="hidden sm:block">Search</span>
               <SearchIcon className="h-5 w-5" />
             </Link>
@@ -76,7 +77,8 @@ const Search: FC<SearchProps> = ({ statsQuery }) => {
             }),
             'mt-8'
           )}
-          to="/properties">
+          to="/properties"
+        >
           Browse All
           <ChevronRight className="h-4 w-4" />
         </Link>
