@@ -35,11 +35,9 @@ npm install
 In the root of the project, create a `.env` file to configure environment variables. At a minimum, you need to set the following variables:
 
 ```env
-REACT_APP_API_URL=http://localhost:5000/api
-REACT_APP_OTHER_ENV_VARIABLE=value
+VITE_API_URL=http://localhost:8080/api/v1
+VITE_NODE_ENV=development
 ```
-
-Adjust the values as needed for your development environment.
 
 ### 4. Run the Application
 
@@ -55,7 +53,7 @@ This will launch the application in development mode. Open your browser and navi
 
 The following npm scripts are also available:
 
-- `npm run build`: Builds the app for production to the `build` folder.
+- `npm run build`: Builds the app for production to the `dist` folder.
 - `npm run lint`: Runs the linter to check for code style issues.
 
 ## Contributing
@@ -70,8 +68,5 @@ If you would like to contribute to this project, please follow these steps:
 
 ## Contact
 
-If you have any questions, feel free to reach out to us at support@example.com.
+If you have any questions, feel free to reach out to us at matvii.kharchenko@praguecollege.cz
 
----
-
-Happy coding!
