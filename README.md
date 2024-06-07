@@ -70,3 +70,4 @@ If you would like to contribute to this project, please follow these steps:
 
 If you have any questions, feel free to reach out to us at matvii.kharchenko@praguecollege.cz
 
+# house-hunt-fe
